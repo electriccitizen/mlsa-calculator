@@ -30,7 +30,7 @@ export const AddChildren = () => {
 
   return (
     <FormizStep name="exposedPorts">
-      <Box  bg="gray.50" w="100%" p={4} mb={4} >
+      <Box bg="gray.50" w="100%" p={4} mb={4}>
         Enter the details for each of your children
       </Box>
       {exposedPorts.map((port, index) => (
@@ -91,8 +91,8 @@ export const AddChildren = () => {
         </Stack>
       ))}
       {exposedPorts.length <= 20 && (
-        <AddPlaceholder label="Add child" onClick={addItem} />
+        <AddPlaceholder label="Add child" onClick={addItem}/>
       )}
     </FormizStep>
   );
-m;
+}

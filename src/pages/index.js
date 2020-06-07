@@ -6,6 +6,7 @@ import { useForm } from '@formiz/core';
 import { MultiStepsLayout } from '../components/MultiStepsLayout'
 import { InitiateInterview } from '../components/01-InitiateInterview/IntiateInterview'
 import { BasicInformation } from '../components/02-BasicInformation/BasicInformation'
+import { useToastValues } from '../hooks/useToastValues';
 import {
   ThemeProvider, ColorModeProvider, CSSReset, Box, Stack, Flex,
 } from '@chakra-ui/core'
@@ -13,13 +14,13 @@ import {
 export default function Home() {
   const form = useForm();
   const [isMontana, setIsMontana] = useState("");
-
+  const toastValues = useToastValues();
   const updateMontana = (status) => {
     setIsMontana(status)
   }
 
   const handleSubmit = (values) => {
-    //toastValues(values);
+    toastValues(values);
     form.invalidateFields({
       'docker.image': 'You can display an error after an API call',
       'initiate.worksheets': 'You can display an error after an API call',
