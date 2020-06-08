@@ -16,7 +16,7 @@ exports.handler = function(event, context, callback) {
 
  // var sourcePDF = "test.pdf";
   //const FDFData = pdfFiller.generateFDFTemplate(sourcePDF);
-  console.log(FDFData)
+  //console.log(FDFData)
   callback(null, {
     statusCode: 200,
     body: "Hello, World you did good."
