@@ -2,7 +2,7 @@
 var pdfFiller = require('pdffiller');
 
 exports.handler = async event => {
-  var sourcePDF = "test/test.pdf";
+  var sourcePDF = "test.pdf";
   var destinationPDF =  "test_complete.pdf";
   var data = {
     "last_name" : "John",
