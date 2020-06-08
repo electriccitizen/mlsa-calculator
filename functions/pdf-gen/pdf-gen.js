@@ -1,9 +1,8 @@
 // functions/pdf-gen/pdf-gen.js
 var pdfFiller = require('pdffiller');
 
-exports.handler = async event => {
-  var sourcePDF = "test.pdf";
-  var destinationPDF =  "test_complete.pdf";
+
+xports.handler = function(event, context, callback) {
   var data = {
     "last_name" : "John",
     "first_name" : "Doe",
@@ -15,13 +14,12 @@ exports.handler = async event => {
     "nascar" : "Off"
   };
 
-  const FDFData = await pdfFiller.generateFDFTemplate(sourcePDF);
+  var sourcePDF = "test.pdf";
+  const FDFData = pdfFiller.generateFDFTemplate(sourcePDF);
   console.log(FDFData)
+  callback(null, {
+    statusCode: 200,
+    body: "Hello, World you did good."
 
-
-
-  // pdfFiller.fillForm( sourcePDF, destinationPDF, data, function(err) {
-  //   if (err) throw err;
-  //   console.log("In callback (we're done).");
-  // });
+  });
 }
