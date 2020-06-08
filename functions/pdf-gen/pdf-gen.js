@@ -14,9 +14,9 @@ xports.handler = function(event, context, callback) {
     "nascar" : "Off"
   };
 
-  var sourcePDF = "test.pdf";
-  const FDFData = pdfFiller.generateFDFTemplate(sourcePDF);
-  console.log(FDFData)
+ // var sourcePDF = "test.pdf";
+  //const FDFData = pdfFiller.generateFDFTemplate(sourcePDF);
+  //console.log(FDFData)
   callback(null, {
     statusCode: 200,
     body: "Hello, World you did good."
