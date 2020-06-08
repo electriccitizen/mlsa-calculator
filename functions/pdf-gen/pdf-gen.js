@@ -2,7 +2,7 @@
 var pdfFiller = require('pdffiller');
 
 
-xports.handler = function(event, context, callback) {
+exports.handler = function(event, context, callback) {
   var data = {
     "last_name" : "John",
     "first_name" : "Doe",
@@ -16,7 +16,7 @@ xports.handler = function(event, context, callback) {
 
  // var sourcePDF = "test.pdf";
   //const FDFData = pdfFiller.generateFDFTemplate(sourcePDF);
-  //console.log(FDFData)
+  console.log(FDFData)
   callback(null, {
     statusCode: 200,
     body: "Hello, World you did good."
