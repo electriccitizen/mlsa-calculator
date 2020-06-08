@@ -17,7 +17,6 @@ exports.handler = async event => {
 
   const FDFData = await pdfFiller.generateFDFTemplate(sourcePDF);
   console.log(FDFData)
-  return { FDFData };
 
 
 
