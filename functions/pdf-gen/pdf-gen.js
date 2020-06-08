@@ -15,8 +15,14 @@ exports.handler = async event => {
     "nascar" : "Off"
   };
 
-  pdfFiller.fillForm( sourcePDF, destinationPDF, data, function(err) {
-    if (err) throw err;
-    console.log("In callback (we're done).");
-  });
+  const FDFData = await pdfFiller.generateFDFTemplate(sourcePDF);
+  console.log(FDFData)
+  return { FDFData };
+
+
+
+  // pdfFiller.fillForm( sourcePDF, destinationPDF, data, function(err) {
+  //   if (err) throw err;
+  //   console.log("In callback (we're done).");
+  // });
 }
