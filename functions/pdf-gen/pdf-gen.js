@@ -1,5 +1,7 @@
 // functions/pdf-gen/pdf-gen.js
-import pdfFiller from 'pdffiller-stream';
+'use strict';
+const  pdfFiller = require('pdffiller-stream');
+//import pdfFiller from 'pdffiller-stream';
 
 const sourcePDF = "test.pdf";
 
