@@ -9,5 +9,5 @@ process.env.LD_LIBRARY_PATH = process.env.LAMBDA_TASK_ROOT + '/bin';
 
 
 exports.handler = function(event, context, callback) {
-  exec(pwd', context.done);
+  exec('pwd', context.done);
 }
