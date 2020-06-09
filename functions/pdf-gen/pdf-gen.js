@@ -1,7 +1,7 @@
 // functions/pdf-gen/pdf-gen.js
-'use strict';
-var pdfFiller = require('pdffiller');
-var exec = require('child_process').exec;
+import pdfFiller from 'pdffiller-stream';
+
+const sourcePDF = "test.pdf";
 
 //process.env.PATH = process.env.PATH + ':' + process.env.LAMBDA_TASK_ROOT + '/bin';
 
@@ -18,17 +18,30 @@ var exec = require('child_process').exec;
 process.env.PATH = process.env.PATH + ':' + process.env.LAMBDA_TASK_ROOT + '/src/functions/pdf-gen/bin';
 process.env.LD_LIBRARY_PATH = process.env.LAMBDA_TASK_ROOT + '/src/functions/pdf-gen/bin';
 
+const data = {
+  "last_name" : "John",
+  "first_name" : "Doe",
+  "date" : "Jan 1, 2013",
+  "football" : "Off",
+  "baseball" : "Yes",
+  "basketball" : "Off",
+  "hockey" : "Yes",
+  "nascar" : "Off"
+};
 
-
-// exports.handler = function(event, context, callback) {
-//   exec('pdftk --version', context.done);
-// }
 
 exports.handler = function(event, context, callback) {
-  const foo = exec('pdftk --version', context.done);
-  callback(null, {
-    statusCode: 200,
-    //body: process.env.PATH + "-" + process.env.LAMBDA_TASK_ROOT + '-' + process.env.LD_LIBRARY_PATH
-    body: foo
+  pdfFiller.fillForm( sourcePDF, data)
+    .then((outputStream) => {
+      console.log(outputStream)
+      // use the outputStream here;
+      // will be instance of stream.Readable
+    }).catch((err) => {
+    console.log(err);
   });
+  // callback(null, {
+  //   statusCode: 200,
+  //   //body: process.env.PATH + "-" + process.env.LAMBDA_TASK_ROOT + '-' + process.env.LD_LIBRARY_PATH
+  //   body: 'foo'
+  // });
 }
