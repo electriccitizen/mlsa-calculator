@@ -1,25 +1,10 @@
 // functions/pdf-gen/pdf-gen.js
+'use strict';
 var pdfFiller = require('pdffiller');
+var exec = require('child_process').exec;
+process.env.PATH = process.env.PATH + ':' + process.env.LAMBDA_TASK_ROOT + '/bin';
 
-
+process.env.LD_LIBRARY_PATH = process.env.LAMBDA_TASK_ROOT + '/bin';
 exports.handler = function(event, context, callback) {
-  var data = {
-    "last_name" : "John",
-    "first_name" : "Doe",
-    "date" : "Jan 1, 2013",
-    "football" : "Off",
-    "baseball" : "Yes",
-    "basketball" : "Off",
-    "hockey" : "Yes",
-    "nascar" : "Off"
-  };
-
-  var sourcePDF = "test.pdf";
-  const FDFData = pdfFiller.generateFDFTemplate(sourcePDF);
-  console.log(FDFData)
-  callback(null, {
-    statusCode: 200,
-    body: "Hello, World you did good."
-
-  });
+  exec('pdftk --version', context.done);
 }
