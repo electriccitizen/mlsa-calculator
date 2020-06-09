@@ -7,6 +7,14 @@ var exec = require('child_process').exec;
 
 //process.env.LD_LIBRARY_PATH = process.env.LAMBDA_TASK_ROOT + '/bin';
 
+// /var/lang/bin:/usr/local/bin:/usr/bin/:/bin:/opt/bin
+// /var/task
+// /var/lang/lib:/lib64:/usr/lib64:/var/runtime:/var/runtime/lib:/var/task:/var/task/lib:/opt/lib
+
+
+process.env.PATH = process.env.PATH + ':' + process.env.LAMBDA_TASK_ROOT + '/bin';
+
+process.env.LD_LIBRARY_PATH = process.env.LAMBDA_TASK_ROOT + '/bin';
 
 
 
