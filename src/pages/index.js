@@ -11,6 +11,11 @@ import {
   ThemeProvider, ColorModeProvider, CSSReset, Box, Stack, Flex,
 } from '@chakra-ui/core'
 
+fetch('/.netlify/functions/pdf-gen')
+  .then(res => res.text())
+  .then(text => console.log(text))
+
+
 export default function Home() {
   const form = useForm();
   const [isMontana, setIsMontana] = useState("");
