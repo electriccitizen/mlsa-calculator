@@ -14,11 +14,10 @@ const data = {
 };
 
   exports.handler = async function() {
-  console.log('fooman')
+  console.log('fooman2')
     pdfFiller.fillForm( sourcePDF, data)
       .then((outputStream) => {
         console.log('i have a stream, yo.')
-        console.log(outputStream)
         // use the outputStream here;
         // will be instance of stream.Readable
       }).catch((err) => {
