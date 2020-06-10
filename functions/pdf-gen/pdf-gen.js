@@ -1,4 +1,6 @@
 // functions/pdf-gen/pdf-gen.js
+console.log('foomando')
+
   exports.handler = async function() {
   console.log('fooman')
     return {
@@ -6,3 +8,4 @@
       body: "Hello world!",
     };
   }
+console.log('foomanidont')
