@@ -1,7 +1,7 @@
 // Docs on event and context https://www.netlify.com/docs/functions/#the-handler-method
 var pdfFiller   = require('pdffiller-aws-lambda');
 var sourcePDF = "test.pdf";
-var destinationPDF =  "test/test_complete.pdf";
+var destinationPDF =  "test_complete.pdf";
 var data = {
   "last_name" : "John",
   "first_name" : "Doe",
@@ -14,10 +14,13 @@ var data = {
 };
 exports.handler = async (event, context) => {
   try {
-    const subject = event.queryStringParameters.name || 'World'
+    pdfFiller.fillForm( sourcePDF, destinationPDF, data, function(err) {
+      if (err) throw err;
+      console.log("In callback (we're done).");
+    });
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: `Hello ${subject}` }),
+      body: JSON.stringify({ message: `Hello ` }),
       // // more keys you can return:
       // headers: { "headerName": "headerValue", ... },
       // isBase64Encoded: true,
