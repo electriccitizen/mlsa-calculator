@@ -1,7 +1,6 @@
 // functions/pdf-gen/pdf-gen.js
 const  pdfFiller = require('pdffiller-stream');
 //import pdfFiller from 'pdffiller-stream';
-
 const sourcePDF = "test.pdf";
 const data = {
   "last_name" : "John",
@@ -15,15 +14,18 @@ const data = {
 };
 
   exports.handler = async function() {
-  console.log('fooman2')
-    pdfFiller.fillForm( sourcePDF, data)
-      .then((outputStream) => {
-        console.log('i have a stream, yo.')
-        // use the outputStream here;
-        // will be instance of stream.Readable
-      }).catch((err) => {
-      console.log(err);
-    });
+    const sourcePDF = "test.pdf";
+    const FDFData = await pdfFiller.generateFDFTemplate(sourcePDF);
+    return { FDFData };
+    // console.log('fooman2')
+  //   pdfFiller.fillForm( sourcePDF, data)
+  //     .then((outputStream) => {
+  //       console.log('i have a stream, yo.')
+  //       // use the outputStream here;
+  //       // will be instance of stream.Readable
+  //     }).catch((err) => {
+  //     console.log(err);
+  //   });
     return {
       statusCode: 200,
       body: "Hello world!",
