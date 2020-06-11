@@ -34,7 +34,7 @@ exports.handler = function(event, context, callback) {
 
   pdfFiller.fillForm( sourcePDF, data)
     .then((outputStream) => {
-      console.log(outputStream)
+      console.log('i am a happy little stream')
       // use the outputStream here;
       // will be instance of stream.Readable
     }).catch((err) => {
