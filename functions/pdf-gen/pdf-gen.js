@@ -18,7 +18,16 @@ const sourcePDF = "test.pdf";
 
 process.env.PATH = process.env.PATH + ':' + process.env.LAMBDA_TASK_ROOT + '/src/bin';
 process.env.LD_LIBRARY_PATH = process.env.LAMBDA_TASK_ROOT + '/src/bin'
-
+const data = {
+  "last_name" : "John",
+  "first_name" : "Doe",
+  "date" : "Jan 1, 2013",
+  "football" : "Off",
+  "baseball" : "Yes",
+  "basketball" : "Off",
+  "hockey" : "Yes",
+  "nascar" : "Off"
+};
 exports.handler = function (event, context,callback) {
   //console.log(exec('pdftk --version', context.done));
   //console.log(process.env.PATH + '--' + process.env.LAMBDA_TASK_ROOT + '--' + process.env.LD_LIBRARY_PATH)
