@@ -1,7 +1,7 @@
 // Docs on event and context https://www.netlify.com/docs/functions/#the-handler-method
 var pdfFiller   = require('pdffiller-aws-lambda');
-var sourcePDF = "test.pdf";
-var destinationPDF =  "test_complete.pdf";
+var sourcePDF = "./test.pdf";
+var destinationPDF =  "./test_complete.pdf";
 var data = {
   "last_name" : "John",
   "first_name" : "Doe",
