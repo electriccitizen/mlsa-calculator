@@ -9,7 +9,7 @@ process.env['LD_LIBRARY_PATH'] = process.env['LAMBDA_TASK_ROOT'] + '/bin';
 exports.handler = function (event, context,callback) {
   //console.log(exec('pdftk --version', context.done));
 
-  exec("pdftk --version", (error, stdout, stderr) => {
+  exec("pwd", (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`);
       return;
