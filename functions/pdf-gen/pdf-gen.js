@@ -35,30 +35,18 @@ exports.handler = function (event, context,callback) {
   pdfFiller.fillForm( sourcePDF, data)
     .then((outputStream) => {
       console.log('i am a happy little stream')
+      callback(null, {
+        statusCode: 200,
+        headers: {'Content-type' : 'application/pdf'},
+        body: outputStream.toString('base64'),
+        isBase64Encoded : true,
+      });
       // use the outputStream here;
       // will be instance of stream.Readable
     }).catch((err) => {
     console.log(err);
   });
 
-  //exec("pdftk --version", (error, stdout, stderr) => {
-  exec("ls ./src -lah", (error, stdout, stderr) => {
-    if (error) {
-      console.log(`error: ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      console.log(`stderr: ${stderr}`);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-  });
 
 
-
-  callback(null, {
-    statusCode: 200,
-    //body: process.env.PATH + "-" + process.env.LAMBDA_TASK_ROOT + '-' + process.env.LD_LIBRARY_PATH
-    body: 'foo'
-  });
 };
