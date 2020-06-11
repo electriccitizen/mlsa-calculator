@@ -32,14 +32,14 @@ exports.handler = function (event, context,callback) {
   //console.log(exec('pdftk --version', context.done));
   //console.log(process.env.PATH + '--' + process.env.LAMBDA_TASK_ROOT + '--' + process.env.LD_LIBRARY_PATH)
 
-  pdfFiller.fillForm( sourcePDF, data)
-    .then((outputStream) => {
-      console.log('i am a happy little stream')
-      // use the outputStream here;
-      // will be instance of stream.Readable
-    }).catch((err) => {
-    console.log(err);
-  });
+  // pdfFiller.fillForm( sourcePDF, data)
+  //   .then((outputStream) => {
+  //     console.log('i am a happy little stream')
+  //     // use the outputStream here;
+  //     // will be instance of stream.Readable
+  //   }).catch((err) => {
+  //   console.log(err);
+  // });
 
   //exec("pdftk --version", (error, stdout, stderr) => {
   exec("ls -lah", (error, stdout, stderr) => {
