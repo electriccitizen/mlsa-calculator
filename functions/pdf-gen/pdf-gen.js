@@ -1,4 +1,5 @@
 // functions/pdf-gen/pdf-gen.js
+'use strict';
 const  pdfFiller = require('pdffiller-stream');
 //import pdfFiller from 'pdffiller-stream';
 const sourcePDF = "test.pdf";
@@ -13,21 +14,27 @@ const data = {
   "nascar" : "Off"
 };
 
-  exports.handler = async function() {
-    const sourcePDF = "test.pdf";
-    const FDFData = await pdfFiller.generateFDFTemplate(sourcePDF);
-    return { FDFData };
+  exports.handler = async function(event,context) {
+    var exec = require('child_process').exec;
+    exec('pdftk --version', context.done);
+// Set the PATH and LD_LIBRARY_PATH environment variables.
+//     process.env['PATH'] = process.env['PATH'] + ':' + process.env['LAMBDA_TASK_ROOT'] + '/bin';
+//     process.env['LD_LIBRARY_PATH'] = process.env['LAMBDA_TASK_ROOT'] + '/bin';
+//
+//     exports.handler = function (event, context) {
+//       exec('pdftk --version', context.done);
+//     };
     // console.log('fooman2')
-  //   pdfFiller.fillForm( sourcePDF, data)
-  //     .then((outputStream) => {
-  //       console.log('i have a stream, yo.')
-  //       // use the outputStream here;
-  //       // will be instance of stream.Readable
-  //     }).catch((err) => {
-  //     console.log(err);
-  //   });
+    // pdfFiller.fillForm( sourcePDF, data)
+    //   .then((outputStream) => {
+    //     console.log('i have a stream, yo.')
+    //     // use the outputStream here;
+    //     // will be instance of stream.Readable
+    //   }).catch((err) => {
+    //   console.log(err);
+    // });
     return {
       statusCode: 200,
       body: "Hello world!",
     };
-  }
+  };
