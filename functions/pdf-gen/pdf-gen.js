@@ -1,7 +1,7 @@
 'use strict';
 const  pdfFiller = require('pdffiller-stream');
-const sourcePDF = "test.pdf";
-//var exec = require('child_process').exec;
+const sourcePDF = "./test.pdf";
+var exec = require('child_process').exec;
 // Set the PATH and LD_LIBRARY_PATH environment variables.
 // process.env['PATH'] = process.env['PATH'] + ':' + process.env['LAMBDA_TASK_ROOT'] + '/bin';
 // process.env['LD_LIBRARY_PATH'] = process.env['LAMBDA_TASK_ROOT'] + '/bin';
@@ -41,17 +41,18 @@ exports.handler = function (event, context,callback) {
     console.log(err);
   });
 
-  // exec("pdftk --version", (error, stdout, stderr) => {
-  //   if (error) {
-  //     console.log(`error: ${error.message}`);
-  //     return;
-  //   }
-  //   if (stderr) {
-  //     console.log(`stderr: ${stderr}`);
-  //     return;
-  //   }
-  //   console.log(`stdout: ${stdout}`);
-  // });
+  //exec("pdftk --version", (error, stdout, stderr) => {
+  exec("ls -lah", (error, stdout, stderr) => {
+    if (error) {
+      console.log(`error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.log(`stderr: ${stderr}`);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+  });
 
 
 
