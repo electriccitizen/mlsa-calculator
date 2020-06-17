@@ -4,6 +4,7 @@
   "description": "",
   "main": "pdf-gen.js",
   "dependencies": {
+    "flat": "^5.0.0",
     "pdffiller-stream": "^0.2.0"
   },
   "devDependencies": {},

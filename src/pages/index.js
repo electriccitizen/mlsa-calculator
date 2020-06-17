@@ -11,9 +11,9 @@ import {
   ThemeProvider, ColorModeProvider, CSSReset, Box, Stack, Flex,
 } from '@chakra-ui/core'
 
-fetch('/.netlify/functions/pdf-gen')
-  .then(res => res.text())
-  .then(text => console.log(text))
+// fetch('/.netlify/functions/pdf-gen')
+//   .then(res => res.text())
+//   .then(text => console.log(text))
 
 
 export default function Home() {
@@ -23,9 +23,40 @@ export default function Home() {
   const updateMontana = (status) => {
     setIsMontana(status)
   }
+  const [appState, setAppState] = useState({
+    loading: false,
+    pdf: null,
+  });
+
 
   const handleSubmit = (values) => {
-    toastValues(values);
+    //toastValues(values);
+
+    const data = values;
+
+    fetch('/.netlify/functions/pdf-gen/', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(response => response.json())
+      .then(data => {
+        //console.log('Data:', data);
+        setAppState({ loading: false, pdf: data });
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    // fetch(pdf)
+    //   .then((res) => res.json())
+    //   .then((file) => {
+    //     setAppState({ loading: false, pdfBase64: file });
+    //   });
+
+
     form.invalidateFields({
       'docker.image': 'You can display an error after an API call',
       'initiate.worksheets': 'You can display an error after an API call',
@@ -47,6 +78,9 @@ export default function Home() {
           <PageHeader githubPath="UseCase1/index.js">
             Child Support Calculator
           </PageHeader>
+          <div>
+            <a href={"data:application/pdf;base64," + appState.pdf +""} download="file.pdf">Download me</a>
+          </div>
           <InitiateInterview />
           <BasicInformation />
         </MultiStepsLayout>
