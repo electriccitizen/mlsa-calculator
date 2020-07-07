@@ -14,22 +14,22 @@ const defaultProps = {
 const useDebugTime = () => {
   const initRenderTimeRef = useRef(new Date());
   const preRenderTimeRef = useRef(new Date());
-  preRenderTimeRef.current = new Date();
+ // preRenderTimeRef.current = new Date();
 
-  useMemo(() => {
-    // eslint-disable-next-line no-console
-    console.log('--- Page mounted ---');
-  }, []);
-
-  useEffect(() => {
-    const currentTime = new Date();
-    // eslint-disable-next-line no-console
-    console.log(
-      `Rendered in ${(currentTime - preRenderTimeRef.current) / 1000}s`,
-      '-',
-      `Mounted ${(currentTime - initRenderTimeRef.current) / 1000}s ago`,
-    );
-  });
+  // useMemo(() => {
+  //   // eslint-disable-next-line no-console
+  //   console.log('--- Page mounted ---');
+  // }, []);
+  //
+  // useEffect(() => {
+  //   const currentTime = new Date();
+  //   // eslint-disable-next-line no-console
+  //   console.log(
+  //     `Rendered in ${(currentTime - preRenderTimeRef.current) / 1000}s`,
+  //     '-',
+  //     `Mounted ${(currentTime - initRenderTimeRef.current) / 1000}s ago`,
+  //   );
+  // });
 };
 
 export const SectionWrapper = ({ children }) => {

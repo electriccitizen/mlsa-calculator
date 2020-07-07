@@ -5,8 +5,9 @@ export const useToastValues = () => {
   const toast = useToast();
 
   return (values) => {
+    console.log(values)
     toast({
-      title: 'Values submitted',
+      title: 'Additional Help',
       description: (
         <Box
           as="pre"
@@ -14,7 +15,7 @@ export const useToastValues = () => {
           maxWidth="80vw"
           overflow="auto"
         >
-          {JSON.stringify(values, null, 2)}
+          {values[0].text}
         </Box>
       ),
       status: 'success',
@@ -24,3 +25,5 @@ export const useToastValues = () => {
     });
   };
 };
+
+

@@ -3,6 +3,8 @@ import PropTypes from "prop-types"
 import { Input } from "@chakra-ui/core"
 import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
 import { FormGroup } from "../FormGroup"
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
 
 const propTypes = {
   label: PropTypes.node,
@@ -19,7 +21,7 @@ const defaultProps = {
   ...fieldDefaultProps,
 }
 
-export const FieldInput = props => {
+export const FieldDate = props => {
   const {
     errorMessage,
     id,
@@ -29,24 +31,15 @@ export const FieldInput = props => {
     setValue,
     value,
   } = useField(props)
-
-  const {
-    label,
-    name,
-    type,
-    required,
-    placeholder,
-    helper,
-    ...otherProps
-  } = props
-
+  const { label, type, required, placeholder, helper, ...otherProps } = props
   const [isTouched, setIsTouched] = useState(false)
   const showError = !isValid && (isTouched || isSubmitted)
+  const [startDate, setStartDate] = useState("")
 
   const handleChange = value => {
     setValue(value)
+    setStartDate(value)
   }
-
   useEffect(() => {
     setIsTouched(false)
   }, [resetKey])
@@ -63,22 +56,30 @@ export const FieldInput = props => {
 
   return (
     <FormGroup ml={2} mr={2} {...formGroupProps}>
-      <Input
+      <DatePicker
         key={resetKey}
         type={type || "text"}
         id={id}
-        value={value ?? ""}
-        onChange={e => {
-          handleChange(e.target.value)
+        customInput={<Input value={startDate ?? ""}/>}
+        selected={startDate}
+        value={startDate ?? ""}
+        onChange={date => {
+          handleChange(date)
         }}
-        onBlur={() => setIsTouched(true)}
         aria-invalid={showError}
         aria-describedby={!isValid ? `${id}-error` : null}
-        placeholder={placeholder}
+        onBlur={() => setIsTouched(true)}
+        placeholderText={placeholder}
+        peekNextMonth
+        showMonthDropdown
+        showYearDropdown
+        dropdownMode="select"
+        maxDate={new Date()}
+        //minDate={subMonths(new Date(), 6)}
       />
     </FormGroup>
   )
 }
 
-FieldInput.propTypes = propTypes
-FieldInput.defaultProps = defaultProps
+FieldDate.propTypes = propTypes
+FieldDate.defaultProps = defaultProps

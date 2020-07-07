@@ -1,44 +1,40 @@
-import React, { useEffect, useState } from 'react'
-import { FormizStep, useForm } from '@formiz/core'
-import { FieldInput } from '../Fields/FieldInput';
-import { FieldRadio } from '../Fields/FieldRadio';
-import { Box, SimpleGrid, Flex, Stack } from '@chakra-ui/core'
-import { SectionWrapper} from '../SectionWrapper'
-import { SectionHeader} from '../SectionHeader'
-import { AddressField} from './AddressField'
+import React, { useEffect, useState } from "react"
+import { FormizStep, useForm } from "@formiz/core"
+import { FieldInput } from "../Fields/FieldInput"
+import { FieldDate } from '../Fields/FieldDate'
+import { FieldRadio } from "../Fields/FieldRadio"
+import { SimpleGrid } from "@chakra-ui/core"
+import { SectionWrapper } from "../SectionWrapper"
+import { SectionHeader } from "../SectionHeader"
+import { AddressField } from "./AddressField"
+//import statesData from "../../utils/states_hash.json"
 
-import statesData from '../../utils/states_hash.json';
 export const BasicInformation = ({ updateMontana }) => {
-  const form = useForm();
-  const [mailing,setMailing] = useState("")
-  const updateState = (name,value) => {
-    name==='basic.mailing' && setMailing(value)
+  const form = useForm()
+  let updateState = (name, value) => {
+    name === "basic.mailing" &&
+      localStorage.setItem("mailing", JSON.stringify(value))
   }
-
-  //{collection.map(({ id, name }, index) => (
-
-  // const states = [
-  //   { key: 1, value: 'admin', label: 'Minnesota' },
-  //   { key: 2, value: 'demo', label: 'Montana' },
-  // ]
-  //
-  // let foo = statesData.map((val, i, arr) => {
-  //   console.log(val)
-  // })
-
-
+  // const handleClick = () => {
+  //   form.goToStep("initiateInterview")
+  //   console.log(form.steps)
+  // }
+  // const setField = value => {
+  //   return (
+  //     JSON.parse(localStorage.getItem(value)) &&
+  //     JSON.parse(localStorage.getItem(value))
+  //   )
+  // }
+  let documents = JSON.parse(localStorage.getItem("documents"))
   return (
-    <FormizStep name="Basic Information">
+    <FormizStep name="BasicInformation">
       <SectionWrapper>
-        <SectionHeader
-          header={"What is your name?"}
-        />
-        <SimpleGrid  mb={8} columns={3} spacing={10}>
+        <SectionHeader header={"What is your name?"} />
+        <SimpleGrid mb={8} columns={3} spacing={10}>
           <FieldInput
             name={`basic.fname`}
-            label="First Name"
+            label="First"
             required="Required"
-
             m="0"
           />
           <FieldInput
@@ -50,95 +46,62 @@ export const BasicInformation = ({ updateMontana }) => {
           <FieldInput
             name={`basic.lname`}
             required="Required"
-            label="Last Name"
-
+            label="Last"
             m="0"
           />
         </SimpleGrid>
       </SectionWrapper>
+      {(documents === "both" || documents === "affadavit") && (
+        <>
+          <SectionWrapper>
+            <SectionHeader
+              header={"Enter required info for financial affadavit:"}
+            />
+            <SimpleGrid mb={8} columns={3} spacing={10}>
+              <FieldDate
+                name={`basic.dob`}
+                label="Date of birth"
+                required="Required"
+                placeholder="MM/DD/YYYY"
+                m="0"
+              />
+              <FieldInput
+                name={`basic.phone`}
+                label="Primary phone"
+                required="Required"
+                m="0"
+              />
+              <FieldInput name={`basic.dl`} label="Driver's License #" m="0" />
+            </SimpleGrid>
+          </SectionWrapper>
 
-      <AddressField
-        header={"What is your street address?"}
-        label={"Street Address"}
-        name={'basic.address'}
-      />
-
-      <SectionWrapper>
-        <SectionHeader
-          header={"Is this your primary mailing address?"}
-        />
-        <FieldRadio
-          name="basic.mailing"
-          required="Required"
-          updateState={updateState}
-          options={[
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
-          ]}
-        />
-      </SectionWrapper>
-      { mailing === "no" &&
+          <AddressField
+            header={"What is your street address?"}
+            label={"Street Address"}
+            name={"basic.address"}
+          />
+          <SectionWrapper>
+            <SectionHeader header={"Is this your primary mailing address?"} />
+            <FieldRadio
+              name="basic.mailing"
+              required="Required"
+              updateState={updateState}
+              options={[
+                { value: "yes", label: "Yes" },
+                { value: "no", label: "No" },
+              ]}
+            />
+          </SectionWrapper>
+        </>
+      )}
+      {/*))}*/}
+      {JSON.parse(localStorage.getItem("mailing")) === "no" && (
         <AddressField
           header={"What is your mailing address?"}
           label={"Mailing Address"}
-          name={'basic.mail_address'}
+          name={"basic.mail_address"}
         />
-
-      }
+      )}
     </FormizStep>
-  );
-};
-
-// <Box  bg="gray.50" w="100%" p={4} mb={4} >
-//   What is the { Pronoun } name?
-// </Box>
-// <Box flex="2">
-//   <FieldInput
-//     name={`basic.fname2`}
-//     label="First Name"
-//     required="Required"
-//     placeholder={ Pronoun }
-//     m="0"
-//   />
-// </Box>
-// <Box flex="2">
-//   <FieldInput
-//     name={`basic.mname2`}
-//     label="Middle"
-//     placeholder="Optional middle name or initial"
-//
-//     m="0"
-//   />
-// </Box>
-// <Box mb={4} flex="2">
-//   <FieldInput
-//     name={`basic.lname2`}
-//     required="Required"
-//     label="Last Name"
-//     placeholder="Enter your last name"
-//     mt="0"
-//   />
-// </Box>
-// <Box  bg="gray.50" w="100%" p={4} mb={4} >
-//   How many minor children do you and [first name] have together? This includes adopted children, but not stepchildren.
-// </Box>
-// <Box>
-//   <FieldSelect
-//     name="basic.children"
-//     label="Enter a number"
-//     placeholder="None"
-//
-//     keepValue
-//     options={[
-//       { value: '1', label: '1' },
-//       { value: '2', label: '2' },
-//       { value: '3', label: '3' },
-//       { value: '4', label: '4' },
-//       { value: '5', label: '5' },
-//       { value: '6', label: '6' },
-//       { value: '7', label: '7' },
-//       { value: '8', label: '8' },
-//     ]}
-//   />
-//
-// </Box>
+  )
+}

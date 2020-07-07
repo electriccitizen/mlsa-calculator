@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { FormizStep, useForm } from '@formiz/core';
 import {
-  IconButton, Box, Stack,
-} from '@chakra-ui/core';
+  IconButton, Box, Stack, SimpleGrid,
+} from '@chakra-ui/core'
 import { v4 as uuidv4 } from 'uuid';
 import { FieldInput } from './Fields/FieldInput';
 import { AddPlaceholder } from './AddPlaceholder';
+import { FieldDate } from './Fields/FieldDate'
 
 export const AddChildren = () => {
   const form = useForm();
@@ -71,14 +72,15 @@ export const AddChildren = () => {
               placeholder="Enter last name"
               type="text"
               m="0"
-              // validations={[
-              //   {
-              //     rule: (val) => (form.values.ports || [])
-              //       .filter((x) => x.number === val).length <= 1,
-              //     deps: [JSON.stringify(form.values.ports)],
-              //     message: 'Must be unique',
-              //   },
-              // ]}
+            />
+          </Box>
+          <Box  flex="3">
+            <FieldDate
+              name={`children[${index}].dob`}
+              label="Date of birth"
+              required="Required"
+              type="text"
+              m="0"
             />
           </Box>
           <Box pt="1.75rem">
