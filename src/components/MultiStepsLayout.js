@@ -25,7 +25,6 @@ const PersistForm = () => {
     setTimeout(() => {
       setIsLoaded(true)
       const values = JSON.parse(localStorage.getItem("formValues") || "") || {}
-      console.log(values)
       form.setFieldsValues(flatten(values))
     })
   }, [])
@@ -50,7 +49,8 @@ export const MultiStepsLayout = ({
   const internalForm = useForm()
   const form = externalForm || internalForm
   const hasSteps = !!form.steps.length
-
+  console.log(localStorage.formValues)
+  //localStorage.clear()
   return (
     <Formiz connect={form} {...props}>
       <PersistForm />

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
-import { FieldSelect } from "../Fields/FieldSelect"
+import { FieldRadio } from "../Fields/FieldRadio"
 import { SimpleGrid } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
@@ -17,15 +17,16 @@ export const OtherParent = ({ updateMontana }) => {
   }
 
   const updateState = (name, value) => {
-    console.log('i set the damn name')
+    console.log("i set the damn name")
     // name === "basic.fname.other" &&
     //
     //   localStorage.setItem("fname", JSON.stringify(value))
     // name === "basic.lname.other" &&
     //   localStorage.setItem("lname", JSON.stringify(value))
   }
-  let fname = setField("fname")
-  let lname = setField("lname")
+
+  // let fname = setField("fname")
+  // let lname = setField("lname")
 
   let relationship = JSON.parse(localStorage.getItem("relationship"))
   let properNoun = ""
@@ -51,7 +52,7 @@ export const OtherParent = ({ updateMontana }) => {
             m="0"
           />
           <FieldInput
-            name={`other.lname`}
+            name={`other.lnamer`}
             required="Required"
             label="Last"
             updateState={updateState}
@@ -59,30 +60,28 @@ export const OtherParent = ({ updateMontana }) => {
           />
         </SimpleGrid>
       </SectionWrapper>
-        <SectionWrapper>
-          <SectionHeader
-            header={
-              `How many minor children do you have together? This includes adopted children, but not stepchildren.`
-            }
-          />
-          <FieldSelect
-            name="basic.children"
-            label="Select a number"
-            placeholder="None"
-            required="Required"
-            keepValue
-            options={[
-              { value: "1", label: "1" },
-              { value: "2", label: "2" },
-              { value: "3", label: "3" },
-              { value: "4", label: "4" },
-              { value: "5", label: "5" },
-              { value: "6", label: "6" },
-              { value: "7", label: "7" },
-              { value: "8", label: "8" },
-            ]}
-          />
-        </SectionWrapper>
+      <SectionWrapper>
+        <SectionHeader
+          header={`How many minor children do you have together? This includes adopted children, but not stepchildren.`}
+        />
+        <FieldRadio
+          name="basic.children"
+          label="Select a number"
+          placeholder="None"
+          required="Required"
+          keepValue
+          options={[
+            { value: "1", label: "1" },
+            { value: "2", label: "2" },
+            { value: "3", label: "3" },
+            { value: "4", label: "4" },
+            { value: "5", label: "5" },
+            { value: "6", label: "6" },
+            { value: "7", label: "7" },
+            { value: "8", label: "8" },
+          ]}
+        />
+      </SectionWrapper>
     </FormizStep>
   )
 }

@@ -9,7 +9,7 @@ import { InitiateInterview } from "../components/01-InitiateInterview/IntiateInt
 import { BasicInformation } from "../components/02-BasicInformation/BasicInformation"
 import { OtherParent } from "../components/03-OtherParent/OtherParent"
 import { EnterChildren} from '../components/04-EnterChildren/EnterChildren'
-
+import { Beforeunload } from 'react-beforeunload';
 import { StartOver } from "../components/100-startOver/StartOver"
 import {
   ThemeProvider,
@@ -70,6 +70,7 @@ export default function Home() {
       })
   }
   return (
+    <Beforeunload onBeforeunload={() => "You'll lose your data!"}>
     <ThemeProvider theme={theme}>
       <ColorModeProvider>
         <CSSReset />
@@ -89,9 +90,9 @@ export default function Home() {
               <PageHeader githubPath="UseCase1/index.js">
                 Child Support Calculator
               </PageHeader>
-              {/*<InitiateInterview updateMontana={updateMontana} />*/}
-              {/*<BasicInformation />*/}
-              {/*<OtherParent />*/}
+              <InitiateInterview updateMontana={updateMontana} />
+              <BasicInformation />
+              <OtherParent />
               <EnterChildren />
             </>
           </MultiStepsLayout>
@@ -108,6 +109,7 @@ export default function Home() {
         )}
       </ColorModeProvider>
     </ThemeProvider>
+    </Beforeunload>
   )
 }
 

@@ -31,16 +31,25 @@ export const PageFooter = ({ onReset, handleDebug,debugMode,updateMontana }) => 
       </Stack>
         <Button
           onClick={() => {
+            onReset(localStorage.clear());
             form.reset();
-            onReset();
-            localStorage.clear();
-            window.location.reload();
+            window.location.reload(localStorage.clear());
           }}
           size="sm"
           mr="auto"
         >
           Reset
         </Button>
+      <Button
+        onClick={() => {
+         localStorage.clear();
+          window.location.reload(localStorage.clear());
+        }}
+        size="sm"
+        mr="auto"
+      >
+        clear
+      </Button>
     </Box>
 
   );
