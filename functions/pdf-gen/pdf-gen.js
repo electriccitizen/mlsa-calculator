@@ -13,8 +13,8 @@ process.env.LD_LIBRARY_PATH = process.env.LAMBDA_TASK_ROOT + '/src/bin'
 
 const data = {
   "initiate.csed" : "1234",
-  "basic.mother.name" : "Sally Joe Johnson",
-  "basic.father.name" : "Bob Dickweed",
+  "basic.mother.name" : "Jane Doe",
+  "basic.father.name" : "John Doe",
   "initiate.documents.a" : "On",
 };
 

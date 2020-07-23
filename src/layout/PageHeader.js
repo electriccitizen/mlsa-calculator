@@ -55,7 +55,7 @@ export const PageHeader = ({ children, onReset, githubPath }) => {
         {/*  onClick={() => {*/}
         {/*    form.reset();*/}
         {/*    onReset();*/}
-        {/*    localStorage.clear();*/}
+        {/*    sessionStorage.clear();*/}
         {/*  }}*/}
         {/*  ml="auto"*/}
         {/*  size="sm"*/}

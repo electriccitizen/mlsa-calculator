@@ -1,157 +1,87 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
-import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
-import { Collapse, Button, IconButton, Box, Stack } from "@chakra-ui/core"
+import { Box, SimpleGrid } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
-import { AddPlaceholder } from "../AddPlaceholder"
-import { v4 as uuidv4 } from "uuid"
+import { EnterMyOtherChildren } from "./EnterMyOtherChildren"
 
-export const EnterChildren = () => {
+const flatten = require("flat").flatten
+export const OtherChildren = ({ updateMontana }) => {
   const form = useForm()
-  const [children, setChildren] = useState([])
-  const [show, setShow] = React.useState(false)
 
-  const handleToggle = () => setShow(!show)
-  let updateState = (name, value) => {
-    console.log(value)
-    name === "children.relationship" &&
-      localStorage.setItem("relationship", JSON.stringify(value))
+  const setField = value => {
+    return (
+      JSON.parse(sessionStorage.getItem(value)) &&
+      JSON.parse(sessionStorage.getItem(value))
+    )
+  }
+  // const [otherChildrenPrimary, setOtherChildrenPrimary] = useState("")
+  // const [otherChildrenSecondary, setOtherChildrenSecondary] = useState("")
+  // const [otherChildrenPrimaryNumber, setOtherChildrenPrimaryNumber] = useState(
+  //   "0"
+  // )
+
+  const updateState = (name, value) => {
+    name === "other.children.primary" && sessionStorage.setItem("otherChildrenPrimary", value)
+    name === "other.children.primary.number" && sessionStorage.setItem("otherChildrenPrimaryNumber", value)
   }
 
-  useEffect(() => {
-    setChildren([])
-  }, [form.resetKey])
+  let relationship = JSON.parse(sessionStorage.getItem("relationship"))
+  let properNoun = ""
+  relationship === "mother" ? (properNoun = "Father") : (properNoun = "Mother")
 
-  const addItem = () => {
-    setChildren(s => [
-      ...s,
-      {
-        id: uuidv4(),
-      },
-    ])
-  }
+  const values = JSON.parse(sessionStorage.formValues)
+  const otherName = values.other.fname
+  console.log(otherChildrenPrimaryNumber)
 
-  const removeItem = id => {
-    setChildren(s => s.filter(x => x.id !== id))
-  }
+  const otherChildrenPrimary = sessionStorage.getItem("otherChildrenPrimary")
+  const otherChildrenPrimaryNumber = sessionStorage.getItem("otherChildrenPrimaryNumber")
+
+
 
   return (
-    <FormizStep name="exposedPorts">
-      <SectionWrapper>
-        <SectionHeader header={`Enter the details for each of your children`} />
-        <>
-          {children.map((port, index) => (
-            <>
-              <Button
-                variantColor="blue"
-                onClick={handleToggle}>
-                Child {index}
-              </Button>
-            <Collapse mt={4} isOpen={show}>
-            <Stack
-              key={index}
-              spacing="4"
-              mb="6"
-              rounded="md"
-              borderWidth="1px"
-              borderColor="gray.200"
-              p="4"
-            >
-              <Stack isInline spacing="4" rounded="md">
-                <Box flex="1">
-                  {/*<SectionHeader*/}
-                  {/*  header={*/}
-                  {/*    `Child 1`*/}
-                  {/*  }*/}
-                  {/*/>*/}
-                </Box>
-              </Stack>
-
-              <Stack isInline spacing="4" mb="6" rounded="md" p="4">
-                <Box flex="1">
-                  <FieldInput
-                    name={`children[${index}].fname`}
-                    label="First"
-                    required="Required"
-                    type="text"
-                    m="0"
-                  />
-                </Box>
-                <Box flex="1">
-                  <FieldInput
-                    name={`children[${index}].mname`}
-                    label="Middle"
-                    required="Required"
-                    type="text"
-                    m="0"
-                  />
-                </Box>
-                <Box flex="1">
-                  <FieldInput
-                    name={`children[${index}].lname`}
-                    label="Last name"
-                    required="Required"
-                    placeholder="Enter last name"
-                    type="text"
-                    m="0"
-                  />
-                </Box>
-                <Box pt="1.75rem">
-                  <IconButton
-                    icon="delete"
-                    onClick={() => removeItem(port.id)}
-                    variant="ghost"
-                  />
-
-                </Box>
-              </Stack>
-              <Stack isInline spacing="4" mb="6" rounded="md" p="4">
-                <Box flex="1">
-                  {/*<SectionHeader*/}
-                  {/*  header={*/}
-                  {/*    `Date of birth`*/}
-                  {/*  }*/}
-                  {/*/>*/}
-                  <FieldDate
-                    name={`children[${index}].dob`}
-                    label="Date of birth"
-                    required="Required"
-                    type="text"
-                    m="0"
-                    p="4"
-                  />
-                </Box>
-                <Box flex="1">
-                  {/*<SectionHeader*/}
-                  {/*  header={*/}
-                  {/*    `This child is (select all that apply):`*/}
-                  {/*  }*/}
-                  {/*/>*/}
-                  <FieldRadio
-                    name="children[${index}].status"
-                    required="Required"
-                    updateState={updateState}
-                    options={[
-                      { value: "emancipated", label: "Emancipated" },
-                      { value: "married", label: "Married" },
-                      { value: "military", label: "Military" },
-                      { value: "none", label: "None of the above" },
-                    ]}
-                  />
-                </Box>
-              </Stack>
-            </Stack>
-            </Collapse>
-              </>
-          ))}
-        </>
-        {children.length <= 20 && (
-          <AddPlaceholder label="Add child" onClick={addItem} />
+    <FormizStep name="OtherChildren">
+      <>
+        {parseInt(otherChildrenPrimaryNumber) === 0 && (
+          <SectionWrapper>
+            <SectionHeader
+              header={`Do you have other children with someone else?`}
+            />
+            <FieldRadio
+              name="other.children.primary"
+              placeholder="None"
+              required="Required"
+              keepValue
+              updateState={updateState}
+              options={[
+                { value: "yes", label: "Yes" },
+                { value: "no", label: "No" },
+              ]}
+            />
+          </SectionWrapper>
         )}
-      </SectionWrapper>
+        {otherChildrenPrimary === "yes" &&
+          parseInt(otherChildrenPrimaryNumber) === 0 && (
+            <SectionWrapper>
+              <SectionHeader
+                header={`How many other minor children do you have?`}
+              />
+              <Box width="30%">
+                <FieldInput
+                  name="other.children.primary.number"
+                  label="Enter number"
+                  required="Required"
+                  updateState={updateState}
+                />
+              </Box>
+            </SectionWrapper>
+          )}
+        {parseInt(otherChildrenPrimaryNumber) !== 0 && (
+          <EnterMyOtherChildren number={parseInt(otherChildrenPrimaryNumber)} />
+        )}
+      </>
     </FormizStep>
   )
 }

@@ -24,14 +24,15 @@ const PersistForm = () => {
   React.useEffect(() => {
     setTimeout(() => {
       setIsLoaded(true)
-      const values = JSON.parse(localStorage.getItem("formValues") || "") || {}
+      const values =
+        JSON.parse(sessionStorage.getItem("formValues") || "") || {}
       form.setFieldsValues(flatten(values))
     })
   }, [])
 
   React.useEffect(() => {
     if (isLoaded) {
-      localStorage.setItem("formValues", JSON.stringify(form.values))
+      sessionStorage.setItem("formValues", JSON.stringify(form.values))
     }
   }, [form.values, isLoaded])
 
@@ -49,8 +50,8 @@ export const MultiStepsLayout = ({
   const internalForm = useForm()
   const form = externalForm || internalForm
   const hasSteps = !!form.steps.length
-  console.log(localStorage.formValues)
-  //localStorage.clear()
+  //console.log(sessionStorage.formValues)
+  //sessionStorage.clear()
   return (
     <Formiz connect={form} {...props}>
       <PersistForm />

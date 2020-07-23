@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
-import { FieldDate } from '../Fields/FieldDate'
+import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
 import { SimpleGrid } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
@@ -13,7 +13,7 @@ export const BasicInformation = ({ updateMontana }) => {
   const form = useForm()
   let updateState = (name, value) => {
     name === "basic.mailing" &&
-      localStorage.setItem("mailing", JSON.stringify(value))
+      sessionStorage.setItem("mailing", JSON.stringify(value))
   }
   // const handleClick = () => {
   //   form.goToStep("initiateInterview")
@@ -21,13 +21,13 @@ export const BasicInformation = ({ updateMontana }) => {
   // }
   // const setField = value => {
   //   return (
-  //     JSON.parse(localStorage.getItem(value)) &&
-  //     JSON.parse(localStorage.getItem(value))
+  //     JSON.parse(sessionStorage.getItem(value)) &&
+  //     JSON.parse(sessionStorage.getItem(value))
   //   )
   // }
-  let documents = JSON.parse(localStorage.getItem("documents"))
+  let documents = JSON.parse(sessionStorage.getItem("documents"))
   return (
-    <FormizStep name="BasicInformation">
+    <FormizStep name="BasicInformation"  order={2000}>
       <SectionWrapper>
         <SectionHeader header={"What is your name?"} />
         <SimpleGrid mb={8} columns={3} spacing={10}>
@@ -35,18 +35,21 @@ export const BasicInformation = ({ updateMontana }) => {
             name={`basic.fname`}
             label="First"
             required="Required"
+            updateState={updateState}
             m="0"
           />
           <FieldInput
             name={`basic.mname`}
             label="Middle"
             placeholder="Optional"
+            updateState={updateState}
             m="0"
           />
           <FieldInput
             name={`basic.lname`}
             required="Required"
             label="Last"
+            updateState={updateState}
             m="0"
           />
         </SimpleGrid>
@@ -69,9 +72,12 @@ export const BasicInformation = ({ updateMontana }) => {
                 name={`basic.phone`}
                 label="Primary phone"
                 required="Required"
+                updateState={updateState}
                 m="0"
               />
-              <FieldInput name={`basic.dl`} label="Driver's License #" m="0" />
+              <FieldInput
+                updateState={updateState}
+                name={`basic.dl`} label="Driver's License #" m="0" />
             </SimpleGrid>
           </SectionWrapper>
 
@@ -95,7 +101,7 @@ export const BasicInformation = ({ updateMontana }) => {
         </>
       )}
       {/*))}*/}
-      {JSON.parse(localStorage.getItem("mailing")) === "no" && (
+      {JSON.parse(sessionStorage.getItem("mailing")) === "no" && (
         <AddressField
           header={"What is your mailing address?"}
           label={"Mailing Address"}

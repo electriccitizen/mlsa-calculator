@@ -23,98 +23,117 @@ export const EnterChildren = () => {
   const [show, setShow] = React.useState(false)
 
   const handleToggle = () => setShow(!show)
-  let updateState = (name, value) => {
+
+  const numChildren = sessionStorage.getItem("numChildren")
+
+  let updateState = (name, value, index,numChildren) => {
     name === "children.relationship" &&
-      localStorage.setItem("relationship", JSON.stringify(value))
+      sessionStorage.setItem("relationship", JSON.stringify(value))
+    name === "other.children.primary." + { index } + ".order" &&
+      sessionStorage.setItem("order", value)
+    name === "other.children.primary.depcare" &&
+      sessionStorage.setItem("depcare", value)
+    // name === "children."+numChildren+".status" &&
+    //   console.log("set child status")
+    //sessionStorage.setItem("children"+numChildren+".status", value)
+
+    console.log(name)
   }
-  let count = []
-  form.isStepValid === false && form.isStepSubmitted === true
-    ? (count = [0, 1])
-    : (count = [0])
-  // Array.apply(null, { length: 2 }).map((e, index) => (
-  //
-  // ))
+
+
+
+
+  const order = sessionStorage.getItem("order")
+  const depcare = sessionStorage.getItem("depcare")
+  const status = sessionStorage.getItem("children."+numChildren+".status")
+  console.log(status)
+
+  // let count = []
+  // form.isStepValid === false && form.isStepSubmitted === true
+  //   ? (count = [0, 1])
+  //   : (count = [0])
+
   // console.log(form.isValid)
   // console.log(form.isStepSubmitted)
   // console.log(count)
   // set up a string to show ALL accordions in case of validation error
-
   return (
-    <FormizStep name="exposedPorts">
-      <SectionWrapper>
-        {/*<SectionHeader header={`Enter the details for each of your children`} />*/}
-        <>
-          {/*{form.values.basic.children} Total*/}
-          <Accordion index={count} defaultIndex={[0]} allowMultiple>
-            {Array.apply(null, { length: 2 }).map((e, index) => (
-              <AccordionItem key={index}>
-                <AccordionHeader bg="gray.50">
-                  <Box color="gray.900" flex="1" textAlign="left">
-                    Enter the details for Child {index + 1} {count}:
-                  </Box>
-                  <AccordionIcon />
-                </AccordionHeader>
-                <AccordionPanel pb={4}>
-                  <Stack isInline spacing="4" mb="6" rounded="md" p="2">
-                    <Box flex="1">
-                      <FieldInput
-                        name={`child.${index}.fname`}
-                        label="First"
-                        required="Required"
-                        type="text"
-                        m="0"
-                      />
-                    </Box>
-                    <Box flex="1">
-                      <FieldInput
-                        name={`child.${index}.mname`}
-                        label="Middle"
-                        type="text"
-                        m="0"
-                      />
-                    </Box>
-                    <Box flex="1">
-                      <FieldInput
-                        name={`child.${index}.lname`}
-                        label="Last name"
-                        required="Required"
-                        type="text"
-                        m="0"
-                      />
-                    </Box>
-                  </Stack>
-                  <Stack isInline mb="6" rounded="md">
-                    <Box flex="1">
-                      <FieldDate
-                        name={`children[${index}].dob`}
-                        label="Date of birth"
-                        required="Required"
-                        type="text"
-                        m="0"
-                        p="4"
-                      />
-                    </Box>
-                    <Box flex="1">
-                      <Box mb="4">This child is (select all that apply):</Box>
-                      <FieldRadio
-                        name="children[${index}].status"
-                        required="Required"
-                        updateState={updateState}
-                        options={[
-                          { value: "emancipated", label: "Emancipated" },
-                          { value: "married", label: "Married" },
-                          { value: "military", label: "Military" },
-                          { value: "none", label: "None of the above" },
-                        ]}
-                      />
-                    </Box>
-                  </Stack>
-                </AccordionPanel>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </>
-      </SectionWrapper>
-    </FormizStep>
+    <>
+      {Array.apply(null, { length: numChildren }).map((e, index) => (
+        <FormizStep
+          key={index}
+          name={`EnterOtherChildren` + index}
+          order={4000 + index}
+        >
+          <SectionWrapper>
+            <Box mb="8">
+              <SectionHeader
+                header={`Enter the details for Child ` + (index + 1) + `:`}
+              />
+            </Box>
+            <>
+              <Stack isInline spacing="4" mb="6" rounded="md" p="2">
+                */}
+                <Box flex="1">
+                  <FieldInput
+                    name={`child.${numChildren}.fname`}
+                    label="First"
+                    required="Required"
+                    type="text"
+                    updateState={updateState}
+                    m="0"
+                  />
+                </Box>
+                <Box flex="1">
+                  <FieldInput
+                    name={`child.${numChildren}.mname`}
+                    label="Middle"
+                    type="text"
+                    updateState={updateState}
+                    m="0"
+                  />
+                </Box>
+                <Box flex="1">
+                  <FieldInput
+                    name={`child.${numChildren}.lname`}
+                    label="Last name"
+                    required="Required"
+                    type="text"
+                    updateState={updateState}
+                    m="0"
+                  />
+                </Box>
+              </Stack>
+              <Box flex="1">
+                <FieldDate
+                  name={`children.${numChildren}.dob`}
+                  label="Date of birth"
+                  required="Required"
+                  type="text"
+                />
+              </Box>
+              <Box mb="8" flex="1">
+                <FieldRadio
+                  name={`children.${numChildren}.status`}
+                  label="This child is (select all that apply):"
+                  required="Required"
+                  updateState={updateState}
+                  options={[
+                    { value: "emancipated", label: "Emancipated" },
+                    { value: "married", label: "Married" },
+                    { value: "military", label: "Military" },
+                    { value: "none", label: "None of the above" },
+                  ]}
+                />
+                {/*<div>STATUS: {status}</div>*/}
+                {/*{ status !== 'none' &&*/}
+                {/*<Box>Sorry joe</Box>*/}
+                {/*}*/}
+              </Box>
+            </>
+          </SectionWrapper>
+        </FormizStep>
+      ))}
+    </>
   )
 }
