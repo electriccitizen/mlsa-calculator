@@ -1,95 +1,101 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react"
+import { Link } from "gatsby"
+import PropTypes from "prop-types"
 import {
-  Stack, Icon, Link, useColorMode, Flex, Switch,
-} from '@chakra-ui/core';
-import { MenuItem } from './MenuItem';
+  Stack,
+  Icon,
+  useColorMode,
+  List,
+  ListItem,
+  ListIcon,
+} from "@chakra-ui/core"
+import { push as BurgerMenu } from "react-burger-menu"
 
 const propTypes = {
-  direction: PropTypes.oneOf(['left', 'right']),
-};
+  direction: PropTypes.oneOf(["left", "right"]),
+}
 const defaultProps = {
-  direction: 'left',
-};
+  direction: "left",
+}
 
-export const Menu = ({ direction }) => {
-  const { colorMode, toggleColorMode } = useColorMode();
+var styles = {
+  bmBurgerButton: {
+    position: "absolute",
+    width: "36px",
+    height: "30px",
+    left: "30px",
+    top: "32px",
+  },
+  bmBurgerBars: {
+    background: "#373a47",
+  },
+  bmBurgerBarsHover: {
+    background: "#a90000",
+  },
+  bmCrossButton: {
+    height: "24px",
+    width: "24px",
+  },
+  bmCross: {
+    background: "#bdc3c7",
+  },
+  bmMenuWrap: {
+    position: "fixed",
+    height: "100%",
+  },
+  bmMenu: {
+    background: "#373a47",
+    padding: "2.5em 1.5em 0",
+    fontSize: "1.15em",
+  },
+  bmMorphShape: {
+    fill: "#373a47",
+  },
+  bmItemList: {
+    color: "#b8b7ad",
+    padding: "0.8em",
+  },
+  bmItem: {
+    display: "inline-block",
+  },
+  bmOverlay: {
+    background: "rgba(0, 0, 0, 0.3)",
+  },
+}
+
+export const Menu = ({ direction, menuLinks }) => {
+  const { colorMode, toggleColorMode } = useColorMode()
 
   return (
-    <Stack spacing="0" w="100%">
-      <MenuItem
-        direction={direction}
-        to="/"
-      >
-      AutoForm
-      </MenuItem>
-      <MenuItem
-        direction={direction}
-        to="/wizard"
-      >
-      Wizard
-      </MenuItem>
-      <MenuItem
-        direction={direction}
-        to="/repeater"
-      >
-      Repeater
-      </MenuItem>
-      <MenuItem
-        direction={direction}
-        to="/exotic-fields"
-      >
-      Exotic Fields
-      </MenuItem>
-      <MenuItem
-        direction={direction}
-        to="/lot-of-fields"
-      >
-      Lot of fields
-      </MenuItem>
-      <MenuItem
-        direction={direction}
-        to="/real-life-1"
-      >
-      Real life #1
-      </MenuItem>
+    <BurgerMenu
+      pageWrapId={"page-wrap"}
+      outerContainerId={"outer-container"}
+      isOpen={false}
+      styles={styles}
+      mt="-4"
+    >
 
-      <MenuItem
-        direction={direction}
-        mt="6"
-        as={Link}
-        href="https://formiz-react.com"
-        target="_blank"
-        fontSize="sm"
-      >
-        Formiz website
-        <Icon name="external-link" ml="1" mb="1" />
-      </MenuItem>
-      <MenuItem
-        direction={direction}
-        as={Link}
-        href="https://github.com/ivan-dalmet/formiz"
-        target="_blank"
-        fontSize="sm"
-      >
-        GitHub
-        <Icon name="external-link" ml="1" mb="1" />
-      </MenuItem>
-      <Flex justifyContent={direction === 'left' ? 'flex-start' : 'flex-end'} px="6" pt="8">
-        <Stack isInline align="center" mb="1">
-          <Icon name="moon" size="14px" opacity={colorMode !== 'dark' ? '0.3' : null} />
-          <Switch
-            size="md"
-            isChecked={colorMode === 'light'}
-            onChange={toggleColorMode}
-            color="none"
-          />
-          <Icon name="sun" size="14px" opacity={colorMode !== 'light' ? '0.3' : null} />
-        </Stack>
-      </Flex>
-    </Stack>
-  );
-};
+      <List spacing={3}>
+        {menuLinks.map(link => (
+          <ListItem>
+            <ListIcon icon="check-circle" color="green.500" />
+            <Link style={{ color: `white` }} to={link.link}> {link.name} </Link>
+          </ListItem>
+        ))}
+      </List>
 
-Menu.propTypes = propTypes;
-Menu.defaultProps = defaultProps;
+      {/*<a id="home" className="menu-item" href="/">*/}
+      {/*  Home*/}
+      {/*</a>*/}
+      {/*<a id="about" className="menu-item" href="/about">*/}
+      {/*  About*/}
+      {/*</a>*/}
+      {/*<a id="contact" className="menu-item" href="/contact">*/}
+      {/*  Contact*/}
+      {/*</a>*/}
+    </BurgerMenu>
+  )
+}
+
+Menu.propTypes = propTypes
+Menu.defaultProps = defaultProps

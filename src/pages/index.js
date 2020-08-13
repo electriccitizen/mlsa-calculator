@@ -1,28 +1,20 @@
 import React, { useState } from "react"
+import { Link } from "gatsby"
 import theme from "../../theme"
 import { PageHeader } from "../layout/PageHeader"
 import printJS from "print-js"
 import { useForm } from "@formiz/core"
-import { MultiStepsLayout } from "../components/MultiStepsLayout"
 import { PageLayout } from "../layout/PageLayout"
-import { InitiateInterview } from "../components/01-InitiateInterview/IntiateInterview"
-import { BasicInformation } from "../components/02-BasicInformation/BasicInformation"
-import { End } from "../components/02-BasicInformation/End"
-import { OtherParent } from "../components/03-OtherParent/OtherParent"
-import { EnterChildren } from "../components/04-EnterChildren/EnterChildren"
-import { OtherChildren } from "../components/05-OtherChildren/OtherChildren"
-import { EnterMyOtherChildren } from "../components/05-OtherChildren/EnterMyOtherChildren"
-import { OtherChildrenSecondary } from "../components/06-OtherChildrenSecondary/OtherChildrenSecondary"
-import { EnterMyOtherChildrenSecondary } from "../components/06-OtherChildrenSecondary/EnterMyOtherChildrenSecondary"
 
-import { Beforeunload } from "react-beforeunload"
-import { StartOver } from "../components/100-startOver/StartOver"
 import {
   ThemeProvider,
   ColorModeProvider,
   CSSReset,
+  GlobalStyles,
+  Heading,
   Box,
   Button,
+  Text,
   SimpleGrid,
   Divider,
 } from "@chakra-ui/core"
@@ -80,135 +72,43 @@ export default function Home() {
       })
   }
   return (
-    <Beforeunload onBeforeunload={() => "You'll lose your data!"}>
-      <ThemeProvider theme={theme}>
-        <ColorModeProvider>
-          <CSSReset />
-          {isMontana === "no" ? (
-            <PageLayout>
-              <Box>Sorry!</Box>
-            </PageLayout>
-          ) : appState.complete === false ? (
-            <MultiStepsLayout
-              form={form}
-              onValidSubmit={handleSubmit}
-              submitLabel="Create app"
-              updateMontana={updateMontana}
-              isMontana={isMontana}
-            >
-              <>
-                <PageHeader githubPath="UseCase1/index.js">
-                  Child Support Calculator
-                </PageHeader>
-                <InitiateInterview updateMontana={updateMontana} />
-                <BasicInformation />
-                <OtherParent />
-                <EnterChildren />
-                <OtherChildren />
-                <EnterMyOtherChildren />
-                <OtherChildrenSecondary />
-                <EnterMyOtherChildrenSecondary />
-                <End />
-              </>
-            </MultiStepsLayout>
-          ) : (
-            <PageLayout>
-              <PageHeader githubPath="UseCase1/index.js">Finished!</PageHeader>
-              <Box mt={8} mb={8}>
-                Your document(s) are now complete and can be downloaded,
-                printed, or emailed by choosing from the options below. You may
-                choose multiple options, and they will be available as long you
-                keep this browser window open:
-              </Box>
+    <ThemeProvider theme={theme}>
+      <ColorModeProvider>
+        <CSSReset />
+        <GlobalStyles />
+        <PageLayout>
+          <Heading as="h2" size="xl">
+            WHAT THIS TOOL CAN DO:
+          </Heading>
+          <Text fontSize="lg">In love with React & Next</Text>
+          <Text fontSize="lg">The Montana Child Support Calculator was developed by the Montana
+            Legal Services Association to help determine child support costs for
+            those involved in, or considering divorce, child custody, or
+            parenting plan actions.</Text>
+          <p>
 
-              <SimpleGrid columns={3} spacing={10}>
-                <Button variantColor="brand" type="button">
-                  <a
-                    href={"data:application/pdf;base64," + appState.pdf + ""}
-                    download="file.pdf"
-                  >
-                    Download
-                  </a>
-                </Button>
-                <Box mb={8}>Download this document to your local computer</Box>
-              </SimpleGrid>
-
-              <SimpleGrid columns={3} spacing={10}>
-                <Button
-                  variantColor="brand"
-                  type="button"
-                  onClick={handlePrint}
-                >
-                  Print
-                </Button>
-                <Box mb={8}>Print a hard copy of this document.</Box>
-              </SimpleGrid>
-
-              <SimpleGrid columns={3} spacing={10}>
-                <Button
-                  variantColor="brand"
-                  type="button"
-                  onClick={handlePrint}
-                >
-                  Send via email
-                </Button>
-                <Box mb={8}>
-                  Send a copy of the documents to your email address
-                </Box>
-              </SimpleGrid>
-
-              <Divider />
-              <SimpleGrid columns={3} spacing={10}>
-                <Button variantColor="teal" type="button" onClick={handleBack}>
-                  Go back and review
-                </Button>
-                <Box mb={8}>
-                  If you need to make any changes, you can go back to the
-                  beginning to review and update your data.
-                </Box>
-              </SimpleGrid>
-              <SimpleGrid columns={3} spacing={10}>
-                <Button variantColor="red" type="button" onClick={handleBack}>
-                 Finish!
-                </Button>
-                <Box mb={8}>
-                 Once you have downloaded, printed, or sent your document click Finish to delete your data.
-                </Box>
-              </SimpleGrid>
-
-              <div>
-                <button type="button" onClick={handleBack}>
-                  go back
-                </button>
-              </div>
-            </PageLayout>
-          )}
-        </ColorModeProvider>
-      </ThemeProvider>
-    </Beforeunload>
+          </p>
+          <p>This calculator will calculate child support for inclusion in:</p>
+          <p>
+            - a petition for a dissolution with children in District Court in
+            Montana. - a petition for a parenting plan in District Court in
+            Montana. - a modification of a child support order that was made in
+            a dissolution with children or parenting plan by a District Court in
+            Montana.
+          </p>
+          <h2>WHAT THIS TOOL CANNOT DO:</h2>• This calculator cannot take the
+          place of a lawyer’s legal advice or information from the State of
+          Montana Child Support Enforcement Division (CSED). • This calculator
+          may not be right for you if you have a complicated case. • There is no
+          claim or guarantee that using the calculator will help you get what
+          you want. Montana Legal Services Association and/or CSED are not
+          responsible for what happens if you use this calculator.
+          <Button>
+            <Link to="/calculator">Get started</Link>
+          </Button>
+        </PageLayout>
+        )}
+      </ColorModeProvider>
+    </ThemeProvider>
   )
 }
-
-// <>
-//   <PageHeader githubPath="UseCase1/index.js">Finished!</PageHeader>
-//   <div>
-//     <a
-//       href={"data:application/pdf;base64," + appState.pdf + ""}
-//       download="file.pdf"
-//     >
-//       Download me
-//     </a>
-//   </div>
-//   <button type="button" onClick={handlePrint}>
-//     Print PDF with Message
-//   </button>
-//   <button type="button">Send as email</button>
-//   <button type="button" onClick={handleBack}>
-//     Go back
-//   </button>
-// </>
-//
-// <>
-//   <PageHeader githubPath="UseCase1/index.js">Sorry</PageHeader>
-//   <StartOver updateMontana={updateMontana} />
-// </>

@@ -79,7 +79,7 @@ export const MultiStepsLayout = ({
 
                   <Button
                     type="submit"
-                    gridColumn="3"
+                    gridColumn="4"
                     variantColor="brand"
                     isDisabled={
                       (form.isLastStep ? !form.isValid : !form.isStepValid) &&
@@ -88,6 +88,9 @@ export const MultiStepsLayout = ({
                   >
                     {form.isLastStep ? submitLabel : "Next"}
                   </Button>
+                  {/*{form.isLastStep &&*/}
+                  {/*<Box>Finished!</Box>*/}
+                  {/*}*/}
                 </>
               )}
             </Grid>

@@ -5,5 +5,18 @@
  */
 
 module.exports = {
+  siteMetadata: {
+    title: "Montana Child Support Calculator",
+      menuLinks:[
+        {
+          name: 'Home',
+          link: '/'
+        },
+        {
+          name: 'Safety',
+          link: '/safety'
+        }
+      ]
+  },
   plugins: ["gatsby-plugin-chakra-ui"],
-};
+}

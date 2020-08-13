@@ -48,7 +48,6 @@ export const OtherChildren = ({ updateMontana }) => {
             name="other.children.primary"
             placeholder="None"
             required="Required"
-            keepValue
             updateState={updateState}
             options={[
               { value: "yes", label: "Yes" },

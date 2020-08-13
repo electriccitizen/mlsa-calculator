@@ -59,17 +59,17 @@ export const PageFooter = ({
           opacity={debugMode !== "on" ? "0.3" : null}
         />
       </Stack>
-      <Button
-        onClick={() => {
-          onReset(sessionStorage.clear())
-          form.reset()
-          window.location.reload(sessionStorage.clear())
-        }}
-        size="sm"
-        mr="auto"
-      >
-        Reset
-      </Button>
+      {/*<Button*/}
+      {/*  onClick={() => {*/}
+      {/*    onReset(sessionStorage.clear())*/}
+      {/*    form.reset()*/}
+      {/*    window.location.reload(sessionStorage.clear())*/}
+      {/*  }}*/}
+      {/*  size="sm"*/}
+      {/*  mr="auto"*/}
+      {/*>*/}
+      {/*  Reset*/}
+      {/*</Button>*/}
       <Button
         onClick={() => {
           sessionStorage.clear()
@@ -78,7 +78,7 @@ export const PageFooter = ({
         size="sm"
         mr="auto"
       >
-        clear
+        Clear
       </Button>
     </Box>
   )

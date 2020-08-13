@@ -19,6 +19,15 @@ export default {
     "5xl": "48px",
     "6xl": "64px",
   },
+  lineHeights: {
+    normal: "1.62",
+    none: "1.62",
+    shorter: "1.25",
+    short: "1.375",
+    base: "2",
+    tall: "1.625",
+    taller: "2",
+  },
   colors: {
     ...theme.colors,
     brand: {

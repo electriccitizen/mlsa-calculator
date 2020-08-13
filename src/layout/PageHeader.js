@@ -32,48 +32,7 @@ export const PageHeader = ({ children, onReset, githubPath }) => {
     <Box mb="6" data-test="header">
       <Heading d="flex" alignItems="center">
         {children}
-
-        <Stack isInline align="center" mb="1" ml="auto">
-          <Icon
-            name="moon"
-            size="14px"
-            opacity={colorMode !== "dark" ? "0.3" : null}
-          />
-          <Switch
-            size="md"
-            isChecked={colorMode === "light"}
-            onChange={toggleColorMode}
-            color="none"
-          />
-          <Icon
-            name="sun"
-            size="14px"
-            opacity={colorMode !== "light" ? "0.3" : null}
-          />
-        </Stack>
-        {/*<Button*/}
-        {/*  onClick={() => {*/}
-        {/*    form.reset();*/}
-        {/*    onReset();*/}
-        {/*    sessionStorage.clear();*/}
-        {/*  }}*/}
-        {/*  ml="auto"*/}
-        {/*  size="sm"*/}
-        {/*>*/}
-        {/*  Reset*/}
-        {/*</Button>*/}
       </Heading>
-      {/*{!!githubPath && (*/}
-      {/*  <Link*/}
-      {/*    isExternal*/}
-      {/*    fontSize="sm"*/}
-      {/*    href={`/notes`}*/}
-      {/*  >*/}
-      {/*    Development notes*/}
-      {/*    <Icon name="external-link" ml="1" mb="1" />*/}
-      {/*  </Link>*/}
-
-      {/*)}*/}
     </Box>
   )
 }
