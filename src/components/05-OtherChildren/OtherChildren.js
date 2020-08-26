@@ -19,24 +19,14 @@ export const OtherChildren = ({ updateMontana }) => {
   }
 
   const updateState = (name, value) => {
-    name === "other.children.primary" &&
+    name === "otherChildren.primary" &&
       sessionStorage.setItem("OtherChildrenPrimary", value)
-    name === "other.children.primary.number" &&
-      sessionStorage.setItem("OtherChildrenPrimaryNumber", value)
+    name === "otherChildren.number" &&
+      sessionStorage.setItem("numChildrenOther", value)
   }
 
-  const otherChildrenPrimaryNumber = sessionStorage.getItem(
-    "OtherChildrenPrimaryNumber"
-  )
   const otherChildrenPrimary = sessionStorage.getItem("OtherChildrenPrimary")
 
-  console.log(otherChildrenPrimaryNumber)
-
-  //otherChildrenPrimaryNumber === 0 && form.gotoStep("End")
-
-  let relationship = JSON.parse(sessionStorage.getItem("relationship"))
-  let properNoun = ""
-  relationship === "mother" ? (properNoun = "Father") : (properNoun = "Mother")
   return (
     <FormizStep name="OtherChildren" order={5000}>
       <>
@@ -45,7 +35,7 @@ export const OtherChildren = ({ updateMontana }) => {
             header={`Do you have other children with someone else?`}
           />
           <FieldRadio
-            name="other.children.primary"
+            name="otherChildren.primary"
             placeholder="None"
             required="Required"
             updateState={updateState}
@@ -62,7 +52,7 @@ export const OtherChildren = ({ updateMontana }) => {
             />
             <Box width="30%">
               <FieldInput
-                name="other.children.primary.number"
+                name="otherChildren.number"
                 label="Enter number"
                 required="Required"
                 updateState={updateState}
@@ -70,9 +60,6 @@ export const OtherChildren = ({ updateMontana }) => {
             </Box>
           </SectionWrapper>
         )}
-        {/*{parseInt(otherChildrenPrimaryNumber) !== 0 && (*/}
-        {/*  <EnterMyOtherChildren number={parseInt(otherChildrenPrimaryNumber)} />*/}
-        {/*)}*/}
       </>
     </FormizStep>
   )

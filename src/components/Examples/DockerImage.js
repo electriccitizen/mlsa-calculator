@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { FormizStep, useForm } from '@formiz/core';
-import {
-  Checkbox, Link, Icon, Code,
-} from '@chakra-ui/core';
-import { FieldInput } from './Fields/FieldInput';
-import { FieldSelect } from './Fields/FieldSelect';
+import React, { useState, useEffect } from "react"
+import { FormizStep, useForm } from "@formiz/core"
+import { Checkbox, Link, Icon, Code } from "@chakra-ui/core"
+import { FieldInput } from "./Fields/FieldInput"
+import { FieldSelect } from "./Fields/FieldSelect"
 
 export const DockerImage = () => {
-  const [isPrivate, setIsPrivate] = useState(false);
-  const form = useForm();
+  const [isPrivate, setIsPrivate] = useState(false)
+  const form = useForm()
 
   useEffect(() => {
-    setIsPrivate(false);
-  }, [form.resetKey]);
+    setIsPrivate(false)
+  }, [form.resetKey])
 
   return (
     <FormizStep name="dockerImage">
@@ -20,32 +18,29 @@ export const DockerImage = () => {
         name="docker.image"
         label="Docker Image"
         required="Required"
-        helper={(
+        helper={
           <>
-            Use
-            {' '}
-            <Link href="https://hub.docker.com" color="brand.600" fontWeight="bold" isExternal>
+            Use{" "}
+            <Link
+              href="https://hub.docker.com"
+              color="brand.600"
+              fontWeight="bold"
+              isExternal
+            >
               Docker hub
               <Icon name="external-link" mx="1" mb="1" />
-            </Link>
-            {' '}
-            image like
-            {' '}
-            <Code variantColor="brand">ubuntu</Code>
-            {' '}
-            or
-            {' '}
-            <Code variantColor="brand">saagie/design-system</Code>
+            </Link>{" "}
+            image like <Code colorScheme="brand">ubuntu</Code> or{" "}
+            <Code colorScheme="brand">saagie/design-system</Code>
           </>
-        )}
+        }
       />
-
 
       <Checkbox
         mb={6}
-        variantColor="brand"
+        colorScheme="brand"
         isChecked={isPrivate}
-        onChange={() => setIsPrivate((x) => !x)}
+        onChange={() => setIsPrivate(x => !x)}
       >
         Private image
       </Checkbox>
@@ -58,11 +53,11 @@ export const DockerImage = () => {
           required="Required"
           keepValue
           options={[
-            { value: 'admin', label: 'Admin' },
-            { value: 'demo', label: 'Demo' },
+            { value: "admin", label: "Admin" },
+            { value: "demo", label: "Demo" },
           ]}
         />
       )}
     </FormizStep>
-  );
-};
+  )
+}

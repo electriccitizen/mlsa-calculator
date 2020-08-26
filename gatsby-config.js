@@ -7,16 +7,37 @@
 module.exports = {
   siteMetadata: {
     title: "Montana Child Support Calculator",
-      menuLinks:[
-        {
-          name: 'Home',
-          link: '/'
+    menuLinks: [
+      {
+        name: "Calculator",
+        link: "/intro",
+        text: "Help determine your child support costs.",
+        icon: "FaCalculator"
+      },
+      {
+        name: "Calculator Guide",
+        link: "/guide",
+        text:
+          "Learn more about how the calculator works.",
+        icon: "FaGlobe"
+      },
+      {
+        name: "Safe Internet Use",
+        link: "/safety",
+        text: "Tips for Internet safety and safe browsing.",
+        icon: "FaThumbsUp"
+      },
+    ],
+    plugins: [
+      {
+        resolve: `gatsby-source-filesystem`,
+        options: {
+          name: `images`,
+          path: `${__dirname}/src/images`,
         },
-        {
-          name: 'Safety',
-          link: '/safety'
-        }
-      ]
+      },
+      `gatsby-transformer-sharp`,
+      `gatsby-plugin-sharp`,
+    ],
   },
-  plugins: ["gatsby-plugin-chakra-ui"],
 }

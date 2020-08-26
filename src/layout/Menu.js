@@ -1,70 +1,93 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link as GatsbyLink } from "gatsby"
 import PropTypes from "prop-types"
 import {
-  Stack,
   Icon,
+  Link,
+  Divider,
   useColorMode,
+  Heading,
+  Text,
   List,
   ListItem,
   ListIcon,
 } from "@chakra-ui/core"
+
 import { push as BurgerMenu } from "react-burger-menu"
 
+import {
+  FaCalculator,
+  FaGlobe,
+  FaThumbsUp,
+  FaArrowAltCircleRight,
+} from "react-icons/fa/index"
 const propTypes = {
   direction: PropTypes.oneOf(["left", "right"]),
 }
 const defaultProps = {
   direction: "left",
 }
-
-var styles = {
-  bmBurgerButton: {
-    position: "absolute",
-    width: "36px",
-    height: "30px",
-    left: "30px",
-    top: "32px",
-  },
-  bmBurgerBars: {
-    background: "#373a47",
-  },
-  bmBurgerBarsHover: {
-    background: "#a90000",
-  },
-  bmCrossButton: {
-    height: "24px",
-    width: "24px",
-  },
-  bmCross: {
-    background: "#bdc3c7",
-  },
-  bmMenuWrap: {
-    position: "fixed",
-    height: "100%",
-  },
-  bmMenu: {
-    background: "#373a47",
-    padding: "2.5em 1.5em 0",
-    fontSize: "1.15em",
-  },
-  bmMorphShape: {
-    fill: "#373a47",
-  },
-  bmItemList: {
-    color: "#b8b7ad",
-    padding: "0.8em",
-  },
-  bmItem: {
-    display: "inline-block",
-  },
-  bmOverlay: {
-    background: "rgba(0, 0, 0, 0.3)",
-  },
-}
-
 export const Menu = ({ direction, menuLinks }) => {
-  const { colorMode, toggleColorMode } = useColorMode()
+  const { colorMode } = useColorMode()
+  const styles = {
+    bmBurgerButton: {
+      position: "absolute",
+      width: "26px",
+      height: "20px",
+      left: "30px",
+      top: "36px",
+      border: "1px white",
+    },
+    bmBurgerBars: {
+      background: colorMode === "dark" ? "gray" : "white",
+    },
+    bmBurgerBarsHover: {
+      background: "#a90000",
+    },
+    bmCrossButton: {
+      height: "24px",
+      width: "24px",
+    },
+    bmCross: {
+      background: "#bdc3c7",
+    },
+    bmMenuWrap: {
+      position: "fixed",
+      height: "100%",
+    },
+    bmMenu: {
+      background: "#373a47",
+      // padding: "2.5em 1.5em 0",
+      fontSize: "1.15em",
+    },
+    bmMorphShape: {
+      fill: "#373a47",
+    },
+    bmItemList: {
+      color: "#b8b7ad",
+      padding: "0.8em",
+    },
+    bmItem: {
+      display: "inline-block",
+    },
+    bmOverlay: {
+      background: "rgba(0, 0, 0, 0.3)",
+    },
+  }
+  let icon
+
+  function IconSwap(icon) {
+    switch (icon) {
+      case "FaCalculator":
+        return FaCalculator
+      case "FaThumbsUp":
+        return FaThumbsUp
+      case "FaGlobe":
+        return FaGlobe
+      default:
+        return null
+    }
+  }
 
   return (
     <BurgerMenu
@@ -72,28 +95,36 @@ export const Menu = ({ direction, menuLinks }) => {
       outerContainerId={"outer-container"}
       isOpen={false}
       styles={styles}
-      mt="-4"
     >
-
-      <List spacing={3}>
+      <List border="0" outline="none" w="100%" pl="4" pr="4" mt="4" spacing="12">
         {menuLinks.map(link => (
-          <ListItem>
-            <ListIcon icon="check-circle" color="green.500" />
-            <Link style={{ color: `white` }} to={link.link}> {link.name} </Link>
-          </ListItem>
+          <>
+            {(icon = IconSwap(link.icon))}
+            <ListItem mb={4} key={link.link}>
+              <ListIcon as={icon} color="brand" />
+              <GatsbyLink to={link.link}>
+                <Link fontWeight="bold" color="gray.300">
+                  {link.name}
+                </Link>
+              </GatsbyLink>
+              <p>{link.text}</p>
+            </ListItem>
+          </>
         ))}
       </List>
 
-      {/*<a id="home" className="menu-item" href="/">*/}
-      {/*  Home*/}
-      {/*</a>*/}
-      {/*<a id="about" className="menu-item" href="/about">*/}
-      {/*  About*/}
-      {/*</a>*/}
-      {/*<a id="contact" className="menu-item" href="/contact">*/}
-      {/*  Contact*/}
-      {/*</a>*/}
+      <Divider  />
+      <Heading mt="8" as="h3" fontSize={"md"}>
+        About MLSA
+      </Heading>
+      <Text>
+        This tool was developed by the Montana Legal Services Association.
+        <br />
+        <Link color={"gray.300"}>Learn more</Link> <Icon as={FaArrowAltCircleRight} />
+      </Text>
     </BurgerMenu>
+
+
   )
 }
 

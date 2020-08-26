@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
+import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
 import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
 import {
@@ -13,45 +14,51 @@ import {
   Button,
   IconButton,
   Box,
-  Stack,
-} from "@chakra-ui/core"
+  Stack, useColorMode,
+} from '@chakra-ui/core'
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 
 export const EnterMyOtherChildren = number => {
   const form = useForm()
   const [show, setShow] = React.useState(false)
-  const numChildren = sessionStorage.getItem("OtherChildrenPrimaryNumber")
+  const numChildrenOther = sessionStorage.getItem("numChildrenOther")
   const handleToggle = () => setShow(!show)
 
-  const order = sessionStorage.getItem("order")
-  const depcare = sessionStorage.getItem("depcare")
-
-  let updateState = (name, value) => {
-    name === "children.relationship" &&
-      sessionStorage.setItem("relationship", JSON.stringify(value))
+  let updateState = (name, value, index) => {
+    name === "otherChildren." + index + ".housing" &&
+    sessionStorage.setItem("otherChildren." + index + ".housing", value)
+    name === "otherChildren." + index + ".support" &&
+    sessionStorage.setItem("otherChildren." + index + ".support", value)
+    name === "otherChildren." + index + ".depcare" &&
+    sessionStorage.setItem("otherChildren." + index + ".depcare", value)
+    name === "otherChildren." + index + ".medical" &&
+    sessionStorage.setItem("otherChildren." + index + ".medical", value)
+    name === "otherChildren." + index + ".status" &&
+    sessionStorage.setItem("otherChildren." + index + ".status", value)
   }
-  //numChildren === 0 && form.gotoStep("End")
-  //form.goToStep("End")
-
-  // let count = []
-  // form.isStepValid === false && form.isStepSubmitted === true
-  //   ? (count = [0, 1])
-  //   : (count = [0])
-
-  // console.log(form.isValid)
-  // console.log(form.isStepSubmitted)
-  // console.log(count)
-  // set up a string to show ALL accordions in case of validation error
-  //console.log(form.values.basic.fname)
+  const housing = sessionStorage.getItem("otherChildren.housing")
+  const { colorMode } = useColorMode()
+  let depcare
+  let order
   return (
     <>
-      {Array.apply(null, { length: numChildren }).map((e, index) => (
-        <FormizStep key={index} name={`foo` + index} order={5500 + index}>
+      {Array.apply(null, { length: numChildrenOther }).map((e, index) => (
+        <FormizStep
+          key={index}
+          name={`EnterMyOtherChildren` + index}
+          order={5500 + index}
+        >
           <SectionWrapper>
             <Box mb="8">
               <SectionHeader
-                header={`Enter the details for Child ` + (index+1) + `:`}
+                header={
+                  `Enter the details for your other children (` +
+                  (index + 1) +
+                  ` of ` +
+                  numChildrenOther +
+                  `)`
+                }
               />
             </Box>
             <>
@@ -59,8 +66,8 @@ export const EnterMyOtherChildren = number => {
                 */}
                 <Box flex="1">
                   <FieldInput
-                    name={`child.${numChildren}.fname`}
-                    label="First"
+                    name={`otherChildren.${index}.fname`}
+                    label="First name"
                     required="Required"
                     type="text"
                     updateState={updateState}
@@ -69,7 +76,7 @@ export const EnterMyOtherChildren = number => {
                 </Box>
                 <Box flex="1">
                   <FieldInput
-                    name={`child.${numChildren}.mname`}
+                    name={`otherChildren.${index}.mname`}
                     label="Middle"
                     type="text"
                     updateState={updateState}
@@ -78,7 +85,7 @@ export const EnterMyOtherChildren = number => {
                 </Box>
                 <Box flex="1">
                   <FieldInput
-                    name={`child.${numChildren}.lname`}
+                    name={`otherChildren.${index}.lname`}
                     label="Last name"
                     required="Required"
                     type="text"
@@ -90,16 +97,17 @@ export const EnterMyOtherChildren = number => {
               <Box mb="8" flex="1">
                 <Box flex="1">
                   <FieldDate
-                    name={`children.${numChildren}.dob`}
+                    name={`otherChildren.${index}.dob`}
                     label="Date of birth"
                     required="Required"
                     type="text"
                   />
                 </Box>
                 <FieldRadio
-                  name="other.children.primary.housing"
+                  name={`otherChildren.${index}.housing`}
                   label="Who does this child live with?"
                   required="Required"
+                  index={index}
                   updateState={updateState}
                   options={[
                     { value: "me", label: "Me" },
@@ -111,74 +119,98 @@ export const EnterMyOtherChildren = number => {
                   ]}
                 />
               </Box>
+              {housing === "other" && (
+                <Box mb="8" flex="1">
+                  <FieldInput
+                    name={`otherChildren.${index}.otherHousing`}
+                    label="Who does this child live with?"
+                    type="text"
+                    placeholder=""
+                    m="0"
+                  />
+                </Box>
+              )}
               <Box mb="8" flex="1">
-                <FieldInput
-                  name={`other.child.primary.${index}.benefits`}
+                <FieldMoneyInput
+                  name={`otherChildren.${index}.benefits`}
                   label="Dependent's benefits received for this child per year, if any. Examples: Social Security, VA, etc."
                   type="text"
-                  placeholder="$ Enter dollar amount"
+                  placeholder="Enter amount"
                   m="0"
                 />
               </Box>
               <Box mb="8" flex="1">
                 <FieldRadio
-                  name="other.children.primary.support"
+                  name={`otherChildren.${index}.support`}
                   label="Are you ordered to pay support for this child?"
                   required="Required"
+                  index={index}
                   updateState={updateState}
                   options={[
                     { value: "yes", label: "Yes" },
                     { value: "no", label: "No" },
                   ]}
                 />
-                {order === "yes" && (
-                  <FieldInput
-                    name={`other.children.primary.${index}.order`}
-                    label="Monthly child support you are ordered to pay for this child"
+                {sessionStorage.getItem("otherChildren." + index + ".support") === "yes" && (
+                  <FieldMoneyInput
+                    name={`otherChildren.${index}.childSupportAmount`}
+                    label="Monthly child support you are ordered to pay for this child."
                     type="text"
-                    placeholder="Enter dollar amount $"
+                    placeholder="Enter amount"
                     m="0"
                   />
                 )}
               </Box>
               <Box mb="8" flex="1">
                 <FieldRadio
-                  name="other.children.primary.depcare"
+                  name={`otherChildren.${index}.depcare`}
                   label="Do you have any dependent care expense for this child?"
                   required="Required"
+                  index={index}
                   updateState={updateState}
                   options={[
                     { value: "yes", label: "Yes" },
                     { value: "no", label: "No" },
                   ]}
                 />
-                {depcare === "yes" && (
-                  <FieldInput
-                    name={`other.children.primary.${index}.depcare`}
+                {sessionStorage.getItem("otherChildren." + index + ".depcare") === "yes" && (
+                  <FieldMoneyInput
+                    name={`otherChildren.${index}.depcareAmount`}
                     label="Enter 50% of the yearly dependent care expense for this child."
                     type="text"
-                    placeholder="Enter dollar amount $"
+                    placeholder="Enter amount"
                     m="0"
                   />
                 )}
               </Box>
               <Box mb="8" flex="1">
                 <FieldRadio
-                  name="other.children.primary.med"
+                  name={`otherChildren.${index}.medical`}
                   label="Do you have any extraordinary medical expenses for this child which were not reimbursed?"
                   required="Required"
+                  index={index}
                   updateState={updateState}
                   options={[
                     { value: "yes", label: "Yes" },
                     { value: "no", label: "No" },
                   ]}
                 />
+                {sessionStorage.getItem("otherChildren." + index + ".medical") === "yes" && (
+                  <FieldMoneyInput
+                    name={`otherChildren.${index}.medicalAmount`}
+                    label="Enter 50% of the yearly extraordinary medical expense for this child."
+                    type="text"
+                    placeholder="Enter amount"
+                    m="0"
+                  />
+                )}
               </Box>
               <Box mb="8" flex="1">
                 <FieldRadio
-                  name="children[${index}].status"
+                  name={`otherChildren.${index}.status`}
                   label="This child is (select all that apply):"
                   required="Required"
+                  index={index}
                   updateState={updateState}
                   options={[
                     { value: "emancipated", label: "Emancipated" },
@@ -187,9 +219,35 @@ export const EnterMyOtherChildren = number => {
                     { value: "none", label: "None of the above" },
                   ]}
                 />
+                {sessionStorage.getItem(`otherChildren.${index}.status`) !==
+                "none" &&
+                sessionStorage.getItem(`otherChildren.${index}.status`) !==
+                null && (
+                  <Box
+                    fontSize="lg"
+                    bg={colorMode === "dark" ? "gray.700" : "gray.200"}
+                    p={4}
+                  >
+                    Sorry, but this child does not qualify and will not be
+                    counted in the child support calculations. Continue to the
+                    next step.
+                  </Box>
+                )}
+                {sessionStorage.getItem(`otherChildren.${index}.status`) ===
+                "none" && (
+                  <FieldRadio
+                    name={`otherChildren.${index}.disabled`}
+                    label="Does this child have a disability?"
+                    required="Required"
+                    index={index}
+                    updateState={updateState}
+                    options={[
+                      { value: "yes", label: "Yes" },
+                      { value: "no", label: "No" },
+                    ]}
+                  />
+                )}
               </Box>
-
-
             </>
           </SectionWrapper>
         </FormizStep>

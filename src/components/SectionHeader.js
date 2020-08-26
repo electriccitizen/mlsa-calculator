@@ -12,6 +12,7 @@ import {
   Link,
   List,
   ListItem,
+  Text,
 } from "@chakra-ui/core"
 import { useDarkTheme } from "../hooks/isDarkTheme"
 import { useToastValues } from "../hooks/useToastValues"
@@ -25,7 +26,8 @@ import {
   PopoverArrow,
   PopoverCloseButton,
 } from "@chakra-ui/core"
-
+import { FaQuestion } from "react-icons/fa"
+import { FaExternalLinkAlt } from 'react-icons/fa/index'
 const propTypes = {
   children: PropTypes.node,
 }
@@ -63,49 +65,55 @@ export const SectionHeader = ({ header, helpText, helpLinks }) => {
     <Box
       alignItems="center"
       d="flex"
-      bg={isDarkTheme ? "gray.900" : "gray.100"}
+      bg={isDarkTheme ? "gray.800" : "gray.200"}
       p={4}
-      mb={2}
+      mb={6}
+      color={isDarkTheme ? "gray.300" : "gray.700"}
+      fontWeight={"bold"}
     >
-      {header}
+      <Heading as={"h3"} size="md">{header}</Heading>
       {helpText && (
         <Box width="auto" ml="auto">
           <Popover>
             <PopoverTrigger>
               <IconButton
                 ml="auto"
-                variantColor="teal"
+                colorScheme={isDarkTheme ? "gray" : "brand"}
                 aria-label="Additional help"
                 size="md"
-                icon="question"
+                borderColor={"brand.400"}
+                icon={<FaQuestion />}
               />
             </PopoverTrigger>
-            <PopoverContent zIndex={4}>
-              <PopoverArrow bg="teal.600" />
-              <PopoverCloseButton bg="white" />
-              <PopoverHeader fontWeight="bold" color="white" bg="teal.600">
+            <PopoverContent borderColor={isDarkTheme ? "black" : ""} zIndex={4}>
+              <PopoverArrow color={isDarkTheme ? "gray.800" : "brand.500"} bg={isDarkTheme ? "gray.800" : "brand.500"} />
+              <PopoverCloseButton bg={isDarkTheme ? "gray" : "gray.200"}/>
+              <PopoverHeader fontWeight="bold"
+                             color={isDarkTheme ? "gray.50" : "gray.50"}
+                             bg={isDarkTheme ? "gray.800" : "brand.500"}
+                              fontSize={"md"}>
+
                 Additional help
               </PopoverHeader>
               <PopoverBody>
-                <Box mt="2" mb="4">
-                  {helpText.text}
-                </Box>
-                {helpLinks &&
-                <>
-                <hr />
-                <List mt="2" mb="2" styleType="disc">
-                  {helpLinks &&
-                    helpLinks.map((value, index) => (
-                      <ListItem key={index}>
-                        <Link isExternal fontSize="sm" href={value.value}>
-                          {value.label}
-                          <Icon name="external-link" ml="1" mb="1" />
-                        </Link>
-                      </ListItem>
-                    ))}
-                </List>
-                </>
-                }
+                <Text fontWeight="normal" fontSize="md" mt="2" mb="4">
+                  <div dangerouslySetInnerHTML={{ __html: helpText.text  }} />
+                </Text>
+                {helpLinks && (
+                  <>
+                    <Heading as={"h4"} color={isDarkTheme ? "gray.500" : "brand.400"} size={"sm"}>References:</Heading>
+                    <List  pl="2" fontWeight="normal" mt="2" mb="2" >
+                      {helpLinks &&
+                        helpLinks.map((value, index) => (
+                          <ListItem key={index}>
+                            <Link color={isDarkTheme ? "gray.100" : "brand.400"}isExternal fontSize="md" href={value.value}>
+                              {value.label}
+                            </Link>  <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
+                          </ListItem>
+                        ))}
+                    </List>
+                  </>
+                )}
               </PopoverBody>
             </PopoverContent>
           </Popover>

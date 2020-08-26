@@ -17,44 +17,38 @@ export const OtherChildrenSecondary = ({ updateMontana }) => {
       JSON.parse(sessionStorage.getItem(value))
     )
   }
+  const otherParent = form.values.otherParent
+    ? form.values.otherParent.fname
+    : ""
 
   //console.log(form.values.other.fname)
 
   const [isChildren, setIsChildren] = React.useState()
 
   const updateState = (name, value) => {
-    name === "other.children.secondary" &&
-      sessionStorage.setItem("OtherChildrenSecondary", value)
-    name === "other.children.secondary" &&
-    setIsChildren(value)
-    name === "other.children.secondary.number" &&
-      sessionStorage.setItem("OtherChildrenSecondaryNumber", value)
+    name === "otherChildrenSecondary" &&
+    sessionStorage.setItem("OtherChildrenSecondary", value)
+    name === "otherChildrenSecondary.number" &&
+    sessionStorage.setItem("numChildrenSecondary", value)
   }
 
-  const otherChildrenSecondaryNumber = sessionStorage.getItem(
-    "OtherChildrenSecondaryNumber"
-  )
   const otherChildrenSecondary = sessionStorage.getItem("OtherChildrenSecondary")
 
 
   //isChildren === 'no' && form.goToStep("End")
 
 
-  let relationship = JSON.parse(sessionStorage.getItem("relationship"))
-  let properNoun = ""
-  relationship === "mother" ? (properNoun = "Father") : (properNoun = "Mother")
 
-  const properName = form.values.other ? form.values.other.fname : 'Placeholder'
 
   return (
     <FormizStep name="OtherChildrenSecondary" order={6000}>
       <>
         <SectionWrapper>
           <SectionHeader
-            header={`Does `+properName+ ` have children with someone else?`}
+            header={`Does `+otherParent+ ` have children with someone else?`}
           />
           <FieldRadio
-            name="other.children.secondary"
+            name="otherChildrenSecondary"
             placeholder="None"
             required="Required"
             keepValue
@@ -68,11 +62,11 @@ export const OtherChildrenSecondary = ({ updateMontana }) => {
         {otherChildrenSecondary === "yes" && (
           <SectionWrapper>
             <SectionHeader
-              header={`How many other minor children does `+properName+ ` have?`}
+              header={`How many other minor children does `+otherParent+ ` have?`}
             />
             <Box width="30%">
               <FieldInput
-                name="other.children.secondary.number"
+                name="otherChildrenSecondary.number"
                 label="Enter number"
                 required="Required"
                 updateState={updateState}
@@ -80,9 +74,6 @@ export const OtherChildrenSecondary = ({ updateMontana }) => {
             </Box>
           </SectionWrapper>
         )}
-        {/*{parseInt(otherChildrenPrimaryNumber) !== 0 && (*/}
-        {/*  <EnterMyOtherChildren number={parseInt(otherChildrenPrimaryNumber)} />*/}
-        {/*)}*/}
       </>
     </FormizStep>
   )

@@ -1,114 +1,149 @@
 import React, { useState } from "react"
-import { Link } from "gatsby"
-import theme from "../../theme"
+import { Link as GatsbyLink } from "gatsby"
 import { PageHeader } from "../layout/PageHeader"
 import printJS from "print-js"
 import { useForm } from "@formiz/core"
-import { PageLayout } from "../layout/PageLayout"
-
+import { FaCalculator, FaGlobe, FaThumbsUp } from "react-icons/fa"
 import {
-  ThemeProvider,
-  ColorModeProvider,
-  CSSReset,
-  GlobalStyles,
   Heading,
+  Flex,
+  Divider,
+  Spacer,
+  Radio,
+  RadioGroup,
+  Text,
+  Link,
+  HStack,
   Box,
   Button,
-  Text,
-  SimpleGrid,
-  Divider,
+  Switch,
+  useColorMode,
 } from "@chakra-ui/core"
-import { SectionWrapper } from "../components/SectionWrapper"
-import { SectionHeader } from "../components/SectionHeader"
-import { FieldInput } from "../components/Fields/FieldInput"
 
+import { PageLayout } from "../layout/PageLayout"
 export default function Home() {
+  const { colorMode, toggleColorMode } = useColorMode()
   //sessionStorage.clear()
-  const form = useForm()
-  const [isMontana, setIsMontana] = useState("")
-
-  const updateMontana = value => {
-    setIsMontana(value)
-  }
-
   const [appState, setAppState] = useState({
     loading: false,
     pdf: null,
     complete: false,
     values: [],
   })
-
-  const handlePrint = () => {
-    const base64 = appState.pdf
-    printJS({ printable: base64, type: "pdf", base64: true })
+  function Feature({ title, desc, ...rest }) {
+    return (
+      <Box
+        p={5}
+        height="200px"
+        shadow="sm"
+        flex="1"
+        borderWidth="1px"
+        {...rest}
+      >
+        <Heading fontSize="xl">{title}</Heading>
+        <Text mt={4}>{desc}</Text>
+      </Box>
+    )
   }
 
-  const handleBack = () => {
-    setAppState({ complete: false })
-  }
-
-  const handleSubmit = values => {
-    setAppState({ complete: true, values: values })
-    const data = values
-    fetch("/.netlify/functions/pdf-gen/", {
-      method: "POST", // or 'PUT'
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then(response => response.json())
-      .then(data => {
-        //console.log('Data:', data);
-        setAppState({
-          complete: true,
-          loading: false,
-          pdf: data,
-          values: values,
-        })
-      })
-      .catch(error => {
-        console.error("Error:", error)
-      })
-  }
   return (
-    <ThemeProvider theme={theme}>
-      <ColorModeProvider>
-        <CSSReset />
-        <GlobalStyles />
-        <PageLayout>
-          <Heading as="h2" size="xl">
-            WHAT THIS TOOL CAN DO:
-          </Heading>
-          <Text fontSize="lg">In love with React & Next</Text>
-          <Text fontSize="lg">The Montana Child Support Calculator was developed by the Montana
-            Legal Services Association to help determine child support costs for
-            those involved in, or considering divorce, child custody, or
-            parenting plan actions.</Text>
-          <p>
+    <>
+      <PageLayout>
+        <Box mt="4" mb="8">
+          <Heading mb={4}>Getting started</Heading>
+          <Text>
+            This application was developed by the Montana Legal Services
+            Association to help determine child support costs for those involved
+            in, or considering divorce, child custody, or parenting plan
+            actions.
+          </Text>
+          <Text mt={2} color={colorMode === "dark" ? "gray.600" : "gray.500"}>
+            If this is your first time here, the following pages will guide you
+            through the basics of using the calculator prior to beginning.
+          </Text>
+          <Box w="100%" align="right">
+            <Button
+              leftIcon={<FaCalculator />}
+              colorScheme="brand"
+              variant="solid"
+            >
+              <GatsbyLink to="/intro">Start</GatsbyLink>
+            </Button>
+          </Box>
+        </Box>
 
-          </p>
-          <p>This calculator will calculate child support for inclusion in:</p>
-          <p>
-            - a petition for a dissolution with children in District Court in
-            Montana. - a petition for a parenting plan in District Court in
-            Montana. - a modification of a child support order that was made in
-            a dissolution with children or parenting plan by a District Court in
-            Montana.
-          </p>
-          <h2>WHAT THIS TOOL CANNOT DO:</h2>• This calculator cannot take the
-          place of a lawyer’s legal advice or information from the State of
-          Montana Child Support Enforcement Division (CSED). • This calculator
-          may not be right for you if you have a complicated case. • There is no
-          claim or guarantee that using the calculator will help you get what
-          you want. Montana Legal Services Association and/or CSED are not
-          responsible for what happens if you use this calculator.
-          <Button>
-            <Link to="/calculator">Get started</Link>
-          </Button>
-        </PageLayout>
-        )}
-      </ColorModeProvider>
-    </ThemeProvider>
+
+        <Divider mb="2" orientation="horizontal" />
+
+        <Box display={{ md: "flex" }}>
+          <Box mt={{ base: 8, md: 8 }} flex={1}>
+            <Text
+              fontWeight="bold"
+              textTransform="uppercase"
+              fontSize="sm"
+              letterSpacing="wide"
+              color={colorMode === "dark" ? "gray.600" : "brand.400"}
+            >
+              Learning
+            </Text>
+            <GatsbyLink
+              mt={1}
+              display="block"
+              fontSize="lg"
+              lineHeight="normal"
+              fontWeight="semibold"
+              href="/guide"
+            >
+              Guide to using the calculator
+            </GatsbyLink>
+            <Text mt={2} color={colorMode === "dark" ? "gray.600" : "gray.500"}>
+              Learn how to effectively use this tool for the best results.
+            </Text>
+            <Button
+              align={"right"}
+              leftIcon={<FaGlobe />}
+              colorScheme="gray"
+              variant="solid"
+              size="xs"
+            >
+              <GatsbyLink to="/guide">Calculator Guide</GatsbyLink>
+            </Button>
+          </Box>
+
+          <Box flex={1} mt={{ base: 8, md: 8 }} ml={{ md: 6 }}>
+            <Text
+              fontWeight="bold"
+              textTransform="uppercase"
+              fontSize="sm"
+              letterSpacing="wide"
+              color={colorMode === "dark" ? "gray.600" : "brand.400"}
+            >
+              Safe browsing
+            </Text>
+            <GatsbyLink
+              mt={1}
+              display="block"
+              fontSize="lg"
+              lineHeight="normal"
+              fontWeight="semibold"
+              href="/safety"
+            >
+              Protect your safety
+            </GatsbyLink>
+            <Text mt={2} color={colorMode === "dark" ? "gray.600" : "gray.500"}>
+              Learn more about safe browsing techniques, and our privacy policy.
+            </Text>
+            <Button
+              leftIcon={<FaThumbsUp />}
+              colorScheme="gray"
+              variant="solid"
+              size="xs"
+            >
+              <GatsbyLink to="/safety">Learn more</GatsbyLink>
+            </Button>
+          </Box>
+        </Box>
+      </PageLayout>
+    </>
   )
 }

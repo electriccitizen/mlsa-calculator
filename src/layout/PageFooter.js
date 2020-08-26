@@ -1,16 +1,10 @@
 import React from "react"
+import { Link as GatsbyLink } from "gatsby"
 import PropTypes from "prop-types"
-import {
-  Stack,
-  Icon,
-  Switch,
-  Button,
-  Heading,
-  Box,
-  RadioGroup,
-} from "@chakra-ui/core"
+import { Stack, Icon, Switch, Button, Link, Box } from "@chakra-ui/core"
 import { useForm } from "@formiz/core"
-
+import { FaBug } from "react-icons/fa/index"
+import { SectionWrapper } from "../components/SectionWrapper"
 const propTypes = {
   children: PropTypes.node,
   onReset: PropTypes.func,
@@ -30,57 +24,65 @@ export const PageFooter = ({
 }) => {
   const form = useForm()
   return (
-    <Box
-      d="flex"
-      alignItems="center"
-      mt="64"
-      pt="2"
-      borderTop="1px"
-      borderColor="gray.200"
-      data-test="header"
-    >
-      <Stack mr="4" mt="2" isInline align="center" mb="1">
-        <Icon
-          name="view-off"
-          size="14px"
-          opacity={debugMode !== "off" ? "0.3" : null}
-        />
-        <Switch
-          size="md"
-          onChange={e => {
-            handleDebug(debugMode === "on" ? "off" : "on")
-          }}
-          color="none"
-          t
-        />
-        <Icon
-          name="view"
-          size="14px"
-          opacity={debugMode !== "on" ? "0.3" : null}
-        />
-      </Stack>
-      {/*<Button*/}
-      {/*  onClick={() => {*/}
-      {/*    onReset(sessionStorage.clear())*/}
-      {/*    form.reset()*/}
-      {/*    window.location.reload(sessionStorage.clear())*/}
-      {/*  }}*/}
-      {/*  size="sm"*/}
-      {/*  mr="auto"*/}
-      {/*>*/}
-      {/*  Reset*/}
-      {/*</Button>*/}
-      <Button
-        onClick={() => {
-          sessionStorage.clear()
-          window.location.reload(sessionStorage.clear())
-        }}
-        size="sm"
-        mr="auto"
+    <>
+      <Box
+        mt={"8"}
+        fontSize="sm"
+        borderColor="gray.300"
+        borderTopWidth="1px"
+        display={{ md: "flex" }}
       >
-        Clear
-      </Button>
-    </Box>
+        <Box mt={{ base: 6, md: 6 }} flex={1}>
+          &copy; {new Date().getFullYear()} <Link href={"https://www.mtlsa.org/"} color={"brand.400"}>Montana Legal Services Association</Link>
+        </Box>
+        <Box align="right" mt={{ base: 6, md: 6 }} flex={1}>
+          See our{" "}
+          <GatsbyLink to={"/terms-of-use"}>
+            <Link color={"brand.400"}>Terms of Use</Link>
+          </GatsbyLink>{" "}
+          and{" "}
+          <GatsbyLink to={"/privacy-notice"}>
+            <Link color={"brand.400"}>Privacy Notice</Link>
+          </GatsbyLink>
+          .
+        </Box>
+      </Box>
+
+      {/*{Debugging}*/}
+      <Box d="flex" alignItems="center" mt="8" pt="2">
+        <Stack mr="4" mt="2" isInline align="center" mb="2">
+          <Icon
+            as={FaBug}
+            name="view-off"
+            boxSize={4}
+            opacity={debugMode !== "off" ? "0.3" : null}
+          />
+          <Switch
+            size="sm"
+            onChange={e => {
+              handleDebug(debugMode === "on" ? "off" : "on")
+            }}
+            color="none"
+          />
+          <Icon
+            as={FaBug}
+            name="view"
+            boxSize={4}
+            opacity={debugMode !== "on" ? "0.3" : null}
+          />
+        </Stack>
+        <Button
+          onClick={() => {
+            sessionStorage.clear()
+            window.location.reload(sessionStorage.clear())
+          }}
+          size="sm"
+          mr="auto"
+        >
+          Reset
+        </Button>
+      </Box>
+    </>
   )
 }
 

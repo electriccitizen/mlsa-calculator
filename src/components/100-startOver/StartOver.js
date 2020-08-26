@@ -32,7 +32,7 @@ export const StartOver = ({ updateMontana, handleBack }) => {
     <FormizStep name="startOver">
       <SectionWrapper>
         <SectionHeader header={"This tool is only available in Montana."} />
-        <Button variantColor="brand" type="button" onClick={handleClick}>
+        <Button colorScheme="brand" type="button" onClick={handleClick}>
           Go back
         </Button>
       </SectionWrapper>

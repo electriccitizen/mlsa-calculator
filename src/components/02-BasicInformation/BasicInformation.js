@@ -3,7 +3,7 @@ import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
-import { SimpleGrid } from "@chakra-ui/core"
+import { SimpleGrid, Box, Flex, Text } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 import { AddressField } from "./AddressField"
@@ -27,38 +27,41 @@ export const BasicInformation = ({ updateMontana }) => {
   // }
   let documents = JSON.parse(sessionStorage.getItem("documents"))
   return (
-    <FormizStep name="BasicInformation"  order={2000}>
-      <SectionWrapper>
-        <SectionHeader header={"What is your name?"} />
-        <SimpleGrid mb={8} columns={3} spacing={10}>
+    <FormizStep name="BasicInformation" order={2000}>
+      <SectionHeader header={"What is your name?"} />
+      <Flex alignItems="top" mb={2}>
+        <Box pr={4} pl={4}>
           <FieldInput
             name={`basic.fname`}
             label="First"
             required="Required"
             updateState={updateState}
-            m="0"
+            fontSize="xl"
           />
+        </Box>
+        <Box pr={4} pl={4}>
           <FieldInput
             name={`basic.mname`}
             label="Middle"
             placeholder="Optional"
             updateState={updateState}
-            m="0"
           />
+        </Box>
+        <Box pr={4} pl={4}>
           <FieldInput
             name={`basic.lname`}
             required="Required"
             label="Last"
             updateState={updateState}
-            m="0"
           />
-        </SimpleGrid>
-      </SectionWrapper>
+        </Box>
+      </Flex>
+
       {(documents === "both" || documents === "affadavit") && (
         <>
           <SectionWrapper>
             <SectionHeader
-              header={"Enter required info for financial affadavit:"}
+              header={"Enter your birthday, phone, and driver's licence #:"}
             />
             <SimpleGrid mb={8} columns={3} spacing={10}>
               <FieldDate
@@ -77,7 +80,10 @@ export const BasicInformation = ({ updateMontana }) => {
               />
               <FieldInput
                 updateState={updateState}
-                name={`basic.dl`} label="Driver's License #" m="0" />
+                name={`basic.dl`}
+                label="Driver's License #"
+                m="0"
+              />
             </SimpleGrid>
           </SectionWrapper>
 

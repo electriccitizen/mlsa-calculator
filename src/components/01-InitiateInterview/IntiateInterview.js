@@ -4,10 +4,9 @@ import { FieldInput } from "../Fields/FieldInput"
 import { FieldRadio } from "../Fields/FieldRadio"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
-
+import { Text, Box } from "@chakra-ui/core"
 export const InitiateInterview = ({ updateMontana }) => {
   const form = useForm()
-
   const setField = value => {
     return (
       JSON.parse(sessionStorage.getItem(value)) &&
@@ -21,7 +20,7 @@ export const InitiateInterview = ({ updateMontana }) => {
   let location = setField("location")
 
   let updateState = (name, value) => {
-    //console.log(value)
+    console.log("value")
     name === "initiate.relationship" &&
       sessionStorage.setItem("relationship", JSON.stringify(value))
     name === "initiate.action" &&
@@ -32,46 +31,35 @@ export const InitiateInterview = ({ updateMontana }) => {
       sessionStorage.setItem("documents", JSON.stringify(value))
     name === "initiate.location" && updateMontana(value)
   }
-
+  const HelpText = <Text>Foo</Text> + <Text>Barr</Text>
   return (
     <FormizStep name="initiateInterview" order={1000}>
       <SectionWrapper>
-        <SectionHeader header={"Let's get started. Tell us about yourself:"} />
+        <SectionHeader
+          header={"Which documents would you like to produce?"}
+          helpLinks={[{ value: "/guide", label: "Calculator Guide" }]}
+          helpText={{
+            text:
+              "<p>You can choose to create one or both of the" +
+              " documents.</p>" +
+              "<p>If you have already completed a Financial Affidavit, it " +
+              " will help you create the Child Support Worksheet.</p>" +
+              "<p>If you have not created a Financial Affadavit, you can choose " +
+              " to do so here.</p>",
+          }}
+        />
         <FieldRadio
-          name="initiate.relationship"
+          name="initiate.documents"
           required="Required"
           updateState={updateState}
+          orientation={"vertical"}
           options={[
-            { value: "mother", label: "I am the mother" },
-            { value: "father", label: "I am the father" },
+            { value: "both", label: "Both documents" },
+            { value: "worksheets", label: "Child Support Worksheets" },
+            { value: "affadavit", label: "Financial Affadavit" },
           ]}
         />
       </SectionWrapper>
-
-      {relationship && (
-        <SectionWrapper>
-          <SectionHeader
-            header={"Which documents would you like to produce?"}
-            helpLinks={[
-              { value: "http://google.com", label: "Some official law" },
-              { value: "http://bing.com", label: "Some other law" },
-            ]}
-            helpText={{
-              text: "Looks like you can use some guidance, my friend.",
-            }}
-          />
-          <FieldRadio
-            name="initiate.documents"
-            required="Required"
-            updateState={updateState}
-            options={[
-              { value: "both", label: "Both documents" },
-              { value: "worksheets", label: "Child Support Worksheets" },
-              { value: "affadavit", label: "Financial Affadavit" },
-            ]}
-          />
-        </SectionWrapper>
-      )}
 
       {(documents === "worksheets" || documents === "both") && (
         <>
@@ -85,6 +73,7 @@ export const InitiateInterview = ({ updateMontana }) => {
               name="initiate.action"
               required="Required"
               updateState={updateState}
+              orientation={"vertical"}
               options={[
                 {
                   value: "establish",
@@ -102,13 +91,14 @@ export const InitiateInterview = ({ updateMontana }) => {
             <SectionWrapper>
               <SectionHeader
                 header={
-                  "Enter the District Court Case number or CSED Case number for the case in which you are seeking child support."
+                  "If available, enter the District Court Case number or CSED Case number for the case in which you are seeking child support."
                 }
               />
               <FieldInput
                 name="initiate.csed"
-                label="District Court Case Number (CSED)"
+                label="District Court Case Number or CSED Case Number:"
                 updateState={updateState}
+                size={"xl"}
               />
             </SectionWrapper>
           ) : (
@@ -126,6 +116,12 @@ export const InitiateInterview = ({ updateMontana }) => {
                     { value: "no", label: "No" },
                   ]}
                 />
+                {location === "no" && (
+                  <Box ml={4} mr={4} p={4} bg={"gray.400"} fontSize="lg">
+                    Sorry, this tool is only available for cases in the State of
+                    Montana.
+                  </Box>
+                )}
 
                 {location === "yes" && (
                   <SectionWrapper>
@@ -139,6 +135,7 @@ export const InitiateInterview = ({ updateMontana }) => {
                       label="District Court Case Number (CSED)"
                       required="Required"
                       updateState={updateState}
+                      size={"3xl"}
                     />
                   </SectionWrapper>
                 )}

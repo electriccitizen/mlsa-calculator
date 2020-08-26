@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { Box, Input, Radio } from '@chakra-ui/core'
+import { Box, Input, Radio } from "@chakra-ui/core"
 import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
 import { FormGroup } from "../FormGroup"
 
@@ -19,7 +19,7 @@ const defaultProps = {
   ...fieldDefaultProps,
 }
 
-export const FieldInput = props => {
+export const FieldMoneyInput = props => {
   const {
     errorMessage,
     id,
@@ -44,10 +44,9 @@ export const FieldInput = props => {
   const [isTouched, setIsTouched] = useState(false)
   const showError = !isValid && (isTouched || isSubmitted)
 
-
   const handleChange = value => {
     setValue(value)
-    updateState && updateState(name,value)
+    updateState && updateState(name, value)
   }
 
   useEffect(() => {
@@ -66,24 +65,30 @@ export const FieldInput = props => {
   }
 
   return (
-
-      <FormGroup  {...formGroupProps}>
-      <Input
-        key={resetKey}
-        type={type || "text"}
-        id={id}
-        value={value ?? ""}
-        onChange={e => {
-          handleChange(e.target.value)
-        }}
-        onBlur={() => setIsTouched(true)}
-        aria-invalid={showError}
-        aria-describedby={!isValid ? `${id}-error` : null}
-        placeholder={placeholder}
-      />
+    <FormGroup {...formGroupProps}>
+      <Box d="flex" alignContent="bottom">
+        <Box fontSize="lg" mt={2} mr={2}>
+          $
+        </Box>
+        <Box flex={1}>
+          <Input
+            key={resetKey}
+            type={type || "text"}
+            id={id}
+            value={value ?? ""}
+            onChange={e => {
+              handleChange(e.target.value)
+            }}
+            onBlur={() => setIsTouched(true)}
+            aria-invalid={showError}
+            aria-describedby={!isValid ? `${id}-error` : null}
+            placeholder={placeholder}
+          />
+        </Box>
+      </Box>
     </FormGroup>
   )
 }
 
-FieldInput.propTypes = propTypes
-FieldInput.defaultProps = defaultProps
+FieldMoneyInput.propTypes = propTypes
+FieldMoneyInput.defaultProps = defaultProps

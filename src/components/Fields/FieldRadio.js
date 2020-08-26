@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { Radio, RadioGroup } from "@chakra-ui/core"
+import { Box, Radio, Stack, HStack, RadioGroup } from "@chakra-ui/core"
 import {
   useField,
   fieldPropTypes,
@@ -23,7 +23,7 @@ const defaultProps = {
   ...fieldDefaultProps,
 }
 
-export const FieldRadio = (props) => {
+export const FieldRadio = props => {
   const {
     errorMessage,
     id,
@@ -32,14 +32,25 @@ export const FieldRadio = (props) => {
     resetKey,
     setValue,
     value,
+
   } = useField(props)
-  const { label, name, options, required, helper,updateState, ...otherProps } = props
+  const {
+    label,
+    name,
+    options,
+    required,
+    helper,
+    updateState,
+    orientation,
+    index,
+    ...otherProps
+  } = props
   const [isTouched, setIsTouched] = useState(false)
   const showError = !isValid && (isTouched || isSubmitted)
 
   const handleChange = value => {
     setValue(value)
-    updateState(name,value)
+    updateState(name, value, index)
     //updateMontana(value)
   }
 
@@ -57,21 +68,24 @@ export const FieldRadio = (props) => {
     ...otherProps,
   }
 
+  const CurrentStack = (orientation === 'vertical' ? Stack : HStack)
   return (
     <FormGroup {...formGroupProps}>
       <RadioGroup
         key={resetKey}
         value={value || ""}
         mb={8}
-        onChange={e => {
-          handleChange(e.target.value)
-        }}
+        onChange={handleChange}
       >
-        {(options || []).map(item => (
-          <Radio key={item.value} value={item.value}>
-            {item.label}
-          </Radio>
-        ))}
+        <CurrentStack>
+          {(options || []).map(item => (
+            <Radio mr={4} size="lg" colorScheme="brand" key={item.value} value={item.value}>
+              {/*<Box fontSize="xl" d="flex">*/}
+              {item.label}
+              {/*</Box>*/}
+            </Radio>
+          ))}
+        </CurrentStack>
       </RadioGroup>
     </FormGroup>
   )

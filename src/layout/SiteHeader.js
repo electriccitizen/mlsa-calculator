@@ -1,10 +1,8 @@
 import React from "react"
-import { StaticQuery, graphql } from "gatsby"
+import { Link, StaticQuery, graphql } from "gatsby"
 import PropTypes from "prop-types"
 import {
   Stack,
-  Icon,
-  Link,
   useColorMode,
   Flex,
   Switch,
@@ -13,6 +11,7 @@ import {
   Box,
 } from "@chakra-ui/core"
 import { Menu } from "./Menu"
+import { FaSun, FaMoon } from "react-icons/fa"
 
 const propTypes = {
   children: PropTypes.node,
@@ -27,7 +26,6 @@ const defaultProps = {
 
 export default function SiteHeader() {
   const { colorMode, toggleColorMode } = useColorMode()
-
   return (
     <StaticQuery
       query={graphql`
@@ -38,6 +36,8 @@ export default function SiteHeader() {
               menuLinks {
                 link
                 name
+                text
+                icon
               }
             }
           }
@@ -46,30 +46,28 @@ export default function SiteHeader() {
       render={data => (
         <>
           <Menu menuLinks={data.site.siteMetadata.menuLinks} />
-          <Stack bg="gray.500" p="6" isInline align="center" ml="auto">
+
+          <Stack bg={colorMode === 'dark' ? 'black' : 'brand.400'} padding={6} isInline align="center" ml="auto">
             <Box width="90%">
-              <Heading ml="16" d="flex" alignItems="center">
-                Montana Child Support Calculator
+              <Heading color={colorMode === 'dark' ? "gray" : "gray.100"} ml={16} d="flex" alignItems="center">
+                <Link to="/">Montana Child Support Calculator</Link>
               </Heading>
             </Box>
             <Box width="10%">
               <Stack isInline align="center" mb="1" ml="auto">
-                <Icon
-                  name="moon"
-                  size="14px"
-                  opacity={colorMode !== "dark" ? "0.3" : null}
-                />
+                {/*<Icon*/}
+                {/*  name="moon"*/}
+                {/*  size="14px"*/}
+                {/*  opacity={colorMode !== "dark" ? "0.3" : null}*/}
+                {/*/>*/}
+                <FaMoon />
                 <Switch
                   size="md"
                   isChecked={colorMode === "light"}
                   onChange={toggleColorMode}
-                  color="none"
+                  colorScheme="brand"
                 />
-                <Icon
-                  name="sun"
-                  size="14px"
-                  opacity={colorMode !== "light" ? "0.3" : null}
-                />
+                <FaSun />
               </Stack>
             </Box>
           </Stack>

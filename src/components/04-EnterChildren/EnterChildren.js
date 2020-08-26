@@ -1,62 +1,26 @@
-import React, { useEffect, useState } from "react"
+import React, { useffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
-import {
-  Accordion,
-  AccordionItem,
-  AccordionHeader,
-  AccordionPanel,
-  AccordionIcon,
-  Collapse,
-  Button,
-  IconButton,
-  Box,
-  Stack,
-} from "@chakra-ui/core"
+import { Box, Stack, useColorMode } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 
 export const EnterChildren = () => {
-  const form = useForm()
   const [show, setShow] = React.useState(false)
-
-  const handleToggle = () => setShow(!show)
-
   const numChildren = sessionStorage.getItem("numChildren")
+  const { colorMode } = useColorMode()
+  const form = useForm()
 
-  let updateState = (name, value, index,numChildren) => {
-    name === "children.relationship" &&
-      sessionStorage.setItem("relationship", JSON.stringify(value))
-    name === "other.children.primary." + { index } + ".order" &&
-      sessionStorage.setItem("order", value)
-    name === "other.children.primary.depcare" &&
-      sessionStorage.setItem("depcare", value)
-    // name === "children."+numChildren+".status" &&
-    //   console.log("set child status")
-    //sessionStorage.setItem("children"+numChildren+".status", value)
-
-    console.log(name)
+  let updateState = (name, value, index, numChildren) => {
+    name === "primaryChildren." + index + ".status" &&
+      sessionStorage.setItem("primaryChildren." + index + ".status", value)
   }
+  const otherParent = form.values.otherParent
+    ? form.values.otherParent.fname
+    : ""
 
-
-
-
-  const order = sessionStorage.getItem("order")
-  const depcare = sessionStorage.getItem("depcare")
-  const status = sessionStorage.getItem("children."+numChildren+".status")
-  console.log(status)
-
-  // let count = []
-  // form.isStepValid === false && form.isStepSubmitted === true
-  //   ? (count = [0, 1])
-  //   : (count = [0])
-
-  // console.log(form.isValid)
-  // console.log(form.isStepSubmitted)
-  // console.log(count)
-  // set up a string to show ALL accordions in case of validation error
   return (
     <>
       {Array.apply(null, { length: numChildren }).map((e, index) => (
@@ -68,16 +32,24 @@ export const EnterChildren = () => {
           <SectionWrapper>
             <Box mb="8">
               <SectionHeader
-                header={`Enter the details for Child ` + (index + 1) + `:`}
+                header={
+                  `Enter the 
+                  details for your children with ` +
+                  otherParent +
+                  ` (` +
+                  (index + 1) +
+                  ` of ` +
+                  numChildren +
+                  `)`
+                }
               />
             </Box>
             <>
               <Stack isInline spacing="4" mb="6" rounded="md" p="2">
-                */}
                 <Box flex="1">
                   <FieldInput
-                    name={`child.${numChildren}.fname`}
-                    label="First"
+                    name={`primaryChildren.${index}.fname`}
+                    label="First name"
                     required="Required"
                     type="text"
                     updateState={updateState}
@@ -86,7 +58,7 @@ export const EnterChildren = () => {
                 </Box>
                 <Box flex="1">
                   <FieldInput
-                    name={`child.${numChildren}.mname`}
+                    name={`primaryChildren.${index}.mname`}
                     label="Middle"
                     type="text"
                     updateState={updateState}
@@ -95,7 +67,7 @@ export const EnterChildren = () => {
                 </Box>
                 <Box flex="1">
                   <FieldInput
-                    name={`child.${numChildren}.lname`}
+                    name={`primaryChildren.${index}.lname`}
                     label="Last name"
                     required="Required"
                     type="text"
@@ -106,7 +78,7 @@ export const EnterChildren = () => {
               </Stack>
               <Box flex="1">
                 <FieldDate
-                  name={`children.${numChildren}.dob`}
+                  name={`primaryChildren.${index}.dob`}
                   label="Date of birth"
                   required="Required"
                   type="text"
@@ -114,9 +86,10 @@ export const EnterChildren = () => {
               </Box>
               <Box mb="8" flex="1">
                 <FieldRadio
-                  name={`children.${numChildren}.status`}
+                  name={`primaryChildren.${index}.status`}
                   label="This child is (select all that apply):"
                   required="Required"
+                  index={index}
                   updateState={updateState}
                   options={[
                     { value: "emancipated", label: "Emancipated" },
@@ -125,10 +98,34 @@ export const EnterChildren = () => {
                     { value: "none", label: "None of the above" },
                   ]}
                 />
-                {/*<div>STATUS: {status}</div>*/}
-                {/*{ status !== 'none' &&*/}
-                {/*<Box>Sorry joe</Box>*/}
-                {/*}*/}
+                {sessionStorage.getItem(`primaryChildren.${index}.status`) !==
+                  "none" &&
+                  sessionStorage.getItem(`primaryChildren.${index}.status`) !==
+                    null && (
+                    <Box
+                      fontSize="lg"
+                      bg={colorMode === "dark" ? "gray.700" : "gray.200"}
+                      p={4}
+                    >
+                      Sorry, but this child does not qualify and will not be
+                      counted in the child support calculations. Continue to the
+                      next step.
+                    </Box>
+                  )}
+                {sessionStorage.getItem(`primaryChildren.${index}.status`) ===
+                  "none" && (
+                  <FieldRadio
+                    name={`primaryChildren.${index}.disabled`}
+                    label="Does this child have a disability?"
+                    required="Required"
+                    index={index}
+                    updateState={updateState}
+                    options={[
+                      { value: "yes", label: "Yes" },
+                      { value: "no", label: "No" },
+                    ]}
+                  />
+                )}
               </Box>
             </>
           </SectionWrapper>

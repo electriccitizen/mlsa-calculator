@@ -37,7 +37,7 @@ export const SectionWrapper = ({ children }) => {
   const isDarkTheme = useDarkTheme();
 
   return (
-          <Box mb={8} >
+          <Box  mb={8} >
             {children}
           </Box>
   );

@@ -1,11 +1,14 @@
 import React, { useState } from "react"
-import theme from "../../theme"
 import { PageHeader } from "../layout/PageHeader"
 import printJS from "print-js"
 import { useForm } from "@formiz/core"
 import { MultiStepsLayout } from "../components/MultiStepsLayout"
 import { PageLayout } from "../layout/PageLayout"
 import { InitiateInterview } from "../components/01-InitiateInterview/IntiateInterview"
+import { TermsOfUse } from "../components/01-InitiateInterview/TermsOfUse"
+import { IntroCanDo } from "../components/01-InitiateInterview/IntroCanDo"
+import { IntroCantDo } from "../components/01-InitiateInterview/IntroCantDo"
+import { IntroHelp } from "../components/00-intro/IntroHelp"
 import { BasicInformation } from "../components/02-BasicInformation/BasicInformation"
 import { End } from "../components/02-BasicInformation/End"
 import { OtherParent } from "../components/03-OtherParent/OtherParent"
@@ -79,16 +82,16 @@ export default function Calculator() {
         console.error("Error:", error)
       })
   }
+  const isFirst = form.isFirstStep
   return (
-    <Beforeunload onBeforeunload={() => "You'll lose your data!"}>
-      <ThemeProvider theme={theme}>
-        <ColorModeProvider>
-          <CSSReset />
-          {isMontana === "no" ? (
-            <PageLayout>
-              <Box>Sorry!</Box>
-            </PageLayout>
-          ) : appState.complete === false ? (
+    <>
+      {isMontana === "nope" ? (
+        <PageLayout>
+          <Box>Sorry!</Box>
+        </PageLayout>
+      ) : appState.complete === false ? (
+        <>
+          <Beforeunload onBeforeunload={() => "You'll lose your data!"}>
             <MultiStepsLayout
               form={form}
               onValidSubmit={handleSubmit}
@@ -97,91 +100,80 @@ export default function Calculator() {
               isMontana={isMontana}
             >
               <>
-                <PageHeader githubPath="UseCase1/index.js">
-                  Child Support Calculator
-                </PageHeader>
-                <InitiateInterview updateMontana={updateMontana} />
-                <BasicInformation />
+                {/*<TermsOfUse />*/}
+                {/*<IntroCanDo />*/}
+                {/*<IntroCantDo />*/}
+                {/*<IntroHelp />*/}
+                {/*<InitiateInterview updateMontana={updateMontana} />*/}
+                {/*<BasicInformation />*/}
                 <OtherParent />
                 <EnterChildren />
                 <OtherChildren />
                 <EnterMyOtherChildren />
                 <OtherChildrenSecondary />
                 <EnterMyOtherChildrenSecondary />
-                <Dummy />
+                {/*<Dummy />*/}
               </>
             </MultiStepsLayout>
-          ) : (
-            <PageLayout>
-              <PageHeader githubPath="UseCase1/index.js">Your results</PageHeader>
-              <Box mt={8} mb={8}>
-                Your document(s) are now complete and can be downloaded,
-                printed, or emailed. These options will be available as
-                long as this browser window remains open.
-              </Box>
+          </Beforeunload>
+        </>
+      ) : (
+        <PageLayout>
+          <PageHeader githubPath="UseCase1/index.js">Your results</PageHeader>
+          <Box mt={8} mb={8}>
+            Your document(s) are now complete and can be downloaded, printed, or
+            emailed. These options will be available as long as this browser
+            window remains open.
+          </Box>
 
-              <SimpleGrid columns={3} spacing={10}>
-                <Button variantColor="brand" type="button">
-                  <a
-                    href={"data:application/pdf;base64," + appState.pdf + ""}
-                    download="file.pdf"
-                  >
-                    Download
-                  </a>
-                </Button>
-                <Box mb={8}>Download this document to your local computer</Box>
-              </SimpleGrid>
+          <SimpleGrid columns={3} spacing={10}>
+            <Button colorScheme="brand" type="button">
+              <a
+                href={"data:application/pdf;base64," + appState.pdf + ""}
+                download="file.pdf"
+              >
+                Download
+              </a>
+            </Button>
+            <Box mb={8}>Download this document to your local computer</Box>
+          </SimpleGrid>
 
-              <SimpleGrid columns={3} spacing={10}>
-                <Button
-                  variantColor="brand"
-                  type="button"
-                  onClick={handlePrint}
-                >
-                  Print
-                </Button>
-                <Box mb={8}>Print a hard copy of this document.</Box>
-              </SimpleGrid>
+          <SimpleGrid columns={3} spacing={10}>
+            <Button colorScheme="brand" type="button" onClick={handlePrint}>
+              Print
+            </Button>
+            <Box mb={8}>Print a hard copy of this document.</Box>
+          </SimpleGrid>
 
-              <SimpleGrid columns={3} spacing={10}>
-                <Button
-                  variantColor="brand"
-                  type="button"
-                  onClick={handlePrint}
-                >
-                  Send via email
-                </Button>
-                <Box mb={8}>
-                  Send a copy of the documents to your email address
-                </Box>
-              </SimpleGrid>
+          <SimpleGrid columns={3} spacing={10}>
+            <Button colorScheme="brand" type="button" onClick={handlePrint}>
+              Send via email
+            </Button>
+            <Box mb={8}>Send a copy of the documents to your email address</Box>
+          </SimpleGrid>
 
-              <Divider />
-              <SimpleGrid columns={3} spacing={10}>
-                <Button variantColor="teal" type="button" onClick={handleBack}>
-                  Go back and review
-                </Button>
-                <Box textAlign="center"> - or - </Box>
-                <Button variantColor="red" type="button" onClick={handleBack}>
-                  Finish!
-                </Button>
-              </SimpleGrid>
-              <SimpleGrid columns={3} spacing={10}>
-                <Box mt="4">Go back to the beginning to review or
-                  to make any necessary changes.</Box>
-
-                <Box textAlign="center">  </Box>
-                <Box mt="4">
-                  Click finish to clear your data and exit the application.
-                </Box>
-              </SimpleGrid>
-
-
-
-            </PageLayout>
-          )}
-        </ColorModeProvider>
-      </ThemeProvider>
-    </Beforeunload>
+          <Divider />
+          <SimpleGrid columns={3} spacing={10}>
+            <Button colorScheme="teal" type="button" onClick={handleBack}>
+              Go back and review
+            </Button>
+            <Box textAlign="center"> - or - </Box>
+            <Button colorScheme="red" type="button" onClick={handleBack}>
+              Finish!
+            </Button>
+          </SimpleGrid>
+          <SimpleGrid columns={3} spacing={10}>
+            <Box mt="4">
+              Go back to the beginning to review or to make any necessary
+              changes.
+            </Box>
+            <Box textAlign="center"> </Box>
+            <Box mt="4">
+              Click finish to clear your data and exit the application.
+            </Box>
+          </SimpleGrid>
+        </PageLayout>
+      )}
+    </>
   )
 }
