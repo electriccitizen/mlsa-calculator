@@ -38,6 +38,7 @@ export const FieldInput = props => {
     placeholder,
     helper,
     updateState,
+    fieldwidth,
     ...otherProps
   } = props
 
@@ -80,6 +81,7 @@ export const FieldInput = props => {
         aria-invalid={showError}
         aria-describedby={!isValid ? `${id}-error` : null}
         placeholder={placeholder}
+        width={fieldwidth ? fieldwidth : "100%"}
       />
     </FormGroup>
   )

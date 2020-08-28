@@ -17,6 +17,12 @@ import { OtherChildren } from "../components/05-OtherChildren/OtherChildren"
 import { EnterMyOtherChildren } from "../components/05-OtherChildren/EnterMyOtherChildren"
 import { OtherChildrenSecondary } from "../components/06-OtherChildrenSecondary/OtherChildrenSecondary"
 import { EnterMyOtherChildrenSecondary } from "../components/06-OtherChildrenSecondary/EnterMyOtherChildrenSecondary"
+import { Employment} from '../components/07-Employment/Employment'
+import { CurrentJob} from '../components/08-CurrentJob/CurrentJob'
+import { OtherJobs} from '../components/09-OtherJobs/OtherJobs'
+import { EnterOtherJobs} from '../components/09-OtherJobs/EnterOtherJobs'
+import { OtherIncome} from '../components/10-OtherIncome/OtherIncome'
+import { ChildExpenses} from '../components/11-ChildExpenses/ChildExpenses'
 import { Dummy } from "../components/07-Dummy/Dummy"
 import { Beforeunload } from "react-beforeunload"
 import { StartOver } from "../components/100-startOver/StartOver"
@@ -108,10 +114,16 @@ export default function Calculator() {
                 {/*<BasicInformation />*/}
                 <OtherParent />
                 <EnterChildren />
-                <OtherChildren />
-                <EnterMyOtherChildren />
-                <OtherChildrenSecondary />
-                <EnterMyOtherChildrenSecondary />
+                {/*<OtherChildren />*/}
+                {/*<EnterMyOtherChildren />*/}
+                {/*<OtherChildrenSecondary />*/}
+                {/*<EnterMyOtherChildrenSecondary />*/}
+                {/*<Employment />*/}
+                {/*<CurrentJob />*/}
+                {/*<OtherJobs />*/}
+                {/*<EnterOtherJobs />*/}
+                <OtherIncome />
+                <ChildExpenses />
                 {/*<Dummy />*/}
               </>
             </MultiStepsLayout>

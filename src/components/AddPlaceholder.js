@@ -34,7 +34,7 @@ export const AddPlaceholder = ({ label, ...props }) => {
     >
       <Button
         as="span"
-        leftIcon="add"
+        // leftIcon="add"
         size="sm"
         variant="outline"
         backgroundColor={isDarkTheme ? 'gray.700' : 'gray.100'}

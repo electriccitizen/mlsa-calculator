@@ -13,9 +13,11 @@ export const AddressField = ({header, label, name}) => {
 
   return (
     <SectionWrapper>
+      {header &&
       <SectionHeader
         header={header}
       />
+      }
       <FieldInput
         name={name}
         label={label}
