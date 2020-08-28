@@ -4,7 +4,6 @@ import PropTypes from "prop-types"
 import { Stack, Icon, Switch, Button, Link, Box } from "@chakra-ui/core"
 import { useForm } from "@formiz/core"
 import { FaBug } from "react-icons/fa/index"
-import { SectionWrapper } from "../components/SectionWrapper"
 const propTypes = {
   children: PropTypes.node,
   onReset: PropTypes.func,
