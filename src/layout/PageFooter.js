@@ -73,7 +73,7 @@ export const PageFooter = ({
         <Button
           onClick={() => {
             sessionStorage.clear()
-            windowGlobal.location.reload(sessionStorage.clear())
+            //windowGlobal.location.reload(sessionStorage.clear())
           }}
           size="sm"
           mr="auto"

@@ -35,7 +35,7 @@ export default function Calculator() {
   const [isMontana, setIsMontana] = useState("")
   const windowGlobal = typeof window !== 'undefined' && window
   const handleSubmit = values => {
-    windowGlobal.location.href = "/calculator"
+    //windowGlobal.location.href = "/calculator"
   }
   return (
     <>
