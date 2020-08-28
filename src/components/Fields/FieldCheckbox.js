@@ -57,8 +57,8 @@ export const FieldCheckbox = props => {
 
   const handleChange = e => {
     //setChecked(!value)
-    //console.log(e)
-    updateState(e.target)
+    console.log(e.target.name)
+    updateState(e.target.name)
     //updateMontana(value)
   }
 
@@ -83,13 +83,12 @@ export const FieldCheckbox = props => {
         <Stack>
           {(options || []).map(item => (
             <>
-              Foo: {item.name}
               <Checkbox
-                isChecked={checkedItems[item.name]}
+                isChecked={checkedItems[item.label]}
                 //onChange={handleChange}
-                onClick={e => {
-                  handleChange(e)
-                }}
+                onClick={
+                  handleChange
+                }
                 mr={4}
                 size="lg"
                 colorScheme="brand"

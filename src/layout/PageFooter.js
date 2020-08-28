@@ -14,7 +14,7 @@ const defaultProps = {
   onReset: () => {},
   githubPath: null,
 }
-const windowGlobal = typeof window !== 'undefined' && window
+//const windowGlobal = typeof window !== 'undefined' && window
 export const PageFooter = ({
   onReset,
   handleDebug,

@@ -20,10 +20,10 @@ export const OtherIncome = () => {
   const [checkedItems, setCheckedItems] = useState({})
 
   const updateState = event => {
-    console.log(event)
+    //console.log(event)
     setCheckedItems({
       ...checkedItems,
-      [event.name]: event.checked,
+      ['foo']: event.checked,
     })
     console.log("checkedItems: ", checkedItems)
   }
