@@ -15,7 +15,7 @@ const defaultProps = {
   onReset: () => {},
   githubPath: null,
 }
-
+const windowGlobal = typeof window !== 'undefined' && window
 export const PageFooter = ({
   onReset,
   handleDebug,
@@ -74,7 +74,7 @@ export const PageFooter = ({
         <Button
           onClick={() => {
             sessionStorage.clear()
-            window.location.reload(sessionStorage.clear())
+            windowGlobal.location.reload(sessionStorage.clear())
           }}
           size="sm"
           mr="auto"
