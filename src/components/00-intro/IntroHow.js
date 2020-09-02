@@ -46,8 +46,8 @@ export const IntroHow = data => {
           color={colorMode === "dark" ? "gray.600" : "gray.500"}
         >
           <Icon color={"brand.400"} as={FaClock} /> This process is designed to
-          be completed in one sitting; we do collect
-          or store any of your personal data.
+          be completed in one sitting; we do collect or store any of your
+          personal data.
         </Text>
 
         <Text mb={4}>
@@ -75,7 +75,6 @@ export const IntroHow = data => {
           </p>
           {/*<Image />*/}
         </Text>
-
       </SectionWrapper>
     </FormizStep>
   )

@@ -24,12 +24,36 @@ import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 
 export const FinancialAffadavitTwo = number => {
-  const form = useForm()
   let updateState = (name, value, index) => {
-    name === "ChildExpenses." + index + ".housing" &&
-      sessionStorage.setItem("ChildExpenses." + index + ".housing", value)
+    name === "FinancialAffadavitTwo.workReason" &&
+      sessionStorage.setItem("FinancialAffadavitTwo.workReason", value)
+    name === "FinancialAffadavitTwo.workersComp" &&
+      sessionStorage.setItem("FinancialAffadavitTwo.workersComp", value)
+    name === "FinancialAffadavitTwo.seekingComp" &&
+      sessionStorage.setItem("FinancialAffadavitTwo.seekingComp", value)
+    name === "FinancialAffadavitTwo.unemployment" &&
+      sessionStorage.setItem("FinancialAffadavitTwo.unemployment", value)
+    name === "FinancialAffadavitTwo.employmentEfforts" &&
+      sessionStorage.setItem("FinancialAffadavitTwo.employmentEfforts", value)
+    name === "FinancialAffadavitTwo.publicAssistance" &&
+      sessionStorage.setItem("FinancialAffadavitTwo.publicAssistance", value)
   }
-  const { colorMode } = useColorMode()
+  const workReason = sessionStorage.getItem("FinancialAffadavitTwo.workReason")
+  const workersComp = sessionStorage.getItem(
+    "FinancialAffadavitTwo.workersComp"
+  )
+  const seekingComp = sessionStorage.getItem(
+    "FinancialAffadavitTwo.seekingComp"
+  )
+  const unemployment = sessionStorage.getItem(
+    "FinancialAffadavitTwo.unemployment"
+  )
+  const employmentEfforts = sessionStorage.getItem(
+    "FinancialAffadavitTwo.employmentEfforts"
+  )
+  const publicAssistance = sessionStorage.getItem(
+    "FinancialAffadavitTwo.publicAssistance"
+  )
 
   return (
     <FormizStep name="FinancialAffadavitTwo" order={28000}>
@@ -47,6 +71,14 @@ export const FinancialAffadavitTwo = number => {
               { value: "no", label: "No" },
             ]}
           />
+          {workReason === "yes" && (
+            <FieldInput
+              name={`FinancialAffadavitTwo.workReasonDesc`}
+              label="Please explain."
+              type="text"
+              isRequired={true}
+            />
+          )}
           <FieldRadio
             name={`FinancialAffadavitTwo.workersComp`}
             label="Do you receive workers' compensation or occupational disease benefits?"
@@ -58,6 +90,24 @@ export const FinancialAffadavitTwo = number => {
               { value: "no", label: "No" },
             ]}
           />
+          {workersComp === "yes" && (
+            <>
+              <FieldInput
+                name={`FinancialAffadavitTwo.workersCompPayment`}
+                label="Who pays the benefits?"
+                type="text"
+                isRequired={true}
+                fieldWidth={"30%"}
+              />
+              <FieldInput
+                name={`FinancialAffadavitTwo.workersCompClaimNum`}
+                label="What is your claim number?"
+                type="text"
+                isRequired={true}
+                fieldWidth={"30%"}
+              />
+            </>
+          )}
           <FieldRadio
             name={`FinancialAffadavitTwo.seekingComp`}
             label="Are you currently seeking workers' compensation or occupational disease benefits?"
@@ -69,6 +119,7 @@ export const FinancialAffadavitTwo = number => {
               { value: "no", label: "No" },
             ]}
           />
+
           <FieldRadio
             name={`FinancialAffadavitTwo.unemployment`}
             label="Are you currently receiving unemployment benefits?"
@@ -80,6 +131,15 @@ export const FinancialAffadavitTwo = number => {
               { value: "no", label: "No" },
             ]}
           />
+          {unemployment === "yes" && (
+            <FieldInput
+              name={`FinancialAffadavitTwo.unemploymentDesc`}
+              label="What state or agency is paying the unemployment benefits?"
+              type="text"
+              isRequired={true}
+              fieldWidth={"30%"}
+            />
+          )}
           <FieldRadio
             name={`FinancialAffadavitTwo.employmentEfforts`}
             label="If unemployed or employed part-time, have you made any efforts to find full-time employment?"
@@ -91,6 +151,22 @@ export const FinancialAffadavitTwo = number => {
               { value: "no", label: "No" },
             ]}
           />
+          {employmentEfforts === "yes" && (
+            <FieldInput
+              name={`FinancialAffadavitTwo.employmentEffortsDesc`}
+              label="If yes, describe your job search."
+              type="text"
+              isRequired={true}
+            />
+          )}
+          {employmentEfforts === "no" && (
+            <FieldInput
+              name={`FinancialAffadavitTwo.employmentEffortsDesc`}
+              label="If not, why not?"
+              type="text"
+              isRequired={true}
+            />
+          )}
           <FieldRadio
             name={`FinancialAffadavitTwo.publicAssistance`}
             label="Did you receive any Public Assistance benefits in the last 12 months?"
@@ -102,6 +178,15 @@ export const FinancialAffadavitTwo = number => {
               { value: "no", label: "No" },
             ]}
           />
+          {publicAssistance === "yes" && (
+            <FieldMoneyInput
+              name={`FinancialAffadavitTwo.publicAssistanceAmt`}
+              label="Public assistance - last 12 months"
+              type="text"
+              isRequired={true}
+              fieldWidth={"30%"}
+            />
+          )}
         </SectionWrapper>
       </>
     </FormizStep>

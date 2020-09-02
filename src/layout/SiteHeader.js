@@ -47,7 +47,7 @@ export default function SiteHeader() {
         <>
           <Menu menuLinks={data.site.siteMetadata.menuLinks} />
 
-          <Stack bg={colorMode === 'dark' ? 'black' : 'brand.400'} padding={6} isInline align="center" ml="auto">
+          <Stack bg={colorMode === 'dark' ? 'black' : 'brand.400'} padding={5} isInline align="center" ml="auto">
             <Box width="90%">
               <Heading color={colorMode === 'dark' ? "gray" : "gray.100"} ml={16} d="flex" alignItems="center">
                 <Link to="/">Montana Child Support Calculator</Link>

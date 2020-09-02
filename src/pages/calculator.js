@@ -56,10 +56,14 @@ import {
   Button,
   SimpleGrid,
   Divider,
+  Heading,
+  Icon,
 } from "@chakra-ui/core"
-import { SectionWrapper } from "../components/SectionWrapper"
-import { SectionHeader } from "../components/SectionHeader"
-import { FieldInput } from "../components/Fields/FieldInput"
+import {
+  FaFileAlt,
+  FaFileInvoiceDollar,
+  FaExternalLinkAlt,
+} from "react-icons/fa"
 
 export default function Calculator() {
   //sessionStorage.clear()
@@ -174,58 +178,96 @@ export default function Calculator() {
         </>
       ) : (
         <PageLayout>
-          <PageHeader githubPath="UseCase1/index.js">Your results</PageHeader>
+          <PageHeader githubPath="UseCase1/index.js">Your results!</PageHeader>
           <Box mt={8} mb={8}>
             Your document(s) are now complete and can be downloaded, printed, or
             emailed. These options will be available as long as this browser
             window remains open.
           </Box>
-
-          <SimpleGrid columns={3} spacing={10}>
-            <Button colorScheme="brand" type="button">
-              <a
-                href={"data:application/pdf;base64," + appState.pdf + ""}
-                download="file.pdf"
+          <Box mb="8" display={{ md: "flex" }}>
+            <Box flex={1}>
+              <Heading
+                as="h2"
+                fontSize="2xl"
+                lineHeight="tall"
+                fontWeight="normal"
+                color={"gray.500"}
+                href="#"
+                mb={2}
               >
-                Download
-              </a>
-            </Button>
-            <Box mb={8}>Download this document to your local computer</Box>
-          </SimpleGrid>
+                <Icon boxSize={12} color={"brand.400"} as={FaFileAlt} /> Child
+                Support Worksheet
+              </Heading>
+              <Box fontSize="md" mb={4}>
+                Your completed Child Support Worksheet is now available for
+                download or printing.
+              </Box>
+              <Button mb="2" colorScheme="brand" type="button">
+                <a
+                  href={"data:application/pdf;base64," + appState.pdf + ""}
+                  download="file.pdf"
+                >
+                  Download
+                </a>
+              </Button>
+              <br />
+              <Button colorScheme="brand" type="button" onClick={handlePrint}>
+                Print
+              </Button>
+            </Box>
+            <Box flex={1}>
+              <Heading
+                as="h2"
+                fontSize="2xl"
+                lineHeight="tall"
+                fontWeight="normal"
+                color={"gray.500"}
+                href="#"
+                mb={2}
+              >
+                <Icon
+                  boxSize={12}
+                  color={"brand.400"}
+                  as={FaFileInvoiceDollar}
+                />{" "}
+                Financial Affadavit
+              </Heading>
+              <Box fontSize="md" mb={4}>
+                Your completed Financial Affadavit is now available for
+                download or printing.
+              </Box>
+              <Button mb="2" colorScheme="brand" type="button">
+                <a
+                  href={"data:application/pdf;base64," + appState.pdf + ""}
+                  download="file.pdf"
+                >
+                  Download
+                </a>
+              </Button> <br />
+              <Button colorScheme="brand" type="button" onClick={handlePrint}>
+                Print
+              </Button>
+            </Box>
+          </Box>
 
-          <SimpleGrid columns={3} spacing={10}>
-            <Button colorScheme="brand" type="button" onClick={handlePrint}>
-              Print
-            </Button>
-            <Box mb={8}>Print a hard copy of this document.</Box>
-          </SimpleGrid>
 
-          <SimpleGrid columns={3} spacing={10}>
-            <Button colorScheme="brand" type="button" onClick={handlePrint}>
-              Send via email
-            </Button>
-            <Box mb={8}>Send a copy of the documents to your email address</Box>
-          </SimpleGrid>
 
           <Divider />
+
+          <Box  mt="8"  mb={8}>
+            Thank you for using the Montana Child
+            Support Calculator. If necessary, you
+            can go back to review and edit your responses.
+          </Box>
+
           <SimpleGrid columns={3} spacing={10}>
-            <Button colorScheme="teal" type="button" onClick={handleBack}>
+            <Button color='brand.500' type="button" onClick={handleBack}>
               Go back and review
             </Button>
             <Box textAlign="center"> - or - </Box>
-            <Button colorScheme="red" type="button" onClick={handleBack}>
+            <Button color='brand.500' type="button" onClick={handleBack}>
               Finish!
             </Button>
-          </SimpleGrid>
-          <SimpleGrid columns={3} spacing={10}>
-            <Box mt="4">
-              Go back to the beginning to review or to make any necessary
-              changes.
-            </Box>
-            <Box textAlign="center"> </Box>
-            <Box mt="4">
-              Click finish to clear your data and exit the application.
-            </Box>
           </SimpleGrid>
         </PageLayout>
       )}

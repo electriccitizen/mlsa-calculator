@@ -25,7 +25,6 @@ import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 
 export const HealthInsurance = number => {
-  const form = useForm()
   let updateState = (name, value, index) => {
     name === "Insurance.ongoing" &&
       sessionStorage.setItem("Insurance.ongoing", value)
@@ -33,7 +32,8 @@ export const HealthInsurance = number => {
       sessionStorage.setItem("Insurance.current", value)
   }
   const { colorMode } = useColorMode()
-  const insuranceOngoing = sessionStorage.getItem("Insurance.ongoing")
+  // causes bug in gatsby build?
+  //const insuranceOngoing = sessionStorage.getItem("Insurance.ongoing")
 
   return (
     <FormizStep name="Insurance" order={27000}>
@@ -53,7 +53,7 @@ export const HealthInsurance = number => {
             ]}
           />
 
-          {insuranceOngoing === "yes" && (
+          {sessionStorage.getItem("Insurance.ongoing") === "yes" && (
             <FieldInput
               name={`Insurance.ongoingDesc`}
               label="Describe the ongoing medical expenses."

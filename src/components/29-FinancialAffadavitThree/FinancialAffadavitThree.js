@@ -26,10 +26,25 @@ import { SectionHeader } from "../SectionHeader"
 export const FinancialAffadavitThree = number => {
   const form = useForm()
   let updateState = (name, value, index) => {
-    name === "ChildExpenses." + index + ".housing" &&
-      sessionStorage.setItem("ChildExpenses." + index + ".housing", value)
+    name === "FinancialAffadavitThree.otherExpenses" &&
+      sessionStorage.setItem("FinancialAffadavitThree.otherExpenses", value)
+    name === "FinancialAffadavitThree.courtOrder" &&
+      sessionStorage.setItem("FinancialAffadavitThree.courtOrder", value)
+    name === "FinancialAffadavitThree.expectedChanges" &&
+      sessionStorage.setItem("FinancialAffadavitThree.expectedChanges", value)
+    name === "FinancialAffadavitThree.comments" &&
+      sessionStorage.setItem("FinancialAffadavitThree.comments", value)
   }
-  const { colorMode } = useColorMode()
+  const otherExpenses = sessionStorage.getItem(
+    "FinancialAffadavitThree.otherExpenses"
+  )
+  const courtOrder = sessionStorage.getItem(
+    "FinancialAffadavitThree.courtOrder"
+  )
+  const expectedChanges = sessionStorage.getItem(
+    "FinancialAffadavitThree.expectedChanges"
+  )
+  const comments = sessionStorage.getItem("FinancialAffadavitThree.comments")
 
   return (
     <FormizStep name="FinancialAffadavitThree" order={29000}>
@@ -47,6 +62,14 @@ export const FinancialAffadavitThree = number => {
               { value: "no", label: "No" },
             ]}
           />
+          {otherExpenses === "yes" && (
+            <FieldInput
+              name={`FinancialAffadavitThree.otherExpensesTotal`}
+              label="List the other employment-related expenses here."
+              type="text"
+              isRequired={true}
+            />
+          )}
           <FieldRadio
             name={`FinancialAffadavitThree.courtOrder`}
             label="Has a court ordered you to make payments for restitution, damages, etc.?"
@@ -69,6 +92,14 @@ export const FinancialAffadavitThree = number => {
               { value: "no", label: "No" },
             ]}
           />
+          {expectedChanges === "yes" && (
+            <FieldInput
+              name={`FinancialAffadavitThree.expectedChangesDesc`}
+              label="Describe those changes."
+              type="text"
+              isRequired={true}
+            />
+          )}
           <FieldRadio
             name={`FinancialAffadavitThree.comments`}
             label="Do you want to make any additional comments?"
@@ -80,6 +111,14 @@ export const FinancialAffadavitThree = number => {
               { value: "no", label: "No" },
             ]}
           />
+          {comments === "yes" && (
+            <FieldInput
+              name={`FinancialAffadavitThree.commentsDesc`}
+              label="Enter the additional comments."
+              type="text"
+              isRequired={true}
+            />
+          )}
         </SectionWrapper>
       </>
     </FormizStep>

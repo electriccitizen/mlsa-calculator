@@ -19,7 +19,7 @@ import {
   FaCalculator,
   FaGlobe,
   FaThumbsUp,
-  FaArrowAltCircleRight,
+  FaQuestionCircle,
 } from "react-icons/fa/index"
 const propTypes = {
   direction: PropTypes.oneOf(["left", "right"]),
@@ -35,7 +35,7 @@ export const Menu = ({ direction, menuLinks }) => {
       width: "26px",
       height: "20px",
       left: "30px",
-      top: "36px",
+      top: "38px",
       border: "1px white",
     },
     bmBurgerBars: {
@@ -84,6 +84,8 @@ export const Menu = ({ direction, menuLinks }) => {
         return FaThumbsUp
       case "FaGlobe":
         return FaGlobe
+      case "FaQuestionCircle":
+        return FaQuestionCircle
       default:
         return null
     }
@@ -95,6 +97,7 @@ export const Menu = ({ direction, menuLinks }) => {
       outerContainerId={"outer-container"}
       isOpen={false}
       styles={styles}
+
     >
       <List border="0" outline="none" w="100%" pl="4" pr="4" mt="4" spacing="12">
         {menuLinks.map(link => (
@@ -114,14 +117,14 @@ export const Menu = ({ direction, menuLinks }) => {
       </List>
 
       <Divider  />
-      <Heading mt="8" as="h3" fontSize={"md"}>
-        About MLSA
-      </Heading>
-      <Text>
-        This tool was developed by the Montana Legal Services Association.
-        <br />
-        <Link color={"gray.300"}>Learn more</Link> <Icon as={FaArrowAltCircleRight} />
-      </Text>
+      {/*<Heading mt="8" as="h3" fontSize={"md"}>*/}
+      {/*  About MLSA*/}
+      {/*</Heading>*/}
+      {/*<Text>*/}
+      {/*  This tool was developed by the Montana Legal Services Association.*/}
+      {/*  <br />*/}
+      {/*  <Link color={"gray.300"}>Learn more</Link> <Icon as={FaArrowAltCircleRight} />*/}
+      {/*</Text>*/}
     </BurgerMenu>
 
 

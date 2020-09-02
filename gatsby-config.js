@@ -12,20 +12,25 @@ module.exports = {
         name: "Calculator",
         link: "/intro",
         text: "Help determine your child support costs.",
-        icon: "FaCalculator"
+        icon: "FaCalculator",
       },
       {
         name: "Calculator Guide",
         link: "/guide",
-        text:
-          "Learn more about how the calculator works.",
-        icon: "FaGlobe"
+        text: "Learn more about how the calculator works.",
+        icon: "FaGlobe",
       },
       {
         name: "Safe Internet Use",
         link: "/safety",
         text: "Tips for Internet safety and safe browsing.",
-        icon: "FaThumbsUp"
+        icon: "FaThumbsUp",
+      },
+      {
+        name: "About",
+        link: "/about",
+        text: "Learn more about this tool and MLSA.",
+        icon: "FaQuestionCircle",
       },
     ],
     plugins: [
