@@ -49,7 +49,7 @@ export const TaxableIncome = () => {
 
   return (
     <>
-      {(form.values.OtherIncome && form.values.OtherIncome.taxable === true) && (
+      {form.values.OtherIncome && form.values.OtherIncome.taxable === true && (
         <FormizStep name="TaxableIncome" order={12000}>
           <SectionHeader header={`Enter your other taxable income:`} />
           <Box fontSize={"md"} mb={4}>
@@ -86,7 +86,6 @@ export const TaxableIncome = () => {
                     label="Type of income"
                     placeholder="Select option..."
                     required="Required"
-                    keepValue
                     index={index}
                     options={[
                       { value: "rental", label: "Rental income" },

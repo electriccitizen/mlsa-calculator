@@ -92,9 +92,8 @@ export default function Home() {
               mt={1}
               display="block"
               fontSize="lg"
-              lineHeight="normal"
               fontWeight="semibold"
-              href="/guide"
+              to="/guide"
             >
               Guide to using the calculator
             </GatsbyLink>
@@ -126,9 +125,8 @@ export default function Home() {
               mt={1}
               display="block"
               fontSize="lg"
-              lineHeight="normal"
               fontWeight="semibold"
-              href="/safety"
+              to="/safety"
             >
               Protect your safety
             </GatsbyLink>

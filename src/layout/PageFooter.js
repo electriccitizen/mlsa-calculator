@@ -40,11 +40,11 @@ export const PageFooter = ({
         <Box align="right" mt={{ base: 6, md: 6 }} flex={1}>
           See our{" "}
           <GatsbyLink to={"/terms-of-use"}>
-            <Link color={"brand.400"}>Terms of Use</Link>
+            {/*<Link color={"brand.400"}>Terms of Use</Link>*/}
           </GatsbyLink>{" "}
           and{" "}
           <GatsbyLink to={"/privacy-notice"}>
-            <Link color={"brand.400"}>Privacy Notice</Link>
+            {/*<Link color={"brand.400"}>Privacy Notice</Link>*/}
           </GatsbyLink>
           .
         </Box>

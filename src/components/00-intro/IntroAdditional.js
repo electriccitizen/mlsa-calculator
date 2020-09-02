@@ -1,26 +1,16 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
-import { FieldInput } from "../Fields/FieldInput"
-import { FieldRadio } from "../Fields/FieldRadio"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 import {
   Text,
-  List,
   Link,
-  ListItem,
   Heading,
   Icon,
-  UnorderedList,
-  ListIcon,
   useColorMode,
-  Box,
-  Button,
 } from "@chakra-ui/core"
 import { FaInfoCircle, FaExternalLinkAlt } from "react-icons/fa/index"
-import { PageLayout } from "../../layout/PageLayout"
 export const IntroAdditional = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
   return (
     <FormizStep name="introAdditional" order={1000}>
       <SectionWrapper>
@@ -44,12 +34,10 @@ export const IntroAdditional = () => {
           MLSA provides free civil legal assistance to low-income Montanans.
           Call the MLSA HelpLine toll free at 1-800-666-6899. We answer the
           phone Monday through Friday between 9am and 1pm.
-          <p>
             <Link href={"https://www.mtlsa.org/"} color={"brand.400"}>
               Visit our website
             </Link>
             . <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
-          </p>
         </Text>
         <Heading
           as="h2"

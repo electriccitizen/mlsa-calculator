@@ -145,7 +145,6 @@ export const CurrentJob = d => {
                 placeholder="Select option..."
                 required="Required"
                 fieldwidth={"25%"}
-                keepValue
                 options={[
                   { value: "weekly", label: "Once per week" },
                   { value: "biweekly", label: "Every two weeks" },

@@ -5,9 +5,7 @@ import {
   useField,
   fieldPropTypes,
   fieldDefaultProps,
-  FormizStep,
 } from "@formiz/core"
-import { FormGroup } from "../FormGroup"
 
 const propTypes = {
   label: PropTypes.node,
@@ -70,7 +68,7 @@ export const FieldRadio = props => {
 
   const CurrentStack = (orientation === 'vertical' ? Stack : HStack)
   return (
-    <FormGroup {...formGroupProps}>
+
       <RadioGroup
         key={resetKey}
         value={value || ""}
@@ -87,7 +85,6 @@ export const FieldRadio = props => {
           ))}
         </CurrentStack>
       </RadioGroup>
-    </FormGroup>
   )
 }
 

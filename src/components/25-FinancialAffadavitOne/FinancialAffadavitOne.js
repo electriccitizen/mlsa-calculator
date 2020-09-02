@@ -54,7 +54,6 @@ export const FinancialAffadavitOne = number => {
             required="Required"
             fieldWidth={"25%"}
             updateState={updateState}
-            keepValue
             options={[
               { value: "single", label: "Single" },
               { value: "marriedjoint", label: "Married, filing jointly" },
@@ -87,7 +86,6 @@ export const FinancialAffadavitOne = number => {
             placeholder="Select option..."
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },
@@ -111,7 +109,6 @@ export const FinancialAffadavitOne = number => {
             placeholder="Select option..."
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },

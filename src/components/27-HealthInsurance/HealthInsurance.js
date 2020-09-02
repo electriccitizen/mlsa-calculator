@@ -5,22 +5,20 @@ import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
 import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
 import { AddPlaceholder } from "../AddPlaceholder"
-import {
-  useColorMode,
-} from "@chakra-ui/core"
+import { useColorMode } from "@chakra-ui/core"
 import { DeleteIcon } from "@chakra-ui/icons"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 
 export const HealthInsurance = number => {
-  let insuranceOngoing = ''
+  let insuranceOngoing = ""
   let updateState = (name, value, index) => {
     name === "Insurance.ongoing" &&
       sessionStorage.setItem("Insurance.ongoing", value)
     name === "Insurance.current" &&
       sessionStorage.setItem("Insurance.current", value)
 
-   insuranceOngoing = sessionStorage.getItem("Insurance.ongoing")
+    insuranceOngoing = sessionStorage.getItem("Insurance.ongoing")
   }
   const { colorMode } = useColorMode()
   // causes bug in gatsby build?
@@ -37,7 +35,6 @@ export const HealthInsurance = number => {
             placeholder="Select option..."
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },
@@ -59,7 +56,6 @@ export const HealthInsurance = number => {
             placeholder="Select option..."
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },

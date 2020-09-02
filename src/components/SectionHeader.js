@@ -96,9 +96,9 @@ export const SectionHeader = ({ header, helpText, helpLinks }) => {
                 Additional help
               </PopoverHeader>
               <PopoverBody>
-                <Text fontWeight="normal" fontSize="md" mt="2" mb="4">
+                <Box fontWeight="normal" fontSize="md" mt="2" mb="4">
                   <div dangerouslySetInnerHTML={{ __html: helpText.text  }} />
-                </Text>
+                </Box>
                 {helpLinks && (
                   <>
                     <Heading as={"h4"} color={isDarkTheme ? "gray.500" : "brand.400"} size={"sm"}>References:</Heading>

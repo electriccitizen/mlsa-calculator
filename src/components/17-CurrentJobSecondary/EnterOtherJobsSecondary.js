@@ -198,7 +198,6 @@ export const EnterOtherJobsSecondary = number => {
                   placeholder="Select option..."
                   required="Required"
                   fieldWidth={"25%"}
-                  keepValue
                   index={index}
                   options={[
                     { value: "weekly", label: "Once per week" },

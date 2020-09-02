@@ -1,29 +1,12 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
-import { FieldInput } from "../Fields/FieldInput"
-import { FieldRadio } from "../Fields/FieldRadio"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
-import {
-  Text,
-  List,
-  Link,
-  ListItem,
-  UnorderedList,
-  ListIcon,
-  Heading,
-  useColorMode,
-  Divider,
-  Box,
-  Icon,
-} from "@chakra-ui/core"
+import { Box, Text, List, ListItem, ListIcon, useColorMode } from "@chakra-ui/core"
+import { FaCheckCircle } from "react-icons/fa"
 
-import { FaExternalLinkAlt, FaCheckCircle } from "react-icons/fa"
-//import { Link } from 'gatsby'
-import { FaCalculator } from "react-icons/fa/index"
-import { PageLayout } from "../../layout/PageLayout"
 export const IntroCanDo = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
+  const { colorMode } = useColorMode()
   return (
     <FormizStep name="initiate.introCanDo" order={600}>
       <SectionWrapper>
@@ -34,7 +17,7 @@ export const IntroCanDo = () => {
           inclusion in:
         </Text>
 
-        <Text pr={4} pl={4} mt={2}>
+        <Box pr={4} pl={4} mt={2}>
           <List
             color={colorMode === "dark" ? "gray.400" : "gray.500"}
             mt={2}
@@ -54,7 +37,7 @@ export const IntroCanDo = () => {
               or parenting plan by a District Court in Montana.
             </ListItem>
           </List>
-        </Text>
+        </Box>
       </SectionWrapper>
     </FormizStep>
   )

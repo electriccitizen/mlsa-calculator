@@ -54,7 +54,7 @@ export const MultiStepsLayout = ({
   //sessionStorage.clear()
   return (
     <Formiz connect={form} {...props}>
-      <PersistForm />
+      {/*<PersistForm />*/}
       <PageLayout updateMontana={updateMontana}>
         <form noValidate onSubmit={hasSteps ? form.submitStep : form.submit}>
           {children}

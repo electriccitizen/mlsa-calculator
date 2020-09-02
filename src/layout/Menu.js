@@ -2,12 +2,10 @@ import React from "react"
 import { Link as GatsbyLink } from "gatsby"
 import PropTypes from "prop-types"
 import {
-  Icon,
   Link,
   Divider,
   useColorMode,
-  Heading,
-  Text,
+  Box,
   List,
   ListItem,
   ListIcon,
@@ -92,6 +90,7 @@ export const Menu = ({ direction, menuLinks }) => {
   }
 
   return (
+    <>
     <BurgerMenu
       pageWrapId={"page-wrap"}
       outerContainerId={"outer-container"}
@@ -100,20 +99,18 @@ export const Menu = ({ direction, menuLinks }) => {
 
     >
       <List border="0" outline="none" w="100%" pl="4" pr="4" mt="4" spacing="12">
-        {menuLinks.map(link => (
-          <>
-            {(icon = IconSwap(link.icon))}
-            <ListItem mb={4} key={link.link}>
-              <ListIcon as={icon} color="brand" />
-              <GatsbyLink to={link.link}>
-                <Link fontWeight="bold" color="gray.300">
-                  {link.name}
-                </Link>
-              </GatsbyLink>
-              <p>{link.text}</p>
-            </ListItem>
-          </>
-        ))}
+        {/*{menuLinks.map(link => (*/}
+        {/*  <Box key={link.link}>*/}
+        {/*    {(icon = IconSwap(link.icon))}*/}
+        {/*    <ListItem mb={4} key={link.link}>*/}
+        {/*      <ListIcon as={icon} color="brand" />*/}
+        {/*      <GatsbyLink to={link.link}>*/}
+        {/*          {link.name}*/}
+        {/*      </GatsbyLink>*/}
+        {/*      <p>{link.text}</p>*/}
+        {/*    </ListItem>*/}
+        {/*  </Box>*/}
+        {/*))}*/}
       </List>
 
       <Divider  />
@@ -126,7 +123,7 @@ export const Menu = ({ direction, menuLinks }) => {
       {/*  <Link color={"gray.300"}>Learn more</Link> <Icon as={FaArrowAltCircleRight} />*/}
       {/*</Text>*/}
     </BurgerMenu>
-
+</>
 
   )
 }

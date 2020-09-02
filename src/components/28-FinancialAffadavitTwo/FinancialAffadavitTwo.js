@@ -38,32 +38,25 @@ export const FinancialAffadavitTwo = number => {
     name === "FinancialAffadavitTwo.publicAssistance" &&
       sessionStorage.setItem("FinancialAffadavitTwo.publicAssistance", value)
   }
-  let workReason = ''
-  let workersComp = ''
-  let seekingComp = ''
-  let unemployment = ''
-  let employmentEfforts = ''
-  let publicAssistance = ''
-    useEffect(() => {
+  let workReason = ""
+  let workersComp = ""
+  let seekingComp = ""
+  let unemployment = ""
+  let employmentEfforts = ""
+  let publicAssistance = ""
+  useEffect(() => {
     // Update the document title using the browser API
     workReason = sessionStorage.getItem("FinancialAffadavitTwo.workReason")
-    workersComp = sessionStorage.getItem(
-      "FinancialAffadavitTwo.workersComp"
-    )
-    seekingComp = sessionStorage.getItem(
-      "FinancialAffadavitTwo.seekingComp"
-    )
-    unemployment = sessionStorage.getItem(
-      "FinancialAffadavitTwo.unemployment"
-    )
+    workersComp = sessionStorage.getItem("FinancialAffadavitTwo.workersComp")
+    seekingComp = sessionStorage.getItem("FinancialAffadavitTwo.seekingComp")
+    unemployment = sessionStorage.getItem("FinancialAffadavitTwo.unemployment")
     employmentEfforts = sessionStorage.getItem(
       "FinancialAffadavitTwo.employmentEfforts"
     )
     publicAssistance = sessionStorage.getItem(
       "FinancialAffadavitTwo.publicAssistance"
     )
-
-  });
+  })
 
   return (
     <FormizStep name="FinancialAffadavitTwo" order={28000}>
@@ -75,7 +68,6 @@ export const FinancialAffadavitTwo = number => {
             label="Is there any reason, such as disability, that prevents you from being able to work full-time or from being able to earn income at the same level you have in the past?"
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },
@@ -94,7 +86,6 @@ export const FinancialAffadavitTwo = number => {
             label="Do you receive workers' compensation or occupational disease benefits?"
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },
@@ -123,7 +114,6 @@ export const FinancialAffadavitTwo = number => {
             label="Are you currently seeking workers' compensation or occupational disease benefits?"
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },
@@ -135,7 +125,6 @@ export const FinancialAffadavitTwo = number => {
             label="Are you currently receiving unemployment benefits?"
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },
@@ -155,7 +144,6 @@ export const FinancialAffadavitTwo = number => {
             label="If unemployed or employed part-time, have you made any efforts to find full-time employment?"
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },
@@ -182,7 +170,6 @@ export const FinancialAffadavitTwo = number => {
             label="Did you receive any Public Assistance benefits in the last 12 months?"
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },

@@ -3,9 +3,7 @@ import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
 import { FieldRadio } from "../Fields/FieldRadio"
-import {
-  Box,
-} from "@chakra-ui/core"
+import { Box } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 import { useHistoryState } from "../../hooks/useHistoryState"
@@ -24,12 +22,11 @@ export const AllowableDeductionsSecondary = () => {
     <FormizStep name="AllowableDeductionsSecondary" order={22000}>
       <>
         <SectionWrapper>
-          <SectionHeader header={otherParent +`'s Allowable Deductions`} />
+          <SectionHeader header={otherParent + `'s Allowable Deductions`} />
           <FieldCheckbox
             name="AllowableDeductionsSecondary"
             label="Select all that apply, or none of the above if you have no allowable deductions."
             required="Required"
-            keepValue
             setCheckedItems={setCheckedItems}
             checkedItems={checkedItems}
             options={[
@@ -85,7 +82,6 @@ export const AllowableDeductionsSecondary = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },
@@ -116,7 +112,6 @@ export const AllowableDeductionsSecondary = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },
@@ -147,7 +142,6 @@ export const AllowableDeductionsSecondary = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },
@@ -178,7 +172,6 @@ export const AllowableDeductionsSecondary = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },
@@ -209,7 +202,6 @@ export const AllowableDeductionsSecondary = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },
@@ -240,7 +232,6 @@ export const AllowableDeductionsSecondary = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },
@@ -271,7 +262,6 @@ export const AllowableDeductionsSecondary = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },
@@ -302,7 +292,6 @@ export const AllowableDeductionsSecondary = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },

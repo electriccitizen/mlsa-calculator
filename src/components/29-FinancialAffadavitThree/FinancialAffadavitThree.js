@@ -60,7 +60,6 @@ export const FinancialAffadavitThree = number => {
             label="Did you incur other employment-related expenses not listed anywhere else in this interview?"
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },
@@ -79,7 +78,6 @@ export const FinancialAffadavitThree = number => {
             label="Has a court ordered you to make payments for restitution, damages, etc.?"
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },
@@ -90,7 +88,6 @@ export const FinancialAffadavitThree = number => {
             label="Do you expect any changes in your or your children's circumstances during the next 18 months which would affect the calculation of child support?"
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },
@@ -109,7 +106,6 @@ export const FinancialAffadavitThree = number => {
             label="Do you want to make any additional comments?"
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },

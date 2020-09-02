@@ -39,7 +39,6 @@ export const AllowableDeductions = () => {
             name="AllowableDeductions"
             label="Select all that apply, or none of the above if you have no allowable deductions."
             required="Required"
-            keepValue
             setCheckedItems={setCheckedItems}
             checkedItems={checkedItems}
             options={[
@@ -95,7 +94,6 @@ export const AllowableDeductions = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },
@@ -126,7 +124,6 @@ export const AllowableDeductions = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },
@@ -157,7 +154,6 @@ export const AllowableDeductions = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },
@@ -188,7 +184,6 @@ export const AllowableDeductions = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },
@@ -219,7 +214,6 @@ export const AllowableDeductions = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },
@@ -250,7 +244,6 @@ export const AllowableDeductions = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },
@@ -281,7 +274,6 @@ export const AllowableDeductions = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },
@@ -312,7 +304,6 @@ export const AllowableDeductions = () => {
                   placeholder="Select option..."
                   required="Required"
                   fieldwidth={"25%"}
-                  keepValue
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },

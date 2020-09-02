@@ -49,7 +49,7 @@ export const NonTaxableIncome = () => {
 
   return (
     <>
-      {(form.values.OtherIncome && form.values.OtherIncome.nontaxable === true) && (
+      {form.values.OtherIncome && form.values.OtherIncome.nontaxable === true && (
         <FormizStep name="NonTaxableIncome" order={13000}>
           <SectionHeader header={`Enter your other non-taxable income:`} />
           <Box fontSize={"md"} mb={4}>
@@ -86,7 +86,6 @@ export const NonTaxableIncome = () => {
                     label="Type of income"
                     placeholder="Select option..."
                     required="Required"
-                    keepValue
                     index={index}
                     options={[
                       { value: "bond", label: "Tax free municipal bond" },
@@ -105,21 +104,21 @@ export const NonTaxableIncome = () => {
                 </Box>
                 <Box flex="1">
                   {form.values.NonTaxableIncome &&
-                  form.values.NonTaxableIncome[index] &&
-                  form.values.NonTaxableIncome[index].type === "other" && (
-                    <FieldInput
-                      name={`NonTaxableIncome[${index}].description`}
-                      label={"Describe the income (40 characters max)"}
-                      m="0"
-                    />
-                  )}
+                    form.values.NonTaxableIncome[index] &&
+                    form.values.NonTaxableIncome[index].type === "other" && (
+                      <FieldInput
+                        name={`NonTaxableIncome[${index}].description`}
+                        label={"Describe the income (40 characters max)"}
+                        m="0"
+                      />
+                    )}
                   <FieldMoneyInput
                     name={`NonTaxableIncome[${index}].amount`}
                     label={"Enter amount:"}
                     m="0"
                   />
                 </Box>
-                </Stack>
+              </Stack>
             ))}
           </Box>
 

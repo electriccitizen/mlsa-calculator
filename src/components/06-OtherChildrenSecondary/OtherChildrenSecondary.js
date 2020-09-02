@@ -27,31 +27,28 @@ export const OtherChildrenSecondary = ({ updateMontana }) => {
 
   const updateState = (name, value) => {
     name === "otherChildrenSecondary" &&
-    sessionStorage.setItem("OtherChildrenSecondary", value)
+      sessionStorage.setItem("OtherChildrenSecondary", value)
     name === "otherChildrenSecondary.number" &&
-    sessionStorage.setItem("numChildrenSecondary", value)
+      sessionStorage.setItem("numChildrenSecondary", value)
   }
 
-  const otherChildrenSecondary = sessionStorage.getItem("OtherChildrenSecondary")
-
+  const otherChildrenSecondary = sessionStorage.getItem(
+    "OtherChildrenSecondary"
+  )
 
   //isChildren === 'no' && form.goToStep("End")
-
-
-
 
   return (
     <FormizStep name="OtherChildrenSecondary" order={6000}>
       <>
         <SectionWrapper>
           <SectionHeader
-            header={`Does `+otherParent+ ` have children with someone else?`}
+            header={`Does ` + otherParent + ` have children with someone else?`}
           />
           <FieldRadio
             name="otherChildrenSecondary"
             placeholder="None"
             required="Required"
-            keepValue
             updateState={updateState}
             options={[
               { value: "yes", label: "Yes" },
@@ -62,7 +59,9 @@ export const OtherChildrenSecondary = ({ updateMontana }) => {
         {otherChildrenSecondary === "yes" && (
           <SectionWrapper>
             <SectionHeader
-              header={`How many other minor children does `+otherParent+ ` have?`}
+              header={
+                `How many other minor children does ` + otherParent + ` have?`
+              }
             />
             <Box width="30%">
               <FieldInput

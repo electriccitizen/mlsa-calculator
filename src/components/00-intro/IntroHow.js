@@ -4,22 +4,14 @@ import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 import {
   Text,
-  List,
   Link,
-  ListItem,
-  Heading,
   Icon,
-  UnorderedList,
-  ListIcon,
   useColorMode,
   Box,
-  Button,
 } from "@chakra-ui/core"
-//import Image from "../image"
 import { FaClock, FaExternalLinkAlt } from "react-icons/fa/index"
-import { PageLayout } from "../../layout/PageLayout"
-export const IntroHow = data => {
-  const { colorMode, toggleColorMode } = useColorMode()
+export const IntroHow = () => {
+  const { colorMode } = useColorMode()
   return (
     <FormizStep name="introHow" order={1000}>
       <SectionWrapper>
@@ -50,7 +42,7 @@ export const IntroHow = data => {
           personal data.
         </Text>
 
-        <Text mb={4}>
+        <Box mb={4}>
           <p>
             The child support guidelines used to calculate support are contained
             in the{" "}
@@ -74,7 +66,7 @@ export const IntroHow = data => {
             the Prev and Next buttons on the web page (see screen shot below).
           </p>
           {/*<Image />*/}
-        </Text>
+        </Box>
       </SectionWrapper>
     </FormizStep>
   )

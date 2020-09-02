@@ -52,85 +52,88 @@ export const NonTaxableIncomeSecondary = () => {
 
   return (
     <>
-      {(form.values.OtherIncomeSecondary && form.values.OtherIncomeSecondary.nontaxable === true) && (
-        <FormizStep name="NonTaxableIncomeSecondary" order={20000}>
-          <SectionHeader header={`Enter ` + otherParent + `'s other non-taxable income:`} />
-          <Box fontSize={"md"} mb={4}>
-            Continue to click "Add another entry" until you have entered all
-            your non-taxable incomes.
-          </Box>
-          <Box>
-            {collection.map(({ id, name }, index) => (
-              <Stack
-                key={id}
-                direction="row"
-                spacing="2"
-                mb="6"
-                data-test={`repeater-item[${index}]`}
-              >
-                <Box transform="translateY(4rem)">
-                  <IconButton
-                    aria-label="Add"
-                    icon={<FaPlus />}
-                    size="sm"
-                    onClick={() => addItemAtIndex(index)}
-                    variant="ghost"
-                    isDisabled={collection.length > 20}
-                    pointerEvents={
-                      index + 1 >= collection.length ? "none" : null
-                    }
-                    opacity={index + 1 >= collection.length ? 0 : null}
-                  />
-                </Box>
-                <Box flex="1">
-                  <FieldSelect
-                    name={`NonTaxableIncomeSecondary[${index}].type`}
-                    defaultValue={name}
-                    label="Type of income"
-                    placeholder="Select option..."
-                    required="Required"
-                    keepValue
-                    index={index}
-                    options={[
-                      { value: "bond", label: "Tax free municipal bond" },
-                      {
-                        value: "ssdi",
-                        label: "Social Security Disability Income (SSDI)",
-                      },
-                      { value: "va", label: "VA disability income" },
-                      { value: "comp", label: "Workers' Compensation" },
-                      { value: "gifts", label: "Regular monetary gifts" },
-                      { value: "grants", label: "Educations grants" },
-                      { value: "fringe", label: "Fringe benefits" },
-                      { value: "other", label: "Other" },
-                    ]}
-                  />
-                </Box>
-                <Box flex="1">
-                  {form.values.NonTaxableIncomeSecondary &&
-                  form.values.NonTaxableIncomeSecondary[index] &&
-                  form.values.NonTaxableIncomeSecondary[index].type === "other" && (
-                    <FieldInput
-                      name={`NonTaxableIncomeSecondary[${index}].description`}
-                      label={"Describe the income (40 characters max)"}
+      {form.values.OtherIncomeSecondary &&
+        form.values.OtherIncomeSecondary.nontaxable === true && (
+          <FormizStep name="NonTaxableIncomeSecondary" order={20000}>
+            <SectionHeader
+              header={`Enter ` + otherParent + `'s other non-taxable income:`}
+            />
+            <Box fontSize={"md"} mb={4}>
+              Continue to click "Add another entry" until you have entered all
+              your non-taxable incomes.
+            </Box>
+            <Box>
+              {collection.map(({ id, name }, index) => (
+                <Stack
+                  key={id}
+                  direction="row"
+                  spacing="2"
+                  mb="6"
+                  data-test={`repeater-item[${index}]`}
+                >
+                  <Box transform="translateY(4rem)">
+                    <IconButton
+                      aria-label="Add"
+                      icon={<FaPlus />}
+                      size="sm"
+                      onClick={() => addItemAtIndex(index)}
+                      variant="ghost"
+                      isDisabled={collection.length > 20}
+                      pointerEvents={
+                        index + 1 >= collection.length ? "none" : null
+                      }
+                      opacity={index + 1 >= collection.length ? 0 : null}
+                    />
+                  </Box>
+                  <Box flex="1">
+                    <FieldSelect
+                      name={`NonTaxableIncomeSecondary[${index}].type`}
+                      defaultValue={name}
+                      label="Type of income"
+                      placeholder="Select option..."
+                      required="Required"
+                      index={index}
+                      options={[
+                        { value: "bond", label: "Tax free municipal bond" },
+                        {
+                          value: "ssdi",
+                          label: "Social Security Disability Income (SSDI)",
+                        },
+                        { value: "va", label: "VA disability income" },
+                        { value: "comp", label: "Workers' Compensation" },
+                        { value: "gifts", label: "Regular monetary gifts" },
+                        { value: "grants", label: "Educations grants" },
+                        { value: "fringe", label: "Fringe benefits" },
+                        { value: "other", label: "Other" },
+                      ]}
+                    />
+                  </Box>
+                  <Box flex="1">
+                    {form.values.NonTaxableIncomeSecondary &&
+                      form.values.NonTaxableIncomeSecondary[index] &&
+                      form.values.NonTaxableIncomeSecondary[index].type ===
+                        "other" && (
+                        <FieldInput
+                          name={`NonTaxableIncomeSecondary[${index}].description`}
+                          label={"Describe the income (40 characters max)"}
+                          m="0"
+                        />
+                      )}
+                    <FieldMoneyInput
+                      name={`NonTaxableIncomeSecondary[${index}].amount`}
+                      label={"Enter amount:"}
                       m="0"
                     />
-                  )}
-                  <FieldMoneyInput
-                    name={`NonTaxableIncomeSecondary[${index}].amount`}
-                    label={"Enter amount:"}
-                    m="0"
-                  />
-                </Box>
-              </Stack>
-            ))}
-          </Box>
+                  </Box>
+                </Stack>
+              ))}
+            </Box>
 
-          {NonTaxableIncomeSecondary.length <= 20 && (
-            <AddPlaceholder label="Add another entry?" onClick={addItem} />
-          )}
-        </FormizStep>
-      )}
+            {NonTaxableIncomeSecondary.length <= 20 && (
+              <AddPlaceholder label="Add another entry?" onClick={addItem} />
+            )}
+          </FormizStep>
+        )}
     </>
   )
 }

@@ -2,13 +2,7 @@ import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
 import { FieldInput } from "../Fields/FieldInput"
-import {
-  Box,
-  Divider,
-  IconButton,
-  Stack,
-  Text,
-} from "@chakra-ui/core"
+import { Box, Divider, IconButton, Stack, Text } from "@chakra-ui/core"
 import { SectionHeader } from "../SectionHeader"
 import { AddPlaceholder } from "../AddPlaceholder"
 import { v4 as uuidv4 } from "uuid"
@@ -119,7 +113,6 @@ export const OtherSchools = () => {
                         placeholder="Select option..."
                         required="Required"
                         updateState={updateState}
-                        keepValue
                         index={index}
                         options={[
                           { value: "yes", label: "Yes" },
@@ -137,17 +130,16 @@ export const OtherSchools = () => {
                       <Box flex="1" mr="4">
                         <FieldInput
                           name={`OtherSchools[${index}].completionDate`}
-                          label={
-                            'Completion date'
-                          }
+                          label={"Completion date"}
                           isDisabled={disabled}
                         />
                         {sessionStorage.getItem(
                           "OtherSchools." + index + ".grad"
                         ) === "yes" && (
-                        <Text mt="-4" fontSize={"sm"}>
-                          If you are not sure of the exact date, enter something like "September 2012."
-                        </Text>
+                          <Text mt="-4" fontSize={"sm"}>
+                            If you are not sure of the exact date, enter
+                            something like "September 2012."
+                          </Text>
                         )}
                       </Box>
                       <Box flex="1">

@@ -34,8 +34,6 @@ export const Schools = number => {
       sessionStorage.setItem("Schools.postSecondary", value)
 
     console.log(sessionStorage.getItem("Schools.postSecondary"))
-
-
   }
   const { colorMode } = useColorMode()
   const schoolLevel = sessionStorage.getItem("Schools.level")
@@ -53,7 +51,6 @@ export const Schools = number => {
             placeholder="Select option..."
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },
@@ -76,7 +73,6 @@ export const Schools = number => {
               placeholder="Select option..."
               required="Required"
               updateState={updateState}
-              keepValue
               options={[
                 { value: "yes", label: "Yes" },
                 { value: "no", label: "No" },
@@ -90,7 +86,6 @@ export const Schools = number => {
             placeholder="Select option..."
             required="Required"
             updateState={updateState}
-            keepValue
             options={[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },
