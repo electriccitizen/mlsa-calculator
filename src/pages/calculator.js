@@ -132,42 +132,42 @@ export default function Calculator() {
               isMontana={isMontana}
             >
               <>
-                {/*<TermsOfUse />*/}
-                {/*<IntroCanDo />*/}
-                {/*<IntroCantDo />*/}
-                {/*<IntroHelp />*/}
-                {/*<InitiateInterview updateMontana={updateMontana} />*/}
-                {/*<BasicInformation />*/}
-                {/*<OtherParent />*/}
-                {/*<EnterChildren />*/}
-                {/*<OtherChildren />*/}
-                {/*<EnterMyOtherChildren />*/}
-                {/*<OtherChildrenSecondary />*/}
-                {/*<EnterMyOtherChildrenSecondary />*/}
-                {/*<Employment />*/}
-                {/*<CurrentJob />*/}
-                {/*<OtherJobs />*/}
-                {/*<EnterOtherJobs />*/}
-                {/*<OtherIncome />*/}
-                {/*<TaxableIncome />*/}
-                {/*<NonTaxableIncome />*/}
-                {/*<ChildExpenses />*/}
-                {/*<AllowableDeductions />*/}
-                {/*<OtherAllowableDeductions />*/}
-                {/*<StandardOfLiving />*/}
-                {/*<CurrentJobSecondary />*/}
-                {/*<EnterOtherJobsSecondary />*/}
-                {/*<OtherIncomeSecondary />*/}
-                {/*<TaxableIncomeSecondary />*/}
-                {/*<NonTaxableIncomeSecondary />*/}
-                {/*<ChildExpensesSecondary />*/}
-                {/*<AllowableDeductionsSecondary />*/}
-                {/*<OtherAllowableDeductionsSecondary />*/}
-                {/*<StandardOfLivingSecondary />*/}
-                {/*<ParentingDays />*/}
-                {/*<FinancialAffadavitOne />*/}
-                {/*<Schools />*/}
-                {/*<OtherSchools />*/}
+                <TermsOfUse />
+                <IntroCanDo />
+                <IntroCantDo />
+                <IntroHelp />
+                <InitiateInterview updateMontana={updateMontana} />
+                <BasicInformation />
+                <OtherParent />
+                <EnterChildren />
+                <OtherChildren />
+                <EnterMyOtherChildren />
+                <OtherChildrenSecondary />
+                <EnterMyOtherChildrenSecondary />
+                <Employment />
+                <CurrentJob />
+                <OtherJobs />
+                <EnterOtherJobs />
+                <OtherIncome />
+                <TaxableIncome />
+                <NonTaxableIncome />
+                <ChildExpenses />
+                <AllowableDeductions />
+                <OtherAllowableDeductions />
+                <StandardOfLiving />
+                <CurrentJobSecondary />
+                <EnterOtherJobsSecondary />
+                <OtherIncomeSecondary />
+                <TaxableIncomeSecondary />
+                <NonTaxableIncomeSecondary />
+                <ChildExpensesSecondary />
+                <AllowableDeductionsSecondary />
+                <OtherAllowableDeductionsSecondary />
+                <StandardOfLivingSecondary />
+                <ParentingDays />
+                <FinancialAffadavitOne />
+                <Schools />
+                <OtherSchools />
                 <HealthInsurance />
                 <HealthInsurancePolicies />
                 <FinancialAffadavitTwo />
