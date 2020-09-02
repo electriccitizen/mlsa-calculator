@@ -114,7 +114,7 @@ export default function Calculator() {
         console.error("Error:", error)
       })
   }
-  const isFirst = form.isFirstStep
+  //const isFirst = form.isFirstStep
   return (
     <>
       {isMontana === "nope" ? (
