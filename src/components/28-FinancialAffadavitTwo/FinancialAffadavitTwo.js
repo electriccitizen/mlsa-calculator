@@ -38,22 +38,32 @@ export const FinancialAffadavitTwo = number => {
     name === "FinancialAffadavitTwo.publicAssistance" &&
       sessionStorage.setItem("FinancialAffadavitTwo.publicAssistance", value)
   }
-  const workReason = sessionStorage.getItem("FinancialAffadavitTwo.workReason")
-  const workersComp = sessionStorage.getItem(
-    "FinancialAffadavitTwo.workersComp"
-  )
-  const seekingComp = sessionStorage.getItem(
-    "FinancialAffadavitTwo.seekingComp"
-  )
-  const unemployment = sessionStorage.getItem(
-    "FinancialAffadavitTwo.unemployment"
-  )
-  const employmentEfforts = sessionStorage.getItem(
-    "FinancialAffadavitTwo.employmentEfforts"
-  )
-  const publicAssistance = sessionStorage.getItem(
-    "FinancialAffadavitTwo.publicAssistance"
-  )
+  let workReason = ''
+  let workersComp = ''
+  let seekingComp = ''
+  let unemployment = ''
+  let employmentEfforts = ''
+  let publicAssistance = ''
+    useEffect(() => {
+    // Update the document title using the browser API
+    workReason = sessionStorage.getItem("FinancialAffadavitTwo.workReason")
+    workersComp = sessionStorage.getItem(
+      "FinancialAffadavitTwo.workersComp"
+    )
+    seekingComp = sessionStorage.getItem(
+      "FinancialAffadavitTwo.seekingComp"
+    )
+    unemployment = sessionStorage.getItem(
+      "FinancialAffadavitTwo.unemployment"
+    )
+    employmentEfforts = sessionStorage.getItem(
+      "FinancialAffadavitTwo.employmentEfforts"
+    )
+    publicAssistance = sessionStorage.getItem(
+      "FinancialAffadavitTwo.publicAssistance"
+    )
+
+  });
 
   return (
     <FormizStep name="FinancialAffadavitTwo" order={28000}>

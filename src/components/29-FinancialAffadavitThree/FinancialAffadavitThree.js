@@ -25,6 +25,12 @@ import { SectionHeader } from "../SectionHeader"
 
 export const FinancialAffadavitThree = number => {
   const form = useForm()
+
+  let otherExpenses
+  let courtOrder
+  let expectedChanges
+  let comments
+
   let updateState = (name, value, index) => {
     name === "FinancialAffadavitThree.otherExpenses" &&
       sessionStorage.setItem("FinancialAffadavitThree.otherExpenses", value)
@@ -34,17 +40,15 @@ export const FinancialAffadavitThree = number => {
       sessionStorage.setItem("FinancialAffadavitThree.expectedChanges", value)
     name === "FinancialAffadavitThree.comments" &&
       sessionStorage.setItem("FinancialAffadavitThree.comments", value)
+    otherExpenses = sessionStorage.getItem(
+      "FinancialAffadavitThree.otherExpenses"
+    )
+    courtOrder = sessionStorage.getItem("FinancialAffadavitThree.courtOrder")
+    expectedChanges = sessionStorage.getItem(
+      "FinancialAffadavitThree.expectedChanges"
+    )
+    comments = sessionStorage.getItem("FinancialAffadavitThree.comments")
   }
-  const otherExpenses = sessionStorage.getItem(
-    "FinancialAffadavitThree.otherExpenses"
-  )
-  const courtOrder = sessionStorage.getItem(
-    "FinancialAffadavitThree.courtOrder"
-  )
-  const expectedChanges = sessionStorage.getItem(
-    "FinancialAffadavitThree.expectedChanges"
-  )
-  const comments = sessionStorage.getItem("FinancialAffadavitThree.comments")
 
   return (
     <FormizStep name="FinancialAffadavitThree" order={29000}>
