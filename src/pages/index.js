@@ -62,13 +62,15 @@ export default function Home() {
             through the basics of using the calculator prior to beginning.
           </Text>
           <Box w="100%" align="right">
+            <GatsbyLink to="/intro">
             <Button
               leftIcon={<FaCalculator />}
               colorScheme="brand"
               variant="solid"
             >
-              <GatsbyLink to="/intro">Start</GatsbyLink>
+              Start
             </Button>
+            </GatsbyLink>
           </Box>
         </Box>
 

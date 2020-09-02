@@ -14,7 +14,7 @@ const defaultProps = {
   onReset: () => {},
   githubPath: null,
 }
-//const windowGlobal = typeof window !== 'undefined' && window
+const windowGlobal = typeof window !== "undefined" && window
 export const PageFooter = ({
   onReset,
   handleDebug,
@@ -32,7 +32,10 @@ export const PageFooter = ({
         display={{ md: "flex" }}
       >
         <Box mt={{ base: 6, md: 6 }} flex={1}>
-          &copy; {new Date().getFullYear()} <Link href={"https://www.mtlsa.org/"} color={"brand.400"}>Montana Legal Services Association</Link>
+          &copy; {new Date().getFullYear()}{" "}
+          <Link href={"https://www.mtlsa.org/"} color={"brand.400"}>
+            Montana Legal Services Association
+          </Link>
         </Box>
         <Box align="right" mt={{ base: 6, md: 6 }} flex={1}>
           See our{" "}
@@ -73,7 +76,7 @@ export const PageFooter = ({
         <Button
           onClick={() => {
             sessionStorage.clear()
-            //windowGlobal.location.reload(sessionStorage.clear())
+            windowGlobal.location.reload(sessionStorage.clear())
           }}
           size="sm"
           mr="auto"

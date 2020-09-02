@@ -38,6 +38,7 @@ export const FieldMoneyInput = props => {
     placeholder,
     helper,
     updateState,
+    fieldWidth,
     ...otherProps
   } = props
 
@@ -83,6 +84,7 @@ export const FieldMoneyInput = props => {
             aria-invalid={showError}
             aria-describedby={!isValid ? `${id}-error` : null}
             placeholder={placeholder}
+            width={fieldWidth ? fieldWidth : "100%"}
           />
         </Box>
       </Box>

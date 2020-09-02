@@ -6,8 +6,8 @@ import {
   Stack,
   HStack,
   CheckboxGroup,
-  Input,
-} from "@chakra-ui/core"
+  Input, Radio,
+} from '@chakra-ui/core'
 import {
   useField,
   fieldPropTypes,
@@ -50,17 +50,14 @@ export const FieldCheckbox = props => {
     orientation,
     index,
     checkedItems,
+    setCheckedItems,
     ...otherProps
   } = props
   const [isTouched, setIsTouched] = useState(false)
   const showError = !isValid && (isTouched || isSubmitted)
 
-  const handleChange = e => {
-    //setChecked(!value)
-    console.log(e.target.name)
-    updateState(e.target.name)
-    //updateMontana(value)
-  }
+  //const [checkedItems, setCheckedItems] = useState({})
+  let isChecked = ""
 
   useEffect(() => {
     setIsTouched(false)
@@ -76,34 +73,43 @@ export const FieldCheckbox = props => {
     ...otherProps,
   }
 
+  // const handleChange = (value) => {
+  //   console.log(value)
+  //   //console.log(event.target.checked)
+  //   //console.log('dick')
+  //   setValue(value)
+  //   setCheckedItems({
+  //     ...checkedItems,
+  //     [value]: true,
+  //   })
+  //   console.log(checkedItems)
+  // }
+
+  const handleChange = (e) => {
+    setValue({
+      ...value,
+      [e.target.value]: e.target.checked,
+    })
+    setCheckedItems({
+      ...checkedItems,
+      [e.target.value]: e.target.checked,
+    })
+  }
+
   const CurrentStack = orientation === "vertical" ? Stack : HStack
   return (
     <FormGroup {...formGroupProps}>
-      <CheckboxGroup colorScheme="green" defaultValue={["naruto", "kakashi"]}>
         <Stack>
-          {(options || []).map(item => (
-            <>
-              <Checkbox
-                isChecked={checkedItems[item.label]}
-                //onChange={handleChange}
-                onClick={
-                  handleChange
-                }
-                mr={4}
-                size="lg"
-                colorScheme="brand"
-                key={item.value}
-                value={item.value}
-              >
-                {/*<Box fontSize="xl" d="flex">*/}
-                {item.label}
-                {/*</Box>*/}
-              </Checkbox>
-              {/*<Box>Lemme at em</Box>*/}
-            </>
+          {(options || []).map((item,i) => (
+            <Checkbox
+              isChecked={checkedItems[i]}
+              //onChange={(val) => handleChange(val)}
+              value={item.value}
+              onChange={val => handleChange(val)}
+            >{item.label}
+            </Checkbox>
           ))}
         </Stack>
-      </CheckboxGroup>
     </FormGroup>
   )
 }

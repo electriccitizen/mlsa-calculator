@@ -28,16 +28,20 @@ import { FieldSelect } from "../Fields/FieldSelect"
 import { FieldCheckbox } from "../Fields/FieldCheckbox"
 const updateState = e => {}
 
-export const OtherIncome = () => {
+export const OtherIncomeSecondary = () => {
   const [checkedItems, setCheckedItems] = useState({})
+  const form = useForm()
+  const otherParent = form.values.otherParent
+    ? form.values.otherParent.fname
+    : ""
   return (
-    <FormizStep name="OtherIncome" order={10000}>
+    <FormizStep name="OtherIncomeSecondary" order={18000}>
       <>
         <SectionWrapper>
-          <SectionHeader header={`Your Other Income`} />
+          <SectionHeader header={otherParent + `'s Other Income`} />
           <FieldCheckbox
-            name="OtherIncome"
-            label="Select all that apply, or none of the above if you have no other income."
+            name="OtherIncomeSecondary"
+            label="Selet all that apply, or none of the above if you have no other income."
             required="Required"
             keepValue
             setCheckedItems={setCheckedItems}
@@ -72,7 +76,7 @@ export const OtherIncome = () => {
             <Box mr={12}>
               <Box d="flex">
                 <FieldMoneyInput
-                  name={`OtherIncome.SepEarning`}
+                  name={`OtherIncomeSecondary.SepEarning`}
                   label="Self-employment net earnings (- loss)"
                   required="Required"
                   type="text"
@@ -80,7 +84,7 @@ export const OtherIncome = () => {
                   mr={4}
                 />
                 <FieldSelect
-                  name="OtherIncome.SepEarning.PaySchedule"
+                  name="OtherIncomeSecondary.SepEarning.PaySchedule"
                   label="Paid how often?"
                   placeholder="Select option..."
                   required="Required"
@@ -96,7 +100,7 @@ export const OtherIncome = () => {
                 />
               </Box>
               <FieldInput
-                name={`OtherIncome.SepEarning.Desc`}
+                name={`OtherIncomeSecondary.SepEarning.Desc`}
                 label="Describe your self-employment activities"
                 required="Required"
                 type="text"
@@ -104,7 +108,7 @@ export const OtherIncome = () => {
               />
               <Box spacing="2" p="2" d="flex">
                 <FieldMoneyInput
-                  name={`OtherIncome.SepEarning.HoursPerWeek`}
+                  name={`OtherIncomeSecondary.SepEarning.HoursPerWeek`}
                   label="Hours per week spent in self-employment activities"
                   required="Required"
                   type="text"
@@ -112,7 +116,7 @@ export const OtherIncome = () => {
                   mr={4}
                 />
                 <FieldRadio
-                  name="OtherIncome.SepEarning.Primary"
+                  name="OtherIncomeSecondary.SepEarning.Primary"
                   placeholder="None"
                   required="Required"
                   label={
@@ -133,7 +137,7 @@ export const OtherIncome = () => {
           {checkedItems.pension == true && (
             <Box mr={12}>
               <FieldMoneyInput
-                name={`OtherIncome.Pension`}
+                name={`OtherIncomeSecondary.Pension`}
                 label="Pensions, retirement - per year (before taxes)"
                 required="Required"
                 type="text"
@@ -146,7 +150,7 @@ export const OtherIncome = () => {
           {checkedItems.social == true && (
             <Box mr={12}>
               <FieldMoneyInput
-                name={`OtherIncome.SSN`}
+                name={`OtherIncomeSecondary.SSN`}
                 label="Pensions, Social Security, per year (before taxes)"
                 required="Required"
                 type="text"
@@ -159,7 +163,7 @@ export const OtherIncome = () => {
           {checkedItems.interest == true && (
             <Box mr={12}>
               <FieldMoneyInput
-                name={`OtherIncome.Interest`}
+                name={`OtherIncomeSecondary.Interest`}
                 label="Interest/Dividend income - per year (before taxes)"
                 required="Required"
                 type="text"
@@ -172,7 +176,7 @@ export const OtherIncome = () => {
           {checkedItems.unearned == true && (
             <Box mr={12}>
               <FieldMoneyInput
-                name={`OtherIncome.Unearned`}
+                name={`OtherIncomeSecondary.Unearned`}
                 label="Other unearned income - per year (before taxes)"
                 required="Required"
                 type="text"
@@ -186,7 +190,7 @@ export const OtherIncome = () => {
             <Box d={"flex"} mr={12}>
               <Box flex={1} mr={4}>
                 <FieldMoneyInput
-                  name={`OtherIncome.Imputed`}
+                  name={`OtherIncomeSecondary.Imputed`}
                   label="Imputed income (before taxes)"
                   required="Required"
                   type="text"
@@ -195,7 +199,7 @@ export const OtherIncome = () => {
               </Box>
               <Box flex={1}>
                 <FieldSelect
-                  name="OtherIncome.Imputed.Schedule"
+                  name="OtherIncomeSecondary.Imputed.Schedule"
                   label="Paid how often?"
                   placeholder="Select option..."
                   required="Required"
@@ -215,7 +219,7 @@ export const OtherIncome = () => {
           {checkedItems.eitc == true && (
             <Box mr={12}>
               <FieldMoneyInput
-                name={`OtherIncome.EITC`}
+                name={`OtherIncomeSecondary.EITC`}
                 label="Earned Income Tax Credit (EITC) - per year (before taxes)"
                 required="Required"
                 type="text"
@@ -229,7 +233,7 @@ export const OtherIncome = () => {
             <Box d={"flex"} mr={12}>
               <Box flex={1} mr={4}>
                 <FieldMoneyInput
-                  name={`OtherIncome.prize`}
+                  name={`OtherIncomeSecondary.prize`}
                   label="Prize, award, settlement, or other one-time cash payment (before taxes)"
                   required="Required"
                   type="text"
@@ -239,7 +243,7 @@ export const OtherIncome = () => {
               </Box>
               <Box flex={1}>
                 <FieldInput
-                  name={`OtherIncome.prize.desc`}
+                  name={`OtherIncomeSecondary.prize.desc`}
                   label="Describe the prize, including its present location."
                   required="Required"
                   type="text"
@@ -253,7 +257,7 @@ export const OtherIncome = () => {
           {checkedItems.bonus == true && (
             <Box mr={12}>
               <FieldMoneyInput
-                name={`OtherIncome.bonus`}
+                name={`OtherIncomeSecondary.bonus`}
                 label="Bonus amount - per year (before taxes)"
                 required="Required"
                 type="text"

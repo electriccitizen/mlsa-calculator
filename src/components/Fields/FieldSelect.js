@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import {
-  Select,
-} from '@chakra-ui/core';
-import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
-import { FormGroup } from '../FormGroup';
+import React, { useEffect, useState } from "react"
+import PropTypes from "prop-types"
+import { Select } from "@chakra-ui/core"
+import { useForm, useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
+import { FormGroup } from "../FormGroup"
 
 const propTypes = {
   label: PropTypes.node,
@@ -13,16 +11,19 @@ const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   options: PropTypes.array,
   ...fieldPropTypes,
-};
+}
 const defaultProps = {
-  label: '',
-  placeholder: '',
-  helper: '',
+  label: "",
+  placeholder: "",
+  helper: "",
   options: [],
   ...fieldDefaultProps,
-};
+}
 
-export const FieldSelect = (props) => {
+
+export const FieldSelect = props => {
+
+  const form = useForm()
   const {
     errorMessage,
     id,
@@ -31,17 +32,35 @@ export const FieldSelect = (props) => {
     resetKey,
     setValue,
     value,
+
     fieldwidth,
-  } = useField(props);
+  } = useField(props)
   const {
-    label, options, required, placeholder, helper, ...otherProps
-  } = props;
-  const [isTouched, setIsTouched] = useState(false);
-  const showError = !isValid && (isTouched || isSubmitted);
+    label,
+    name,
+    options,
+    index,
+    required,
+    placeholder,
+    helper,
+    updateLabel,
+    updateState,
+    ...otherProps
+  } = props
+  const [isTouched, setIsTouched] = useState(false)
+  const showError = !isValid && (isTouched || isSubmitted)
+
+  const handleChange = ( name, value,index) => {
+    setValue(value)
+    updateState(name,value)
+    //updateLabel(value, index)
+    // setValue(!event.target.name)
+    //updateMontana(value)
+  }
 
   useEffect(() => {
-    setIsTouched(false);
-  }, [resetKey]);
+    setIsTouched(false)
+  }, [resetKey])
 
   const formGroupProps = {
     errorMessage,
@@ -51,30 +70,36 @@ export const FieldSelect = (props) => {
     label,
     showError,
     ...otherProps,
-  };
+  }
+
 
   return (
     <FormGroup {...formGroupProps}>
       <Select
         id={id}
         key={resetKey}
-        value={value || ''}
+        value={value || ""}
         onBlur={() => setIsTouched(true)}
         aria-invalid={showError}
         aria-describedby={!isValid ? `${id}-error` : null}
         placeholder={placeholder}
-        onChange={(e) => setValue(e.target.value)}
+        name={name}
+        index={index}
+        //onChange={e => setValue(e.target.value)}
+        onChange={e => {
+          handleChange(name, e.target.value, index)
+        }}
         width={"50%"}
       >
-        {(options || []).map((item) => (
+        {(options || []).map(item => (
           <option key={item.value} value={item.value}>
             {item.label || item.value}
           </option>
         ))}
       </Select>
     </FormGroup>
-  );
-};
+  )
+}
 
-FieldSelect.propTypes = propTypes;
-FieldSelect.defaultProps = defaultProps;
+FieldSelect.propTypes = propTypes
+FieldSelect.defaultProps = defaultProps

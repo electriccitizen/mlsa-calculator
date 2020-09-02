@@ -17,12 +17,34 @@ import { OtherChildren } from "../components/05-OtherChildren/OtherChildren"
 import { EnterMyOtherChildren } from "../components/05-OtherChildren/EnterMyOtherChildren"
 import { OtherChildrenSecondary } from "../components/06-OtherChildrenSecondary/OtherChildrenSecondary"
 import { EnterMyOtherChildrenSecondary } from "../components/06-OtherChildrenSecondary/EnterMyOtherChildrenSecondary"
-import { Employment} from '../components/07-Employment/Employment'
-import { CurrentJob} from '../components/08-CurrentJob/CurrentJob'
-import { OtherJobs} from '../components/09-OtherJobs/OtherJobs'
-import { EnterOtherJobs} from '../components/09-OtherJobs/EnterOtherJobs'
-import { OtherIncome} from '../components/10-OtherIncome/OtherIncome'
-import { ChildExpenses} from '../components/11-ChildExpenses/ChildExpenses'
+import { Employment } from "../components/07-Employment/Employment"
+import { CurrentJob } from "../components/08-CurrentJob/CurrentJob"
+import { OtherJobs } from "../components/09-OtherJobs/OtherJobs"
+import { EnterOtherJobs } from "../components/09-OtherJobs/EnterOtherJobs"
+import { OtherIncome } from "../components/10-OtherIncome/OtherIncome"
+import { ChildExpenses } from "../components/14-ChildExpenses/ChildExpenses"
+import { TaxableIncome } from "../components/12-TaxableIncome/TaxableIncome"
+import { NonTaxableIncome } from "../components/13-NonTaxableIncome/NonTaxableIncome"
+import { AllowableDeductions } from "../components/15-AllowableDeductions/AllowableDeductions"
+import { OtherAllowableDeductions } from "../components/15-AllowableDeductions/OtherAllowableDeductions"
+import { StandardOfLiving } from "../components/16-StandardOfLiving/StandardOfLiving"
+import { CurrentJobSecondary } from "../components/17-CurrentJobSecondary/CurrentJobSecondary"
+import { EnterOtherJobsSecondary } from "../components/17-CurrentJobSecondary/EnterOtherJobsSecondary"
+import { OtherIncomeSecondary } from "../components/18-OtherIncomeSecondary/OtherIncomeSecondary"
+import { TaxableIncomeSecondary } from "../components/19-TaxableIncomeSecondary/TaxableIncomeSecondary"
+import { NonTaxableIncomeSecondary } from "../components/20-NonTaxableIncomeSecondary/NonTaxableIncomeSecondary"
+import { ChildExpensesSecondary } from "../components/21-ChildExpensesSecondary/ChildExpensesSecondary"
+import { AllowableDeductionsSecondary } from "../components/22-AllowableDeductionsSecondary/AllowableDeductionsSecondary"
+import { OtherAllowableDeductionsSecondary } from "../components/22-AllowableDeductionsSecondary/OtherAllowableDeductionsSecondary"
+import { StandardOfLivingSecondary } from "../components/23-StandardOfLivingSecondary/StandardOfLivingSecondary"
+import { ParentingDays } from "../components/24-ParentingDays/ParentingDays"
+import { FinancialAffadavitOne } from "../components/25-FinancialAffadavitOne/FinancialAffadavitOne"
+import { Schools } from "../components/26-Schools/Schools"
+import { OtherSchools } from "../components/26-Schools/OtherSchools"
+import { HealthInsurance } from "../components/27-HealthInsurance/HealthInsurance"
+import { HealthInsurancePolicies } from "../components/27-HealthInsurance/HealthInsurancePolicies"
+import { FinancialAffadavitTwo } from "../components/28-FinancialAffadavitTwo/FinancialAffadavitTwo"
+import { FinancialAffadavitThree } from "../components/29-FinancialAffadavitThree/FinancialAffadavitThree"
 import { Dummy } from "../components/07-Dummy/Dummy"
 import { Beforeunload } from "react-beforeunload"
 import { StartOver } from "../components/100-startOver/StartOver"
@@ -112,8 +134,8 @@ export default function Calculator() {
                 {/*<IntroHelp />*/}
                 {/*<InitiateInterview updateMontana={updateMontana} />*/}
                 {/*<BasicInformation />*/}
-                <OtherParent />
-                <EnterChildren />
+                {/*<OtherParent />*/}
+                {/*<EnterChildren />*/}
                 {/*<OtherChildren />*/}
                 {/*<EnterMyOtherChildren />*/}
                 {/*<OtherChildrenSecondary />*/}
@@ -122,9 +144,30 @@ export default function Calculator() {
                 {/*<CurrentJob />*/}
                 {/*<OtherJobs />*/}
                 {/*<EnterOtherJobs />*/}
-                <OtherIncome />
-                <ChildExpenses />
-                {/*<Dummy />*/}
+                {/*<OtherIncome />*/}
+                {/*<TaxableIncome />*/}
+                {/*<NonTaxableIncome />*/}
+                {/*<ChildExpenses />*/}
+                {/*<AllowableDeductions />*/}
+                {/*<OtherAllowableDeductions />*/}
+                {/*<StandardOfLiving />*/}
+                {/*<CurrentJobSecondary />*/}
+                {/*<EnterOtherJobsSecondary />*/}
+                {/*<OtherIncomeSecondary />*/}
+                {/*<TaxableIncomeSecondary />*/}
+                {/*<NonTaxableIncomeSecondary />*/}
+                {/*<ChildExpensesSecondary />*/}
+                {/*<AllowableDeductionsSecondary />*/}
+                {/*<OtherAllowableDeductionsSecondary />*/}
+                {/*<StandardOfLivingSecondary />*/}
+                {/*<ParentingDays />*/}
+                {/*<FinancialAffadavitOne />*/}
+                {/*<Schools />*/}
+                {/*<OtherSchools />*/}
+                <HealthInsurance />
+                <HealthInsurancePolicies />
+                <FinancialAffadavitTwo />
+                <FinancialAffadavitThree />
               </>
             </MultiStepsLayout>
           </Beforeunload>

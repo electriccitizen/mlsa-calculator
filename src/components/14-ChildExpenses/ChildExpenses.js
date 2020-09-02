@@ -20,7 +20,7 @@ import {
   Stack,
   useColorMode,
 } from "@chakra-ui/core"
-import { DeleteIcon } from '@chakra-ui/icons';
+import { DeleteIcon } from "@chakra-ui/icons"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 
@@ -69,7 +69,7 @@ export const ChildExpenses = number => {
         <FormizStep
           key={index}
           name={`ChildExpenses` + index}
-          order={11500 + index}
+          order={14500 + index}
         >
           <SectionWrapper>
             <Box mb="8">
@@ -103,17 +103,16 @@ export const ChildExpenses = number => {
             />
             {sessionStorage.getItem("ChildExpenses." + index + ".housing") ===
               "other" && (
-
-                <FieldInput
-                  name={`ChildExpenses.${index}.otherHousing`}
-                  label="Who does this child live with?"
-                  type="text"
-                  placeholder=""
-                  mb="4"
-                />
-               )}
-                {sessionStorage.getItem("ChildExpenses." + index + ".housing")  && (
-                  <>
+              <FieldInput
+                name={`ChildExpenses.${index}.otherHousing`}
+                label="Who does this child live with?"
+                type="text"
+                placeholder=""
+                mb="4"
+              />
+            )}
+            {sessionStorage.getItem("ChildExpenses." + index + ".housing") && (
+              <>
                 <FieldMoneyInput
                   name={`ChildExpenses.${index}.benefits`}
                   label="Dependent's benefits received for this child per year, if any. Examples: Social Security, VA, etc."
@@ -146,14 +145,10 @@ export const ChildExpenses = number => {
                 )}
                 <SectionHeader
                   header={
-                    `Enter the annual amounts spent on each expense for, if any. ` +
+                    `Enter the annual amounts spent on each expense for ` +
                     (form.values.primaryChildren &&
                       form.values.primaryChildren[index].fname) +
-                    ` (Child ` +
-                    (index + 1) +
-                    ` of ` +
-                    numChildren +
-                    `)`
+                    `, if any.`
                   }
                 />
                 <FieldMoneyInput
@@ -161,21 +156,18 @@ export const ChildExpenses = number => {
                   label="Child care cost less dependent care tax credit, per year"
                   type="text"
                   placeholder="Enter amount"
-
                 />
                 <FieldMoneyInput
                   name={`ChildExpenses.${index}.healthInsurance`}
                   label="Health insurance premium, per year"
                   type="text"
                   placeholder="Enter amount"
-
                 />
                 <FieldMoneyInput
                   name={`ChildExpenses.${index}.medicalExpense`}
                   label="Unreimbursed medical expense over $250 for this child, per year"
                   type="text"
                   placeholder="Enter amount"
-
                 />
                 <FieldRadio
                   name={`ChildExpenses.${index}.otherExpenses`}
@@ -191,64 +183,56 @@ export const ChildExpenses = number => {
                 {sessionStorage.getItem(
                   "ChildExpenses." + index + ".otherExpenses"
                 ) === "yes" &&
-                  additionalExpenses.map((port, index) => (
-                    <Stack
-                      key={port.id}
-                      direction="row"
-                      spacing="4"
-                      mb="6"
-                      backgroundColor={'gray.50'}
-                      borderRadius="md"
-                      borderWidth="1px"
-                      borderColor={'gray.200'}
-                      p="4"
-                    >
-                      <Box flex="1">
-                        <FieldInput
-                          name={`ChildExpenses[${index}].otherExpenses`}
-                          label="Port number"
-                          required="Required"
-                          placeholder="e.g. 8080"
-                          type="number"
-                          m="0"
-                          // validations={[
-                          //   {
-                          //     rule: (val) => (form.values.ports || [])
-                          //       .filter((x) => x.number === val).length <= 1,
-                          //     deps: [JSON.stringify(form.values.ports)],
-                          //     message: 'Must be unique',
-                          //   },
-                          // ]}
-                        />
+                  additionalExpenses.map((expense, x) => (
+                    <>
+                      <Box fontSize={"md"} mb={2}>
+                        Enter a description of each other expense and the amount
+                        spent per year.
                       </Box>
-                      <Box flex="1">
-                        <FieldInput
-                          name={`ChildExpenses[${index}].name`}
-                          label="Port name"
-                          placeholder="e.g. webapp"
-                          m="0"
-                        />
-                      </Box>
-                      <Box pt="1.75rem">
-                        <IconButton
-                          icon={<DeleteIcon />}
-                          onClick={() => removeItem(port.id)}
-                          variant="ghost"
-                        />
-                      </Box>
-                    </Stack>
-                  ))
-
-                }
+                      <Stack
+                        key={x}
+                        direction="row"
+                        spacing="4"
+                        mb="6"
+                        backgroundColor={"gray.50"}
+                        borderRadius="md"
+                        borderWidth="1px"
+                        borderColor={"gray.200"}
+                        p="4"
+                      >
+                        <Box flex="1">
+                          <FieldInput
+                            name={`ChildExpenses.${index}.otherExpenses.${x}.desc`}
+                            label="Description"
+                            required="Required"
+                            m="0"
+                          />
+                        </Box>
+                        <Box flex="1">
+                          <FieldInput
+                            name={`ChildExpenses.${index}.otherExpenses.${x}.amt`}
+                            label="Amount per year"
+                            required="Required"
+                            m="0"
+                          />
+                        </Box>
+                        <Box pt="1.75rem">
+                          <IconButton
+                            icon={<DeleteIcon />}
+                            onClick={() => removeItem(expense.id)}
+                            variant="ghost"
+                          />
+                        </Box>
+                      </Stack>
+                    </>
+                  ))}
                 {sessionStorage.getItem(
                   "ChildExpenses." + index + ".otherExpenses"
                 ) === "yes" &&
-
-                additionalExpenses.length <= 20 && (
-                  <AddPlaceholder label="Add expense" onClick={addItem} />
-
+                  additionalExpenses.length <= 20 && (
+                    <AddPlaceholder label="Add expense" onClick={addItem} />
                   )}
-                </>
+              </>
             )}
           </SectionWrapper>
         </FormizStep>
