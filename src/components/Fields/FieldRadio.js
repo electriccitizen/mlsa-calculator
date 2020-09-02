@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { Box, Radio, Stack, HStack, RadioGroup } from "@chakra-ui/core"
-import {
-  useField,
-  fieldPropTypes,
-  fieldDefaultProps,
-} from "@formiz/core"
-
+import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
+import { FormGroup } from '../FormGroup';
 const propTypes = {
   label: PropTypes.node,
   helper: PropTypes.node,
@@ -30,9 +26,9 @@ export const FieldRadio = props => {
     resetKey,
     setValue,
     value,
-
   } = useField(props)
   const {
+    children,
     label,
     name,
     options,
@@ -66,9 +62,9 @@ export const FieldRadio = props => {
     ...otherProps,
   }
 
-  const CurrentStack = (orientation === 'vertical' ? Stack : HStack)
+  const CurrentStack = orientation === "vertical" ? Stack : HStack
   return (
-
+    <FormGroup {...formGroupProps}>
       <RadioGroup
         key={resetKey}
         value={value || ""}
@@ -77,7 +73,13 @@ export const FieldRadio = props => {
       >
         <CurrentStack>
           {(options || []).map(item => (
-            <Radio mr={4} size="lg" colorScheme="brand" key={item.value} value={item.value}>
+            <Radio
+              mr={4}
+              size="lg"
+              colorScheme="brand"
+              key={item.value}
+              value={item.value}
+            >
               {/*<Box fontSize="xl" d="flex">*/}
               {item.label}
               {/*</Box>*/}
@@ -85,6 +87,8 @@ export const FieldRadio = props => {
           ))}
         </CurrentStack>
       </RadioGroup>
+      {children}
+    </FormGroup>
   )
 }
 

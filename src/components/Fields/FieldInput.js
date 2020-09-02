@@ -61,7 +61,6 @@ export const FieldInput = props => {
     isRequired: !!required,
     label,
     showError,
-    updateState,
     ...otherProps,
   }
 

@@ -1,37 +1,44 @@
 import React, { useState } from "react"
-import { FormizStep, useForm } from "@formiz/core"
+import { FormizStep } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldRadio } from "../Fields/FieldRadio"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
-import { Text, Box } from "@chakra-ui/core"
+import { Box } from "@chakra-ui/core"
 export const InitiateInterview = ({ updateMontana }) => {
-  const form = useForm()
-  const setField = value => {
-    return (
-      JSON.parse(sessionStorage.getItem(value)) &&
-      JSON.parse(sessionStorage.getItem(value))
-    )
-  }
+  // const setField = value => {
+  //   return (
+  //     JSON.parse(sessionStorage.getItem(value)) &&
+  //     JSON.parse(sessionStorage.getItem(value))
+  //   )
+  // }
 
-  let documents = setField("documents")
-  let relationship = setField("relationship")
-  let action = setField("action")
-  let location = setField("location")
+  // let documents = setField("documents")
+  // let relationship = setField("relationship")
+  // let action = setField("action")
+  // let location = setField("location")
+
+  const [state, setState] = useState({
+    relationship: '',
+    action: '',
+    location: '',
+    documents: '',
+
+  });
+
 
   let updateState = (name, value) => {
     console.log("value")
-    name === "initiate.relationship" &&
-      sessionStorage.setItem("relationship", JSON.stringify(value))
-    name === "initiate.action" &&
-      sessionStorage.setItem("action", JSON.stringify(value))
-    name === "initiate.location" &&
-      sessionStorage.setItem("location", JSON.stringify(value))
+    //  name === "initiate.relationship" &&
+    //    sessionStorage.setItem("state.relationship", value)
+    // // name === "initiate.action" &&
+    //   sessionStorage.setItem("action", JSON.stringify(value))
+    // name === "initiate.location" &&
+    //   sessionStorage.setItem("location", JSON.stringify(value))
     name === "initiate.documents" &&
-      sessionStorage.setItem("documents", JSON.stringify(value))
-    name === "initiate.location" && updateMontana(value)
+      setState("state.documents", value)
+   //name === "initiate.location" && updateMontana(value)
   }
-  const HelpText = <Text>Foo</Text> + <Text>Barr</Text>
   return (
     <FormizStep name="initiateInterview" order={1000}>
       <SectionWrapper>
@@ -61,7 +68,7 @@ export const InitiateInterview = ({ updateMontana }) => {
         />
       </SectionWrapper>
 
-      {(documents === "worksheets" || documents === "both") && (
+      {(state.documents === "worksheets" || state.documents === "both") && (
         <>
           <SectionWrapper>
             <SectionHeader
@@ -87,7 +94,7 @@ export const InitiateInterview = ({ updateMontana }) => {
             />
           </SectionWrapper>
 
-          {action === "establish" ? (
+          {state.action === "establish" ? (
             <SectionWrapper>
               <SectionHeader
                 header={
@@ -102,7 +109,7 @@ export const InitiateInterview = ({ updateMontana }) => {
               />
             </SectionWrapper>
           ) : (
-            action === "modify" && (
+            state.action === "modify" && (
               <>
                 <SectionHeader
                   header={"Was the child support order issued in Montana?"}
@@ -116,14 +123,14 @@ export const InitiateInterview = ({ updateMontana }) => {
                     { value: "no", label: "No" },
                   ]}
                 />
-                {location === "no" && (
+                {state.location === "no" && (
                   <Box ml={4} mr={4} p={4} bg={"gray.400"} fontSize="lg">
                     Sorry, this tool is only available for cases in the State of
                     Montana.
                   </Box>
                 )}
 
-                {location === "yes" && (
+                {state.location === "yes" && (
                   <SectionWrapper>
                     <SectionHeader
                       header={

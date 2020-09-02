@@ -4,14 +4,14 @@ import printJS from "print-js"
 import { useForm } from "@formiz/core"
 import { MultiStepsLayout } from "../components/MultiStepsLayout"
 import { PageLayout } from "../layout/PageLayout"
-//import { InitiateInterview } from "../components/01-InitiateInterview/IntiateInterview"
 
 import { TermsOfUse } from "../components/01-InitiateInterview/TermsOfUse"
 import { IntroCanDo } from "../components/01-InitiateInterview/IntroCanDo"
 import { IntroCantDo } from "../components/01-InitiateInterview/IntroCantDo"
 import { IntroHelp } from "../components/01-InitiateInterview/IntroHelp"
+import { InitiateInterview } from "../components/01-InitiateInterview/IntiateInterview"
+import { BasicInformation } from "../components/02-BasicInformation/BasicInformation"
 
-// import { BasicInformation } from "../components/02-BasicInformation/BasicInformation"
 // import { OtherParent } from "../components/03-OtherParent/OtherParent"
 // import { EnterChildren } from "../components/04-EnterChildren/EnterChildren"
 // import { OtherChildren } from "../components/05-OtherChildren/OtherChildren"
@@ -132,9 +132,9 @@ export default function Calculator() {
             >
               <>
                 <TermsOfUse />
-                <IntroCanDo />
-                <IntroCantDo />
-                <IntroHelp />
+                {/*<IntroCanDo />*/}
+                {/*<IntroCantDo />*/}
+                {/*<IntroHelp />*/}
                 {/*<InitiateInterview updateMontana={updateMontana} />*/}
                 {/*<BasicInformation />*/}
                 {/*<OtherParent />*/}
