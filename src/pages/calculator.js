@@ -45,7 +45,6 @@ import { HealthInsurance } from "../components/27-HealthInsurance/HealthInsuranc
 import { HealthInsurancePolicies } from "../components/27-HealthInsurance/HealthInsurancePolicies"
 import { FinancialAffadavitTwo } from "../components/28-FinancialAffadavitTwo/FinancialAffadavitTwo"
 import { FinancialAffadavitThree } from "../components/29-FinancialAffadavitThree/FinancialAffadavitThree"
-import { Dummy } from "../components/07-Dummy/Dummy"
 import { Beforeunload } from "react-beforeunload"
 import { StartOver } from "../components/100-startOver/StartOver"
 import {
