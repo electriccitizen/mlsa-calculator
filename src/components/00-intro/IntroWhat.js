@@ -86,7 +86,7 @@ export const IntroWhat = () => {
           If you have already completed a Financial Affidavit, the information
           from that document will help you create the Child Support Worksheet.
           If you have not previously created a Financial Affadavit, this tool
-          will you to create one.
+          will allow you to create one.
         </Text>
         <Text mt={2}>
           Note: both of these forms along with additional information are available{" "}
