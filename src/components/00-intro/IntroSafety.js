@@ -1,26 +1,10 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
-import { FieldInput } from "../Fields/FieldInput"
-import { FieldRadio } from "../Fields/FieldRadio"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
-import {
-  Text,
-  List,
-  Link,
-  ListItem,
-  Heading,
-  Icon,
-  UnorderedList,
-  ListIcon,
-  useColorMode,
-  Box,
-  Button,
-} from "@chakra-ui/core"
+import { Text, Link, Heading, Icon } from "@chakra-ui/core"
 import { FaInfoCircle, FaExternalLinkAlt } from "react-icons/fa/index"
-import { PageLayout } from "../../layout/PageLayout"
 export const IntroSafety = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
   return (
     <FormizStep name="introSafety" order={1000}>
       <SectionWrapper>
@@ -40,7 +24,7 @@ export const IntroSafety = () => {
         >
           <Icon color={"brand.400"} as={FaInfoCircle} /> Using a public computer
         </Heading>
-        <Text  mb={4}>
+        <Text mb={4}>
           If you are using a public computer, be sure to close the browser when
           complete. Do not download your results to a public computer.
         </Text>
@@ -55,9 +39,11 @@ export const IntroSafety = () => {
           <Icon color={"brand.400"} as={FaInfoCircle} /> Browsing safety
         </Heading>
         <Text mb={2}>
-        If you feel unsafe in your household or in your relationship, this safe internet use information may help you keep yourself, your family, and your information safe.
+          If you feel unsafe in your household or in your relationship, this
+          safe internet use information may help you keep yourself, your family,
+          and your information safe.
         </Text>
-          <Heading
+        <Heading
           as="h2"
           fontSize="2xl"
           lineHeight="tall"

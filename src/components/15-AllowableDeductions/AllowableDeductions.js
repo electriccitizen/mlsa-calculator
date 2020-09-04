@@ -1,32 +1,12 @@
-import React, { useEffect, useState, useRef } from "react"
-import { FormizStep, useForm } from "@formiz/core"
+import React, { useState } from "react"
+import { FormizStep } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
-import { FieldRadio } from "../Fields/FieldRadio"
-import { FieldCheckbox2 } from "../Fields/FieldCheckbox2"
-import {
-  Switch,
-  Select,
-  Checkbox,
-  CheckboxGroup,
-  Flex,
-  Box,
-  Divider,
-  SimpleGrid,
-} from "@chakra-ui/core"
+import { Box } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
-import { useHistoryState } from "../../hooks/useHistoryState"
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Stack,
-} from "@chakra-ui/core"
 import { FieldSelect } from "../Fields/FieldSelect"
 import { FieldCheckbox } from "../Fields/FieldCheckbox"
-const updateState = e => {}
 
 export const AllowableDeductions = () => {
   const [checkedItems, setCheckedItems] = useState({})
@@ -83,7 +63,6 @@ export const AllowableDeductions = () => {
                   label="Ordered alimony/spousal support"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>
@@ -113,7 +92,6 @@ export const AllowableDeductions = () => {
                   label="Ordered health insurance premium for yourself"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>
@@ -143,7 +121,6 @@ export const AllowableDeductions = () => {
                   label="Ordered health insurance premium for other children"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>
@@ -173,7 +150,6 @@ export const AllowableDeductions = () => {
                   label="Federal income tax"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>
@@ -183,7 +159,6 @@ export const AllowableDeductions = () => {
                   label="How often?"
                   placeholder="Select option..."
                   required="Required"
-                  fieldwidth={"25%"}
                   options={[
                     { value: "weekly", label: "Once per week" },
                     { value: "biweekly", label: "Every two weeks" },
@@ -203,7 +178,6 @@ export const AllowableDeductions = () => {
                   label="State income tax"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>
@@ -233,7 +207,6 @@ export const AllowableDeductions = () => {
                   label="Social Security (FICA plus Medicare)"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>
@@ -263,7 +236,6 @@ export const AllowableDeductions = () => {
                   label="Mandatory retirement contributions"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>
@@ -293,7 +265,6 @@ export const AllowableDeductions = () => {
                   label="Required employment expense"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>
@@ -323,7 +294,6 @@ export const AllowableDeductions = () => {
                   label="Extraordinary medical expense for yourself - per year"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>
@@ -333,7 +303,6 @@ export const AllowableDeductions = () => {
                   label="List the types of extraordinary medical expenses you have."
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>
@@ -347,7 +316,6 @@ export const AllowableDeductions = () => {
                   label="In-home nursing care expense - per year"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>
@@ -357,7 +325,6 @@ export const AllowableDeductions = () => {
                   label="List the types of in-home nursing care expenses you have and who you pay."
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>

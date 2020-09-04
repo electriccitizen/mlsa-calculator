@@ -2,7 +2,6 @@ import React from "react"
 import { Link as GatsbyLink } from "gatsby"
 import PropTypes from "prop-types"
 import { Stack, Icon, Switch, Button, Link, Box } from "@chakra-ui/core"
-import { useForm } from "@formiz/core"
 import { FaBug } from "react-icons/fa/index"
 const propTypes = {
   children: PropTypes.node,
@@ -16,12 +15,9 @@ const defaultProps = {
 }
 const windowGlobal = typeof window !== "undefined" && window
 export const PageFooter = ({
-  onReset,
   handleDebug,
   debugMode,
-  updateMontana,
 }) => {
-  const form = useForm()
   return (
     <>
       <Box

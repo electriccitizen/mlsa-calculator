@@ -1,40 +1,18 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
-import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
-import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
-import { AddPlaceholder } from "../AddPlaceholder"
-import {
-  Accordion,
-  AccordionItem,
-  AccordionHeader,
-  AccordionPanel,
-  AccordionIcon,
-  Collapse,
-  Button,
-  IconButton,
-  Box,
-  Text,
-  Stack,
-  useColorMode,
-} from "@chakra-ui/core"
-import { DeleteIcon } from "@chakra-ui/icons"
+import { Box, Text } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 
 export const ParentingDays = number => {
-  const form = useForm()
-  let updateState = (name, value, index) => {
-    name === "ChildExpenses." + index + ".housing" &&
-      sessionStorage.setItem("ChildExpenses." + index + ".housing", value)
-  }
-  const { colorMode } = useColorMode()
+  const form = useForm({ subscribe: { fields: true } })
+  const numChildren = form.values.NumPrimaryChildren
 
   const otherParent = form.values.otherParent
     ? form.values.otherParent.fname
     : ""
-  const numChildren = sessionStorage.getItem("numChildren")
   return (
     <FormizStep name="ParentingDays" order={24000}>
       <>
@@ -46,7 +24,6 @@ export const ParentingDays = number => {
             placeholder="None"
             required="Required"
             label={"Which parent does the child primarily live with?"}
-            updateState={updateState}
             options={[
               { value: "me", label: "Me" },
               { value: "other", label: otherParent },
@@ -57,13 +34,12 @@ export const ParentingDays = number => {
             you enter will be subtracted from 365 and the remainder will be the
             number of days this child spends with Daddy.
           </Text>
-          {Array.apply(null, { length: 2 }).map((e, index) => (
-            <Box d={"flex"}>
+          {Array.apply(null, { length: numChildren }).map((e, index) => (
+            <Box key={index} d={"flex"}>
               <Box>
                 <FieldInput
                   name={`ParentingDays.${index}.name`}
                   label="Child's name"
-                  //defaultValue={form.values.primaryChildren.`$index`.fname}
                   defaultValue={"First name"}
                   isDisabled={true}
                   type="text"
@@ -73,14 +49,14 @@ export const ParentingDays = number => {
                 />
               </Box>
               <Box>
-              <FieldInput
-                name={`ParentingDays.${index}.amount`}
-                label="Days spent per yer with you"
-                defaultValue=""
-                type="text"
-                mb="4"
-                fieldWidth={"60%"}
-              />
+                <FieldInput
+                  name={`ParentingDays.${index}.amount`}
+                  label="Days spent per yer with you"
+                  defaultValue=""
+                  type="text"
+                  mb="4"
+                  fieldWidth={"60%"}
+                />
               </Box>
             </Box>
           ))}

@@ -1,44 +1,26 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
-import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
 import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
-import {
-  Accordion,
-  AccordionItem,
-  AccordionHeader,
-  AccordionPanel,
-  AccordionIcon,
-  Collapse,
-  Button,
-  IconButton,
-  Box,
-  Stack,
-  useColorMode,
-} from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 import { FieldSelect } from "../Fields/FieldSelect"
 import { AddressField } from "../02-BasicInformation/AddressField"
 
-export const EnterOtherJobs = number => {
-  const [show, setShow] = React.useState(false)
-  const numOtherJobs = sessionStorage.getItem("numOtherJobs")
-
-  const updateState = (name, value, index) => {
-    name === "OtherJob." + index + ".Type" &&
-      sessionStorage.setItem("OtherJob." + index + ".Type", value)
-    name === "OtherJob." + index + ".Status" &&
-      sessionStorage.setItem("OtherJob." + index + ".Status", value)
-    name === "OtherJob." + index + ".Payment" &&
-      sessionStorage.setItem("OtherJob." + index + ".Payment", value)
-    name === "OtherJob." + index + ".Current" &&
-      sessionStorage.setItem("OtherJob." + index + ".Current", value)
+export const EnterOtherJobs = () => {
+  const form = useForm({ subscribe: { fields: ["OtherJobsNumber"] } })
+  const numOtherJobs = form.values.OtherJobsNumber
+  const [state, setState] = useState({})
+  let updateState = (name, value) => {
+    setState({
+      ...state,
+      [name]: value,
+    })
   }
 
   let GrossAmountLabel = ""
-  switch (sessionStorage.getItem("CurrentJobPayment")) {
+  switch (state["CurrentJobPayment"]) {
     case "salary":
       GrossAmountLabel = "Gross amount (amount before taxes) paid per paycheck"
       break
@@ -51,7 +33,6 @@ export const EnterOtherJobs = number => {
     default:
       GrossAmountLabel = null
   }
-  const { colorMode } = useColorMode()
 
   return (
     <>
@@ -62,20 +43,18 @@ export const EnterOtherJobs = number => {
           order={9500 + index}
         >
           <SectionWrapper>
-            <Box mb="8">
-              <SectionHeader
-                header={
-                  `Enter the details for your other jobs (` +
-                  (index + 1) +
-                  ` of ` +
-                  numOtherJobs +
-                  `)`
-                }
-              />
-            </Box>
+            <SectionHeader
+              header={
+                `Enter the details for your other jobs (` +
+                (index + 1) +
+                ` of ` +
+                numOtherJobs +
+                `)`
+              }
+            />
             <>
               <FieldRadio
-                name={`OtherJob.${index}.Current`}
+                name={`OtherJob.${index}.current`}
                 label="Is this a current job or a former job?"
                 placeholder="None"
                 required="Required"
@@ -89,9 +68,9 @@ export const EnterOtherJobs = number => {
                   { value: "former", label: "I no longer work at this job" },
                 ]}
               />
-              {sessionStorage.getItem("OtherJob." + index + ".Current") && (
+              {state[`OtherJob.${index}.current`] && (
                 <FieldRadio
-                  name={`OtherJob.${index}.Type`}
+                  name={`OtherJob.${index}.type`}
                   placeholder="None"
                   required="Required"
                   label={"What type of job is this?"}
@@ -104,10 +83,9 @@ export const EnterOtherJobs = number => {
                   ]}
                 />
               )}
-              {sessionStorage.getItem("OtherJob." + index + ".Type") ===
-                "permanent" && (
+              {state[`OtherJob.${index}.type`] === "permanent" && (
                 <FieldRadio
-                  name={`OtherJob.${index}.Status`}
+                  name={`OtherJob.${index}.status`}
                   placeholder="None"
                   required="Required"
                   label={"Is this job full time or part time?"}
@@ -120,16 +98,15 @@ export const EnterOtherJobs = number => {
                 />
               )}
 
-              {sessionStorage.getItem("OtherJob." + index + ".Type") && (
+              {state[`OtherJob.${index}.type`] && (
                 <FieldDate
-                  name={`OtherJob.${index}.Start`}
+                  name={`OtherJob.${index}.start`}
                   label="When did you start this job? If you are not sure of the exact date, enter an approximate date. (MM/DD/YYYY)"
                   required="Required"
                   type="text"
                 />
               )}
-              {sessionStorage.getItem("OtherJob." + index + ".Type") ===
-                "temporary" && (
+              {state[`OtherJob.${index}.type`] === "temporary" && (
                 <FieldDate
                   name={`OtherJob.${index}.End`}
                   label="When will this job end? (MM/DD/YYYY) (Please note, if your job is expected to end next year or later, please enter December 31 and the current year into the box. Entering a date that is later than December 31 of the current year may result in a miscalculation). "
@@ -139,8 +116,7 @@ export const EnterOtherJobs = number => {
               )}
               <SectionHeader header={`Wage information`} />
 
-              {sessionStorage.getItem("OtherJob." + index + ".Status") ===
-                "parttime" && (
+              {state[`OtherJob.${index}.status`] === "parttime" && (
                 <FieldInput
                   name={`OtherJob.${index}.WeeksPerYear`}
                   label="How many weeks per year do you work?"
@@ -151,9 +127,9 @@ export const EnterOtherJobs = number => {
                   fieldwidth={"25%"}
                 />
               )}
-              {sessionStorage.getItem("OtherJob." + index + ".Type") && (
+              {state[`OtherJob.${index}.type`] && (
                 <FieldRadio
-                  name={`OtherJob.${index}.Payment`}
+                  name={`OtherJob.${index}.payment`}
                   placeholder="None"
                   required="Required"
                   label={"Are you paid hourly wages, salary, or commission?"}
@@ -166,10 +142,10 @@ export const EnterOtherJobs = number => {
                   ]}
                 />
               )}
-              {sessionStorage.getItem("OtherJob." + index + ".Payment") && (
+              {state[`OtherJob.${index}.payment`] && (
                 <>
                   <FieldInput
-                    name={`OtherJob.${index}.GrossAmount`}
+                    name={`OtherJob.${index}.grossAmount`}
                     label={GrossAmountLabel}
                     required="Required"
                     type="text"
@@ -178,7 +154,7 @@ export const EnterOtherJobs = number => {
                     m="0"
                   />
                   <FieldInput
-                    name={`OtherJob.${index}.HoursPerWeek`}
+                    name={`OtherJob.${index}.hoursPerWeek`}
                     label="Hours worked per week"
                     required="Required"
                     type="text"
@@ -186,7 +162,7 @@ export const EnterOtherJobs = number => {
                     fieldwidth={"25%"}
                   />
                   <FieldInput
-                    name={`OtherJob.${index}.WeeksPerYear`}
+                    name={`OtherJob.${index}.weeksPerYear`}
                     label="Weeks worked per year"
                     required="Required"
                     type="text"
@@ -194,7 +170,7 @@ export const EnterOtherJobs = number => {
                     fieldwidth={"25%"}
                   />
                   <FieldSelect
-                    name={`OtherJob.${index}.PaySchedule`}
+                    name={`OtherJob.${index}.paySchedule`}
                     label="Paid how often?"
                     placeholder="Select option..."
                     required="Required"
@@ -210,7 +186,7 @@ export const EnterOtherJobs = number => {
                   <SectionHeader header={`Employer Address`} />
                   <AddressField
                     label={"Enter the street address for this employer:"}
-                    name={`OtherJob.${index}.Address`}
+                    name={`OtherJob.${index}.address`}
                   />
                 </>
               )}

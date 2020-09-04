@@ -1,41 +1,23 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
-import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
-import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
 import { AddPlaceholder } from "../AddPlaceholder"
 import { v4 as uuidv4 } from "uuid"
-import { FaPlus, FaTrashAlt } from "react-icons/fa/index"
-import {
-  Accordion,
-  AccordionItem,
-  AccordionHeader,
-  AccordionPanel,
-  AccordionIcon,
-  Collapse,
-  Button,
-  IconButton,
-  Box,
-  Text,
-  Stack,
-  useColorMode,
-} from "@chakra-ui/core"
-import { DeleteIcon } from "@chakra-ui/icons"
+import { FaTrashAlt } from "react-icons/fa/index"
+import { IconButton, Box, Stack } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 
 export const StandardOfLiving = number => {
-  const form = useForm()
-  let updateState = (name, value, index) => {
-    name === "StandardOfLiving.mileage" &&
-      sessionStorage.setItem("StandardOfLiving.mileage", value)
-    name === "StandardOfLiving.transportation" &&
-      sessionStorage.setItem("StandardOfLiving.transportation", value)
-    name === "StandardOfLiving.other" &&
-      sessionStorage.setItem("StandardOfLiving.other", value)
+  const form = useForm({ subscribe: false })
+  const [state, setState] = useState({})
+  let updateState = (name, value) => {
+    setState({
+      ...state,
+      [name]: value,
+    })
   }
-  const { colorMode } = useColorMode()
 
   const [additionalExpenses, setAdditionalExpenses] = useState([])
   useEffect(() => {
@@ -71,7 +53,7 @@ export const StandardOfLiving = number => {
               { value: "no", label: "No" },
             ]}
           />
-          {sessionStorage.getItem("StandardOfLiving.mileage") === "yes" && (
+          {state["StandardOfLiving.mileage"] === "yes" && (
             <FieldInput
               name={`StandardOfLiving.mileage.distance`}
               label="How many miles do you drive annually to exercise long-distance parenting?"
@@ -90,8 +72,7 @@ export const StandardOfLiving = number => {
               { value: "no", label: "No" },
             ]}
           />
-          {sessionStorage.getItem("StandardOfLiving.transportation") ===
-            "yes" && (
+          {state["StandardOfLiving.transportation"] === "yes" && (
             <FieldInput
               name={`StandardOfLiving.transportation.othercost`}
               label="How much are those other costs, annually?"
@@ -110,14 +91,14 @@ export const StandardOfLiving = number => {
               { value: "no", label: "No" },
             ]}
           />
-          {sessionStorage.getItem("StandardOfLiving.other") === "yes" &&
+          {state["StandardOfLiving.other"] === "yes" &&
             additionalExpenses.map((expense, x) => (
-              <>
+              <Box key={x}>
                 <Box fontSize={"md"} mb={2}>
-                  Continue to add your other standard of living adjustments until finished.
+                  Continue to add your other standard of living adjustments
+                  until finished.
                 </Box>
                 <Stack
-                  key={x}
                   direction="row"
                   spacing="4"
                   mb="6"
@@ -151,9 +132,9 @@ export const StandardOfLiving = number => {
                     />
                   </Box>
                 </Stack>
-              </>
+              </Box>
             ))}
-          {sessionStorage.getItem("StandardOfLiving.other") === "yes" &&
+          {state["StandardOfLiving.other"] === "yes" &&
             additionalExpenses.length <= 20 && (
               <AddPlaceholder label="Add adjustment" onClick={addItem} />
             )}

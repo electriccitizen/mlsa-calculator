@@ -1,69 +1,49 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
-import { Box, Text, useColorMode } from "@chakra-ui/core"
+import { Box } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 import { FieldSelect } from "../Fields/FieldSelect"
-import { AddressField } from "../02-BasicInformation/AddressField"
 
-export const EnterOtherJobsSecondary = number => {
-  const numOtherJobsSecondary = sessionStorage.getItem("numOtherJobsSecondary")
+export const EnterOtherJobsSecondary = () => {
+  const form = useForm({
+    subscribe: { fields: ["OtherParent.fname", "NumOtherSecondaryJobs"] },
+  })
+  const numOtherJobsSecondary = form.values.NumOtherSecondaryJobs
+  const [state, setState] = useState({})
+  const updateState = (name, value, index) => {
+    setState({
+      ...state,
+      [name]: value,
+    })
+  }
 
   let GrossAmountLabel = ""
-  const updateState = (name, value, index) => {
-    console.log(value)
-    name === "OtherJobSecondary." + index + ".type" &&
-      sessionStorage.setItem("OtherJobSecondary." + index + ".type", value)
-    name === "OtherJobSecondary." + index + ".status" &&
-      sessionStorage.setItem("OtherJobSecondary." + index + ".status", value)
-    name === "OtherJobSecondary." + index + ".payment" &&
-      sessionStorage.setItem("OtherJobSecondary." + index + ".payment", value)
-    name === "OtherJobSecondary." + index + ".current" &&
-      sessionStorage.setItem("OtherJobSecondary." + index + ".current", value)
-
-    console.log(sessionStorage.getItem("OtherJobSecondary." + index + ".type"))
-
-    switch (sessionStorage.getItem("OtherJobSecondary." + index + ".payment")) {
+  function switchLabel(index) {
+    switch (state["OtherJobSecondary." + index + ".payment"]) {
       case "salary":
-        GrossAmountLabel =
-          "Gross amount (amount before taxes) paid per paycheck"
-        sessionStorage.setItem(
-          "OtherJobSecondary." + index + ".label",
-          GrossAmountLabel
-        )
+        return "Gross amount (amount before taxes) paid per paycheck"
         break
       case "hourly":
         GrossAmountLabel = "Gross amount (amount before taxes) paid per hour"
-        sessionStorage.setItem(
-          "OtherJobSecondary." + index + ".label",
-          GrossAmountLabel
-        )
+        return GrossAmountLabel
         break
       case "commission":
         GrossAmountLabel =
           "Gross amount (amount before taxes) paid per paycheck"
-        sessionStorage.setItem(
-          "OtherJobSecondary." + index + ".label",
-          GrossAmountLabel
-        )
+        return GrossAmountLabel
         break
       default:
         GrossAmountLabel = "Gross amount (amount before taxes)"
-        sessionStorage.setItem(
-          "OtherJobSecondary." + index + ".label",
-          GrossAmountLabel
-        )
+        return GrossAmountLabel
     }
   }
 
-  const { colorMode } = useColorMode()
-
-  const form = useForm()
-  const otherParent = form.values.otherParent
-    ? form.values.otherParent.fname
+  const otherParent = form.values.OtherParent
+    ? form.values.OtherParent.fname
     : ""
 
   return (
@@ -109,7 +89,7 @@ export const EnterOtherJobsSecondary = number => {
                 ]}
               />
 
-              {sessionStorage.getItem(`OtherJobSecondary.${index}.current`) && (
+              {state[`OtherJobSecondary.${index}.current`] && (
                 <FieldRadio
                   name={`OtherJobSecondary.${index}.type`}
                   placeholder="None"
@@ -124,8 +104,7 @@ export const EnterOtherJobsSecondary = number => {
                   ]}
                 />
               )}
-              {sessionStorage.getItem(`OtherJobSecondary.${index}.type`) ===
-                "temporary" && (
+              {state[`OtherJobSecondary.${index}.type`] === "temporary" && (
                 <FieldDate
                   name={`OtherJobSecondary.${index}.end`}
                   label="When will this job end? (MM/DD/YYYY) (Please note, if this job is expected to end next year or later, please enter December 31 and the current year into the box. Entering a date that is later than December 31 of the current year may result in a miscalculation). "
@@ -133,11 +112,11 @@ export const EnterOtherJobsSecondary = number => {
                   type="text"
                 />
               )}
-              {sessionStorage.getItem(`OtherJobSecondary.${index}.type`) && (
+              {state[`OtherJobSecondary.${index}.type`] && (
                 <SectionHeader header={`Job details`} />
               )}
 
-              {sessionStorage.getItem(`OtherJobSecondary.${index}.type`) && (
+              {state[`OtherJobSecondary.${index}.type`] && (
                 <FieldRadio
                   name={`OtherJobSecondary.${index}.payment`}
                   placeholder="None"
@@ -154,27 +133,21 @@ export const EnterOtherJobsSecondary = number => {
                   ]}
                 />
               )}
-              {sessionStorage.getItem(`OtherJobSecondary.${index}.payment`) && (
+              {state[`OtherJobSecondary.${index}.payment`] && (
                 <>
                   <FieldInput
                     name={`OtherJobSecondary.${index}.grossAmount`}
-                    label={sessionStorage.getItem(
-                      "OtherJobSecondary." + index + ".label"
-                    )}
+                    label={switchLabel(index)}
                     required="Required"
                     type="text"
-                    updateState={updateState}
                     fieldWidth={"25%"}
                   />
-                  {sessionStorage.getItem(
-                    `OtherJobSecondary.${index}.payment`
-                  ) === "hourly" && (
+                  {state[`OtherJobSecondary.${index}.payment`] === "hourly" && (
                     <FieldInput
                       name={`OtherJobSecondary.${index}.hoursPerWeek`}
                       label="Hours worked per week"
                       required="Required"
                       type="text"
-                      updateState={updateState}
                       fieldWidth={"25%"}
                     />
                   )}
@@ -183,15 +156,13 @@ export const EnterOtherJobsSecondary = number => {
                     label="Weeks worked per year"
                     required="Required"
                     type="text"
-                    updateState={updateState}
                     fieldWidth={"25%"}
                   />
                 </>
               )}
-              {(sessionStorage.getItem(`OtherJobSecondary.${index}.payment`) ===
-                "salary" ||
-                sessionStorage.getItem(`OtherJobSecondary.${index}.payment`) ===
-                  "commission") && (
+              {(state[`OtherJobSecondary.${index}.payment`] === "salary" ||
+                state[`OtherJobSecondary.${index}.payment`]) ===
+                "commission" && (
                 <FieldSelect
                   name={`OtherJobSecondary.${index}.schedule`}
                   label="Paid how often?"

@@ -1,20 +1,7 @@
-import React, { useState } from "react"
-import { Link as GatsbyLink } from "gatsby"
-import { FaCheckCircle } from "react-icons/fa"
-import {
-  List,
-  ListItem,
-  UnorderedList,
-  Link,
-  Heading,
-  Divider,
-  Text,
-  Box,
-  useColorMode,
-} from "@chakra-ui/core"
+import React from "react"
+import { Link, Heading, Text, Box, useColorMode } from "@chakra-ui/core"
 
 import { PageLayout } from "../layout/PageLayout"
-import { LinkIcon } from "@chakra-ui/icons"
 export default function Safety() {
   const { colorMode } = useColorMode()
   return (
@@ -115,11 +102,23 @@ export default function Safety() {
               </ul>
             </Box>
             <p>
-              Wondering if your devices are being monitored? <Link color={"brand.400"} href="https://www.techsafety.org/computerspyware">Learn more about
-              computer spyware</Link>.
+              Wondering if your devices are being monitored?{" "}
+              <Link
+                color={"brand.400"}
+                href="https://www.techsafety.org/computerspyware"
+              >
+                Learn more about computer spyware
+              </Link>
+              .
             </p>
             <p>
-              For more information on Internet and technology safety: <Link href="https://nnedv.org/mdocs-posts/technology-safety-quick-tips-chart/" color="brand.400">See Quick Safety Chart</Link>
+              For more information on Internet and technology safety:{" "}
+              <Link
+                href="https://nnedv.org/mdocs-posts/technology-safety-quick-tips-chart/"
+                color="brand.400"
+              >
+                See Quick Safety Chart
+              </Link>
             </p>
           </Text>
         </Box>

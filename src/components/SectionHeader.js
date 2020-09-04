@@ -1,28 +1,21 @@
-import React, { useRef, useEffect, useMemo } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import {
-  useColorMode,
-  Button,
-  Stack,
   Box,
   IconButton,
-  Flex,
   Heading,
   Icon,
   Link,
   List,
   ListItem,
-  Text,
 } from "@chakra-ui/core"
 import { useDarkTheme } from "../hooks/isDarkTheme"
-import { useToastValues } from "../hooks/useToastValues"
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
   PopoverHeader,
   PopoverBody,
-  PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
 } from "@chakra-ui/core"
@@ -35,32 +28,8 @@ const defaultProps = {
   children: "",
 }
 
-const useDebugTime = () => {
-  const initRenderTimeRef = useRef(new Date())
-  const preRenderTimeRef = useRef(new Date())
-  //preRenderTimeRef.current = new Date();
-
-  // useMemo(() => {
-  //   // eslint-disable-next-line no-console
-  //   console.log('--- Page mounted ---');
-  // }, []);
-  //
-  // useEffect(() => {
-  //   const currentTime = new Date();
-  //   // eslint-disable-next-line no-console
-  //   console.log(
-  //     `Rendered in ${(currentTime - preRenderTimeRef.current) / 1000}s`,
-  //     '-',
-  //     `Mounted ${(currentTime - initRenderTimeRef.current) / 1000}s ago`,
-  //   );
-  // });
-}
-
 export const SectionHeader = ({ header, helpText, helpLinks }) => {
-  const toastValues = useToastValues()
-  useDebugTime()
   const isDarkTheme = useDarkTheme()
-  const { colorMode } = useColorMode()
   return (
     <Box
       alignItems="center"

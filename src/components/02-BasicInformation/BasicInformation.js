@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import { FormizStep, useForm } from "@formiz/core"
+import React, { useState } from "react"
+import { FormizStep } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
@@ -7,32 +7,24 @@ import { SimpleGrid, Box, Flex, Text } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 import { AddressField } from "./AddressField"
-//import statesData from "../../utils/states_hash.json"
 
-export const BasicInformation = ({ updateMontana }) => {
-  const form = useForm()
+export const BasicInformation = () => {
+  const [state, setState] = useState({
+    Mailing: "",
+  })
   let updateState = (name, value) => {
-    name === "basic.mailing" &&
-      sessionStorage.setItem("mailing", JSON.stringify(value))
+    setState({
+      ...state,
+      [name]: value,
+    })
   }
-  // const handleClick = () => {
-  //   form.goToStep("initiateInterview")
-  //   console.log(form.steps)
-  // }
-  // const setField = value => {
-  //   return (
-  //     JSON.parse(sessionStorage.getItem(value)) &&
-  //     JSON.parse(sessionStorage.getItem(value))
-  //   )
-  // }
-  let documents = JSON.parse(sessionStorage.getItem("documents"))
   return (
     <FormizStep name="BasicInformation" order={2000}>
       <SectionHeader header={"What is your name?"} />
       <Flex alignItems="top" mb={2}>
         <Box pr={4} pl={4}>
           <FieldInput
-            name={`basic.fname`}
+            name={`Primary.fname`}
             label="First"
             required="Required"
             updateState={updateState}
@@ -41,7 +33,7 @@ export const BasicInformation = ({ updateMontana }) => {
         </Box>
         <Box pr={4} pl={4}>
           <FieldInput
-            name={`basic.mname`}
+            name={`Primary.mname`}
             label="Middle"
             placeholder="Optional"
             updateState={updateState}
@@ -49,7 +41,7 @@ export const BasicInformation = ({ updateMontana }) => {
         </Box>
         <Box pr={4} pl={4}>
           <FieldInput
-            name={`basic.lname`}
+            name={`Primary.lname`}
             required="Required"
             label="Last"
             updateState={updateState}
@@ -57,61 +49,61 @@ export const BasicInformation = ({ updateMontana }) => {
         </Box>
       </Flex>
 
-      {(documents === "both" || documents === "affadavit") && (
-        <>
-          <SectionWrapper>
-            <SectionHeader
-              header={"Enter your birthday, phone, and driver's licence #:"}
-            />
-            <SimpleGrid mb={8} columns={3} spacing={10}>
-              <FieldDate
-                name={`basic.dob`}
-                label="Date of birth"
-                required="Required"
-                placeholder="MM/DD/YYYY"
-                m="0"
-              />
-              <FieldInput
-                name={`basic.phone`}
-                label="Primary phone"
-                required="Required"
-                updateState={updateState}
-                m="0"
-              />
-              <FieldInput
-                updateState={updateState}
-                name={`basic.dl`}
-                label="Driver's License #"
-                m="0"
-              />
-            </SimpleGrid>
-          </SectionWrapper>
-
-          <AddressField
-            header={"What is your street address?"}
-            label={"Street Address"}
-            name={"basic.address"}
+      {/*{(documents === "both" || documents === "affadavit") && (*/}
+      <>
+        <SectionWrapper>
+          <SectionHeader
+            header={"Enter your birthday, phone, and driver's licence #:"}
           />
-          <SectionWrapper>
-            <SectionHeader header={"Is this your primary mailing address?"} />
-            <FieldRadio
-              name="basic.mailing"
+          <SimpleGrid mb={8} columns={3} spacing={10}>
+            <FieldDate
+              name={`Primary.dob`}
+              label="Date of birth"
+              required="Required"
+              placeholder="MM/DD/YYYY"
+              m="0"
+            />
+            <FieldInput
+              name={`Primary.phone`}
+              label="Primary phone"
               required="Required"
               updateState={updateState}
-              options={[
-                { value: "yes", label: "Yes" },
-                { value: "no", label: "No" },
-              ]}
+              m="0"
             />
-          </SectionWrapper>
-        </>
-      )}
+            <FieldInput
+              updateState={updateState}
+              name={`Primary.dl`}
+              label="Driver's License #"
+              m="0"
+            />
+          </SimpleGrid>
+        </SectionWrapper>
+
+        <AddressField
+          header={"What is your street address?"}
+          label={"Street Address"}
+          name={"Primary.address"}
+        />
+        <SectionWrapper>
+          <SectionHeader header={"Is this your primary mailing address?"} />
+          <FieldRadio
+            name="PrimaryMailing"
+            required="Required"
+            updateState={updateState}
+            options={[
+              { value: "yes", label: "Yes" },
+              { value: "no", label: "No" },
+            ]}
+          />
+        </SectionWrapper>
+      </>
+      {/*)}*/}
       {/*))}*/}
-      {JSON.parse(sessionStorage.getItem("mailing")) === "no" && (
+      {state.PrimaryMailing === "no" && (
         <AddressField
           header={"What is your mailing address?"}
           label={"Mailing Address"}
-          name={"basic.mail_address"}
+          name={"Primary.mail_address"}
         />
       )}
     </FormizStep>

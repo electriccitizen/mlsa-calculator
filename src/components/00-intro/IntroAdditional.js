@@ -2,20 +2,13 @@ import React from "react"
 import { FormizStep } from "@formiz/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
-import {
-  Text,
-  Link,
-  Heading,
-  Icon,
-  useColorMode,
-} from "@chakra-ui/core"
+import { Text, Link, Heading, Icon } from "@chakra-ui/core"
 import { FaInfoCircle, FaExternalLinkAlt } from "react-icons/fa/index"
 export const IntroAdditional = () => {
   return (
     <FormizStep name="introAdditional" order={1000}>
       <SectionWrapper>
         <SectionHeader header={"Find additional help:"} />
-
         <Text mb={2}>
           For more information about child support in Montana, you can contact
           the following:
@@ -28,16 +21,17 @@ export const IntroAdditional = () => {
           color={"gray.500"}
           href="#"
         >
-          <Icon color={"brand.400"} as={FaInfoCircle}/> Montana Legal Services Association (MLSA)
+          <Icon color={"brand.400"} as={FaInfoCircle} /> Montana Legal Services
+          Association (MLSA)
         </Heading>
-        <Text  mb={4}>
+        <Text mb={4}>
           MLSA provides free civil legal assistance to low-income Montanans.
           Call the MLSA HelpLine toll free at 1-800-666-6899. We answer the
           phone Monday through Friday between 9am and 1pm.
-            <Link href={"https://www.mtlsa.org/"} color={"brand.400"}>
-              Visit our website
-            </Link>
-            . <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
+          <Link href={"https://www.mtlsa.org/"} color={"brand.400"}>
+            Visit our website
+          </Link>
+          . <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
         </Text>
         <Heading
           as="h2"
@@ -47,9 +41,9 @@ export const IntroAdditional = () => {
           color={"gray.500"}
           href="#"
         >
-          <Icon color={"brand.400"} as={FaInfoCircle}/> MontanaLawHelp
+          <Icon color={"brand.400"} as={FaInfoCircle} /> MontanaLawHelp
         </Heading>
-        <Text  mb={2}>
+        <Text mb={2}>
           MLSA operates{" "}
           <Link href={"https://>www.MontanaLawHelp.org"} color={"brand.400"}>
             www.MontanaLawHelp.org
@@ -76,7 +70,8 @@ export const IntroAdditional = () => {
           color={"gray.500"}
           href="#"
         >
-          <Icon color={"brand.400"} as={FaInfoCircle}/> Montana Child Support Enforcement Division (CSED)
+          <Icon color={"brand.400"} as={FaInfoCircle} /> Montana Child Support
+          Enforcement Division (CSED)
         </Heading>
         <Text mb={2}>
           The Montana Child Support Enforcement Division (CSED), part of the MT

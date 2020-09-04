@@ -1,54 +1,21 @@
-import React, { useEffect, useState } from "react"
-import { FormizStep, useForm } from "@formiz/core"
+import React, { useState } from "react"
+import { FormizStep } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
-import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
-import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
-import { AddPlaceholder } from "../AddPlaceholder"
-import {
-  Accordion,
-  AccordionItem,
-  AccordionHeader,
-  AccordionPanel,
-  AccordionIcon,
-  Collapse,
-  Button,
-  IconButton,
-  Box,
-  Text,
-  Stack,
-  useColorMode,
-} from "@chakra-ui/core"
-import { DeleteIcon } from "@chakra-ui/icons"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 
-export const FinancialAffadavitThree = number => {
-  const form = useForm()
-
-  let otherExpenses
-  let courtOrder
-  let expectedChanges
-  let comments
-
-  let updateState = (name, value, index) => {
-    name === "FinancialAffadavitThree.otherExpenses" &&
-      sessionStorage.setItem("FinancialAffadavitThree.otherExpenses", value)
-    name === "FinancialAffadavitThree.courtOrder" &&
-      sessionStorage.setItem("FinancialAffadavitThree.courtOrder", value)
-    name === "FinancialAffadavitThree.expectedChanges" &&
-      sessionStorage.setItem("FinancialAffadavitThree.expectedChanges", value)
-    name === "FinancialAffadavitThree.comments" &&
-      sessionStorage.setItem("FinancialAffadavitThree.comments", value)
-    otherExpenses = sessionStorage.getItem(
-      "FinancialAffadavitThree.otherExpenses"
-    )
-    courtOrder = sessionStorage.getItem("FinancialAffadavitThree.courtOrder")
-    expectedChanges = sessionStorage.getItem(
-      "FinancialAffadavitThree.expectedChanges"
-    )
-    comments = sessionStorage.getItem("FinancialAffadavitThree.comments")
+export const FinancialAffadavitThree = () => {
+  const [state, setState] = useState({})
+  let updateState = (name, value) => {
+    setState({
+      ...state,
+      [name]: value,
+    })
   }
+  let otherExpenses = state["FinancialAffadavitThree.otherExpenses"]
+  let expectedChanges = state["FinancialAffadavitThree.expectedChanges"]
+  let comments = state["FinancialAffadavitThree.comments"]
 
   return (
     <FormizStep name="FinancialAffadavitThree" order={29000}>

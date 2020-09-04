@@ -1,7 +1,5 @@
-import React, { useState } from "react"
-import { Link as GatsbyLink } from "gatsby"
-import { FaCalculator } from "react-icons/fa"
-import { Heading, Divider, Text, Box, useColorMode } from "@chakra-ui/core"
+import React from "react"
+import { Heading, Text, Box, useColorMode } from "@chakra-ui/core"
 
 import { PageLayout } from "../layout/PageLayout"
 export default function TermsOfUse() {

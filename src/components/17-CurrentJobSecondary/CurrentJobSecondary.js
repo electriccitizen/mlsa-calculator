@@ -1,37 +1,24 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldRadio } from "../Fields/FieldRadio"
 import { FieldSelect } from "../Fields/FieldSelect"
-import { Box, SimpleGrid } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
-import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
-import { AddressField } from "../02-BasicInformation/AddressField"
 import { FieldDate } from "../Fields/FieldDate"
+
 export const CurrentJobSecondary = d => {
-  const setField = value => {
-    return (
-      JSON.parse(sessionStorage.getItem(value)) &&
-      JSON.parse(sessionStorage.getItem(value))
-    )
-  }
-  const form = useForm()
-  const updateState = (name, value) => {
-    name === "EmploymentSecondary.type" &&
-      sessionStorage.setItem("EmploymentSecondary.type", value)
-    name === "EmploymentSecondary.status" &&
-      sessionStorage.setItem("EmploymentSecondary.status", value)
-    name === "EmploymentSecondary.payment" &&
-      sessionStorage.setItem("EmploymentSecondary.payment", value)
-    name === "EmploymentSecondary.otherJobs" &&
-      sessionStorage.setItem("EmploymentSecondary.otherJobs", value)
-    name === "OtherSecondaryJobs.number" &&
-      sessionStorage.setItem("numOtherJobsSecondary", value)
+  const form = useForm({ subscribe: false })
+  const [state, setState] = useState({})
+  let updateState = (name, value) => {
+    setState({
+      ...state,
+      [name]: value,
+    })
   }
 
   let GrossAmountLabel = ""
-  switch (sessionStorage.getItem("EmploymentSecondary.payment")) {
+  switch (state["EmploymentSecondary.payment"]) {
     case "salary":
       GrossAmountLabel = "Gross amount (amount before taxes) paid per paycheck"
       break
@@ -44,11 +31,10 @@ export const CurrentJobSecondary = d => {
     default:
       GrossAmountLabel = "Gross amount (amount before taxes) "
   }
-  const otherParent = form.values.otherParent
-    ? form.values.otherParent.fname
-    : ""
-  const emp = sessionStorage.getItem("Employment")
-  let foo
+  // const otherParent = form.values.otherParent
+  //   ? form.values.otherParent.fname
+  //   : ""
+  const otherParent = "Other"
   return (
     <FormizStep name="CurrentJobSecondary" order={17500}>
       <>
@@ -65,7 +51,7 @@ export const CurrentJobSecondary = d => {
               { value: "no", label: "No" },
             ]}
           />
-          {sessionStorage.getItem("EmploymentSecondary.status") === "yes" && (
+          {state["EmploymentSecondary.status"] === "yes" && (
             <FieldRadio
               name="EmploymentSecondary.type"
               placeholder="None"
@@ -79,8 +65,7 @@ export const CurrentJobSecondary = d => {
               ]}
             />
           )}
-          {sessionStorage.getItem("EmploymentSecondary.type") ===
-            "temporary" && (
+          {state["EmploymentSecondary.type"] === "temporary" && (
             <FieldDate
               name={`CurrentJobEnd`}
               label="When will this job end? (MM/DD/YYYY) (Please note, if your job is expected to end next year or later, please enter December 31 and the current year into the box. Entering a date that is later than December 31 of the current year may result in a miscalculation). "
@@ -88,13 +73,12 @@ export const CurrentJobSecondary = d => {
               type="text"
             />
           )}
-          {sessionStorage.getItem("EmploymentSecondary.type") &&
-            sessionStorage.getItem("EmploymentSecondary.status") === "yes" && (
+          {state["EmploymentSecondary.type"] &&
+            state["EmploymentSecondary.status"] === "yes" && (
               <SectionHeader header={`Job details`} />
             )}
 
-          {sessionStorage.getItem("EmploymentSecondary.type") ===
-            "parttime" && (
+          {state["EmploymentSecondary.type"] === "parttime" && (
             <FieldInput
               name={`EmploymentSecondary.weeksPerYear`}
               label="How many weeks per year do you work?"
@@ -105,8 +89,8 @@ export const CurrentJobSecondary = d => {
               fieldwidth={"25%"}
             />
           )}
-          {sessionStorage.getItem("EmploymentSecondary.type") &&
-            sessionStorage.getItem("EmploymentSecondary.status") === "yes" && (
+          {state["EmploymentSecondary.type"] &&
+            state["EmploymentSecondary.status"] === "yes" && (
               <FieldRadio
                 name="EmploymentSecondary.payment"
                 placeholder="None"
@@ -120,8 +104,8 @@ export const CurrentJobSecondary = d => {
                 ]}
               />
             )}
-          {sessionStorage.getItem("EmploymentSecondary.type") &&
-            sessionStorage.getItem("EmploymentSecondary.status") === "yes" && (
+          {state["EmploymentSecondary.type"] &&
+            state["EmploymentSecondary.status"] === "yes" && (
               <>
                 <FieldInput
                   name={`EmploymentSecondary.grossAmount`}
@@ -132,8 +116,7 @@ export const CurrentJobSecondary = d => {
                   fieldwidth={"25%"}
                   m="0"
                 />
-                {sessionStorage.getItem("EmploymentSecondary.payment") ===
-                  "hourly" && (
+                {state["EmploymentSecondary.payment"] === "hourly" && (
                   <FieldInput
                     name={`EmploymentSecondary.hoursPerWeek`}
                     label="Hours worked per week"
@@ -153,10 +136,8 @@ export const CurrentJobSecondary = d => {
                 />
               </>
             )}
-          {(sessionStorage.getItem("EmploymentSecondary.payment") ===
-            "salary" ||
-            sessionStorage.getItem("EmploymentSecondary.payment") ===
-              "commission") && (
+          {(state["EmploymentSecondary.payment"] === "salary" ||
+            state["EmploymentSecondary.payment"] === "commission") && (
             <FieldSelect
               name="EmploymentSecondary.schedule"
               label="Paid how often?"
@@ -172,7 +153,7 @@ export const CurrentJobSecondary = d => {
               ]}
             />
           )}
-          {sessionStorage.getItem("EmploymentSecondary.type") && (
+          {state["EmploymentSecondary.type"] && (
             <FieldRadio
               name="EmploymentSecondary.otherJobs"
               placeholder="None"
@@ -190,10 +171,9 @@ export const CurrentJobSecondary = d => {
             />
           )}
 
-          {sessionStorage.getItem("EmploymentSecondary.otherJobs") ===
-            "yes" && (
+          {state["EmploymentSecondary.otherJobs"] === "yes" && (
             <FieldInput
-              name="OtherSecondaryJobs.number"
+              name="NumOtherSecondaryJobs"
               label={
                 `How many additional jobs would you like to enter for ` +
                 otherParent +

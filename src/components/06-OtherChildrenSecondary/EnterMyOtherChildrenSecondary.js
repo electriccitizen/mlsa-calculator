@@ -1,61 +1,26 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
 import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
-import {
-  Accordion,
-  AccordionItem,
-  AccordionHeader,
-  AccordionPanel,
-  AccordionIcon,
-  Collapse,
-  Button,
-  IconButton,
-  Box,
-  Stack,
-  useColorMode,
-} from "@chakra-ui/core"
+import { Box, Stack, useColorMode } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 
-export const EnterMyOtherChildrenSecondary = number => {
-  const form = useForm()
-  const [show, setShow] = React.useState(false)
-  const numChildrenSecondary = sessionStorage.getItem("numChildrenSecondary")
-
-  let updateState = (name, value, index) => {
-    name === "otherChildrenSecondary." + index + ".housing" &&
-      sessionStorage.setItem(
-        "otherChildrenSecondary." + index + ".housing",
-        value
-      )
-    name === "otherChildrenSecondary." + index + ".support" &&
-      sessionStorage.setItem(
-        "otherChildrenSecondary." + index + ".support",
-        value
-      )
-    name === "otherChildrenSecondary." + index + ".depcare" &&
-      sessionStorage.setItem(
-        "otherChildrenSecondary." + index + ".depcare",
-        value
-      )
-    name === "otherChildrenSecondary." + index + ".medical" &&
-      sessionStorage.setItem(
-        "otherChildrenSecondary." + index + ".medical",
-        value
-      )
-    name === "otherChildrenSecondary." + index + ".status" &&
-      sessionStorage.setItem(
-        "otherChildrenSecondary." + index + ".status",
-        value
-      )
-  }
-  const housing = sessionStorage.getItem("otherChildrenSecondary.housing")
+export const EnterMyOtherChildrenSecondary = () => {
+  const form = useForm({ subscribe: { fields: ["NumOtherChildrenSecondary","OtherParent"] } })
+  const numChildrenSecondary = form.values.NumOtherChildrenSecondary
   const { colorMode } = useColorMode()
-  const otherParent = form.values.otherParent
-    ? form.values.otherParent.fname
+  const [state, setState] = useState({})
+  const updateState = (name, value, index) => {
+    setState({
+      ...state,
+      [name]: value,
+    })
+  }
+  const otherParent = form.values.OtherParent
+    ? form.values.OtherParent.fname
     : ""
 
   return (
@@ -85,7 +50,7 @@ export const EnterMyOtherChildrenSecondary = number => {
                 */}
                 <Box flex="1">
                   <FieldInput
-                    name={`otherChildrenSecondary.${index}.fname`}
+                    name={`OtherChildrenSecondary.${index}.fname`}
                     label="First name"
                     required="Required"
                     type="text"
@@ -95,7 +60,7 @@ export const EnterMyOtherChildrenSecondary = number => {
                 </Box>
                 <Box flex="1">
                   <FieldInput
-                    name={`otherChildrenSecondary.${index}.mname`}
+                    name={`OtherChildrenSecondary.${index}.mname`}
                     label="Middle"
                     type="text"
                     updateState={updateState}
@@ -104,7 +69,7 @@ export const EnterMyOtherChildrenSecondary = number => {
                 </Box>
                 <Box flex="1">
                   <FieldInput
-                    name={`otherChildrenSecondary.${index}.lname`}
+                    name={`OtherChildrenSecondary.${index}.lname`}
                     label="Last name"
                     required="Required"
                     type="text"
@@ -116,14 +81,14 @@ export const EnterMyOtherChildrenSecondary = number => {
               <Box mb="8" flex="1">
                 <Box flex="1">
                   <FieldDate
-                    name={`otherChildrenSecondary.${index}.dob`}
+                    name={`OtherChildrenSecondary.${index}.dob`}
                     label="Date of birth"
                     required="Required"
                     type="text"
                   />
                 </Box>
                 <FieldRadio
-                  name={`otherChildrenSecondary.${index}.housing`}
+                  name={`OtherChildrenSecondary.${index}.housing`}
                   label="Who does this child live with?"
                   required="Required"
                   index={index}
@@ -138,10 +103,10 @@ export const EnterMyOtherChildrenSecondary = number => {
                   ]}
                 />
               </Box>
-              {housing === "other" && (
+              {state[`OtherChildrenSecondary.${index}.housing`] === "yes" && (
                 <Box mb="8" flex="1">
                   <FieldInput
-                    name={`otherChildrenSecondary.${index}.otherHousing`}
+                    name={`OtherChildrenSecondary.${index}.otherHousing`}
                     label="Who does this child live with?"
                     type="text"
                     placeholder=""
@@ -151,7 +116,7 @@ export const EnterMyOtherChildrenSecondary = number => {
               )}
               <Box mb="8" flex="1">
                 <FieldMoneyInput
-                  name={`otherChildrenSecondary.${index}.benefits`}
+                  name={`OtherChildrenSecondary.${index}.benefits`}
                   label="Dependent's benefits received for this child per year, if any. Examples: Social Security, VA, etc."
                   type="text"
                   placeholder="Enter amount"
@@ -160,7 +125,7 @@ export const EnterMyOtherChildrenSecondary = number => {
               </Box>
               <Box mb="8" flex="1">
                 <FieldRadio
-                  name={`otherChildrenSecondary.${index}.support`}
+                  name={`OtherChildrenSecondary.${index}.support`}
                   label="Are you ordered to pay support for this child?"
                   required="Required"
                   index={index}
@@ -170,11 +135,9 @@ export const EnterMyOtherChildrenSecondary = number => {
                     { value: "no", label: "No" },
                   ]}
                 />
-                {sessionStorage.getItem(
-                  "otherChildrenSecondary." + index + ".support"
-                ) === "yes" && (
+                {state[`OtherChildrenSecondary.${index}.support`] === "yes" && (
                   <FieldMoneyInput
-                    name={`otherChildrenSecondary.${index}.childSupportAmount`}
+                    name={`OtherChildrenSecondary.${index}.childSupportAmount`}
                     label="Monthly child support you are ordered to pay for this child."
                     type="text"
                     placeholder="Enter amount"
@@ -184,7 +147,7 @@ export const EnterMyOtherChildrenSecondary = number => {
               </Box>
               <Box mb="8" flex="1">
                 <FieldRadio
-                  name={`otherChildrenSecondary.${index}.depcare`}
+                  name={`OtherChildrenSecondary.${index}.depcare`}
                   label="Do you have any dependent care expense for this child?"
                   required="Required"
                   index={index}
@@ -194,11 +157,9 @@ export const EnterMyOtherChildrenSecondary = number => {
                     { value: "no", label: "No" },
                   ]}
                 />
-                {sessionStorage.getItem(
-                  "otherChildrenSecondary." + index + ".depcare"
-                ) === "yes" && (
+                {state[`OtherChildrenSecondary.${index}.depcare`] === "yes" && (
                   <FieldMoneyInput
-                    name={`otherChildrenSecondary.${index}.depcareAmount`}
+                    name={`OtherChildrenSecondary.${index}.depcareAmount`}
                     label="Enter 50% of the yearly dependent care expense for this child."
                     type="text"
                     placeholder="Enter amount"
@@ -208,7 +169,7 @@ export const EnterMyOtherChildrenSecondary = number => {
               </Box>
               <Box mb="8" flex="1">
                 <FieldRadio
-                  name={`otherChildrenSecondary.${index}.medical`}
+                  name={`OtherChildrenSecondary.${index}.medical`}
                   label="Do you have any extraordinary medical expenses for this child which were not reimbursed?"
                   required="Required"
                   index={index}
@@ -218,11 +179,9 @@ export const EnterMyOtherChildrenSecondary = number => {
                     { value: "no", label: "No" },
                   ]}
                 />
-                {sessionStorage.getItem(
-                  "otherChildrenSecondary." + index + ".medical"
-                ) === "yes" && (
+                {state[`OtherChildrenSecondary.${index}.medical`] === "yes" && (
                   <FieldMoneyInput
-                    name={`otherChildrenSecondary.${index}.medicalAmount`}
+                    name={`OtherChildrenSecondary.${index}.medicalAmount`}
                     label="Enter 50% of the yearly extraordinary medical expense for this child."
                     type="text"
                     placeholder="Enter amount"
@@ -230,21 +189,21 @@ export const EnterMyOtherChildrenSecondary = number => {
                   />
                 )}
                 <Box mt="4" mb="8" flex="1">
-                <FieldRadio
-                  name={`otherChildrenSecondary.${index}.otherParent`}
-                  label="Is this child's other parent still living?"
-                  index={index}
-                  updateState={updateState}
-                  options={[
-                    { value: "yes", label: "Yes" },
-                    { value: "no", label: "No" },
-                  ]}
-                />
+                  <FieldRadio
+                    name={`OtherChildrenSecondary.${index}.otherParent`}
+                    label="Is this child's other parent still living?"
+                    index={index}
+                    updateState={updateState}
+                    options={[
+                      { value: "yes", label: "Yes" },
+                      { value: "no", label: "No" },
+                    ]}
+                  />
                 </Box>
               </Box>
               <Box mb="8" flex="1">
                 <FieldRadio
-                  name={`otherChildrenSecondary.${index}.status`}
+                  name={`OtherChildrenSecondary.${index}.status`}
                   label="This child is (select all that apply):"
                   required="Required"
                   index={index}
@@ -256,27 +215,20 @@ export const EnterMyOtherChildrenSecondary = number => {
                     { value: "none", label: "None of the above" },
                   ]}
                 />
-                {sessionStorage.getItem(
-                  `otherChildrenSecondary.${index}.status`
-                ) !== "none" &&
-                  sessionStorage.getItem(
-                    `otherChildrenSecondary.${index}.status`
-                  ) !== null && (
-                    <Box
-                      fontSize="lg"
-                      bg={colorMode === "dark" ? "gray.700" : "gray.200"}
-                      p={4}
-                    >
-                      Sorry, but this child does not qualify and will not be
-                      counted in the child support calculations. Continue to the
-                      next step.
-                    </Box>
-                  )}
-                {sessionStorage.getItem(
-                  `otherChildrenSecondary.${index}.status`
-                ) === "none" && (
+                {state[`OtherChildrenSecondary.${index}.status`] === "yes" && (
+                  <Box
+                    fontSize="lg"
+                    bg={colorMode === "dark" ? "gray.700" : "gray.200"}
+                    p={4}
+                  >
+                    Sorry, but this child does not qualify and will not be
+                    counted in the child support calculations. Continue to the
+                    next step.
+                  </Box>
+                )}
+                {state[`OtherChildrenSecondary.${index}.status`] === "none" && (
                   <FieldRadio
-                    name={`otherChildrenSecondary.${index}.disabled`}
+                    name={`OtherChildrenSecondary.${index}.disabled`}
                     label="Does this child have a disability?"
                     required="Required"
                     index={index}

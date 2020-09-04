@@ -1,51 +1,18 @@
-import React, { useState } from "react"
+import React from "react"
 import { Link as GatsbyLink } from "gatsby"
-import { PageHeader } from "../layout/PageHeader"
-import printJS from "print-js"
-import { useForm } from "@formiz/core"
 import { FaCalculator, FaGlobe, FaThumbsUp } from "react-icons/fa"
 import {
   Heading,
-  Flex,
   Divider,
-  Spacer,
-  Radio,
-  RadioGroup,
   Text,
-  Link,
-  HStack,
   Box,
   Button,
-  Switch,
   useColorMode,
 } from "@chakra-ui/core"
 
 import { PageLayout } from "../layout/PageLayout"
 export default function Home() {
-  const { colorMode, toggleColorMode } = useColorMode()
-  //sessionStorage.clear()
-  const [appState, setAppState] = useState({
-    loading: false,
-    pdf: null,
-    complete: false,
-    values: [],
-  })
-  function Feature({ title, desc, ...rest }) {
-    return (
-      <Box
-        p={5}
-        height="200px"
-        shadow="sm"
-        flex="1"
-        borderWidth="1px"
-        {...rest}
-      >
-        <Heading fontSize="xl">{title}</Heading>
-        <Text mt={4}>{desc}</Text>
-      </Box>
-    )
-  }
-
+  const { colorMode } = useColorMode()
   return (
     <>
       <PageLayout>
@@ -63,17 +30,16 @@ export default function Home() {
           </Text>
           <Box w="100%" align="right">
             <GatsbyLink to="/intro">
-            <Button
-              leftIcon={<FaCalculator />}
-              colorScheme="brand"
-              variant="solid"
-            >
-              Start
-            </Button>
+              <Button
+                leftIcon={<FaCalculator />}
+                colorScheme="brand"
+                variant="solid"
+              >
+                Start
+              </Button>
             </GatsbyLink>
           </Box>
         </Box>
-
 
         <Divider mb="2" orientation="horizontal" />
 

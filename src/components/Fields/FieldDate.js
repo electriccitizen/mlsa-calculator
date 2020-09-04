@@ -60,9 +60,10 @@ export const FieldDate = props => {
         key={resetKey}
         type={type || "text"}
         id={id}
-        customInput={<Input value={startDate ?? ""}/>}
+        customInput={<Input value={startDate ?? ""} />}
         selected={startDate}
-        value={startDate ?? ""}
+        //value={startDate ?? ""}
+        value={value ?? ""}
         onChange={date => {
           handleChange(date)
         }}

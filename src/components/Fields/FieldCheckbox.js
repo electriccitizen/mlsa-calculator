@@ -1,19 +1,7 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import {
-  Box,
-  Checkbox,
-  Stack,
-  HStack,
-  CheckboxGroup,
-  Input, Radio,
-} from '@chakra-ui/core'
-import {
-  useField,
-  fieldPropTypes,
-  fieldDefaultProps,
-  FormizStep,
-} from "@formiz/core"
+import { Checkbox, Stack } from "@chakra-ui/core"
+import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
 import { FormGroup } from "../FormGroup"
 
 const propTypes = {
@@ -56,9 +44,6 @@ export const FieldCheckbox = props => {
   const [isTouched, setIsTouched] = useState(false)
   const showError = !isValid && (isTouched || isSubmitted)
 
-  //const [checkedItems, setCheckedItems] = useState({})
-  let isChecked = ""
-
   useEffect(() => {
     setIsTouched(false)
   }, [resetKey])
@@ -73,19 +58,7 @@ export const FieldCheckbox = props => {
     ...otherProps,
   }
 
-  // const handleChange = (value) => {
-  //   console.log(value)
-  //   //console.log(event.target.checked)
-  //   //console.log('dick')
-  //   setValue(value)
-  //   setCheckedItems({
-  //     ...checkedItems,
-  //     [value]: true,
-  //   })
-  //   console.log(checkedItems)
-  // }
-
-  const handleChange = (e) => {
+  const handleChange = e => {
     setValue({
       ...value,
       [e.target.value]: e.target.checked,
@@ -96,20 +69,19 @@ export const FieldCheckbox = props => {
     })
   }
 
-  const CurrentStack = orientation === "vertical" ? Stack : HStack
   return (
     <FormGroup {...formGroupProps}>
-        <Stack>
-          {(options || []).map((item,i) => (
-            <Checkbox
-              isChecked={checkedItems[i]}
-              //onChange={(val) => handleChange(val)}
-              value={item.value}
-              onChange={val => handleChange(val)}
-            >{item.label}
-            </Checkbox>
-          ))}
-        </Stack>
+      <Stack>
+        {(options || []).map((item, i) => (
+          <Checkbox
+            isChecked={checkedItems[i]}
+            value={item.value}
+            onChange={val => handleChange(val)}
+          >
+            {item.label}
+          </Checkbox>
+        ))}
+      </Stack>
     </FormGroup>
   )
 }

@@ -2,13 +2,12 @@ import React from "react"
 import { Link as GatsbyLink } from "gatsby"
 import PropTypes from "prop-types"
 import {
-  Link,
-  Divider,
-  useColorMode,
   Box,
-  List,
   ListItem,
   ListIcon,
+  Divider,
+  useColorMode,
+  List,
 } from "@chakra-ui/core"
 
 import { push as BurgerMenu } from "react-burger-menu"
@@ -72,7 +71,6 @@ export const Menu = ({ direction, menuLinks }) => {
       background: "rgba(0, 0, 0, 0.3)",
     },
   }
-  let icon
 
   function IconSwap(icon) {
     switch (icon) {
@@ -88,43 +86,42 @@ export const Menu = ({ direction, menuLinks }) => {
         return null
     }
   }
-
+ let icon
   return (
     <>
-    <BurgerMenu
-      pageWrapId={"page-wrap"}
-      outerContainerId={"outer-container"}
-      isOpen={false}
-      styles={styles}
+      <BurgerMenu
+        pageWrapId={"page-wrap"}
+        outerContainerId={"outer-container"}
+        isOpen={false}
+        styles={styles}
+      >
+        <List
+          border="0"
+          outline="none"
+          w="100%"
+          pl="4"
+          pr="4"
+          mt="4"
+          spacing="12"
+        >
+          {menuLinks.map(link => (
+            <Box key={link.link}>
+              {(icon = IconSwap(link.icon))}
+              <ListItem mb={4} key={link.link}>
+                <ListIcon as={icon} color="brand" />
+                <GatsbyLink to={link.link}>
+                    {link.name}
+                </GatsbyLink>
+                <p>{link.text}</p>
+              </ListItem>
+            </Box>
+          ))}
+        </List>
 
-    >
-      <List border="0" outline="none" w="100%" pl="4" pr="4" mt="4" spacing="12">
-        {/*{menuLinks.map(link => (*/}
-        {/*  <Box key={link.link}>*/}
-        {/*    {(icon = IconSwap(link.icon))}*/}
-        {/*    <ListItem mb={4} key={link.link}>*/}
-        {/*      <ListIcon as={icon} color="brand" />*/}
-        {/*      <GatsbyLink to={link.link}>*/}
-        {/*          {link.name}*/}
-        {/*      </GatsbyLink>*/}
-        {/*      <p>{link.text}</p>*/}
-        {/*    </ListItem>*/}
-        {/*  </Box>*/}
-        {/*))}*/}
-      </List>
+        <Divider />
 
-      <Divider  />
-      {/*<Heading mt="8" as="h3" fontSize={"md"}>*/}
-      {/*  About MLSA*/}
-      {/*</Heading>*/}
-      {/*<Text>*/}
-      {/*  This tool was developed by the Montana Legal Services Association.*/}
-      {/*  <br />*/}
-      {/*  <Link color={"gray.300"}>Learn more</Link> <Icon as={FaArrowAltCircleRight} />*/}
-      {/*</Text>*/}
-    </BurgerMenu>
-</>
-
+      </BurgerMenu>
+    </>
   )
 }
 

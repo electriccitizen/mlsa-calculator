@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { FormizStep, useForm } from "@formiz/core"
+import { FormizStep } from "@formiz/core"
 import { FieldRadio } from "../Fields/FieldRadio"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
@@ -21,9 +21,6 @@ export const TermsOfUse = () => {
 
   let updateState = (name, value) => {
     name === "initiate.terms" && setTerms(value)
-    // name === "initiate.terms" && sessionStorage.setItem("terms", value)
-    // termsStatus = sessionStorage.getItem("terms")
-    // console.log(termsStatus)
   }
 
   const { colorMode } = useColorMode()

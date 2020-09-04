@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
 import { FieldInput } from "../Fields/FieldInput"
 import { Box, Divider, IconButton, Stack, Text } from "@chakra-ui/core"
 import { SectionHeader } from "../SectionHeader"
 import { AddPlaceholder } from "../AddPlaceholder"
 import { v4 as uuidv4 } from "uuid"
-import { FieldSelect } from "../Fields/FieldSelect"
-import { FaPlus, FaTrashAlt } from "react-icons/fa/index"
+import { FaTrashAlt } from "react-icons/fa/index"
 import { FieldRadio } from "../Fields/FieldRadio"
-const defaultCollection = [
-  {
-    id: uuidv4(),
-    name: "",
-  },
-]
 
 export const OtherSchools = () => {
   const form = useForm()
+  const [state, setState] = useState({})
+  const updateState = (name, value, index) => {
+    setState({
+      ...state,
+      [name]: value,
+    })
+  }
+
+  const defaultCollection = [
+    {
+      id: uuidv4(),
+      name: "",
+    },
+  ]
 
   const [collection, setCollection] = useState(defaultCollection)
 
@@ -48,12 +54,8 @@ export const OtherSchools = () => {
     setCollection(c => c.filter(x => x.id !== id))
   }
 
-  let updateState = (name, value, index) => {
-    console.log(index)
-    name === "OtherSchools." + index + ".grad" &&
-      sessionStorage.setItem("OtherSchools." + index + ".grad", value)
-  }
   let disabled
+
   return (
     <>
       {form.values.Schools && form.values.Schools.postSecondary === "yes" && (
@@ -74,21 +76,6 @@ export const OtherSchools = () => {
                 mb="6"
                 data-test={`repeater-item[${index}]`}
               >
-                {/*<Box transform="translateY(4rem)">*/}
-                {/*  <IconButton*/}
-                {/*    aria-label="Add"*/}
-                {/*    icon={<FaPlus />}*/}
-                {/*    size="sm"*/}
-                {/*    onClick={() => addItemAtIndex(index)}*/}
-                {/*    variant="ghost"*/}
-                {/*    isDisabled={collection.length > 20}*/}
-                {/*    pointerEvents={*/}
-                {/*      index + 1 >= collection.length ? "none" : null*/}
-                {/*    }*/}
-                {/*    opacity={index + 1 >= collection.length ? 0 : null}*/}
-                {/*  />*/}
-                {/*</Box>*/}
-
                 <Box>
                   <Box d={"flex"} mb={2}>
                     <Box flex="1" mr="4">
@@ -120,9 +107,7 @@ export const OtherSchools = () => {
                         ]}
                       />
                     </Box>
-                    {sessionStorage.getItem(
-                      "OtherSchools." + index + ".grad"
-                    ) === "yes"
+                    {state["OtherSchools." + index + ".grad"] === "yes"
                       ? disabled === false
                       : (disabled = true)}
 
@@ -133,9 +118,7 @@ export const OtherSchools = () => {
                           label={"Completion date"}
                           isDisabled={disabled}
                         />
-                        {sessionStorage.getItem(
-                          "OtherSchools." + index + ".grad"
-                        ) === "yes" && (
+                        {state["OtherSchools." + index + ".grad"] === "yes" && (
                           <Text mt="-4" fontSize={"sm"}>
                             If you are not sure of the exact date, enter
                             something like "September 2012."

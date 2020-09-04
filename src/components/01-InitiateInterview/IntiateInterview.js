@@ -5,40 +5,20 @@ import { FieldRadio } from "../Fields/FieldRadio"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 import { Box } from "@chakra-ui/core"
-export const InitiateInterview = ({ updateMontana }) => {
-  // const setField = value => {
-  //   return (
-  //     JSON.parse(sessionStorage.getItem(value)) &&
-  //     JSON.parse(sessionStorage.getItem(value))
-  //   )
-  // }
-
-  // let documents = setField("documents")
-  // let relationship = setField("relationship")
-  // let action = setField("action")
-  // let location = setField("location")
-
+export const InitiateInterview = () => {
   const [state, setState] = useState({
-    relationship: '',
-    action: '',
-    location: '',
-    documents: '',
-
-  });
-
+    Documents: "",
+    Action: "",
+    Location: "",
+  })
 
   let updateState = (name, value) => {
-    console.log("value")
-    //  name === "initiate.relationship" &&
-    //    sessionStorage.setItem("state.relationship", value)
-    // // name === "initiate.action" &&
-    //   sessionStorage.setItem("action", JSON.stringify(value))
-    // name === "initiate.location" &&
-    //   sessionStorage.setItem("location", JSON.stringify(value))
-    name === "initiate.documents" &&
-      setState("state.documents", value)
-   //name === "initiate.location" && updateMontana(value)
+    setState({
+      ...state,
+      [name]: value,
+    })
   }
+
   return (
     <FormizStep name="initiateInterview" order={1000}>
       <SectionWrapper>
@@ -56,7 +36,7 @@ export const InitiateInterview = ({ updateMontana }) => {
           }}
         />
         <FieldRadio
-          name="initiate.documents"
+          name="Documents"
           required="Required"
           updateState={updateState}
           orientation={"vertical"}
@@ -68,7 +48,7 @@ export const InitiateInterview = ({ updateMontana }) => {
         />
       </SectionWrapper>
 
-      {(state.documents === "worksheets" || state.documents === "both") && (
+      {(state.Documents === "worksheets" || state.Documents === "both") && (
         <>
           <SectionWrapper>
             <SectionHeader
@@ -77,7 +57,7 @@ export const InitiateInterview = ({ updateMontana }) => {
               }
             />
             <FieldRadio
-              name="initiate.action"
+              name="Action"
               required="Required"
               updateState={updateState}
               orientation={"vertical"}
@@ -94,7 +74,7 @@ export const InitiateInterview = ({ updateMontana }) => {
             />
           </SectionWrapper>
 
-          {state.action === "establish" ? (
+          {state.Action === "establish" ? (
             <SectionWrapper>
               <SectionHeader
                 header={
@@ -102,20 +82,20 @@ export const InitiateInterview = ({ updateMontana }) => {
                 }
               />
               <FieldInput
-                name="initiate.csed"
+                name="CSED"
                 label="District Court Case Number or CSED Case Number:"
                 updateState={updateState}
                 size={"xl"}
               />
             </SectionWrapper>
           ) : (
-            state.action === "modify" && (
+            state.Action === "modify" && (
               <>
                 <SectionHeader
                   header={"Was the child support order issued in Montana?"}
                 />
                 <FieldRadio
-                  name="initiate.location"
+                  name="Location"
                   required="Required"
                   updateState={updateState}
                   options={[
@@ -123,14 +103,14 @@ export const InitiateInterview = ({ updateMontana }) => {
                     { value: "no", label: "No" },
                   ]}
                 />
-                {state.location === "no" && (
+                {state.Location === "no" && (
                   <Box ml={4} mr={4} p={4} bg={"gray.400"} fontSize="lg">
                     Sorry, this tool is only available for cases in the State of
                     Montana.
                   </Box>
                 )}
 
-                {state.location === "yes" && (
+                {state.Location === "yes" && (
                   <SectionWrapper>
                     <SectionHeader
                       header={
@@ -138,11 +118,10 @@ export const InitiateInterview = ({ updateMontana }) => {
                       }
                     />
                     <FieldInput
-                      name="initiate.csed"
+                      name="CSED"
                       label="District Court Case Number (CSED)"
                       required="Required"
                       updateState={updateState}
-                      size={"3xl"}
                     />
                   </SectionWrapper>
                 )}

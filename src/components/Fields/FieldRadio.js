@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { Box, Radio, Stack, HStack, RadioGroup } from "@chakra-ui/core"
+import { Radio, Stack, HStack, RadioGroup } from "@chakra-ui/core"
 import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
-import { FormGroup } from '../FormGroup';
+import { FormGroup } from "../FormGroup"
 const propTypes = {
   label: PropTypes.node,
   helper: PropTypes.node,
@@ -44,8 +44,7 @@ export const FieldRadio = props => {
 
   const handleChange = value => {
     setValue(value)
-    updateState(name, value, index)
-    //updateMontana(value)
+    updateState && updateState(name, value, index)
   }
 
   useEffect(() => {
@@ -80,9 +79,7 @@ export const FieldRadio = props => {
               key={item.value}
               value={item.value}
             >
-              {/*<Box fontSize="xl" d="flex">*/}
               {item.label}
-              {/*</Box>*/}
             </Radio>
           ))}
         </CurrentStack>

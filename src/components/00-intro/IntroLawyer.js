@@ -1,26 +1,10 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
-import { FieldInput } from "../Fields/FieldInput"
-import { FieldRadio } from "../Fields/FieldRadio"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
-import {
-  Text,
-  List,
-  Link,
-  ListItem,
-  Heading,
-  Icon,
-  UnorderedList,
-  ListIcon,
-  useColorMode,
-  Box,
-  Button,
-} from "@chakra-ui/core"
+import { Text, Link, Heading, Icon } from "@chakra-ui/core"
 import { FaInfoCircle, FaExternalLinkAlt } from "react-icons/fa/index"
-import { PageLayout } from "../../layout/PageLayout"
 export const IntroLawyer = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
   return (
     <FormizStep name="introLawyer" order={1000}>
       <SectionWrapper>

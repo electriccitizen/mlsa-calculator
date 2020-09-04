@@ -1,39 +1,23 @@
-import React, { useEffect, useState, useRef } from "react"
+import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
 import { FieldRadio } from "../Fields/FieldRadio"
-import { FieldCheckbox2 } from "../Fields/FieldCheckbox2"
-import {
-  Switch,
-  Select,
-  Checkbox,
-  CheckboxGroup,
-  Flex,
-  Box,
-  Divider,
-  SimpleGrid,
-} from "@chakra-ui/core"
+import { Box, Divider } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
-import { useHistoryState } from "../../hooks/useHistoryState"
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Stack,
-} from "@chakra-ui/core"
 import { FieldSelect } from "../Fields/FieldSelect"
 import { FieldCheckbox } from "../Fields/FieldCheckbox"
-const updateState = e => {}
 
 export const OtherIncomeSecondary = () => {
   const [checkedItems, setCheckedItems] = useState({})
-  const form = useForm()
-  const otherParent = form.values.otherParent
-    ? form.values.otherParent.fname
-    : ""
+  // const form = useForm({
+  //   subscribe: { fields: ["OtherParent.fname"] },
+  // })
+  // const otherParent = form.values.otherParent
+  //   ? form.values.otherParent.fname
+  //   : ""
+  const otherParent = "Other"
   return (
     <FormizStep name="OtherIncomeSecondary" order={18000}>
       <>
@@ -41,7 +25,7 @@ export const OtherIncomeSecondary = () => {
           <SectionHeader header={otherParent + `'s Other Income`} />
           <FieldCheckbox
             name="OtherIncomeSecondary"
-            label="Selet all that apply, or none of the above if you have no other income."
+            label="Select all that apply, or none of the above if you have no other income."
             required="Required"
             setCheckedItems={setCheckedItems}
             checkedItems={checkedItems}
@@ -71,7 +55,7 @@ export const OtherIncomeSecondary = () => {
               { value: "none", label: "None of the above" },
             ]}
           />
-          {checkedItems.sep == true && (
+          {checkedItems.sep === true && (
             <Box mr={12}>
               <Box d="flex">
                 <FieldMoneyInput
@@ -79,7 +63,6 @@ export const OtherIncomeSecondary = () => {
                   label="Self-employment net earnings (- loss)"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
                 <FieldSelect
@@ -102,7 +85,6 @@ export const OtherIncomeSecondary = () => {
                 label="Describe your self-employment activities"
                 required="Required"
                 type="text"
-                updateState={updateState}
               />
               <Box spacing="2" p="2" d="flex">
                 <FieldMoneyInput
@@ -110,7 +92,6 @@ export const OtherIncomeSecondary = () => {
                   label="Hours per week spent in self-employment activities"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
                 <FieldRadio
@@ -121,7 +102,6 @@ export const OtherIncomeSecondary = () => {
                     "\n" +
                     "Is your self-employment the primary source of your income for meeting your living expenses?"
                   }
-                  updateState={updateState}
                   options={[
                     { value: "yes", label: "Yes" },
                     { value: "no", label: "No" },
@@ -132,59 +112,55 @@ export const OtherIncomeSecondary = () => {
             </Box>
           )}
 
-          {checkedItems.pension == true && (
+          {checkedItems.pension === true && (
             <Box mr={12}>
               <FieldMoneyInput
                 name={`OtherIncomeSecondary.Pension`}
                 label="Pensions, retirement - per year (before taxes)"
                 required="Required"
                 type="text"
-                updateState={updateState}
                 mr={4}
               />
             </Box>
           )}
 
-          {checkedItems.social == true && (
+          {checkedItems.social === true && (
             <Box mr={12}>
               <FieldMoneyInput
                 name={`OtherIncomeSecondary.SSN`}
                 label="Pensions, Social Security, per year (before taxes)"
                 required="Required"
                 type="text"
-                updateState={updateState}
                 mr={4}
               />
             </Box>
           )}
 
-          {checkedItems.interest == true && (
+          {checkedItems.interest === true && (
             <Box mr={12}>
               <FieldMoneyInput
                 name={`OtherIncomeSecondary.Interest`}
                 label="Interest/Dividend income - per year (before taxes)"
                 required="Required"
                 type="text"
-                updateState={updateState}
                 mr={4}
               />
             </Box>
           )}
 
-          {checkedItems.unearned == true && (
+          {checkedItems.unearned === true && (
             <Box mr={12}>
               <FieldMoneyInput
                 name={`OtherIncomeSecondary.Unearned`}
                 label="Other unearned income - per year (before taxes)"
                 required="Required"
                 type="text"
-                updateState={updateState}
                 mr={4}
               />
             </Box>
           )}
 
-          {checkedItems.imputed == true && (
+          {checkedItems.imputed === true && (
             <Box d={"flex"} mr={12}>
               <Box flex={1} mr={4}>
                 <FieldMoneyInput
@@ -192,7 +168,6 @@ export const OtherIncomeSecondary = () => {
                   label="Imputed income (before taxes)"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                 />
               </Box>
               <Box flex={1}>
@@ -213,20 +188,19 @@ export const OtherIncomeSecondary = () => {
               </Box>
             </Box>
           )}
-          {checkedItems.eitc == true && (
+          {checkedItems.eitc === true && (
             <Box mr={12}>
               <FieldMoneyInput
                 name={`OtherIncomeSecondary.EITC`}
                 label="Earned Income Tax Credit (EITC) - per year (before taxes)"
                 required="Required"
                 type="text"
-                updateState={updateState}
                 mr={4}
               />
             </Box>
           )}
 
-          {checkedItems.prize == true && (
+          {checkedItems.prize === true && (
             <Box d={"flex"} mr={12}>
               <Box flex={1} mr={4}>
                 <FieldMoneyInput
@@ -234,7 +208,6 @@ export const OtherIncomeSecondary = () => {
                   label="Prize, award, settlement, or other one-time cash payment (before taxes)"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>
@@ -244,21 +217,19 @@ export const OtherIncomeSecondary = () => {
                   label="Describe the prize, including its present location."
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>
             </Box>
           )}
 
-          {checkedItems.bonus == true && (
+          {checkedItems.bonus === true && (
             <Box mr={12}>
               <FieldMoneyInput
                 name={`OtherIncomeSecondary.bonus`}
                 label="Bonus amount - per year (before taxes)"
                 required="Required"
                 type="text"
-                updateState={updateState}
                 mr={4}
               />
             </Box>

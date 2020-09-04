@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { Box, Input, Radio } from "@chakra-ui/core"
+import { Input, Box } from "@chakra-ui/core"
 import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
 import { FormGroup } from "../FormGroup"
 
@@ -31,24 +31,19 @@ export const FieldMoneyInput = props => {
   } = useField(props)
 
   const {
+    children,
     label,
     name,
     type,
     required,
     placeholder,
     helper,
-    updateState,
     fieldWidth,
     ...otherProps
   } = props
 
   const [isTouched, setIsTouched] = useState(false)
   const showError = !isValid && (isTouched || isSubmitted)
-
-  const handleChange = value => {
-    setValue(value)
-    updateState && updateState(name, value)
-  }
 
   useEffect(() => {
     setIsTouched(false)
@@ -61,7 +56,6 @@ export const FieldMoneyInput = props => {
     isRequired: !!required,
     label,
     showError,
-    updateState,
     ...otherProps,
   }
 
@@ -77,9 +71,7 @@ export const FieldMoneyInput = props => {
             type={type || "text"}
             id={id}
             value={value ?? ""}
-            onChange={e => {
-              handleChange(e.target.value)
-            }}
+            onChange={(e) => setValue(e.target.value)}
             onBlur={() => setIsTouched(true)}
             aria-invalid={showError}
             aria-describedby={!isValid ? `${id}-error` : null}
@@ -88,9 +80,12 @@ export const FieldMoneyInput = props => {
           />
         </Box>
       </Box>
+
     </FormGroup>
   )
 }
 
 FieldMoneyInput.propTypes = propTypes
 FieldMoneyInput.defaultProps = defaultProps
+
+

@@ -1,12 +1,10 @@
-import React, { useState } from "react"
-import { Link as GatsbyLink } from "gatsby"
+import React from "react"
 import { FaCheckCircle } from "react-icons/fa"
 import {
   List,
   ListItem,
   UnorderedList,
   Heading,
-  Divider,
   Text,
   Box,
   useColorMode,
@@ -30,15 +28,16 @@ export default function TermsOfUse() {
               color={colorMode === "dark" ? "gray.600" : "gray.500"}
             >
               <ListItem>
-                <LinkIcon boxSize="4" as={FaCheckCircle} /> This site does
-                not give legal advice. Talk to a lawyer if you
-                need legal advice.
+                <LinkIcon boxSize="4" as={FaCheckCircle} /> This site does not
+                give legal advice. Talk to a lawyer if you need legal advice.
               </ListItem>
               <ListItem>
-                <LinkIcon boxSize="4" as={FaCheckCircle} /> You may not use this site for any commercial purpose.
+                <LinkIcon boxSize="4" as={FaCheckCircle} /> You may not use this
+                site for any commercial purpose.
               </ListItem>
               <ListItem>
-                <LinkIcon boxSize="4" as={FaCheckCircle} /> This site is for people who meet any of the following criteria:
+                <LinkIcon boxSize="4" as={FaCheckCircle} /> This site is for
+                people who meet any of the following criteria:
                 <UnorderedList mt={4} ml={12} spacing={4}>
                   <ListItem>
                     People without lawyers who access this site from a statewide

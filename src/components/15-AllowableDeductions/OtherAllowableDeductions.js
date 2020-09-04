@@ -2,22 +2,20 @@ import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
 import { FieldInput } from "../Fields/FieldInput"
-import { Box, Text, Icon, IconButton, SimpleGrid, Stack } from "@chakra-ui/core"
+import { Box, IconButton, Stack } from "@chakra-ui/core"
 import { SectionHeader } from "../SectionHeader"
 import { AddPlaceholder } from "../AddPlaceholder"
 import { v4 as uuidv4 } from "uuid"
-import { FieldSelect } from "../Fields/FieldSelect"
 import { FaPlus, FaTrashAlt } from "react-icons/fa/index"
-const defaultCollection = [
-  {
-    id: uuidv4(),
-    name: "",
-  },
-]
 
 export const OtherAllowableDeductions = () => {
-  const form = useForm()
-
+  const form = useForm({ subscribe: { fields: true } })
+  const defaultCollection = [
+    {
+      id: uuidv4(),
+      name: "",
+    },
+  ]
   const [collection, setCollection] = useState(defaultCollection)
 
   useEffect(() => {
@@ -54,8 +52,8 @@ export const OtherAllowableDeductions = () => {
           <FormizStep name="OtherAllowableDeductions" order={15500}>
             <SectionHeader header={`Enter your other allowable deductions:`} />
             <Box fontSize={"md"} mb={4}>
-              Enter the type and annual amount of "Other" deduction you have. Continue to click "Add another entry" until
-              finished.
+              Enter the type and annual amount of "Other" deduction you have.
+              Continue to click "Add another entry" until finished.
             </Box>
             <Box>
               {collection.map(({ id, name }, index) => (
@@ -89,7 +87,6 @@ export const OtherAllowableDeductions = () => {
                   </Box>
 
                   <Box flex="1">
-
                     <FieldMoneyInput
                       name={`OtherAllowableDeductions[${index}].amount`}
                       label={"Enter amount:"}

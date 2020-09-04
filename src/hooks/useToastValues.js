@@ -1,29 +1,22 @@
-import React from 'react';
-import { Box, useToast } from '@chakra-ui/core';
+import React from "react"
+import { Box, useToast } from "@chakra-ui/core"
 
 export const useToastValues = () => {
-  const toast = useToast();
+  const toast = useToast()
 
-  return (values) => {
+  return values => {
     console.log(values)
     toast({
-      title: 'Additional Help',
+      title: "Additional Help",
       description: (
-        <Box
-          as="pre"
-          maxHeight="80vh"
-          maxWidth="80vw"
-          overflow="auto"
-        >
+        <Box as="pre" maxHeight="80vh" maxWidth="80vw" overflow="auto">
           {values[0].text}
         </Box>
       ),
-      status: 'success',
+      status: "success",
       duration: null,
       isClosable: true,
-      position: 'top',
-    });
-  };
-};
-
-
+      position: "top",
+    })
+  }
+}

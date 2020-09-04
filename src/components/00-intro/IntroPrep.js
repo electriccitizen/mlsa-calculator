@@ -1,35 +1,26 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
-import { FieldInput } from "../Fields/FieldInput"
-import { FieldRadio } from "../Fields/FieldRadio"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 import {
   Text,
   List,
-  Icon,
   ListItem,
-  UnorderedList,
   ListIcon,
   useColorMode,
   Heading,
   Box,
-  Button,
 } from "@chakra-ui/core"
-import { PageLayout } from "../../layout/PageLayout"
-import { Link } from "gatsby"
-import { FaCalculator } from "react-icons/fa/index"
-import { FaCheckCircle, FaExternalLinkAlt } from 'react-icons/fa/index'
+import { FaCheckCircle } from "react-icons/fa/index"
 export const IntroPrep = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
+  const { colorMode } = useColorMode()
   return (
     <FormizStep name="introPrep" order={1000}>
       <SectionWrapper>
         <SectionHeader header={"Preparation checklist:"} />
         <Text>
-          The following are examples of documentation and other
-          information you may need in order to successfully complete the
-          calculator.
+          The following are examples of documentation and other information you
+          may need in order to successfully complete the calculator.
         </Text>
         <Text
           p={4}
@@ -50,7 +41,8 @@ export const IntroPrep = () => {
               fontWeight="normal"
               color={"gray.500"}
               href="#"
-            >Child Support Worksheet
+            >
+              Child Support Worksheet
             </Heading>
             <List spacing={4}>
               <ListItem>
@@ -73,7 +65,6 @@ export const IntroPrep = () => {
           </Box>
 
           <Box flex={1} mt={{ base: 6, md: 6 }} ml={{ md: 6 }}>
-
             <Heading
               as="h2"
               fontSize="2xl"

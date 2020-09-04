@@ -1,52 +1,30 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
-import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
-import { AddPlaceholder } from "../AddPlaceholder"
-import {
-  Accordion,
-  AccordionItem,
-  AccordionHeader,
-  AccordionPanel,
-  AccordionIcon,
-  Collapse,
-  Button,
-  IconButton,
-  Box,
-  Text,
-  Stack,
-  useColorMode,
-} from "@chakra-ui/core"
-import { DeleteIcon } from "@chakra-ui/icons"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 import { FieldSelect } from "../Fields/FieldSelect"
 
-export const FinancialAffadavitOne = number => {
-  const form = useForm()
-  let updateState = (name, value, index) => {
-    name === "FinancialAffadavitOne.taxStatus" &&
-      sessionStorage.setItem("FinancialAffadavitOne.taxStatus", value)
-    name === "FinancialAffadavitOne.daycare" &&
-      sessionStorage.setItem("FinancialAffadavitOne.daycare", value)
-    name === "FinancialAffadavitOne.support" &&
-      sessionStorage.setItem("FinancialAffadavitOne.support", value)
+export const FinancialAffadavitOne = () => {
+  const [state, setState] = useState({})
+  let updateState = (name, value) => {
+    setState({
+      ...state,
+      [name]: value,
+    })
   }
 
-  const taxStatus = sessionStorage.getItem("FinancialAffadavitOne.taxStatus")
-  const daycareStatus = sessionStorage.getItem("FinancialAffadavitOne.daycare")
-  const supportStatus = sessionStorage.getItem("FinancialAffadavitOne.support")
-
-  const { colorMode } = useColorMode()
+  const taxStatus = state["FinancialAffadavitOne.taxStatus"]
+  const daycareStatus = state["FinancialAffadavitOne.daycare"]
+  const supportStatus = state["FinancialAffadavitOne.support"]
 
   return (
     <FormizStep name="FinancialAffadavitOne" order={25000}>
       <>
         <SectionWrapper>
           <SectionHeader header={`Financial Affidavit Information, Part 1`} />
-
           <FieldSelect
             name={`FinancialAffadavitOne.taxStatus`}
             label="What is your tax filing status?"

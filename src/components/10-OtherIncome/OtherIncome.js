@@ -1,34 +1,18 @@
-import React, { useEffect, useState, useRef } from "react"
-import { FormizStep, useForm } from "@formiz/core"
+import React, { useState } from "react"
+import { FormizStep } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
 import { FieldRadio } from "../Fields/FieldRadio"
-import { FieldCheckbox2 } from "../Fields/FieldCheckbox2"
 import {
-  Switch,
-  Select,
-  Checkbox,
-  CheckboxGroup,
-  Flex,
   Box,
-  Divider,
-  SimpleGrid,
 } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
-import { useHistoryState } from "../../hooks/useHistoryState"
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Stack,
-} from "@chakra-ui/core"
 import { FieldSelect } from "../Fields/FieldSelect"
 import { FieldCheckbox } from "../Fields/FieldCheckbox"
-const updateState = e => {}
 
 export const OtherIncome = () => {
+  const updateState = {}
   const [checkedItems, setCheckedItems] = useState({})
   return (
     <FormizStep name="OtherIncome" order={10000}>
@@ -67,7 +51,7 @@ export const OtherIncome = () => {
               { value: "none", label: "None of the above" },
             ]}
           />
-          {checkedItems.sep == true && (
+          {checkedItems.sep === true && (
             <Box mr={12}>
               <Box d="flex">
                 <FieldMoneyInput
@@ -75,7 +59,6 @@ export const OtherIncome = () => {
                   label="Self-employment net earnings (- loss)"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
                 <FieldSelect
@@ -98,7 +81,6 @@ export const OtherIncome = () => {
                 label="Describe your self-employment activities"
                 required="Required"
                 type="text"
-                updateState={updateState}
               />
               <Box spacing="2" p="2" d="flex">
                 <FieldMoneyInput
@@ -106,7 +88,6 @@ export const OtherIncome = () => {
                   label="Hours per week spent in self-employment activities"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
                 <FieldRadio
@@ -124,63 +105,58 @@ export const OtherIncome = () => {
                   ]}
                 />
               </Box>
-              <Divider />
             </Box>
           )}
 
-          {checkedItems.pension == true && (
+          {checkedItems.pension === true && (
             <Box mr={12}>
               <FieldMoneyInput
                 name={`OtherIncome.Pension`}
                 label="Pensions, retirement - per year (before taxes)"
                 required="Required"
                 type="text"
-                updateState={updateState}
                 mr={4}
               />
             </Box>
           )}
 
-          {checkedItems.social == true && (
+          {checkedItems.social === true && (
             <Box mr={12}>
               <FieldMoneyInput
                 name={`OtherIncome.SSN`}
                 label="Pensions, Social Security, per year (before taxes)"
                 required="Required"
                 type="text"
-                updateState={updateState}
                 mr={4}
               />
             </Box>
           )}
 
-          {checkedItems.interest == true && (
+          {checkedItems.interest === true && (
             <Box mr={12}>
               <FieldMoneyInput
                 name={`OtherIncome.Interest`}
                 label="Interest/Dividend income - per year (before taxes)"
                 required="Required"
                 type="text"
-                updateState={updateState}
                 mr={4}
               />
             </Box>
           )}
 
-          {checkedItems.unearned == true && (
+          {checkedItems.unearned === true && (
             <Box mr={12}>
               <FieldMoneyInput
                 name={`OtherIncome.Unearned`}
                 label="Other unearned income - per year (before taxes)"
                 required="Required"
                 type="text"
-                updateState={updateState}
                 mr={4}
               />
             </Box>
           )}
 
-          {checkedItems.imputed == true && (
+          {checkedItems.imputed === true && (
             <Box d={"flex"} mr={12}>
               <Box flex={1} mr={4}>
                 <FieldMoneyInput
@@ -188,7 +164,6 @@ export const OtherIncome = () => {
                   label="Imputed income (before taxes)"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                 />
               </Box>
               <Box flex={1}>
@@ -209,20 +184,19 @@ export const OtherIncome = () => {
               </Box>
             </Box>
           )}
-          {checkedItems.eitc == true && (
+          {checkedItems.eitc === true && (
             <Box mr={12}>
               <FieldMoneyInput
                 name={`OtherIncome.EITC`}
                 label="Earned Income Tax Credit (EITC) - per year (before taxes)"
                 required="Required"
                 type="text"
-                updateState={updateState}
                 mr={4}
               />
             </Box>
           )}
 
-          {checkedItems.prize == true && (
+          {checkedItems.prize === true && (
             <Box d={"flex"} mr={12}>
               <Box flex={1} mr={4}>
                 <FieldMoneyInput
@@ -230,7 +204,6 @@ export const OtherIncome = () => {
                   label="Prize, award, settlement, or other one-time cash payment (before taxes)"
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>
@@ -240,21 +213,19 @@ export const OtherIncome = () => {
                   label="Describe the prize, including its present location."
                   required="Required"
                   type="text"
-                  updateState={updateState}
                   mr={4}
                 />
               </Box>
             </Box>
           )}
 
-          {checkedItems.bonus == true && (
+          {checkedItems.bonus === true && (
             <Box mr={12}>
               <FieldMoneyInput
                 name={`OtherIncome.bonus`}
                 label="Bonus amount - per year (before taxes)"
                 required="Required"
                 type="text"
-                updateState={updateState}
                 mr={4}
               />
             </Box>

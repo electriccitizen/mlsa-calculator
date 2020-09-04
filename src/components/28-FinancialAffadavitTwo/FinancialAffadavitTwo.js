@@ -1,62 +1,25 @@
-import React, { useEffect, useState } from "react"
-import { FormizStep, useForm } from "@formiz/core"
+import React, { useState } from "react"
+import { FormizStep } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
-import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
-import { AddPlaceholder } from "../AddPlaceholder"
-import {
-  Accordion,
-  AccordionItem,
-  AccordionHeader,
-  AccordionPanel,
-  AccordionIcon,
-  Collapse,
-  Button,
-  IconButton,
-  Box,
-  Text,
-  Stack,
-  useColorMode,
-} from "@chakra-ui/core"
-import { DeleteIcon } from "@chakra-ui/icons"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 
-export const FinancialAffadavitTwo = number => {
-  let updateState = (name, value, index) => {
-    name === "FinancialAffadavitTwo.workReason" &&
-      sessionStorage.setItem("FinancialAffadavitTwo.workReason", value)
-    name === "FinancialAffadavitTwo.workersComp" &&
-      sessionStorage.setItem("FinancialAffadavitTwo.workersComp", value)
-    name === "FinancialAffadavitTwo.seekingComp" &&
-      sessionStorage.setItem("FinancialAffadavitTwo.seekingComp", value)
-    name === "FinancialAffadavitTwo.unemployment" &&
-      sessionStorage.setItem("FinancialAffadavitTwo.unemployment", value)
-    name === "FinancialAffadavitTwo.employmentEfforts" &&
-      sessionStorage.setItem("FinancialAffadavitTwo.employmentEfforts", value)
-    name === "FinancialAffadavitTwo.publicAssistance" &&
-      sessionStorage.setItem("FinancialAffadavitTwo.publicAssistance", value)
+export const FinancialAffadavitTwo = () => {
+  const [state, setState] = useState({})
+  let updateState = (name, value) => {
+    setState({
+      ...state,
+      [name]: value,
+    })
   }
-  let workReason = ""
-  let workersComp = ""
-  let seekingComp = ""
-  let unemployment = ""
-  let employmentEfforts = ""
-  let publicAssistance = ""
-  useEffect(() => {
-    // Update the document title using the browser API
-    workReason = sessionStorage.getItem("FinancialAffadavitTwo.workReason")
-    workersComp = sessionStorage.getItem("FinancialAffadavitTwo.workersComp")
-    seekingComp = sessionStorage.getItem("FinancialAffadavitTwo.seekingComp")
-    unemployment = sessionStorage.getItem("FinancialAffadavitTwo.unemployment")
-    employmentEfforts = sessionStorage.getItem(
-      "FinancialAffadavitTwo.employmentEfforts"
-    )
-    publicAssistance = sessionStorage.getItem(
-      "FinancialAffadavitTwo.publicAssistance"
-    )
-  })
+  const workReason = state["FinancialAffadavitTwo.workReason"]
+  const workersComp = state["FinancialAffadavitTwo.workersComp"]
+  const seekingComp = state["FinancialAffadavitTwo.seekingComp"]
+  const unemployment = state["FinancialAffadavitTwo.unemployment"]
+  const employmentEfforts = state["FinancialAffadavitTwo.employmentEfforts"]
+  const publicAssistance = state["FinancialAffadavitTwo.publicAssistance"]
 
   return (
     <FormizStep name="FinancialAffadavitTwo" order={28000}>

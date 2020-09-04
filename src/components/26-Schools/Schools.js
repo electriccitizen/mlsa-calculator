@@ -1,44 +1,22 @@
-import React, { useEffect, useState } from "react"
-import { FormizStep, useForm } from "@formiz/core"
+import React, { useState } from "react"
+import { FormizStep } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
-import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
 import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
-import { AddPlaceholder } from "../AddPlaceholder"
-import {
-  Accordion,
-  AccordionItem,
-  AccordionHeader,
-  AccordionPanel,
-  AccordionIcon,
-  Collapse,
-  Button,
-  IconButton,
-  Box,
-  Text,
-  Stack,
-  useColorMode,
-  SimpleGrid,
-} from "@chakra-ui/core"
-import { DeleteIcon } from "@chakra-ui/icons"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 
-export const Schools = number => {
-  const form = useForm()
-  let updateState = (name, value, index) => {
-    name === "Schools.level" && sessionStorage.setItem("Schools.level", value)
-    name === "Schools.current" &&
-      sessionStorage.setItem("Schools.current", value)
-    name === "Schools.postSecondary" &&
-      sessionStorage.setItem("Schools.postSecondary", value)
-
-    console.log(sessionStorage.getItem("Schools.postSecondary"))
+export const Schools = () => {
+  const [state, setState] = useState({})
+  let updateState = (name, value) => {
+    setState({
+      ...state,
+      [name]: value,
+    })
   }
-  const { colorMode } = useColorMode()
-  const schoolLevel = sessionStorage.getItem("Schools.level")
-  const schoolCurrent = sessionStorage.getItem("Schools.current")
-  const schoolPostSecondary = sessionStorage.getItem("Schools.postSecondary")
+
+  const schoolLevel = state["Schools.level"]
+  const schoolCurrent = state["Schools.current"]
 
   return (
     <FormizStep name="Schools" order={26000}>

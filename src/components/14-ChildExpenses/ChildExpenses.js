@@ -2,51 +2,26 @@ import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
-import { FieldDate } from "../Fields/FieldDate"
 import { FieldRadio } from "../Fields/FieldRadio"
 import { AddPlaceholder } from "../AddPlaceholder"
 import { v4 as uuidv4 } from "uuid"
-import {
-  Accordion,
-  AccordionItem,
-  AccordionHeader,
-  AccordionPanel,
-  AccordionIcon,
-  Collapse,
-  Button,
-  IconButton,
-  Box,
-  Text,
-  Stack,
-  useColorMode,
-} from "@chakra-ui/core"
-import { DeleteIcon } from "@chakra-ui/icons"
+import { IconButton, Box, Stack } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
-
-export const ChildExpenses = number => {
+import { FaTrashAlt } from "react-icons/fa/index"
+export const ChildExpenses = () => {
   const form = useForm()
-  const flatform = form.flatValues
-  const numChildren = sessionStorage.getItem("numChildren")
-  // console.log(form.values.primaryChildren['0'].fname)
-  let updateState = (name, value, index) => {
-    name === "ChildExpenses." + index + ".housing" &&
-      sessionStorage.setItem("ChildExpenses." + index + ".housing", value)
-    name === "ChildExpenses." + index + ".support" &&
-      sessionStorage.setItem("ChildExpenses." + index + ".support", value)
-    name === "ChildExpenses." + index + ".depcare" &&
-      sessionStorage.setItem("ChildExpenses." + index + ".depcare", value)
-    name === "ChildExpenses." + index + ".medical" &&
-      sessionStorage.setItem("ChildExpenses." + index + ".medical", value)
-    name === "ChildExpenses." + index + ".status" &&
-      sessionStorage.setItem("ChildExpenses." + index + ".status", value)
-    name === "ChildExpenses." + index + ".otherExpenses" &&
-      sessionStorage.setItem("ChildExpenses." + index + ".otherExpenses", value)
+  //useForm({ subscribe: 'form' })
+  const [state, setState] = useState({})
+  let updateState = (name, value) => {
+    setState({
+      ...state,
+      [name]: value,
+    })
   }
-  // const housing = sessionStorage.getItem("ChildExpenses." + index + ".housing")
-  const { colorMode } = useColorMode()
-
+  const numChildren = form.values.NumPrimaryChildren
   const [additionalExpenses, setAdditionalExpenses] = useState([])
+
   useEffect(() => {
     setAdditionalExpenses([])
   }, [form.resetKey])
@@ -101,8 +76,7 @@ export const ChildExpenses = number => {
                 { value: "other", label: "Someone else" },
               ]}
             />
-            {sessionStorage.getItem("ChildExpenses." + index + ".housing") ===
-              "other" && (
+            {state[`ChildExpenses.${index}.housing`] === "other" && (
               <FieldInput
                 name={`ChildExpenses.${index}.otherHousing`}
                 label="Who does this child live with?"
@@ -111,7 +85,7 @@ export const ChildExpenses = number => {
                 mb="4"
               />
             )}
-            {sessionStorage.getItem("ChildExpenses." + index + ".housing") && (
+            {state[`ChildExpenses.${index}.housing`] && (
               <>
                 <FieldMoneyInput
                   name={`ChildExpenses.${index}.benefits`}
@@ -132,9 +106,7 @@ export const ChildExpenses = number => {
                   ]}
                   mb="4"
                 />
-                {sessionStorage.getItem(
-                  "ChildExpenses." + index + ".support"
-                ) === "yes" && (
+                {state[`ChildExpenses.${index}.housing`] === "yes" && (
                   <FieldMoneyInput
                     name={`ChildExpenses.${index}.childSupportAmount`}
                     label="Monthly child support you are ordered to pay for this child."
@@ -180,17 +152,14 @@ export const ChildExpenses = number => {
                     { value: "no", label: "No" },
                   ]}
                 />
-                {sessionStorage.getItem(
-                  "ChildExpenses." + index + ".otherExpenses"
-                ) === "yes" &&
+                {state[`ChildExpenses.${index}.otherExpenses`] === "yes" &&
                   additionalExpenses.map((expense, x) => (
-                    <>
+                    <Box key={x}>
                       <Box fontSize={"md"} mb={2}>
                         Enter a description of each other expense and the amount
                         spent per year.
                       </Box>
                       <Stack
-                        key={x}
                         direction="row"
                         spacing="4"
                         mb="6"
@@ -218,17 +187,15 @@ export const ChildExpenses = number => {
                         </Box>
                         <Box pt="1.75rem">
                           <IconButton
-                            icon={<DeleteIcon />}
+                            icon={<FaTrashAlt />}
                             onClick={() => removeItem(expense.id)}
                             variant="ghost"
                           />
                         </Box>
                       </Stack>
-                    </>
+                    </Box>
                   ))}
-                {sessionStorage.getItem(
-                  "ChildExpenses." + index + ".otherExpenses"
-                ) === "yes" &&
+                {state[`ChildExpenses.${index}.otherExpenses`] === "yes" &&
                   additionalExpenses.length <= 20 && (
                     <AddPlaceholder label="Add expense" onClick={addItem} />
                   )}

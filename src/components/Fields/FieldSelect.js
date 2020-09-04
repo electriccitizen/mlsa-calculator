@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { Select } from "@chakra-ui/core"
-import { useForm, useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
+import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
 import { FormGroup } from "../FormGroup"
 
 const propTypes = {
@@ -20,10 +20,7 @@ const defaultProps = {
   ...fieldDefaultProps,
 }
 
-
 export const FieldSelect = props => {
-
-  const form = useForm()
   const {
     errorMessage,
     id,
@@ -32,8 +29,6 @@ export const FieldSelect = props => {
     resetKey,
     setValue,
     value,
-
-    fieldwidth,
   } = useField(props)
   const {
     label,
@@ -50,12 +45,9 @@ export const FieldSelect = props => {
   const [isTouched, setIsTouched] = useState(false)
   const showError = !isValid && (isTouched || isSubmitted)
 
-  const handleChange = ( name, value,index) => {
+  const handleChange = ( name, value) => {
     setValue(value)
-    updateState(name,value)
-    //updateLabel(value, index)
-    // setValue(!event.target.name)
-    //updateMontana(value)
+    updateState && updateState(name,value)
   }
 
   useEffect(() => {
@@ -72,7 +64,6 @@ export const FieldSelect = props => {
     ...otherProps,
   }
 
-
   return (
     <FormGroup {...formGroupProps}>
       <Select
@@ -85,7 +76,6 @@ export const FieldSelect = props => {
         placeholder={placeholder}
         name={name}
         index={index}
-        //onChange={e => setValue(e.target.value)}
         onChange={e => {
           handleChange(name, e.target.value, index)
         }}

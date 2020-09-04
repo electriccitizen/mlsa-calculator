@@ -4,53 +4,48 @@ import printJS from "print-js"
 import { useForm } from "@formiz/core"
 import { MultiStepsLayout } from "../components/MultiStepsLayout"
 import { PageLayout } from "../layout/PageLayout"
-
 import { TermsOfUse } from "../components/01-InitiateInterview/TermsOfUse"
 import { IntroCanDo } from "../components/01-InitiateInterview/IntroCanDo"
 import { IntroCantDo } from "../components/01-InitiateInterview/IntroCantDo"
 import { IntroHelp } from "../components/01-InitiateInterview/IntroHelp"
 import { InitiateInterview } from "../components/01-InitiateInterview/IntiateInterview"
 import { BasicInformation } from "../components/02-BasicInformation/BasicInformation"
-
-// import { OtherParent } from "../components/03-OtherParent/OtherParent"
-// import { EnterChildren } from "../components/04-EnterChildren/EnterChildren"
-// import { OtherChildren } from "../components/05-OtherChildren/OtherChildren"
-// import { EnterMyOtherChildren } from "../components/05-OtherChildren/EnterMyOtherChildren"
-// import { OtherChildrenSecondary } from "../components/06-OtherChildrenSecondary/OtherChildrenSecondary"
-// import { EnterMyOtherChildrenSecondary } from "../components/06-OtherChildrenSecondary/EnterMyOtherChildrenSecondary"
-// import { Employment } from "../components/07-Employment/Employment"
-// import { CurrentJob } from "../components/08-CurrentJob/CurrentJob"
-// import { OtherJobs } from "../components/09-OtherJobs/OtherJobs"
-// import { EnterOtherJobs } from "../components/09-OtherJobs/EnterOtherJobs"
-// import { OtherIncome } from "../components/10-OtherIncome/OtherIncome"
-// import { ChildExpenses } from "../components/14-ChildExpenses/ChildExpenses"
-// import { TaxableIncome } from "../components/12-TaxableIncome/TaxableIncome"
-// import { NonTaxableIncome } from "../components/13-NonTaxableIncome/NonTaxableIncome"
-// import { AllowableDeductions } from "../components/15-AllowableDeductions/AllowableDeductions"
-// import { OtherAllowableDeductions } from "../components/15-AllowableDeductions/OtherAllowableDeductions"
-// import { StandardOfLiving } from "../components/16-StandardOfLiving/StandardOfLiving"
-// import { CurrentJobSecondary } from "../components/17-CurrentJobSecondary/CurrentJobSecondary"
-// import { EnterOtherJobsSecondary } from "../components/17-CurrentJobSecondary/EnterOtherJobsSecondary"
-// import { OtherIncomeSecondary } from "../components/18-OtherIncomeSecondary/OtherIncomeSecondary"
-// import { TaxableIncomeSecondary } from "../components/19-TaxableIncomeSecondary/TaxableIncomeSecondary"
-// import { NonTaxableIncomeSecondary } from "../components/20-NonTaxableIncomeSecondary/NonTaxableIncomeSecondary"
-// import { ChildExpensesSecondary } from "../components/21-ChildExpensesSecondary/ChildExpensesSecondary"
-// import { AllowableDeductionsSecondary } from "../components/22-AllowableDeductionsSecondary/AllowableDeductionsSecondary"
-// import { OtherAllowableDeductionsSecondary } from "../components/22-AllowableDeductionsSecondary/OtherAllowableDeductionsSecondary"
-// import { StandardOfLivingSecondary } from "../components/23-StandardOfLivingSecondary/StandardOfLivingSecondary"
-// import { ParentingDays } from "../components/24-ParentingDays/ParentingDays"
-// import { FinancialAffadavitOne } from "../components/25-FinancialAffadavitOne/FinancialAffadavitOne"
-// import { Schools } from "../components/26-Schools/Schools"
-// import { OtherSchools } from "../components/26-Schools/OtherSchools"
-// import { HealthInsurance } from "../components/27-HealthInsurance/HealthInsurance"
-// import { HealthInsurancePolicies } from "../components/27-HealthInsurance/HealthInsurancePolicies"
-// import { FinancialAffadavitTwo } from "../components/28-FinancialAffadavitTwo/FinancialAffadavitTwo"
-// import { FinancialAffadavitThree } from "../components/29-FinancialAffadavitThree/FinancialAffadavitThree"
-import { Beforeunload } from "react-beforeunload"
+import { OtherParent } from "../components/03-OtherParent/OtherParent"
+import { EnterChildren } from "../components/04-EnterChildren/EnterChildren"
+import { OtherChildren } from "../components/05-OtherChildren/OtherChildren"
+import { EnterMyOtherChildren } from "../components/05-OtherChildren/EnterMyOtherChildren"
+import { OtherChildrenSecondary } from "../components/06-OtherChildrenSecondary/OtherChildrenSecondary"
+import { EnterMyOtherChildrenSecondary } from "../components/06-OtherChildrenSecondary/EnterMyOtherChildrenSecondary"
+import { Employment } from "../components/07-Employment/Employment"
+import { CurrentJob } from "../components/08-CurrentJob/CurrentJob"
+import { OtherJobs } from "../components/09-OtherJobs/OtherJobs"
+import { EnterOtherJobs } from "../components/09-OtherJobs/EnterOtherJobs"
+import { OtherIncome } from "../components/10-OtherIncome/OtherIncome"
+import { ChildExpenses } from "../components/14-ChildExpenses/ChildExpenses"
+import { TaxableIncome } from "../components/12-TaxableIncome/TaxableIncome"
+import { NonTaxableIncome } from "../components/13-NonTaxableIncome/NonTaxableIncome"
+import { AllowableDeductions } from "../components/15-AllowableDeductions/AllowableDeductions"
+import { OtherAllowableDeductions } from "../components/15-AllowableDeductions/OtherAllowableDeductions"
+import { StandardOfLiving } from "../components/16-StandardOfLiving/StandardOfLiving"
+import { CurrentJobSecondary } from "../components/17-CurrentJobSecondary/CurrentJobSecondary"
+import { EnterOtherJobsSecondary } from "../components/17-CurrentJobSecondary/EnterOtherJobsSecondary"
+import { OtherIncomeSecondary } from "../components/18-OtherIncomeSecondary/OtherIncomeSecondary"
+import { TaxableIncomeSecondary } from "../components/19-TaxableIncomeSecondary/TaxableIncomeSecondary"
+import { NonTaxableIncomeSecondary } from "../components/20-NonTaxableIncomeSecondary/NonTaxableIncomeSecondary"
+import { ChildExpensesSecondary } from "../components/21-ChildExpensesSecondary/ChildExpensesSecondary"
+import { AllowableDeductionsSecondary } from "../components/22-AllowableDeductionsSecondary/AllowableDeductionsSecondary"
+import { OtherAllowableDeductionsSecondary } from "../components/22-AllowableDeductionsSecondary/OtherAllowableDeductionsSecondary"
+import { StandardOfLivingSecondary } from "../components/23-StandardOfLivingSecondary/StandardOfLivingSecondary"
+import { ParentingDays } from "../components/24-ParentingDays/ParentingDays"
+import { FinancialAffadavitOne } from "../components/25-FinancialAffadavitOne/FinancialAffadavitOne"
+import { Schools } from "../components/26-Schools/Schools"
+import { OtherSchools } from "../components/26-Schools/OtherSchools"
+import { HealthInsurance } from "../components/27-HealthInsurance/HealthInsurance"
+import { HealthInsurancePolicies } from "../components/27-HealthInsurance/HealthInsurancePolicies"
+import { FinancialAffadavitTwo } from "../components/28-FinancialAffadavitTwo/FinancialAffadavitTwo"
+import { FinancialAffadavitThree } from "../components/29-FinancialAffadavitThree/FinancialAffadavitThree"
+//import { Beforeunload } from "react-beforeunload"
 import {
-  ThemeProvider,
-  ColorModeProvider,
-  CSSReset,
   Box,
   Button,
   SimpleGrid,
@@ -58,20 +53,10 @@ import {
   Heading,
   Icon,
 } from "@chakra-ui/core"
-import {
-  FaFileAlt,
-  FaFileInvoiceDollar,
-  FaExternalLinkAlt,
-} from "react-icons/fa"
+import { FaFileAlt, FaFileInvoiceDollar } from "react-icons/fa"
 
 export default function Calculator() {
-  //sessionStorage.clear()
   const form = useForm()
-  const [isMontana, setIsMontana] = useState("")
-
-  const updateMontana = value => {
-    setIsMontana(value)
-  }
 
   const [appState, setAppState] = useState({
     loading: false,
@@ -89,6 +74,7 @@ export default function Calculator() {
     setAppState({ complete: false })
   }
 
+  let isMontana = true //dummycode
   const handleSubmit = values => {
     setAppState({ complete: true, values: values })
     const data = values
@@ -122,58 +108,56 @@ export default function Calculator() {
         </PageLayout>
       ) : appState.complete === false ? (
         <>
-          <Beforeunload onBeforeunload={() => "You'll lose your data!"}>
-            <MultiStepsLayout
-              form={form}
-              onValidSubmit={handleSubmit}
-              submitLabel="Prepare document(s)"
-              updateMontana={updateMontana}
-              isMontana={isMontana}
-            >
-              <>
-                <TermsOfUse />
-                {/*<IntroCanDo />*/}
-                {/*<IntroCantDo />*/}
-                {/*<IntroHelp />*/}
-                {/*<InitiateInterview updateMontana={updateMontana} />*/}
-                {/*<BasicInformation />*/}
-                {/*<OtherParent />*/}
-                {/*<EnterChildren />*/}
-                {/*<OtherChildren />*/}
-                {/*<EnterMyOtherChildren />*/}
-                {/*<OtherChildrenSecondary />*/}
-                {/*<EnterMyOtherChildrenSecondary />*/}
-                {/*<Employment />*/}
-                {/*<CurrentJob />*/}
-                {/*<OtherJobs />*/}
-                {/*<EnterOtherJobs />*/}
-                {/*<OtherIncome />*/}
-                {/*<TaxableIncome />*/}
-                {/*<NonTaxableIncome />*/}
-                {/*<ChildExpenses />*/}
-                {/*<AllowableDeductions />*/}
-                {/*<OtherAllowableDeductions />*/}
-                {/*<StandardOfLiving />*/}
-                {/*<CurrentJobSecondary />*/}
-                {/*<EnterOtherJobsSecondary />*/}
-                {/*<OtherIncomeSecondary />*/}
-                {/*<TaxableIncomeSecondary />*/}
-                {/*<NonTaxableIncomeSecondary />*/}
-                {/*<ChildExpensesSecondary />*/}
-                {/*<AllowableDeductionsSecondary />*/}
-                {/*<OtherAllowableDeductionsSecondary />*/}
-                {/*<StandardOfLivingSecondary />*/}
-                {/*<ParentingDays />*/}
-                {/*<FinancialAffadavitOne />*/}
-                {/*<Schools />*/}
-                {/*<OtherSchools />*/}
-                {/*<HealthInsurance />*/}
-                {/*<HealthInsurancePolicies />*/}
-                {/*<FinancialAffadavitTwo />*/}
-                {/*<FinancialAffadavitThree />*/}
-              </>
-            </MultiStepsLayout>
-          </Beforeunload>
+          {/*<Beforeunload onBeforeunload={() => "You'll lose your data!"}>*/}
+          <MultiStepsLayout
+            form={form}
+            onValidSubmit={handleSubmit}
+            submitLabel="Prepare document(s)"
+          >
+            <>
+              <TermsOfUse />
+              <IntroCanDo />
+              <IntroCantDo />
+              <IntroHelp />
+              <InitiateInterview />
+              <BasicInformation />
+              <OtherParent />
+              <EnterChildren />
+              <OtherChildren />
+              <EnterMyOtherChildren />
+              <OtherChildrenSecondary />
+              <EnterMyOtherChildrenSecondary />
+              <Employment />
+              <CurrentJob />
+              <OtherJobs />
+              <EnterOtherJobs />
+              <OtherIncome />
+              <TaxableIncome />
+              <NonTaxableIncome />
+              <ChildExpenses />
+              <AllowableDeductions />
+              <OtherAllowableDeductions />
+              <StandardOfLiving />
+              <CurrentJobSecondary />
+              <EnterOtherJobsSecondary />
+              <OtherIncomeSecondary />
+              <TaxableIncomeSecondary />
+              <NonTaxableIncomeSecondary />
+              <ChildExpensesSecondary />
+              <AllowableDeductionsSecondary />
+              <OtherAllowableDeductionsSecondary />
+              <StandardOfLivingSecondary />
+              <ParentingDays />
+              <FinancialAffadavitOne />
+              <Schools />
+              <OtherSchools />
+              <HealthInsurance />
+              <HealthInsurancePolicies />
+              <FinancialAffadavitTwo />
+              <FinancialAffadavitThree />
+            </>
+          </MultiStepsLayout>
+          {/*</Beforeunload>*/}
         </>
       ) : (
         <PageLayout>
@@ -232,8 +216,8 @@ export default function Calculator() {
                 Financial Affadavit
               </Heading>
               <Box fontSize="md" mb={4}>
-                Your completed Financial Affadavit is now available for
-                download or printing.
+                Your completed Financial Affadavit is now available for download
+                or printing.
               </Box>
               <Button mb="2" colorScheme="brand" type="button">
                 <a
@@ -242,29 +226,27 @@ export default function Calculator() {
                 >
                   Download
                 </a>
-              </Button> <br />
+              </Button>{" "}
+              <br />
               <Button colorScheme="brand" type="button" onClick={handlePrint}>
                 Print
               </Button>
             </Box>
           </Box>
 
-
-
           <Divider />
 
-          <Box  mt="8"  mb={8}>
-            Thank you for using the Montana Child
-            Support Calculator. If necessary, you
-            can go back to review and edit your responses.
+          <Box mt="8" mb={8}>
+            Thank you for using the Montana Child Support Calculator. If
+            necessary, you can go back to review and edit your responses.
           </Box>
 
           <SimpleGrid columns={3} spacing={10}>
-            <Button color='brand.500' type="button" onClick={handleBack}>
+            <Button color="brand.500" type="button" onClick={handleBack}>
               Go back and review
             </Button>
             <Box textAlign="center"> - or - </Box>
-            <Button color='brand.500' type="button" onClick={handleBack}>
+            <Button color="brand.500" type="button" onClick={handleBack}>
               Finish!
             </Button>
           </SimpleGrid>

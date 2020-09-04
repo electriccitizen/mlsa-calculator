@@ -2,32 +2,26 @@ import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
-import { FieldDate } from "../Fields/FieldDate"
 import { InsuranceAddressField } from "./InsuranceAddressField"
 import { AddPlaceholder } from "../AddPlaceholder"
 import { v4 as uuidv4 } from "uuid"
 import {
-  Accordion,
-  AccordionItem,
-  AccordionHeader,
-  AccordionPanel,
-  AccordionIcon,
-  Collapse,
-  Button,
-  IconButton,
   Box,
-  Text,
-  Stack,
-  useColorMode,
-  Divider,
-} from "@chakra-ui/core"
-import { DeleteIcon } from "@chakra-ui/icons"
-import { SectionWrapper } from "../SectionWrapper"
+  Divider, IconButton, Stack,
+} from '@chakra-ui/core'
 import { SectionHeader } from "../SectionHeader"
 import { FaTrashAlt } from "react-icons/fa"
 
 export const HealthInsurancePolicies = number => {
   const form = useForm()
+  // const updateState = (name, value) => {
+  //   setState({
+  //     ...state,
+  //     [name]: value,
+  //   })
+  // }
+
+
   const defaultCollection = [
     {
       id: uuidv4(),
@@ -49,27 +43,8 @@ export const HealthInsurancePolicies = number => {
     ])
   }
 
-  const addItemAtIndex = index => {
-    setCollection(c => [
-      ...c.slice(0, index + 1),
-      {
-        id: uuidv4(),
-      },
-      ...c.slice(index + 1),
-    ])
-  }
-
   const removeItem = id => {
     setCollection(c => c.filter(x => x.id !== id))
-  }
-
-  let updateState = (name, value, index) => {
-    console.log(index)
-    name === "HealthInsurancePolicies." + index + ".grad" &&
-      sessionStorage.setItem(
-        "HealthInsurancePolicies." + index + ".grad",
-        value
-      )
   }
 
   return (
@@ -83,6 +58,13 @@ export const HealthInsurancePolicies = number => {
           </Box>
 
           {collection.map(({ id, name }, index) => (
+            <Stack
+              key={id}
+              direction="row"
+              spacing="2"
+              mb="6"
+              data-test={`repeater-item[${index}]`}
+            >
             <Box>
               <FieldInput
                 name={`HealthInsurancePolicies.${index}.covered`}
@@ -116,7 +98,17 @@ export const HealthInsurancePolicies = number => {
                 }
               />
               <Divider />
+
             </Box>
+              <Box transform="translateY(1rem)" pt="1.75rem">
+                <IconButton
+                  aria-label="Delete"
+                  icon={<FaTrashAlt />}
+                  onClick={() => removeItem(id)}
+                  variant="ghost"
+                />
+              </Box>
+            </Stack>
           ))}
 
           {HealthInsurancePolicies.length <= 20 && (

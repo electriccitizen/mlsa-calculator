@@ -1,22 +1,8 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
-import { FieldInput } from "../Fields/FieldInput"
-import { FieldRadio } from "../Fields/FieldRadio"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
-import {
-  Text,
-  List,
-  Link,
-  Icon,
-  ListItem,
-  UnorderedList,
-  ListIcon,
-  useColorMode,
-  Box,
-  Button,
-  Heading,
-} from "@chakra-ui/core"
+import { Text, Link, Icon, useColorMode, Box, Heading } from "@chakra-ui/core"
 import {
   FaFileAlt,
   FaFileInvoiceDollar,
@@ -24,7 +10,7 @@ import {
 } from "react-icons/fa"
 
 export const IntroWhat = () => {
-  const { colorMode, toggleColorMode } = useColorMode()
+  const { colorMode } = useColorMode()
   return (
     <FormizStep name="introWhat" order={1000}>
       <SectionWrapper>
@@ -89,8 +75,13 @@ export const IntroWhat = () => {
           will allow you to create one.
         </Text>
         <Text mt={2}>
-          Note: both of these forms along with additional information are available{" "}
-          <Link color="brand.400" href="https://dphhs.mt.gov/csed/services/guidelinespacket" isExternal>
+          Note: both of these forms along with additional information are
+          available{" "}
+          <Link
+            color="brand.400"
+            href="https://dphhs.mt.gov/csed/services/guidelinespacket"
+            isExternal
+          >
             via the Montana state website
           </Link>
           . <Icon boxSize={"12px"} as={FaExternalLinkAlt} />

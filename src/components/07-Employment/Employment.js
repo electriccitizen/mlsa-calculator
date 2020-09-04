@@ -1,33 +1,19 @@
-import React, { useEffect, useState } from "react"
-import { FormizStep, useForm } from "@formiz/core"
+import React, { useState } from "react"
+import { FormizStep } from "@formiz/core"
 import { FieldInput } from "../Fields/FieldInput"
 import { FieldRadio } from "../Fields/FieldRadio"
-import { Box, SimpleGrid } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
 import { SectionHeader } from "../SectionHeader"
 import { FieldMoneyInput } from "../Fields/FieldMoneyInput"
 import { AddressField } from "../02-BasicInformation/AddressField"
 export const Employment = d => {
-  const setField = value => {
-    return (
-      JSON.parse(sessionStorage.getItem(value)) &&
-      JSON.parse(sessionStorage.getItem(value))
-    )
+  const [state, setState] = useState({})
+  let updateState = (name, value) => {
+    setState({
+      ...state,
+      [name]: value,
+    })
   }
-
-  const updateState = (name, value) => {
-    name === "EmploymentStatus" &&
-      sessionStorage.setItem("EmploymentStatus", value)
-    name === "Employment.Ever" &&
-      sessionStorage.setItem("Employment.Ever", value)
-    name === "EmploymentFulltime" &&
-      sessionStorage.setItem("EmploymentFulltime", value)
-    name === "Employment.CashBenefits" &&
-      sessionStorage.setItem("Employment.CashBenefits", value)
-    name === "Employment.Union" &&
-      sessionStorage.setItem("Employment.Union", value)
-  }
-
   return (
     <FormizStep name="Employment" order={7000}>
       <>
@@ -44,7 +30,7 @@ export const Employment = d => {
               { value: "no", label: "No" },
             ]}
           />
-          {sessionStorage.getItem("EmploymentStatus") === "yes" && (
+          {state["EmploymentStatus"] === "yes" && (
             <FieldRadio
               name="EmploymentFulltime"
               placeholder="None"
@@ -57,9 +43,9 @@ export const Employment = d => {
               ]}
             />
           )}
-          {sessionStorage.getItem("EmploymentStatus") === "no" && (
+          {state["EmploymentStatus"] === "no" && (
             <FieldRadio
-              name="Employment.Ever"
+              name="Employment.ever"
               placeholder="None"
               required="Required"
               updateState={updateState}
@@ -70,39 +56,39 @@ export const Employment = d => {
               ]}
             />
           )}
-          {(sessionStorage.getItem("Employment.Ever") === "yes" ||
-            sessionStorage.getItem("EmploymentFulltime")) && (
-              <>
-            <FieldInput
-              name={`Employment.Info`}
-              label="What kinds of work do you/did you do for your employer(s)?"
-              required="Required"
-              type="text"
-              updateState={updateState}
-              m="0"
-            />
+          {(state["Employment.ever"] === "yes" ||
+            state["EmploymentFulltime"] === "yes") && (
+            <>
+              <FieldInput
+                name={`Employment.info`}
+                label="What kinds of work do you/did you do for your employer(s)?"
+                required="Required"
+                type="text"
+                updateState={updateState}
+                m="0"
+              />
 
-          <FieldRadio
-            mt={4}
-            name="Employment.CashBenefits"
-            placeholder="None"
-            required="Required"
-            updateState={updateState}
-            label={
-              "Do you receive any non-cash benefits from your employer, such as housing, groceries, meat, car or truck, utilities, phone service?"
-            }
-            options={[
-              { value: "yes", label: "Yes" },
-              { value: "no", label: "No" },
-            ]}
-          />
-          </>
-            )}
-          {sessionStorage.getItem("EmploymentStatus") === "yes" &&
-            sessionStorage.getItem("Employment.CashBenefits") === "yes" && (
+              <FieldRadio
+                mt={4}
+                name="Employment.cashBenefits"
+                placeholder="None"
+                required="Required"
+                updateState={updateState}
+                label={
+                  "Do you receive any non-cash benefits from your employer, such as housing, groceries, meat, car or truck, utilities, phone service?"
+                }
+                options={[
+                  { value: "yes", label: "Yes" },
+                  { value: "no", label: "No" },
+                ]}
+              />
+            </>
+          )}
+          {state["EmploymentStatus"] === "yes" &&
+            state["Employment.cashBenefits"] === "yes" && (
               <>
                 <FieldInput
-                  name={`Employment.CashBenefitsDetails`}
+                  name={`Employment.cashBenefitsDetails`}
                   label="Describe the non-cash benefit you receive and how often you receive it."
                   required="Required"
                   type="text"
@@ -111,7 +97,7 @@ export const Employment = d => {
                 />
                 <FieldMoneyInput
                   mt={4}
-                  name={`Employment.CashBenefitsAmount`}
+                  name={`Employment.cashBenefitsAmount`}
                   label="What is the value of the benefit, per year?"
                   required="Required"
                   type="text"
@@ -119,25 +105,24 @@ export const Employment = d => {
                 />
               </>
             )}
-          {sessionStorage.getItem("EmploymentStatus") === "yes" &&
-            sessionStorage.getItem("EmploymentFulltime") && (
-              <FieldRadio
-                name="Employment.Union"
-                placeholder="None"
-                required="Required"
-                updateState={updateState}
-                label={"Do you belong to a union?"}
-                options={[
-                  { value: "yes", label: "Yes" },
-                  { value: "no", label: "No" },
-                ]}
-              />
-            )}
-          {sessionStorage.getItem("EmploymentStatus") === "yes" &&
-            sessionStorage.getItem("Employment.Union") === "yes" && (
+          {state["EmploymentStatus"] === "yes" && state["EmploymentFulltime"] && (
+            <FieldRadio
+              name="Employment.union"
+              placeholder="None"
+              required="Required"
+              updateState={updateState}
+              label={"Do you belong to a union?"}
+              options={[
+                { value: "yes", label: "Yes" },
+                { value: "no", label: "No" },
+              ]}
+            />
+          )}
+          {state["EmploymentStatus"] === "yes" &&
+            state["Employment.union"] === "yes" && (
               <>
                 <FieldInput
-                  name={`Employment.UnionName`}
+                  name={`Employment.unionName`}
                   label="Name of your union local"
                   required="Required"
                   type="text"
@@ -145,7 +130,7 @@ export const Employment = d => {
                   mb="2"
                 />
                 <FieldMoneyInput
-                  name={`Employment.UnionDues`}
+                  name={`Employment.unionDues`}
                   label="Amount of monthly dues"
                   required="Required"
                   type="text"
@@ -154,7 +139,7 @@ export const Employment = d => {
                 />
                 <AddressField
                   label={"Street Address"}
-                  name={"Employment.UnionAddress"}
+                  name={"Employment.unionAddress"}
                 />
               </>
             )}

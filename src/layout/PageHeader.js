@@ -1,17 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import {
-  Stack,
-  Icon,
-  Link,
-  useColorMode,
-  Flex,
-  Switch,
-  Button,
-  Heading,
-  Box,
-} from "@chakra-ui/core"
-import { useForm } from "@formiz/core"
+import { Heading, Box } from "@chakra-ui/core"
 
 const propTypes = {
   children: PropTypes.node,
@@ -24,10 +13,7 @@ const defaultProps = {
   githubPath: null,
 }
 
-export const PageHeader = ({ children, onReset, githubPath }) => {
-  const { colorMode, toggleColorMode } = useColorMode()
-  const form = useForm()
-
+export const PageHeader = ({ children }) => {
   return (
     <Box mb="6" data-test="header">
       <Heading d="flex" alignItems="center">

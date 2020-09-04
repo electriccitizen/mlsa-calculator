@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react"
-import { FormizStep, useForm } from "@formiz/core"
+import React from "react"
 import { FieldInput } from "../Fields/FieldInput"
-import { FieldRadio } from "../Fields/FieldRadio"
-import { Box, SimpleGrid, Flex, Stack } from "@chakra-ui/core"
+import { SimpleGrid } from "@chakra-ui/core"
 import { SectionWrapper } from "../SectionWrapper"
-import { SectionHeader } from "../SectionHeader"
 
 export const InsuranceAddressField = ({ header, index, label, name }) => {
   return (

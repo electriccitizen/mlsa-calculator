@@ -1,15 +1,7 @@
 import React from "react"
 import { Link, StaticQuery, graphql } from "gatsby"
 import PropTypes from "prop-types"
-import {
-  Stack,
-  useColorMode,
-  Flex,
-  Switch,
-  Button,
-  Heading,
-  Box,
-} from "@chakra-ui/core"
+import { Stack, useColorMode, Switch, Heading, Box } from "@chakra-ui/core"
 import { Menu } from "./Menu"
 import { FaSun, FaMoon } from "react-icons/fa"
 
@@ -46,20 +38,25 @@ export default function SiteHeader() {
       render={data => (
         <>
           <Menu menuLinks={data.site.siteMetadata.menuLinks} />
-
-          <Stack bg={colorMode === 'dark' ? 'black' : 'brand.400'} padding={5} isInline align="center" ml="auto">
+          <Stack
+            bg={colorMode === "dark" ? "black" : "brand.400"}
+            padding={5}
+            isInline
+            align="center"
+            ml="auto"
+          >
             <Box width="90%">
-              <Heading color={colorMode === 'dark' ? "gray" : "gray.100"} ml={16} d="flex" alignItems="center">
+              <Heading
+                color={colorMode === "dark" ? "gray" : "gray.100"}
+                ml={16}
+                d="flex"
+                alignItems="center"
+              >
                 <Link to="/">Montana Child Support Calculator</Link>
               </Heading>
             </Box>
             <Box width="10%">
               <Stack isInline align="center" mb="1" ml="auto">
-                {/*<Icon*/}
-                {/*  name="moon"*/}
-                {/*  size="14px"*/}
-                {/*  opacity={colorMode !== "dark" ? "0.3" : null}*/}
-                {/*/>*/}
                 <FaMoon />
                 <Switch
                   size="md"
