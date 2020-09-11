@@ -26,6 +26,7 @@ export const PageFooter = ({
         borderColor="gray.300"
         borderTopWidth="1px"
         display={{ md: "flex" }}
+        mb={"35rem"}
       >
         <Box mt={{ base: 6, md: 6 }} flex={1}>
           &copy; {new Date().getFullYear()}{" "}
@@ -36,11 +37,11 @@ export const PageFooter = ({
         <Box align="right" mt={{ base: 6, md: 6 }} flex={1}>
           See our{" "}
           <GatsbyLink to={"/terms-of-use"}>
-            {/*<Link color={"brand.400"}>Terms of Use</Link>*/}
+            Terms of Use
           </GatsbyLink>{" "}
           and{" "}
-          <GatsbyLink to={"/privacy-notice"}>
-            {/*<Link color={"brand.400"}>Privacy Notice</Link>*/}
+          <GatsbyLink  to={"/privacy-notice"}>
+            Privacy Notice
           </GatsbyLink>
           .
         </Box>

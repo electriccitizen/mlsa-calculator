@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import {
-  Textarea,
-} from '@chakra-ui/core';
-import { useField, fieldPropTypes, fieldDefaultProps } from '@formiz/core';
-import { FormGroup } from '../FormGroup';
+import React, { useEffect, useState } from "react"
+import PropTypes from "prop-types"
+import { Textarea } from "@chakra-ui/core"
+import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
+import { FormGroup } from "../Utils/FormGroup"
 
 const propTypes = {
   label: PropTypes.node,
@@ -12,16 +10,16 @@ const propTypes = {
   placeholder: PropTypes.string,
   helper: PropTypes.node,
   ...fieldPropTypes,
-};
+}
 const defaultProps = {
-  label: '',
-  type: 'text',
-  placeholder: '',
-  helper: '',
+  label: "",
+  type: "text",
+  placeholder: "",
+  helper: "",
   ...fieldDefaultProps,
-};
+}
 
-export const FieldTextarea = (props) => {
+export const FieldTextarea = props => {
   const {
     errorMessage,
     id,
@@ -30,16 +28,14 @@ export const FieldTextarea = (props) => {
     resetKey,
     setValue,
     value,
-  } = useField(props);
-  const {
-    label, required, placeholder, helper, ...otherProps
-  } = props;
-  const [isTouched, setIsTouched] = useState(false);
-  const showError = !isValid && (isTouched || isSubmitted);
+  } = useField(props)
+  const { label, required, placeholder, helper, ...otherProps } = props
+  const [isTouched, setIsTouched] = useState(false)
+  const showError = !isValid && (isTouched || isSubmitted)
 
   useEffect(() => {
-    setIsTouched(false);
-  }, [resetKey]);
+    setIsTouched(false)
+  }, [resetKey])
 
   const formGroupProps = {
     errorMessage,
@@ -49,23 +45,23 @@ export const FieldTextarea = (props) => {
     label,
     showError,
     ...otherProps,
-  };
+  }
 
   return (
     <FormGroup {...formGroupProps}>
       <Textarea
         key={resetKey}
         id={id}
-        value={value || ''}
-        onChange={(e) => setValue(e.target.value)}
+        value={value || ""}
+        onChange={e => setValue(e.target.value)}
         onBlur={() => setIsTouched(true)}
         aria-invalid={showError}
         aria-describedby={!isValid ? `${id}-error` : null}
         placeholder={placeholder}
       />
     </FormGroup>
-  );
-};
+  )
+}
 
-FieldTextarea.propTypes = propTypes;
-FieldTextarea.defaultProps = defaultProps;
+FieldTextarea.propTypes = propTypes
+FieldTextarea.defaultProps = defaultProps

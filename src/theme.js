@@ -21,11 +21,27 @@ const styles = {
       fontFamily: "system-ui",
       fontSize: "lg",
       a: {
-        color: "red",
+        color: "brand.400",
+      },
+      "a.logo": {
+        color: "gray.100",
+      },
+      "a.menulink": {
+        color: "gray.400",
+      },
+      "a.homelight": {
+        color: "gray.100",
+      },
+      "a.homedark": {
+        color: "gray.800",
       },
     },
+
     p: {
       pb: 2,
+    },
+    ".foo a!important": {
+      color: "purple",
     },
 
 
@@ -43,19 +59,18 @@ const customTheme = {
   },
   colors: {
     ...theme.colors,
-    fook: "red.900",
     brand: {
       50: "pink",
       100: "pink",
       200: "#999",
-      300: "#666",
+      300: "#ccc",
       400: "#14662e", // base green
       500: "#15c",    // base blue
       600: "#2a68d1", // blue hover
-      700: "#2a68d1",
-      800: "#1f5d3a",
-      900: "#0f3921",
-      1000: "#0e4921",
+      700: "#14662e",
+      800: "pink",
+      900: "pink",
+      1000: "pink",
     },
   },
   styles,

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { Input, Box } from "@chakra-ui/core"
+import { Input, Box, InputRightElement, Spinner } from "@chakra-ui/core"
 import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
-import { FormGroup } from "../FormGroup"
+import { FormGroup } from "../Utils/FormGroup"
+import { isNumber } from '@formiz/validations'
 
 const propTypes = {
   label: PropTypes.node,
@@ -25,6 +26,7 @@ export const FieldMoneyInput = props => {
     id,
     isValid,
     isSubmitted,
+    isValidating,
     resetKey,
     setValue,
     value,
@@ -71,21 +73,23 @@ export const FieldMoneyInput = props => {
             type={type || "text"}
             id={id}
             value={value ?? ""}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={e => setValue(e.target.value)}
             onBlur={() => setIsTouched(true)}
             aria-invalid={showError}
             aria-describedby={!isValid ? `${id}-error` : null}
             placeholder={placeholder}
-            width={fieldWidth ? fieldWidth : "100%"}
+            width={fieldWidth ? fieldWidth : "40%"}
           />
+          {(isTouched || isSubmitted) && isValidating && (
+            <InputRightElement>
+              <Spinner size="sm" flex="none" />
+            </InputRightElement>
+          )}
         </Box>
       </Box>
-
     </FormGroup>
   )
 }
 
 FieldMoneyInput.propTypes = propTypes
 FieldMoneyInput.defaultProps = defaultProps
-
-

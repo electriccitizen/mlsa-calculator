@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { Input } from "@chakra-ui/core"
 import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
-import { FormGroup } from "../FormGroup"
+import { FormGroup } from "../Utils/FormGroup"
 
 const propTypes = {
   label: PropTypes.node,
@@ -70,7 +70,7 @@ export const FieldInput = props => {
         type={type || "text"}
         id={id}
         value={value ?? ""}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
         onBlur={() => setIsTouched(true)}
         aria-invalid={showError}
         aria-describedby={!isValid ? `${id}-error` : null}

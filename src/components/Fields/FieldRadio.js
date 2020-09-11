@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { Radio, Stack, HStack, RadioGroup } from "@chakra-ui/core"
 import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
-import { FormGroup } from "../FormGroup"
+import { FormGroup } from "../Utils/FormGroup"
 const propTypes = {
   label: PropTypes.node,
   helper: PropTypes.node,
@@ -67,7 +67,6 @@ export const FieldRadio = props => {
       <RadioGroup
         key={resetKey}
         value={value || ""}
-        mb={8}
         onChange={handleChange}
       >
         <CurrentStack>

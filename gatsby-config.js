@@ -6,20 +6,30 @@
 
 module.exports = {
   siteMetadata: {
-    title: "Montana Child Support Calculator",
+    title: "Montana Legal Help Tools",
     menuLinks: [
       {
-        name: "Calculator",
-        link: "/intro",
+        name: "Child Support Calculator",
+        link: "/child-support",
         text: "Help determine your child support costs.",
         icon: "FaCalculator",
       },
       {
         name: "Calculator Guide",
-        link: "/guide",
+        link: "/child-support/guide",
         text: "Learn more about how the calculator works.",
         icon: "FaGlobe",
       },
+    ],
+    menuLinks2: [
+      {
+        name: "Restitution Worksheet",
+        link: "/restitution",
+        text: "Create a restitution log.",
+        icon: "FaQuestionCircle",
+      },
+    ],
+    menuLinks3: [
       {
         name: "Safe Internet Use",
         link: "/safety",

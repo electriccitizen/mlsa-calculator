@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { Select } from "@chakra-ui/core"
 import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
-import { FormGroup } from "../FormGroup"
+import { FormGroup } from "../Utils/FormGroup"
 
 const propTypes = {
   label: PropTypes.node,
@@ -45,9 +45,9 @@ export const FieldSelect = props => {
   const [isTouched, setIsTouched] = useState(false)
   const showError = !isValid && (isTouched || isSubmitted)
 
-  const handleChange = ( name, value) => {
+  const handleChange = (name, value) => {
     setValue(value)
-    updateState && updateState(name,value)
+    updateState && updateState(name, value)
   }
 
   useEffect(() => {

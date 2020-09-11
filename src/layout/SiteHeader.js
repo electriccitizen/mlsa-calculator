@@ -1,5 +1,6 @@
 import React from "react"
-import { Link, StaticQuery, graphql } from "gatsby"
+import { StaticQuery, graphql } from "gatsby"
+import { Link as GatsbyLink } from "gatsby"
 import PropTypes from "prop-types"
 import { Stack, useColorMode, Switch, Heading, Box } from "@chakra-ui/core"
 import { Menu } from "./Menu"
@@ -31,13 +32,29 @@ export default function SiteHeader() {
                 text
                 icon
               }
+              menuLinks2 {
+                link
+                name
+                text
+                icon
+              }
+              menuLinks3 {
+                link
+                name
+                text
+                icon
+              }
             }
           }
         }
       `}
       render={data => (
         <>
-          <Menu menuLinks={data.site.siteMetadata.menuLinks} />
+          <Menu
+            menuLinks={data.site.siteMetadata.menuLinks}
+            menuLinks2={data.site.siteMetadata.menuLinks2}
+            menuLinks3={data.site.siteMetadata.menuLinks3}
+          />
           <Stack
             bg={colorMode === "dark" ? "black" : "brand.400"}
             padding={5}
@@ -47,13 +64,18 @@ export default function SiteHeader() {
           >
             <Box width="90%">
               <Heading
-                color={colorMode === "dark" ? "gray" : "gray.100"}
                 ml={16}
                 d="flex"
                 alignItems="center"
+                fontSize={{ xs: "2xl", md: "3xl" }}
               >
-                <Link to="/">Montana Child Support Calculator</Link>
+                <GatsbyLink className="logo" to={"/"}>
+                  {data.site.siteMetadata.title}
+                </GatsbyLink>
               </Heading>
+              <Box ml={16} color="gray.200" fontSize={{ xs: "xs", md: "lg" }}>
+                Provided by Montana Legal Services Association
+              </Box>
             </Box>
             <Box width="10%">
               <Stack isInline align="center" mb="1" ml="auto">
@@ -67,7 +89,9 @@ export default function SiteHeader() {
                 <FaSun />
               </Stack>
             </Box>
+
           </Stack>
+
         </>
       )}
     />

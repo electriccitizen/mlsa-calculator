@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect, useRef } from "react"
 import PropTypes from "prop-types"
-import { Debug } from "../components/Debug"
+import { Debug } from "../components/Utils/Debug"
 import { useDarkTheme } from "../hooks/isDarkTheme"
 import SiteHeader from "../layout/SiteHeader"
 import { PageFooter } from "../layout/PageFooter"

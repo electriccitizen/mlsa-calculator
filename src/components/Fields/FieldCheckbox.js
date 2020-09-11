@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { Checkbox, Stack } from "@chakra-ui/core"
 import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
-import { FormGroup } from "../FormGroup"
+import { FormGroup } from "../Utils/FormGroup"
 
 const propTypes = {
   label: PropTypes.node,

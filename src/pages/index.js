@@ -1,14 +1,17 @@
 import React from "react"
 import { Link as GatsbyLink } from "gatsby"
-import { FaCalculator, FaGlobe, FaThumbsUp } from "react-icons/fa"
+import { FaRegFileAlt, FaCalculator, FaGlobe, FaThumbsUp, FaChevronDown } from 'react-icons/fa'
 import {
   Heading,
   Divider,
   Text,
   Box,
   Button,
+  Icon,
   useColorMode,
-} from "@chakra-ui/core"
+  List,
+  ListItem, MenuButton,
+} from '@chakra-ui/core'
 
 import { PageLayout } from "../layout/PageLayout"
 export default function Home() {
@@ -16,98 +19,94 @@ export default function Home() {
   return (
     <>
       <PageLayout>
-        <Box mt="4" mb="8">
+        <Box mt="4" mb="4">
           <Heading mb={4}>Getting started</Heading>
-          <Text>
-            This application was developed by the Montana Legal Services
-            Association to help determine child support costs for those involved
-            in, or considering divorce, child custody, or parenting plan
-            actions.
+          <Text mb={2}>
+            These tools were developed by the Montana Legal Services Association
+            to help determine child support costs and to calculate possible
+            restitution costs for victims of crime.
           </Text>
-          <Text mt={2} color={colorMode === "dark" ? "gray.600" : "gray.500"}>
-            If this is your first time here, the following pages will guide you
-            through the basics of using the calculator prior to beginning.
+          <Text mb={4} color={colorMode === "dark" ? "gray.600" : "gray.500"}>
+            Choose the tool you'd like to use to get started. If this is
+            your first time here, our short guides will help you effectively using
+            these tools.
           </Text>
-          <Box w="100%" align="right">
-            <GatsbyLink to="/intro">
-              <Button
-                leftIcon={<FaCalculator />}
-                colorScheme="brand"
-                variant="solid"
+          <Box display={{ md: "flex" }}>
+            <Box mb={{ xs: "4" }} flex={1}>
+              <GatsbyLink class={colorMode === "dark" ? "homedark" : "homelight"} to="/child-support">
+              <Box
+                fontSize={"sm"}
+                as={Button}
+                colorScheme={"brand"}
+                width={"100%"}
               >
-                Start
-              </Button>
-            </GatsbyLink>
+                <Icon  mr={2} as={FaCalculator} />{" "}
+               Child Support Calculator
+              </Box>
+              </GatsbyLink>
+              <Text
+                mt={2}
+                color={colorMode === "dark" ? "gray.600" : "gray.500"}
+              >
+                Use our calculator to help determine child support costs for
+                those involved in, or considering divorce, child custody, or
+                parenting plan actions.
+              </Text>
+              <GatsbyLink to="/child-support">
+                <Button>Start</Button>
+              </GatsbyLink>
+            </Box>
+
+            <Box flex={1} ml={{ md: 12 }}>
+              <GatsbyLink class={colorMode === "dark" ? "homedark" : "homelight"} to="/restitution">
+              <Box
+                fontSize={"sm"}
+                as={Button}
+                colorScheme={"brand"}
+                width={"100%"}
+              >
+                <Icon as={FaRegFileAlt} mr={2} />
+                Restitution Worksheet
+              </Box>
+              </GatsbyLink>
+              <Text
+                mt={2}
+                color={colorMode === "dark" ? "gray.600" : "gray.500"}
+              >
+                Use the restitution worksheet to help determine child support
+                costs for those involved in, or considering divorce, child
+                custody, or parenting plan actions.
+              </Text>
+              <GatsbyLink to="/restitution">
+                <Button>Start</Button>
+              </GatsbyLink>
+            </Box>
           </Box>
         </Box>
 
         <Divider mb="2" orientation="horizontal" />
 
-        <Box display={{ md: "flex" }}>
-          <Box mt={{ base: 8, md: 8 }} flex={1}>
-            <Text
-              fontWeight="bold"
-              textTransform="uppercase"
-              fontSize="sm"
-              letterSpacing="wide"
-              color={colorMode === "dark" ? "gray.600" : "brand.400"}
-            >
-              Learning
-            </Text>
-            <GatsbyLink
-              mt={1}
-              display="block"
-              fontSize="lg"
-              fontWeight="semibold"
-              to="/guide"
-            >
-              Guide to using the calculator
-            </GatsbyLink>
-            <Text mt={2} color={colorMode === "dark" ? "gray.600" : "gray.500"}>
-              Learn how to effectively use this tool for the best results.
-            </Text>
-            <Button
-              align={"right"}
-              leftIcon={<FaGlobe />}
-              colorScheme="gray"
-              variant="solid"
-              size="xs"
-            >
-              <GatsbyLink to="/guide">Calculator Guide</GatsbyLink>
-            </Button>
-          </Box>
-
-          <Box flex={1} mt={{ base: 8, md: 8 }} ml={{ md: 6 }}>
-            <Text
-              fontWeight="bold"
-              textTransform="uppercase"
-              fontSize="sm"
-              letterSpacing="wide"
-              color={colorMode === "dark" ? "gray.600" : "brand.400"}
-            >
-              Safe browsing
-            </Text>
-            <GatsbyLink
-              mt={1}
-              display="block"
-              fontSize="lg"
-              fontWeight="semibold"
-              to="/safety"
-            >
-              Protect your safety
-            </GatsbyLink>
-            <Text mt={2} color={colorMode === "dark" ? "gray.600" : "gray.500"}>
-              Learn more about safe browsing techniques, and our privacy policy.
-            </Text>
-            <Button
-              leftIcon={<FaThumbsUp />}
-              colorScheme="gray"
-              variant="solid"
-              size="xs"
-            >
-              <GatsbyLink to="/safety">Learn more</GatsbyLink>
-            </Button>
-          </Box>
+        <Box mt={{ base: 8, md: 8 }} flex={1}>
+          <Heading fontWeight="normal" as={"h3"} size={"md"}>
+            Other related resources and links
+          </Heading>
+          <List styleType="disc" mt="2" ml={8} fontSize={"lg"} spacing={2}>
+            <ListItem>
+              <GatsbyLink to="/child-support/guide">
+                Advanced Guide to Child Support Calculator
+              </GatsbyLink>
+            </ListItem>
+            <ListItem>
+              <GatsbyLink to="/safety">
+                Safe Internet Use and Browsing
+              </GatsbyLink>
+            </ListItem>
+            <ListItem>
+              <GatsbyLink to="/about">
+                More about Montana Legal Services Association
+              </GatsbyLink>
+            </ListItem>
+          </List>
         </Box>
       </PageLayout>
     </>
