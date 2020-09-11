@@ -18,7 +18,7 @@ const defaultCollection = [
 ]
 
 export const MentalHealth = () => {
-  const form = useForm({ subscribe: form })
+  const form = useForm({ subscribe: false })
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
