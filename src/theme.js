@@ -20,6 +20,7 @@ const styles = {
       fontWeight: "normal",
       fontFamily: "system-ui",
       fontSize: "lg",
+      overflow: "hidden",
       a: {
         color: "brand.400",
       },

@@ -85,7 +85,7 @@ export const RestitutionLayout = ({
   return (
     <Formiz connect={form} {...props}>
       {/*<PersistForm />*/}
-      <PageLayout>
+      <PageLayout {...props}>
         {isLoaded ? (
           <form noValidate onSubmit={hasSteps ? form.submitStep : form.submit}>
             <Stack w="100%" direction={["column", "row"]}>
@@ -162,7 +162,7 @@ export const RestitutionLayout = ({
                       colorScheme="brand"
                       isDisabled={
                         form.isFirstStep === true &&
-                        form.values.initiate.terms === "no"
+                        (form.values.initiate && form.values.initiate.terms) === "no"
                           ? true
                           : (form.isLastStep
                               ? !form.isValid

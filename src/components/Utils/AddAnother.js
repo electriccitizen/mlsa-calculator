@@ -15,7 +15,8 @@ export const AddAnotherHeader = ({ header }) => {
     <Box
       borderRadius="lg"
       width="95%"
-      bg="gray.200"
+      bg={colorMode === 'dark' ? "gray.600" : "gray.200"}
+      color={colorMode === 'dark' ? "gray.200" : "gray.900"}
       fontSize={"md"}
       p={4}
       mb={2}

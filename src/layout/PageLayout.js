@@ -67,6 +67,7 @@ export const PageLayout = ({ children }) => {
                   {children}
                   <PageFooter handleDebug={handleDebug} debugMode={debugMode} />
                 </Box>
+
               </Box>
             </Box>
             {debugMode === "on" && (

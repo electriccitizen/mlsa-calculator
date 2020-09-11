@@ -40,12 +40,12 @@ import { FaFileAlt, FaFileInvoiceDollar } from "react-icons/fa"
 export default function RestitutionWorksheet() {
   const form = useForm()
 
-  // const [appState, setAppState] = useState({
-  //   loading: false,
-  //   pdf: null,
-  //   complete: false,
-  //   values: [],
-  // })
+  const [appState, setAppState] = useState({
+    loading: false,
+    pdf: null,
+    complete: false,
+    values: [],
+  })
   const windowGlobal = typeof window !== "undefined" && window
   const handleSubmit = () => {
     windowGlobal.location.href = "/restitution/worksheet"
