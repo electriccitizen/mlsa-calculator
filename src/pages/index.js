@@ -1,6 +1,6 @@
 import React from "react"
 import { Link as GatsbyLink } from "gatsby"
-import { FaRegFileAlt, FaCalculator, FaGlobe, FaThumbsUp, FaChevronDown } from 'react-icons/fa'
+import { FaRegFileAlt, FaCalculator } from 'react-icons/fa'
 import {
   Heading,
   Divider,
@@ -10,7 +10,7 @@ import {
   Icon,
   useColorMode,
   List,
-  ListItem, MenuButton,
+  ListItem,
 } from '@chakra-ui/core'
 
 import { PageLayout } from "../layout/PageLayout"
@@ -28,12 +28,12 @@ export default function Home() {
           </Text>
           <Text mb={4} color={colorMode === "dark" ? "gray.600" : "gray.500"}>
             Choose the tool you'd like to use to get started. If this is
-            your first time here, our short guides will help you effectively using
+            your first time here, our short guides will help you effectively use
             these tools.
           </Text>
           <Box display={{ md: "flex" }}>
-            <Box mb={{ xs: "4" }} flex={1}>
-              <GatsbyLink class={colorMode === "dark" ? "homedark" : "homelight"} to="/child-support">
+            <Box pl={["4","8","8"]} pr={["4","8","8"]} mb={{ xs: "4" }} flex={1}>
+              <GatsbyLink className={colorMode === "dark" ? "homedark" : "homelight"} to="/child-support">
               <Box
                 fontSize={"sm"}
                 as={Button}
@@ -57,8 +57,8 @@ export default function Home() {
               </GatsbyLink>
             </Box>
 
-            <Box flex={1} ml={{ md: 12 }}>
-              <GatsbyLink class={colorMode === "dark" ? "homedark" : "homelight"} to="/restitution">
+            <Box pl={["4","8","8"]} pr={["4","8","8"]} flex={1} ml={{ md: 12 }}>
+              <GatsbyLink className={colorMode === "dark" ? "homedark" : "homelight"} to="/restitution">
               <Box
                 fontSize={"sm"}
                 as={Button}

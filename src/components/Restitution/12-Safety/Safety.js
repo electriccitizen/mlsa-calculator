@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
+import { isNumber } from "@formiz/validations"
+import { Box } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
-import { Box, IconButton, Stack } from "@chakra-ui/core"
-import { SectionWrapper } from "../../Utils/SectionWrapper"
-import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldRadio } from "../../Fields/FieldRadio"
+import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
-import { v4 as uuidv4 } from "uuid"
-import { isNumber } from "@formiz/validations"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
+import { v4 as uuidv4 } from "uuid"
+
 const defaultCollection = [
   {
     id: uuidv4(),
@@ -61,7 +61,7 @@ export const Safety = () => {
       validations={[
         {
           rule: isNumber(),
-          message: "This is not a number",
+          message: "Please enter a valid dollar amount a number",
         },
       ]}
     />
@@ -86,43 +86,41 @@ export const Safety = () => {
   )
 
   return (
-    <FormizStep label={`Safety Expenses`} name="Safety" order={11000}>
-      <SectionWrapper>
-        <SectionHeader header={`Safety Expenses`} />
-        <FieldRadio
-          name="Safety.status"
-          placeholder="None"
-          required="Required"
-          label={"Did you have to implement safety precautions?"}
-          updateState={updateState}
-          options={[
-            { value: "yes", label: "Yes" },
-            { value: "no", label: "No" },
-          ]}
-        />
+    <FormizStep label={`Safety expenses`} name="Safety" order={11000}>
+      <SectionHeader header={`Safety expenses`} />
+      <FieldRadio
+        name="Safety.status"
+        placeholder="None"
+        required="Required"
+        label={"Did you have to implement safety precautions?"}
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
 
-        {status === "yes" && (
-          <AddAnotherHeader header={"Add any safety-related expenses below."} />
-        )}
+      {status === "yes" && (
+        <AddAnotherHeader header={"Add any safety-related expenses below."} />
+      )}
 
-        {status === "yes" &&
-          additionalExpenses.map((expense, index) => (
-            <Box key={index}>
-              <AddAnother
-                expense={Expense(index)}
-                amount={Amount(index)}
-                note={Note(index)}
-                receipt={Receipt(index)}
-                index={index}
-                removeItem={removeItem}
-                expenseID={expense.id}
-              />
-            </Box>
-          ))}
-        {status === "yes" && additionalExpenses.length <= 20 && (
-          <AddPlaceholder label="Add another" onClick={addItem} />
-        )}
-      </SectionWrapper>
+      {status === "yes" &&
+        additionalExpenses.map((expense, index) => (
+          <Box key={index}>
+            <AddAnother
+              expense={Expense(index)}
+              amount={Amount(index)}
+              note={Note(index)}
+              receipt={Receipt(index)}
+              index={index}
+              removeItem={removeItem}
+              expenseID={expense.id}
+            />
+          </Box>
+        ))}
+      {status === "yes" && additionalExpenses.length <= 20 && (
+        <AddPlaceholder label="Add another" onClick={addItem} />
+      )}
     </FormizStep>
   )
 }

@@ -1,15 +1,13 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
-import { SectionWrapper } from "../../Utils/SectionWrapper"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { Text, Link, Icon, useColorMode, Tooltip, Box } from "@chakra-ui/core"
 import { FaExternalLinkAlt } from "react-icons/fa/index"
 export const IntroHelp = () => {
   const { colorMode } = useColorMode()
   return (
-    <FormizStep label="Getting Help" name="introHelp" order={1000}>
-      <SectionWrapper>
-        <SectionHeader header={"Getting Help"} />
+    <FormizStep label="Getting help" name="introHelp" order={1000}>
+        <SectionHeader header={"Getting help"} />
         <Text>
           As you go through each section of the interview, you will find help
           icons that contain helpful information, along with links to specific
@@ -80,7 +78,6 @@ export const IntroHelp = () => {
           progress through the interview. that apply to specific questions
           throughout the interview.
         </Text>
-      </SectionWrapper>
     </FormizStep>
   )
 }

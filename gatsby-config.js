@@ -43,16 +43,23 @@ module.exports = {
         icon: "FaQuestionCircle",
       },
     ],
-    plugins: [
-      {
-        resolve: `gatsby-source-filesystem`,
-        options: {
-          name: `images`,
-          path: `${__dirname}/src/images`,
-        },
-      },
-      `gatsby-transformer-sharp`,
-      `gatsby-plugin-sharp`,
-    ],
   },
+  plugins: [
+    {
+      resolve: "gatsby-plugin-chakra-ui",
+      options: {
+        isResettingCSS: true, // optional, default to true
+        isUsingColorMode: true, // optional, default to true
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
+    },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+  ],
 }

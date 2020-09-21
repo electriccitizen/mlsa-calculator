@@ -1,13 +1,11 @@
-import React, { useState } from "react"
-import { PageHeader } from "../../layout/PageHeader"
-import printJS from "print-js"
-import { useForm } from "@formiz/core"
-import { CalculatorLayout } from "../../components/CalculatorLayout"
-import { PageLayout } from "../../layout/PageLayout"
+import React, { useEffect, useState } from "react"
+// import printJS from "print-js"
+import { Formiz, useForm } from "@formiz/core"
 import { TermsOfUse } from "../../components/ChildSupport/01-InitiateInterview/TermsOfUse"
 import { InitiateInterview } from "../../components/ChildSupport/01-InitiateInterview/IntiateInterview"
 import { BasicInformation } from "../../components/ChildSupport/02-BasicInformation/BasicInformation"
 import { OtherParent } from "../../components/ChildSupport/03-OtherParent/OtherParent"
+import { NumberChildren } from "../../components/ChildSupport/03-OtherParent/NumberChildren"
 import { EnterChildren } from "../../components/ChildSupport/04-EnterChildren/EnterChildren"
 import { OtherChildren } from "../../components/ChildSupport/05-OtherChildren/OtherChildren"
 import { EnterMyOtherChildren } from "../../components/ChildSupport/05-OtherChildren/EnterMyOtherChildren"
@@ -42,85 +40,53 @@ import { HealthInsurancePolicies } from "../../components/ChildSupport/27-Health
 import { FinancialAffadavitTwo } from "../../components/ChildSupport/28-FinancialAffadavitTwo/FinancialAffadavitTwo"
 import { FinancialAffadavitThree } from "../../components/ChildSupport/29-FinancialAffadavitThree/FinancialAffadavitThree"
 //import { Beforeunload } from "react-beforeunload"
-import {
-  Box,
-  Button,
-  SimpleGrid,
-  Divider,
-  Heading,
-  Icon,
-} from "@chakra-ui/core"
-import { FaFileAlt, FaFileInvoiceDollar } from "react-icons/fa"
+import { MultiStepsLayout } from "../../components/MultiStepsLayout"
+import { RulesProvider } from "../../hooks/useRulesContext"
 
 export default function Calculator() {
-  const form = useForm()
+  const form = useForm({ subscribe: { fields: ["Documents"] } })
 
-  const [appState, setAppState] = useState({
-    loading: false,
-    pdf: null,
-    complete: false,
-    values: [],
+  const handleSubmit = values => {
+    form.invalidateFields({
+      "docker.image": "You can display an error after an API call",
+    })
+    const stepWithError = form.getFieldStepName("docker.image")
+    form.goToStep(stepWithError)
+  }
+
+  const documents = form.values.Documents ? form.values.Documents : ""
+
+  const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 26000)
   })
 
-  const handlePrint = () => {
-    const base64 = appState.pdf
-    printJS({ printable: base64, type: "pdf", base64: true })
-  }
-
-  const handleBack = () => {
-    setAppState({ complete: false })
-  }
-
-  let isMontana = true //dummycode
-  const handleSubmit = values => {
-    setAppState({ complete: true, values: values })
-    const data = values
-    fetch("/.netlify/functions/pdf-gen/", {
-      method: "POST", // or 'PUT'
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then(response => response.json())
-      .then(data => {
-        //console.log('Data:', data);
-        setAppState({
-          complete: true,
-          loading: false,
-          pdf: data,
-          values: values,
-        })
-      })
-      .catch(error => {
-        console.error("Error:", error)
-      })
-  }
-  //const isFirst = form.isFirstStep
   return (
     <>
-      {isMontana === "nope" ? (
-        <PageLayout>
-          <Box>Sorry!</Box>
-        </PageLayout>
-      ) : appState.complete === false ? (
-        <>
-          {/*<Beforeunload onBeforeunload={() => "You'll lose your data!"}>*/}
-          <CalculatorLayout
-            form={form}
-            onValidSubmit={handleSubmit}
-            submitLabel="Prepare document(s)"
+      {isLoading ? (
+        <h1>Loading</h1>
+      ) : (
+        <Formiz connect={form} onValidSubmit={handleSubmit}>
+          <MultiStepsLayout
+            app="support"
+            buttonTitle="Child Support Calculator"
+            submitLabel="Finish"
           >
-            <>
+            <RulesProvider>
               <TermsOfUse />
               <InitiateInterview />
               <BasicInformation />
               <OtherParent />
+              <NumberChildren />
               <EnterChildren />
               <OtherChildren />
               <EnterMyOtherChildren />
-              <OtherChildrenSecondary />
-              <EnterMyOtherChildrenSecondary />
+              {(documents === "both" || documents === "worksheets") && (
+                <>
+                  <OtherChildrenSecondary />
+                  <EnterMyOtherChildrenSecondary />
+                </>
+              )}
               <Employment />
               <CurrentJob />
               <OtherJobs />
@@ -129,123 +95,40 @@ export default function Calculator() {
               <TaxableIncome />
               <NonTaxableIncome />
               <ChildExpenses />
-              {/*<AllowableDeductions />*/}
-              {/*<OtherAllowableDeductions />*/}
+              <AllowableDeductions />
+              <OtherAllowableDeductions />
               <StandardOfLiving />
-              <CurrentJobSecondary />
-              <EnterOtherJobsSecondary />
-              <OtherIncomeSecondary />
-              <TaxableIncomeSecondary />
-              <NonTaxableIncomeSecondary />
-              <ChildExpensesSecondary />
-              <AllowableDeductionsSecondary />
-              {/*<OtherAllowableDeductionsSecondary />*/}
-              <StandardOfLivingSecondary />
+              {(documents === "both" || documents === "worksheets") && (
+                <>
+                  <CurrentJobSecondary />
+                  <EnterOtherJobsSecondary />
+                  <OtherIncomeSecondary />
+                  <TaxableIncomeSecondary />
+                  <NonTaxableIncomeSecondary />
+                  <ChildExpensesSecondary />
+                  <AllowableDeductionsSecondary />
+                  <OtherAllowableDeductionsSecondary />
+                  <StandardOfLivingSecondary />
+                </>
+              )}
               <ParentingDays />
-              {/*<FinancialAffadavitOne />*/}
-              {/*<Schools />*/}
-              {/*<OtherSchools />*/}
-              {/*<HealthInsurance />*/}
-              {/*<HealthInsurancePolicies />*/}
-              {/*<FinancialAffadavitTwo />*/}
-              {/*<FinancialAffadavitThree />*/}
-            </>
-          </CalculatorLayout>
-          {/*</Beforeunload>*/}
-        </>
-      ) : (
-        <PageLayout>
-          <PageHeader githubPath="UseCase1/index.js">Your results!</PageHeader>
-          <Box mt={8} mb={8}>
-            Your document(s) are now complete and can be downloaded, printed, or
-            emailed. These options will be available as long as this browser
-            window remains open.
-          </Box>
-          <Box mb="8" display={{ md: "flex" }}>
-            <Box flex={1}>
-              <Heading
-                as="h2"
-                fontSize="2xl"
-                lineHeight="tall"
-                fontWeight="normal"
-                color={"gray.500"}
-                href="#"
-                mb={2}
-              >
-                <Icon boxSize={12} color={"brand.400"} as={FaFileAlt} /> Child
-                Support Worksheet
-              </Heading>
-              <Box fontSize="md" mb={4}>
-                Your completed Child Support Worksheet is now available for
-                download or printing.
-              </Box>
-              <Button mb="2" colorScheme="brand" type="button">
-                <a
-                  href={"data:application/pdf;base64," + appState.pdf + ""}
-                  download="file.pdf"
-                >
-                  Download
-                </a>
-              </Button>
-              <br />
-              <Button colorScheme="brand" type="button" onClick={handlePrint}>
-                Print
-              </Button>
-            </Box>
-            <Box flex={1}>
-              <Heading
-                as="h2"
-                fontSize="2xl"
-                lineHeight="tall"
-                fontWeight="normal"
-                color={"gray.500"}
-                href="#"
-                mb={2}
-              >
-                <Icon
-                  boxSize={12}
-                  color={"brand.400"}
-                  as={FaFileInvoiceDollar}
-                />{" "}
-                Financial Affadavit
-              </Heading>
-              <Box fontSize="md" mb={4}>
-                Your completed Financial Affadavit is now available for download
-                or printing.
-              </Box>
-              <Button mb="2" colorScheme="brand" type="button">
-                <a
-                  href={"data:application/pdf;base64," + appState.pdf + ""}
-                  download="file.pdf"
-                >
-                  Download
-                </a>
-              </Button>{" "}
-              <br />
-              <Button colorScheme="brand" type="button" onClick={handlePrint}>
-                Print
-              </Button>
-            </Box>
-          </Box>
-
-          <Divider />
-
-          <Box mt="8" mb={8}>
-            Thank you for using the Montana Child Support Calculator. If
-            necessary, you can go back to review and edit your responses.
-          </Box>
-
-          <SimpleGrid columns={3} spacing={10}>
-            <Button color="brand.500" type="button" onClick={handleBack}>
-              Go back and review
-            </Button>
-            <Box textAlign="center"> - or - </Box>
-            <Button color="brand.500" type="button" onClick={handleBack}>
-              Finish!
-            </Button>
-          </SimpleGrid>
-        </PageLayout>
+              {(documents === "both" || documents === "affadavit") && (
+                <>
+                  <FinancialAffadavitOne />
+                  <Schools />
+                  <OtherSchools />
+                  <HealthInsurance />
+                  <HealthInsurancePolicies />
+                  <FinancialAffadavitTwo />
+                  <FinancialAffadavitThree />
+                </>
+              )}
+            </RulesProvider>
+          </MultiStepsLayout>
+        </Formiz>
       )}
+
+      {/*</Beforeunload>*/}
     </>
   )
 }

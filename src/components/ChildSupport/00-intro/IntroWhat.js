@@ -1,6 +1,5 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
-import { SectionWrapper } from "../../Utils/SectionWrapper"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { Text, Link, Icon, useColorMode, Box, Heading } from "@chakra-ui/core"
 import {
@@ -12,9 +11,8 @@ import {
 export const IntroWhat = () => {
   const { colorMode } = useColorMode()
   return (
-    <FormizStep label="What You Will Receive" name="introWhat" order={1000}>
-      <SectionWrapper>
-        <SectionHeader header={"What You Will Receive"} />
+    <FormizStep label="What you will receive" name="introWhat" order={1000}>
+        <SectionHeader header={"What you will receive"} />
         <Text mb={4}>
           When finished, you will be able to download, print, or email completed
           versions of one or both of the following documents:
@@ -86,7 +84,6 @@ export const IntroWhat = () => {
           </Link>
           . <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
         </Text>
-      </SectionWrapper>
     </FormizStep>
   )
 }

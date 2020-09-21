@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
+import { isNumber } from "@formiz/validations"
+import { Box } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
-import { Box } from "@chakra-ui/core"
-import { SectionWrapper } from "../../Utils/SectionWrapper"
-import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldRadio } from "../../Fields/FieldRadio"
+import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { v4 as uuidv4 } from "uuid"
-import { isNumber } from '@formiz/validations'
-import { AddAnother, AddAnotherHeader } from '../../Utils/AddAnother'
+import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
 const defaultCollection = [
   {
     id: uuidv4(),
@@ -18,7 +17,7 @@ const defaultCollection = [
 ]
 
 export const PropertyDamage = () => {
-  const form = useForm({ subscribe: { fields: ['PropertyDamage'] } })
+  const form = useForm({ subscribe: { fields: ["PropertyDamage"] } })
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
@@ -63,14 +62,17 @@ export const PropertyDamage = () => {
       validations={[
         {
           rule: isNumber(),
-          message: "This is not a number",
+          message: "Please enter a valid dollar amount a number",
         },
       ]}
     />
   )
 
   const Note = index => (
-    <FieldInput name={`PropertyDamage.${index}.notes`} label="Describe the item/other notes" />
+    <FieldInput
+      name={`PropertyDamage.${index}.notes`}
+      label="Describe the item/other notes"
+    />
   )
 
   const Receipt = index => (
@@ -88,41 +90,48 @@ export const PropertyDamage = () => {
   )
 
   return (
-    <FormizStep label={`Damaged Property Expenses`}
-                name="PropertyDamage" order={9000}>
-      <SectionWrapper>
-        <SectionHeader header={`Damaged Property Expenses`} />
+    <FormizStep
+      label={`Damaged property expenses`}
+      name="PropertyDamage"
+      order={9000}
+    >
+      <SectionHeader header={`Damaged property expenses`} />
+      <FieldRadio
+        name="PropertyDamage"
+        placeholder="None"
+        required="Required"
+        label={"Was anything damaged during the crime?"}
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
+      {damage === "yes" && (
         <FieldRadio
-          name="PropertyDamage"
+          name="PropertyDamage.replaceRepair"
           placeholder="None"
           required="Required"
-          label={"Was anything damaged during the crime?"}
+          label={
+            "Did you have to repair, clean or replace something or will you need to?"
+          }
           updateState={updateState}
           options={[
             { value: "yes", label: "Yes" },
             { value: "no", label: "No" },
           ]}
         />
-        {damage === "yes" && (
-          <FieldRadio
-            name="PropertyDamage.replaceRepair"
-            placeholder="None"
-            required="Required"
-            label={"Did you have to repair, clean or replace something or will you need to?"}
-            updateState={updateState}
-            options={[
-              { value: "yes", label: "Yes" },
-              { value: "no", label: "No" },
-            ]}
-          />
-        )}
+      )}
 
-        { damage === "yes" && replaceRepair === "yes" && (
-          <AddAnotherHeader
-            header={"Add each of your repair or replacement costs for any damaged items."}
-          />
-        )}
-        { damage === "yes" &&  replaceRepair === "yes" &&
+      {damage === "yes" && replaceRepair === "yes" && (
+        <AddAnotherHeader
+          header={
+            "Add each of your repair or replacement costs for any damaged items."
+          }
+        />
+      )}
+      {damage === "yes" &&
+        replaceRepair === "yes" &&
         additionalExpenses.map((expense, index) => (
           <Box key={index}>
             <AddAnother
@@ -136,11 +145,11 @@ export const PropertyDamage = () => {
             />
           </Box>
         ))}
-        { damage === "yes" &&  replaceRepair === "yes" &&
+      {damage === "yes" &&
+        replaceRepair === "yes" &&
         additionalExpenses.length <= 20 && (
           <AddPlaceholder label="Add an expense" onClick={addItem} />
         )}
-      </SectionWrapper>
     </FormizStep>
   )
 }

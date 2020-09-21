@@ -3,7 +3,6 @@ import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { FieldSelect } from "../../Fields/FieldSelect"
-import { SectionWrapper } from "../../Utils/SectionWrapper"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddressField } from "../02-BasicInformation/AddressField"
 import { FieldDate } from "../../Fields/FieldDate"
@@ -35,9 +34,7 @@ export const CurrentJob = d => {
   return (
     <>
       {form.values.EmploymentStatus === "yes" && (
-        <FormizStep label="Current Job" name="CurrentJob" order={8000}>
-          <>
-            <SectionWrapper>
+        <FormizStep label="Your current job" name="CurrentJob" order={8000}>
               <SectionHeader
                 header={`Enter information about your current job`}
               />
@@ -92,7 +89,6 @@ export const CurrentJob = d => {
                   required="Required"
                   type="text"
                   updateState={updateState}
-                  mb="4"
                   fieldwidth={"25%"}
                 />
               )}
@@ -118,8 +114,7 @@ export const CurrentJob = d => {
                     required="Required"
                     type="text"
                     updateState={updateState}
-                    fieldwidth={"25%"}
-                    m="0"
+                    fieldWidth={"25%"}
                   />
                   <FieldInput
                     name={`CurrentJobHoursPerWeek`}
@@ -127,7 +122,7 @@ export const CurrentJob = d => {
                     required="Required"
                     type="text"
                     updateState={updateState}
-                    fieldwidth={"25%"}
+                    fieldWidth={"25%"}
                   />
                   <FieldInput
                     name={`CurrentJobWeeksPerYear`}
@@ -135,14 +130,13 @@ export const CurrentJob = d => {
                     required="Required"
                     type="text"
                     updateState={updateState}
-                    fieldwidth={"25%"}
+                    fieldWidth={"25%"}
                   />
                   <FieldSelect
                     name="CurrentJobPaySchedule"
                     label="Paid how often?"
                     placeholder="Select option..."
                     required="Required"
-                    fieldwidth={"25%"}
                     updateState={updateState}
                     options={[
                       { value: "weekly", label: "Once per week" },
@@ -159,8 +153,6 @@ export const CurrentJob = d => {
                   />
                 </>
               )}
-            </SectionWrapper>
-          </>
         </FormizStep>
       )}
     </>

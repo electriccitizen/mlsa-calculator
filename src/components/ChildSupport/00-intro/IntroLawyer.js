@@ -1,15 +1,12 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
-import { SectionWrapper } from "../../Utils/SectionWrapper"
-import { SectionHeader } from "../../Utils/SectionHeader"
 import { Text, Link, Heading, Icon } from "@chakra-ui/core"
 import { FaInfoCircle, FaExternalLinkAlt } from "react-icons/fa/index"
+import { SectionHeader } from "../../Utils/SectionHeader"
 export const IntroLawyer = () => {
   return (
-    <FormizStep label={"Lawyer Referral Information"} name="introLawyer" order={1000}>
-      <SectionWrapper>
-        <SectionHeader header={"Lawyer Referral Information"} />
-
+    <FormizStep label={"Lawyer referral information"} name="introLawyer" order={1000}>
+        <SectionHeader header={"Lawyer referral information"} />
         <Text mb={2}>
           You may wish to speak with an attorney about this process or
           paperwork.
@@ -74,7 +71,6 @@ export const IntroLawyer = () => {
           </Link>{" "}
           <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
         </Text>
-      </SectionWrapper>
     </FormizStep>
   )
 }

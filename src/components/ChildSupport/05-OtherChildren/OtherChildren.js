@@ -1,9 +1,6 @@
 import React, { useState } from "react"
 import { FormizStep } from "@formiz/core"
-import { FieldInput } from "../../Fields/FieldInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
-import { Box } from "@chakra-ui/core"
-import { SectionWrapper } from "../../Utils/SectionWrapper"
 import { SectionHeader } from "../../Utils/SectionHeader"
 
 export const OtherChildren = () => {
@@ -16,9 +13,8 @@ export const OtherChildren = () => {
   }
 
   return (
-    <FormizStep label="Other Children" name="OtherChildren" order={5000}>
+    <FormizStep label="Your other children" name="OtherChildren" order={5000}>
       <>
-        <SectionWrapper>
           <SectionHeader
             header={`Do you have other children with someone else?`}
           />
@@ -32,21 +28,25 @@ export const OtherChildren = () => {
               { value: "no", label: "No" },
             ]}
           />
-        </SectionWrapper>
         {state["OtherChildren.primary"] === "yes" && (
-          <SectionWrapper>
-            <SectionHeader
-              header={`How many other minor children do you have?`}
+          <>
+            <FieldRadio
+              name="NumOtherChildren"
+              required="Required"
+              forceStack={true}
+              label={"How many other minor children do you have?"}
+              options={[
+                { value: "1", label: "One" },
+                { value: "2", label: "Two" },
+                { value: "3", label: "Three" },
+                { value: "4", label: "Four" },
+                { value: "5", label: "Five" },
+                { value: "6", label: "Six" },
+                { value: "7", label: "Seven" },
+                { value: "8", label: "Eight" },
+              ]}
             />
-            <Box width="30%">
-              <FieldInput
-                name="NumOtherChildren"
-                label="Enter number"
-                required="Required"
-                updateState={updateState}
-              />
-            </Box>
-          </SectionWrapper>
+            </>
         )}
       </>
     </FormizStep>

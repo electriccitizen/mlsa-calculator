@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
+import { isNumber } from "@formiz/validations"
+import { Box } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
-import { Box, IconButton, Stack } from "@chakra-ui/core"
-import { SectionWrapper } from "../../Utils/SectionWrapper"
-import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldRadio } from "../../Fields/FieldRadio"
-import { FaTrashAlt } from "react-icons/fa"
+import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
-import { v4 as uuidv4 } from "uuid"
-import { isNumber } from "@formiz/validations"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
+import { AlertBox } from "../../Utils/AlertBox"
+import { v4 as uuidv4 } from "uuid"
+
 const defaultCollection = [
   {
     id: uuidv4(),
@@ -68,7 +68,7 @@ export const LostWagesFuture = () => {
       validations={[
         {
           rule: isNumber(),
-          message: "This is not a number",
+          message: "Please enter a valid dollar amount a number",
         },
       ]}
     />
@@ -87,56 +87,54 @@ export const LostWagesFuture = () => {
 
   return (
     <FormizStep
-      label={`Lost Wages (Future losses)`}
+      label={`Lost wages (future losses)`}
       name="LostWagesFuture"
       order={10000}
     >
-      <SectionWrapper>
-        <SectionHeader header={`Lost Wages (Future losses)`} />
-        <FieldRadio
-          name="LostWagesFuture.status"
-          placeholder="None"
-          required="Required"
-          label={"Will you miss work in the future from your injuries?"}
-          updateState={updateState}
-          options={[
-            { value: "yes", label: "Yes" },
-            { value: "no", label: "No" },
-          ]}
+      <SectionHeader header={`Lost wages (future losses)`} />
+      <FieldRadio
+        name="LostWagesFuture.status"
+        placeholder="None"
+        required="Required"
+        label={"Will you miss work in the future from your injuries?"}
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
+
+      {status === "yes" && (
+        <AlertBox>
+          Screen about having a lawyer calculate future earnings
+        </AlertBox>
+      )}
+
+      {status === "yes" && (
+        <AddAnotherHeader
+          header={
+            "Add as many entries as needed for any missed work periods below."
+          }
         />
+      )}
 
-        {status === "yes" && (
-          <Box p={8} bg="gray.200" fontSize={"md"} mb={4}>
-            Screen about having a lawyer calculate future earnings
+      {status === "yes" &&
+        additionalExpenses.map((expense, index) => (
+          <Box key={index}>
+            <AddAnother
+              expense={Expense(index)}
+              amount={Amount(index)}
+              note={Note(index)}
+              note2={Note2(index)}
+              index={index}
+              removeItem={removeItem}
+              expenseID={expense.id}
+            />
           </Box>
-        )}
-
-        {status === "yes" && (
-          <AddAnotherHeader
-            header={
-              "Add as many entries as needed for any missed work periods below."
-            }
-          />
-        )}
-
-        {status === "yes" &&
-          additionalExpenses.map((expense, index) => (
-            <Box key={index}>
-              <AddAnother
-                expense={Expense(index)}
-                amount={Amount(index)}
-                note={Note(index)}
-                note2={Note2(index)}
-                index={index}
-                removeItem={removeItem}
-                expenseID={expense.id}
-              />
-            </Box>
-          ))}
-        {status === "yes" && additionalExpenses.length <= 20 && (
-          <AddPlaceholder label="Add another" onClick={addItem} />
-        )}
-      </SectionWrapper>
+        ))}
+      {status === "yes" && additionalExpenses.length <= 20 && (
+        <AddPlaceholder label="Add another" onClick={addItem} />
+      )}
     </FormizStep>
   )
 }

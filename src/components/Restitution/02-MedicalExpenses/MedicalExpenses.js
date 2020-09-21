@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
+import { isNumber } from "@formiz/validations"
+import { Box } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
-import { Box } from "@chakra-ui/core"
-import { SectionWrapper } from "../../Utils/SectionWrapper"
-import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldRadio } from "../../Fields/FieldRadio"
+import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
-import { v4 as uuidv4 } from "uuid"
-import { isNumber } from "@formiz/validations"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
+import { v4 as uuidv4 } from "uuid"
+
 const defaultCollection = [
   {
     id: uuidv4(),
@@ -62,7 +62,7 @@ export const MedicalExpenses = () => {
       validations={[
         {
           rule: isNumber(),
-          message: "This is not a number",
+          message: "Please enter a valid dollar amount a number",
         },
       ]}
     />
@@ -86,73 +86,71 @@ export const MedicalExpenses = () => {
     />
   )
   return (
-    <FormizStep label={`Injury Expenses`} name="MedicalExpenses" order={2000}>
-      <SectionWrapper>
-        <SectionHeader
-          header={`Injury Expenses`}
-          helpText={{
-            text:
-              "This section is focused on physical" +
-              " injuries and initial medical costs." +
-              " You will also be asked about future medical expenses," +
-              " and non-physical injuries (e.g. mental health costs).",
-          }}
-        />
+    <FormizStep label={`Injury expenses`} name="MedicalExpenses" order={2000}>
+      <SectionHeader
+        header={`Injury expenses`}
+        helpText={{
+          text:
+            "This section is focused on physical" +
+            " injuries and initial medical costs." +
+            " You will also be asked about future medical expenses," +
+            " and non-physical injuries (e.g. mental health costs).",
+        }}
+      />
+      <FieldRadio
+        name="MedicalExpenses.injury"
+        placeholder="None"
+        required="Required"
+        label={"Were you hurt or injured during the crime?"}
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
+      {injury === "yes" && (
         <FieldRadio
-          name="MedicalExpenses.injury"
+          name="MedicalExpenses.expenses"
           placeholder="None"
           required="Required"
-          label={"Were you hurt or injured during the crime?"}
+          label={
+            "Did you seek medical attention or incur any medical expenses? "
+          }
+          helper={"Do not include first responder expenses"}
           updateState={updateState}
           options={[
             { value: "yes", label: "Yes" },
             { value: "no", label: "No" },
           ]}
         />
-        {injury === "yes" && (
-          <FieldRadio
-            name="MedicalExpenses.expenses"
-            placeholder="None"
-            required="Required"
-            label={
-              "Did you seek medical attention or incur any medical expenses? "
-            }
-            helper={"Do not include first responder expenses"}
-            updateState={updateState}
-            options={[
-              { value: "yes", label: "Yes" },
-              { value: "no", label: "No" },
-            ]}
-          />
-        )}
+      )}
 
-        {expenses === "yes" && (
-          <AddAnotherHeader
-            header={
-              " Add each of your initial medical expenses below. You will also be\n" +
-              "            asked about first responder expenses, and other future ongoing or\n" +
-              "            one-time medical expenses."
-            }
-          />
-        )}
-        {expenses === "yes" &&
-          additionalExpenses.map((expense, index) => (
-            <Box key={index}>
-              <AddAnother
-                expense={Expense(index)}
-                amount={Amount(index)}
-                note={Note(index)}
-                receipt={Receipt(index)}
-                index={index}
-                removeItem={removeItem}
-                expenseID={expense.id}
-              />
-            </Box>
-          ))}
-        {expenses === "yes" && additionalExpenses.length <= 20 && (
-          <AddPlaceholder label="Add an expense" onClick={addItem} />
-        )}
-      </SectionWrapper>
+      {expenses === "yes" && (
+        <AddAnotherHeader
+          header={
+            " Add each of your initial medical expenses below. You will also be\n" +
+            "            asked about first responder expenses, and other future ongoing or\n" +
+            "            one-time medical expenses."
+          }
+        />
+      )}
+      {expenses === "yes" &&
+        additionalExpenses.map((expense, index) => (
+          <Box key={index}>
+            <AddAnother
+              expense={Expense(index)}
+              amount={Amount(index)}
+              note={Note(index)}
+              receipt={Receipt(index)}
+              index={index}
+              removeItem={removeItem}
+              expenseID={expense.id}
+            />
+          </Box>
+        ))}
+      {expenses === "yes" && additionalExpenses.length <= 20 && (
+        <AddPlaceholder label="Add an expense" onClick={addItem} />
+      )}
     </FormizStep>
   )
 }

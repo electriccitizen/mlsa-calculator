@@ -1,8 +1,10 @@
 import React from "react"
-import { Link as GatsbyLink } from "gatsby"
+import { Link } from "gatsby"
 import PropTypes from "prop-types"
-import { Stack, Icon, Switch, Button, Link, Box } from "@chakra-ui/core"
+import { Stack, Icon, Switch, Button, Box, Spacer } from "@chakra-ui/core"
 import { FaBug } from "react-icons/fa/index"
+import { Logos } from '../components/Logos/logos'
+
 const propTypes = {
   children: PropTypes.node,
   onReset: PropTypes.func,
@@ -14,37 +16,40 @@ const defaultProps = {
   githubPath: null,
 }
 const windowGlobal = typeof window !== "undefined" && window
-export const PageFooter = ({
-  handleDebug,
-  debugMode,
-}) => {
+export const PageFooter = ({ handleDebug, debugMode }) => {
   return (
     <>
-      <Box
-        mt={"8"}
-        fontSize="sm"
-        borderColor="gray.300"
-        borderTopWidth="1px"
-        display={{ md: "flex" }}
-        mb={"35rem"}
+      <Stack
+        direction={["column", "column", "row"]}
+        spacing={["0", "0", "1rem"]}
+        fontSize={"small"}
+        mt={8}
+        mb={12}
+        pt={4}
+        borderTopWidth={1}
+        borderColor={"gray.300"}
       >
-        <Box mt={{ base: 6, md: 6 }} flex={1}>
+        <Box>
           &copy; {new Date().getFullYear()}{" "}
-          <Link href={"https://www.mtlsa.org/"} color={"brand.400"}>
+          <a href={"https://www.mtlsa.org/"} color={"brand.400"}>
             Montana Legal Services Association
-          </Link>
+          </a>
         </Box>
-        <Box align="right" mt={{ base: 6, md: 6 }} flex={1}>
-          See our{" "}
-          <GatsbyLink to={"/terms-of-use"}>
-            Terms of Use
-          </GatsbyLink>{" "}
-          and{" "}
-          <GatsbyLink  to={"/privacy-notice"}>
-            Privacy Notice
-          </GatsbyLink>
-          .
+        <Spacer />
+        <Box align={["left","left","right"]}  >
+          See our <Link to={"/terms-of-use"}>Terms of Use</Link>{" "} and{" "} <Link to={"/privacy-notice"}>Privacy Notice</Link>
         </Box>
+
+      </Stack>
+      <Box><Logos /></Box>
+      <Box mt="4" fontSize="small">
+        This project was funded by the National Crime Victim Law Institute
+        (NCVLI) under grant No. 2017-VF-GX-K130, awarded by the Office for
+        Victims of Crime, Office of Justice Programs, U.S. Department of
+        Justice. The opinions, findings, and conclusions or recommendations
+        expressed in this project are those of the contributors and do not
+        necessarily represent the official position or policies of the U.S.
+        Department of Justice or NCVLI.
       </Box>
 
       {/*{Debugging}*/}
@@ -81,6 +86,7 @@ export const PageFooter = ({
           Reset
         </Button>
       </Box>
+
     </>
   )
 }

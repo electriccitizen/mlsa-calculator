@@ -74,6 +74,7 @@ export const FieldCheckbox = props => {
       <Stack>
         {(options || []).map((item, i) => (
           <Checkbox
+            key={i}
             isChecked={checkedItems[i]}
             value={item.value}
             onChange={val => handleChange(val)}

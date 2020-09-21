@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
+import { isNumber } from "@formiz/validations"
+import { Box } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
-import { Box } from "@chakra-ui/core"
-import { SectionWrapper } from "../../Utils/SectionWrapper"
-import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldRadio } from "../../Fields/FieldRadio"
+import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
-import { v4 as uuidv4 } from "uuid"
-import { isNumber } from "@formiz/validations"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
+import { v4 as uuidv4 } from "uuid"
+
 const defaultCollection = [
   {
     id: uuidv4(),
@@ -66,7 +66,7 @@ export const PropertyStolenRecovered = () => {
       validations={[
         {
           rule: isNumber(),
-          message: "This is not a number",
+          message: "Please enter a valid dollar amount a number",
         },
       ]}
     />
@@ -96,92 +96,88 @@ export const PropertyStolenRecovered = () => {
   return form.values.PropertyStolenExpenses &&
     form.values.PropertyStolenExpenses.recovered === "yes" ? (
     <FormizStep
-      label={`Stolen Property (Recovered)`}
+      label={`Stolen property (recovered items)`}
       name="PropertyStolenRecovered"
       order={8500}
     >
-      <SectionWrapper>
-        <SectionHeader
-          header={`Stolen Property (Recovered Items)`}
-          helpText={{
-            text:
-              "This question is to help determine any costs related" +
-              " to property that was stolen but recovered, including any " +
-              "rental, replacement, or repair costs.",
-          }}
-        />
+      <SectionHeader
+        header={`Stolen property (recovered items)`}
+        helpText={{
+          text:
+            "This question is to help determine any costs related" +
+            " to property that was stolen but recovered, including any " +
+            "rental, replacement, or repair costs.",
+        }}
+      />
+      <FieldRadio
+        name="PropertyStolenRecovered.damaged"
+        placeholder="None"
+        required="Required"
+        label={"Was any of your recovered property damaged?"}
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
+      {damaged && (
         <FieldRadio
-          name="PropertyStolenRecovered.damaged"
+          name="PropertyStolenRecovered.replaceRepair"
           placeholder="None"
           required="Required"
-          label={"Was any of your recovered property damaged?"}
+          label={
+            "Did you or will your have to repair any of your recovered items?"
+          }
           updateState={updateState}
           options={[
             { value: "yes", label: "Yes" },
             { value: "no", label: "No" },
           ]}
         />
-        {damaged && (
-          <FieldRadio
-            name="PropertyStolenRecovered.replaceRepair"
-            placeholder="None"
-            required="Required"
-            label={
-              "Did you or will your have to repair any of your recovered items?"
-            }
-            updateState={updateState}
-            options={[
-              { value: "yes", label: "Yes" },
-              { value: "no", label: "No" },
-            ]}
-          />
-        )}
-        {damaged && (
-          <FieldRadio
-            name="PropertyStolenRecovered.rental"
-            placeholder="None"
-            required="Required"
-            label={
-              "Did you have to rent something while your property was missing?"
-            }
-            updateState={updateState}
-            options={[
-              { value: "yes", label: "Yes" },
-              { value: "no", label: "No" },
-            ]}
-          />
-        )}
+      )}
+      {damaged && (
+        <FieldRadio
+          name="PropertyStolenRecovered.rental"
+          placeholder="None"
+          required="Required"
+          label={
+            "Did you have to rent something while your property was missing?"
+          }
+          updateState={updateState}
+          options={[
+            { value: "yes", label: "Yes" },
+            { value: "no", label: "No" },
+          ]}
+        />
+      )}
 
-        {(rental === "yes" || replaceRepair === "yes") && (
-          <AddAnotherHeader
-            header={
-              "Add each of your repair or rental costs for each item below. Include\n" +
-              "            any rental costs."
-            }
-          />
-        )}
+      {(rental === "yes" || replaceRepair === "yes") && (
+        <AddAnotherHeader
+          header={
+            "Add each of your repair or rental costs for each item below. Include\n" +
+            "            any rental costs."
+          }
+        />
+      )}
 
-        {(rental === "yes" || replaceRepair === "yes") &&
-          additionalExpenses.map((expense, index) => (
-            <Box key={index}>
-              <AddAnother
-                expense={Expense(index)}
-                amount={Amount(index)}
-                note={Note(index)}
-                receipt={Receipt(index)}
-                index={index}
-                removeItem={removeItem}
-                expenseID={expense.id}
-              />
-            </Box>
-          ))}
-        {(rental === "yes" || replaceRepair === "yes") &&
-          additionalExpenses.length <= 20 && (
-            <AddPlaceholder label="Add an expense" onClick={addItem} />
-          )}
-      </SectionWrapper>
+      {(rental === "yes" || replaceRepair === "yes") &&
+        additionalExpenses.map((expense, index) => (
+          <Box key={index}>
+            <AddAnother
+              expense={Expense(index)}
+              amount={Amount(index)}
+              note={Note(index)}
+              receipt={Receipt(index)}
+              index={index}
+              removeItem={removeItem}
+              expenseID={expense.id}
+            />
+          </Box>
+        ))}
+      {(rental === "yes" || replaceRepair === "yes") &&
+        additionalExpenses.length <= 20 && (
+          <AddPlaceholder label="Add an expense" onClick={addItem} />
+        )}
     </FormizStep>
-  ) : (
-    ""
-  )
+  ) : null
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { Radio, Stack, HStack, RadioGroup } from "@chakra-ui/core"
+import { Radio, Stack, RadioGroup } from "@chakra-ui/core"
 import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
 import { FormGroup } from "../Utils/FormGroup"
 const propTypes = {
@@ -35,7 +35,7 @@ export const FieldRadio = props => {
     required,
     helper,
     updateState,
-    orientation,
+    forceStack,
     index,
     ...otherProps
   } = props
@@ -61,15 +61,13 @@ export const FieldRadio = props => {
     ...otherProps,
   }
 
-  const CurrentStack = orientation === "vertical" ? Stack : HStack
   return (
     <FormGroup {...formGroupProps}>
-      <RadioGroup
-        key={resetKey}
-        value={value || ""}
-        onChange={handleChange}
-      >
-        <CurrentStack>
+      <RadioGroup key={resetKey} value={value || ""} onChange={handleChange}>
+        <Stack
+          direction={forceStack ? ["column"] : ["column", "column", "row"]}
+          spacing={forceStack ? [".2rem"] : ["0"]}
+        >
           {(options || []).map(item => (
             <Radio
               mr={4}
@@ -81,7 +79,7 @@ export const FieldRadio = props => {
               {item.label}
             </Radio>
           ))}
-        </CurrentStack>
+        </Stack>
       </RadioGroup>
       {children}
     </FormGroup>

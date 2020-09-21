@@ -1,6 +1,5 @@
 import theme from "@chakra-ui/theme"
 import { mode } from "@chakra-ui/theme-tools"
-
 const styles = {
   ...theme.styles,
   global: props => ({
@@ -8,19 +7,19 @@ const styles = {
       borderColor: mode("gray.400", "gray.400")(props),
       wordWrap: "break-word",
     },
-    // "label, label::before, &::after": {
-    //   color: "teal.500",
-    // },
-    fontFamily: "sans-serif",
     ...theme.styles.global,
     "html,body": {
       bg: mode("gray.50", "gray.900")(props),
       color: mode("gray.900", "whiteAlpha.800")(props),
       lineHeight: "tall",
       fontWeight: "normal",
-      fontFamily: "system-ui",
+      fontFamily:
+        '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
+        "               Roboto, Oxygen-Sans, Ubuntu, Cantarell,\n" +
+        '               "Helvetica Neue", sans-serif;',
       fontSize: "lg",
-      overflow: "hidden",
+      overflow: "auto",
+
       a: {
         color: "brand.400",
       },
@@ -36,6 +35,9 @@ const styles = {
       "a.homedark": {
         color: "gray.800",
       },
+      h3: {
+        fontFamily: "serif",
+      },
     },
 
     p: {
@@ -44,8 +46,6 @@ const styles = {
     ".foo a!important": {
       color: "purple",
     },
-
-
   }),
 }
 
@@ -53,10 +53,12 @@ const customTheme = {
   ...theme,
   fonts: {
     ...theme.fonts,
-    heading: "system-ui",
-    body: "serif",
-    html: "serif",
-    mono: "serif, monospace",
+    heading: "serif",
+    // body:
+    //   'system-ui',
+    // html:
+    //   'system-ui',
+    // mono: "'system-ui",
   },
   colors: {
     ...theme.colors,
@@ -66,7 +68,7 @@ const customTheme = {
       200: "#999",
       300: "#ccc",
       400: "#14662e", // base green
-      500: "#15c",    // base blue
+      500: "#15c", // base blue
       600: "#2a68d1", // blue hover
       700: "#14662e",
       800: "pink",

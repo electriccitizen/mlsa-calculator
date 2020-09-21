@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
+import { isNumber } from "@formiz/validations"
+import { Box } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
-import { Box } from "@chakra-ui/core"
-import { SectionWrapper } from "../../Utils/SectionWrapper"
-import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldRadio } from "../../Fields/FieldRadio"
+import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
-import { v4 as uuidv4 } from "uuid"
-import { isNumber } from "@formiz/validations"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
+import { v4 as uuidv4 } from "uuid"
+
 const defaultCollection = [
   {
     id: uuidv4(),
@@ -64,15 +64,17 @@ export const PropertyStolenLost = () => {
       validations={[
         {
           rule: isNumber(),
-          message: "This is not a number",
+          message: "Please enter a valid dollar amount a number",
         },
       ]}
     />
   )
 
   const Note = index => (
-    <FieldInput name={`PropertyStolenLost.${index}.notes`}
-                label="Description of item/other notes" />
+    <FieldInput
+      name={`PropertyStolenLost.${index}.notes`}
+      label="Description of item/other notes"
+    />
   )
 
   const Receipt = index => (
@@ -91,50 +93,50 @@ export const PropertyStolenLost = () => {
 
   return form.values.PropertyStolenExpenses &&
     form.values.PropertyStolenExpenses.stolen === "yes" ? (
-    <FormizStep label={`Stolen Property (Lost)`} name="PropertyStolenLost" order={8750}>
-      <SectionWrapper>
-        <SectionHeader header={`Stolen Property (Lost Items)`} />
+    <FormizStep
+      label={`Stolen property (lost items)`}
+      name="PropertyStolenLost"
+      order={8750}
+    >
+      <SectionHeader header={`Stolen property (lost items)`} />
 
-        <FieldRadio
-          name="PropertyStolenLost.replace"
-          placeholder="None"
-          required="Required"
-          label={
-            "Did you replace or will you need to replace any of your lost items?"
-          }
-          updateState={updateState}
-          options={[
-            { value: "yes", label: "Yes" },
-            { value: "no", label: "No" },
-          ]}
+      <FieldRadio
+        name="PropertyStolenLost.replace"
+        placeholder="None"
+        required="Required"
+        label={
+          "Did you replace or will you need to replace any of your lost items?"
+        }
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
+
+      {replace === "yes" && (
+        <AddAnotherHeader
+          header={"Add each of your replacement costs for each item below."}
         />
+      )}
 
-        {replace === "yes" && (
-          <AddAnotherHeader
-            header={"Add each of your replacement costs for each item below."}
-          />
-        )}
-
-        {replace === "yes" &&
-          additionalExpenses.map((expense, index) => (
-            <Box key={index}>
-              <AddAnother
-                expense={Expense(index)}
-                amount={Amount(index)}
-                note={Note(index)}
-                receipt={Receipt(index)}
-                index={index}
-                removeItem={removeItem}
-                expenseID={expense.id}
-              />
-            </Box>
-          ))}
-        {replace === "yes" && additionalExpenses.length <= 20 && (
-          <AddPlaceholder label="Add an expense" onClick={addItem} />
-        )}
-      </SectionWrapper>
+      {replace === "yes" &&
+        additionalExpenses.map((expense, index) => (
+          <Box key={index}>
+            <AddAnother
+              expense={Expense(index)}
+              amount={Amount(index)}
+              note={Note(index)}
+              receipt={Receipt(index)}
+              index={index}
+              removeItem={removeItem}
+              expenseID={expense.id}
+            />
+          </Box>
+        ))}
+      {replace === "yes" && additionalExpenses.length <= 20 && (
+        <AddPlaceholder label="Add an expense" onClick={addItem} />
+      )}
     </FormizStep>
-  ) : (
-    ""
-  )
+  ) : null
 }

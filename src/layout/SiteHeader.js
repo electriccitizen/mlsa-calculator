@@ -19,6 +19,7 @@ const defaultProps = {
 
 export default function SiteHeader() {
   const { colorMode, toggleColorMode } = useColorMode()
+
   return (
     <StaticQuery
       query={graphql`
@@ -61,20 +62,34 @@ export default function SiteHeader() {
             isInline
             align="center"
             ml="auto"
+            mb={8}
           >
+            I
             <Box width="90%">
               <Heading
+                fontFamily={
+                  '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
+                  "               Roboto, Oxygen-Sans, Ubuntu, Cantarell,\n" +
+                  '               "Helvetica Neue", sans-serif;'
+                }
+                as={"h1"}
                 ml={16}
-                d="flex"
-                alignItems="center"
-                fontSize={{ xs: "2xl", md: "3xl" }}
               >
-                <GatsbyLink className="logo" to={"/"}>
+                <GatsbyLink className={"logo"} to={"/"}>
                   {data.site.siteMetadata.title}
                 </GatsbyLink>
               </Heading>
-              <Box ml={16} color="gray.200" fontSize={{ xs: "xs", md: "lg" }}>
-                Provided by Montana Legal Services Association
+              <Box
+                fontFamily={
+                  '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
+                  "               Roboto, Oxygen-Sans, Ubuntu, Cantarell,\n" +
+                  '               "Helvetica Neue", sans-serif;'
+                }
+                ml={16}
+                color="gray.200"
+                fontSize={{ xs: "xs", md: "lg" }}
+              >
+                Provided by the Montana Legal Services Association
               </Box>
             </Box>
             <Box width="10%">
@@ -89,9 +104,7 @@ export default function SiteHeader() {
                 <FaSun />
               </Stack>
             </Box>
-
           </Stack>
-
         </>
       )}
     />

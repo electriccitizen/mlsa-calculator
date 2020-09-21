@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
+import { isNumber } from "@formiz/validations"
+import { Box } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
-import { Box } from "@chakra-ui/core"
-import { SectionWrapper } from "../../Utils/SectionWrapper"
-import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldRadio } from "../../Fields/FieldRadio"
+import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
-import { v4 as uuidv4 } from "uuid"
-import { isNumber } from "@formiz/validations"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
+import { v4 as uuidv4 } from "uuid"
+
 const defaultCollection = [
   {
     id: uuidv4(),
@@ -67,7 +67,7 @@ export const FutureExpensesRecurring = () => {
       validations={[
         {
           rule: isNumber(),
-          message: "This is not a number",
+          message: "Please enter a valid dollar amount a number",
         },
       ]}
     />
@@ -89,51 +89,50 @@ export const FutureExpensesRecurring = () => {
     />
   )
 
-
   return form.values.MedicalExpenses &&
     form.values.MedicalExpenses.injury === "yes" ? (
-    <FormizStep label={`Recurring Medical Expenses (Future)`} name="FutureExpensesRecurring" order={5000}>
-      <SectionWrapper>
-        <SectionHeader header={`Future Recurring Medical Expenses `} />
-        <FieldRadio
-          name="FutureExpensesRecurring"
-          placeholder="None"
-          required="Required"
-          label={
-            "Will you have future recurring health expenses? (e.g. Physical therapy)"
-          }
-          updateState={updateState}
-          options={[
-            { value: "yes", label: "Yes" },
-            { value: "no", label: "No" },
-          ]}
-        />
+    <FormizStep
+      label={`Recurring medical expenses (future)`}
+      name="FutureExpensesRecurring"
+      order={5000}
+    >
+      <SectionHeader header={`Future recurring medical expenses `} />
+      <FieldRadio
+        name="FutureExpensesRecurring"
+        placeholder="None"
+        required="Required"
+        label={
+          "Will you have future recurring health expenses? (e.g. Physical therapy)"
+        }
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
 
-        {expenses === "yes" && (
-          <AddAnotherHeader
-            header={" Estimate each of your future recurring expenses below."}
-          />
-        )}
-        {expenses === "yes" &&
-          additionalExpenses.map((expense, index) => (
-            <Box key={index}>
-              <AddAnother
-                expense={Expense(index)}
-                amount={Amount(index)}
-                note={Note(index)}
-                note2={Note2(index)}
-                index={index}
-                removeItem={removeItem}
-                expenseID={expense.id}
-              />
-            </Box>
-          ))}
-        {expenses === "yes" && additionalExpenses.length <= 20 && (
-          <AddPlaceholder label="Add an estimate" onClick={addItem} />
-        )}
-      </SectionWrapper>
+      {expenses === "yes" && (
+        <AddAnotherHeader
+          header={" Estimate each of your future recurring expenses below."}
+        />
+      )}
+      {expenses === "yes" &&
+        additionalExpenses.map((expense, index) => (
+          <Box key={index}>
+            <AddAnother
+              expense={Expense(index)}
+              amount={Amount(index)}
+              note={Note(index)}
+              note2={Note2(index)}
+              index={index}
+              removeItem={removeItem}
+              expenseID={expense.id}
+            />
+          </Box>
+        ))}
+      {expenses === "yes" && additionalExpenses.length <= 20 && (
+        <AddPlaceholder label="Add an estimate" onClick={addItem} />
+      )}
     </FormizStep>
-  ) : (
-    ""
-  )
+  ) : null
 }

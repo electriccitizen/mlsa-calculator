@@ -1,14 +1,12 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
-import { SectionWrapper } from "../../Utils/SectionWrapper"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { Text, Link, Heading, Icon } from "@chakra-ui/core"
 import { FaInfoCircle, FaExternalLinkAlt } from "react-icons/fa/index"
 export const IntroAdditional = () => {
   return (
-    <FormizStep label={"Find Additional Help"} name="introAdditional" order={1000}>
-      <SectionWrapper>
-        <SectionHeader header={"Find Additional Help"} />
+    <FormizStep label={"Find additional help"} name="introAdditional" order={1000}>
+        <SectionHeader header={"Find additional help"} />
         <Text mb={2}>
           For more information about child support in Montana, you can contact
           the following:
@@ -97,7 +95,6 @@ export const IntroAdditional = () => {
           </Link>{" "}
           <Icon boxSize={"12px"} as={FaExternalLinkAlt} />.
         </Text>
-      </SectionWrapper>
     </FormizStep>
   )
 }

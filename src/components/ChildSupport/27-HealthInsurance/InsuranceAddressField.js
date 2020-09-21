@@ -1,11 +1,10 @@
 import React from "react"
 import { FieldInput } from "../../Fields/FieldInput"
-import { SimpleGrid } from "@chakra-ui/core"
-import { SectionWrapper } from "../../Utils/SectionWrapper"
+import { Stack } from "@chakra-ui/core"
 
 export const InsuranceAddressField = ({ header, index, label, name }) => {
   return (
-    <SectionWrapper>
+    <>
       <FieldInput
         name={`HealthInsurancePolicies.${index}.company`}
         label="Company name"
@@ -36,7 +35,10 @@ export const InsuranceAddressField = ({ header, index, label, name }) => {
         placeholder="Optional"
         mb="4"
       />
-      <SimpleGrid columns={3} spacing={10}>
+      <Stack
+        direction={["column", "column", "row"]}
+        spacing={["0", "0", "1rem"]}
+      >
         <FieldInput
           name={`HealthInsurancePolicies.${index}.city`}
           label="City"
@@ -47,15 +49,13 @@ export const InsuranceAddressField = ({ header, index, label, name }) => {
           name={`HealthInsurancePolicies.${index}.state`}
           label="State"
           required="Required"
-          m="0"
         />
         <FieldInput
           name={`HealthInsurancePolicies.${index}.zip`}
           label="Zip code"
           required="Required"
-          mb={4}
         />
-      </SimpleGrid>
-    </SectionWrapper>
+      </Stack>
+    </>
   )
 }

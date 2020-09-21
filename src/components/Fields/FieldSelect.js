@@ -40,6 +40,7 @@ export const FieldSelect = props => {
     helper,
     updateLabel,
     updateState,
+    fieldWidth,
     ...otherProps
   } = props
   const [isTouched, setIsTouched] = useState(false)
@@ -76,10 +77,10 @@ export const FieldSelect = props => {
         placeholder={placeholder}
         name={name}
         index={index}
+        width={fieldWidth ? fieldWidth : "100%"}
         onChange={e => {
           handleChange(name, e.target.value, index)
         }}
-        width={"50%"}
       >
         {(options || []).map(item => (
           <option key={item.value} value={item.value}>

@@ -3,7 +3,6 @@ import PropTypes from "prop-types"
 import { Input, Box, InputRightElement, Spinner } from "@chakra-ui/core"
 import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
 import { FormGroup } from "../Utils/FormGroup"
-import { isNumber } from '@formiz/validations'
 
 const propTypes = {
   label: PropTypes.node,

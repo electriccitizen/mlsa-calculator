@@ -4,10 +4,8 @@ import { isNumber } from "@formiz/validations"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
-import { Box, IconButton, Input, Stack } from "@chakra-ui/core"
-import { SectionWrapper } from "../../Utils/SectionWrapper"
+import { Box } from "@chakra-ui/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
-import { FaTrashAlt } from "react-icons/fa"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
 import { v4 as uuidv4 } from "uuid"
@@ -64,7 +62,7 @@ export const Funeral = () => {
       validations={[
         {
           rule: isNumber(),
-          message: "This is not a number",
+          message: "Please enter a valid dollar amount a number",
         },
       ]}
     />
@@ -89,43 +87,41 @@ export const Funeral = () => {
   )
 
   return (
-    <FormizStep label={`Funeral Expenses`} name="FuneralExpenses" order={1000}>
-      <SectionWrapper>
-        <SectionHeader header={`Funeral Expenses`} />
-        <FieldRadio
-          name="FuneralExpenses"
-          placeholder="None"
-          required="Required"
-          label={"Do you have funeral expenses?"}
-          updateState={updateState}
-          options={[
-            { value: "yes", label: "Yes" },
-            { value: "no", label: "No" },
-          ]}
-        />
-        {funeralExpenses === "yes" && (
-          <AddAnotherHeader header={"Add your funeral expenses below."} />
-        )}
-        {funeralExpenses === "yes" &&
-          additionalExpenses.map((expense, index) => (
-            <Box key={index}>
-              <AddAnother
-                expense={Expense(index)}
-                amount={Amount(index)}
-                note={Note(index)}
-                receipt={Receipt(index)}
-                index={index}
-                removeItem={removeItem}
-                expenseID={expense.id}
-              />
-            </Box>
-          ))}
-        {funeralExpenses === "yes" && additionalExpenses.length <= 20 && (
-          <>
-            <AddPlaceholder label="Add another expense?" onClick={addItem} />
-          </>
-        )}
-      </SectionWrapper>
+    <FormizStep label={`Funeral expenses`} name="FuneralExpenses" order={1000}>
+      <SectionHeader header={`Funeral expenses`} />
+      <FieldRadio
+        name="FuneralExpenses"
+        placeholder="None"
+        required="Required"
+        label={"Do you have funeral expenses?"}
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
+      {funeralExpenses === "yes" && (
+        <AddAnotherHeader header={"Add your funeral expenses below."} />
+      )}
+      {funeralExpenses === "yes" &&
+        additionalExpenses.map((expense, index) => (
+          <Box key={index}>
+            <AddAnother
+              expense={Expense(index)}
+              amount={Amount(index)}
+              note={Note(index)}
+              receipt={Receipt(index)}
+              index={index}
+              removeItem={removeItem}
+              expenseID={expense.id}
+            />
+          </Box>
+        ))}
+      {funeralExpenses === "yes" && additionalExpenses.length <= 20 && (
+        <>
+          <AddPlaceholder label="Add another expense?" onClick={addItem} />
+        </>
+      )}
     </FormizStep>
   )
 }
