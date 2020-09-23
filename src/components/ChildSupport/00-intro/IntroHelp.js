@@ -4,7 +4,7 @@ import { SectionHeader } from "../../Utils/SectionHeader"
 import { Text, Link, Icon, useColorMode, Tooltip, Box } from "@chakra-ui/core"
 import { FaExternalLinkAlt } from "react-icons/fa/index"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
-import { useRules, RulesProvider } from "../../../hooks/useRulesContext"
+import { RulesProvider } from "../../../hooks/useRulesContext"
 
 export const IntroHelp = () => {
   const { colorMode } = useColorMode()

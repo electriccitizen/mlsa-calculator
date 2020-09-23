@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react"
-import printJS from "print-js"
+import React, { useState } from "react"
 import { Formiz, useForm } from "@formiz/core"
 import { TermsOfUse } from "../../components/ChildSupport/TermsOfUse"
 import { InitiateInterview } from "../../components/ChildSupport/01-InitiateInterview/IntiateInterview"
@@ -53,15 +52,6 @@ export default function Calculator() {
     values: [],
   })
 
-  function isJson(str) {
-    try {
-      JSON.parse(str)
-    } catch (e) {
-      return false
-    }
-    return true
-  }
-
   const handleSubmit = values => {
     setAppState({ complete: false, values: values })
     const data = values
@@ -86,7 +76,6 @@ export default function Calculator() {
       })
   }
 
-  // console.log(appState.pdf)
 
   const documents = form.values.Documents ? form.values.Documents : ""
 
@@ -106,53 +95,52 @@ export default function Calculator() {
             <InitiateInterview />
             <BasicInformation />
             <OtherParent />
-            {/*<NumberChildren />*/}
-            {/*<EnterChildren />*/}
-            {/*<OtherChildren />*/}
-            {/*<EnterMyOtherChildren />*/}
-            {/*{(documents === "both" || documents === "worksheets") && (*/}
-            {/*  <>*/}
-            {/*    <OtherChildrenSecondary />*/}
-            {/*    <EnterMyOtherChildrenSecondary />*/}
-            {/*  </>*/}
-            {/*)}*/}
-            {/*<Employment />*/}
-            {/*<CurrentJob />*/}
-            {/*<OtherJobs />*/}
-            {/*<EnterOtherJobs />*/}
-            {/*<OtherIncome />*/}
-            {/*<TaxableIncome />*/}
-            {/*<NonTaxableIncome />*/}
-            {/*<ChildExpenses />*/}
-            {/*<AllowableDeductions />*/}
-            {/*<OtherAllowableDeductions />*/}
-            {/*<StandardOfLiving />*/}
-            {/*{(documents === "both" || documents === "worksheets") && (*/}
-            {/*  <>*/}
-            {/*    <CurrentJobSecondary />*/}
-            {/*    <EnterOtherJobsSecondary />*/}
-            {/*    <OtherIncomeSecondary />*/}
-            {/*    <TaxableIncomeSecondary />*/}
-            {/*    <NonTaxableIncomeSecondary />*/}
-            {/*    <ChildExpensesSecondary />*/}
-            {/*    <AllowableDeductionsSecondary />*/}
-            {/*    <OtherAllowableDeductionsSecondary />*/}
-            {/*    <StandardOfLivingSecondary />*/}
-            {/*  </>*/}
-            {/*)}*/}
-            {/*<ParentingDays />*/}
-            {/*{(documents === "both" || documents === "affadavit") && (*/}
+            <NumberChildren />
+            <EnterChildren />
+            <OtherChildren />
+            <EnterMyOtherChildren />
+            {(documents === "both" || documents === "worksheets") && (
+              <>
+                <OtherChildrenSecondary />
+                <EnterMyOtherChildrenSecondary />
+              </>
+            )}
+            <Employment />
+            <CurrentJob />
+            <OtherJobs />
+            <EnterOtherJobs />
+            <OtherIncome />
+            <TaxableIncome />
+            <NonTaxableIncome />
+            <ChildExpenses />
+            <AllowableDeductions />
+            <OtherAllowableDeductions />
+            <StandardOfLiving />
+            {(documents === "both" || documents === "worksheets") && (
+              <>
+                <CurrentJobSecondary />
+                <EnterOtherJobsSecondary />
+                <OtherIncomeSecondary />
+                <TaxableIncomeSecondary />
+                <NonTaxableIncomeSecondary />
+                <ChildExpensesSecondary />
+                <AllowableDeductionsSecondary />
+                <OtherAllowableDeductionsSecondary />
+                <StandardOfLivingSecondary />
+              </>
+            )}
+            <ParentingDays />
+            {(documents === "both" || documents === "affadavit") && (
             <>
-              {/*<FinancialAffadavitOne />*/}
-              {/*<Schools />*/}
-              {/*<OtherSchools />*/}
-              {/*<HealthInsurance />*/}
-              {/*<HealthInsurancePolicies />*/}
-              {/*<FinancialAffadavitTwo />*/}
-              {/*<FinancialAffadavitThree />*/}
+              <FinancialAffadavitOne />
+              <Schools />
+              <OtherSchools />
+              <HealthInsurance />
+              <HealthInsurancePolicies />
+              <FinancialAffadavitTwo />
+              <FinancialAffadavitThree />
             </>
-            {/*)}*/}
-            {/*{console.log(appState.pdf)}*/}
+            )}
             <CompleteApp state={appState.complete} pdf={appState.pdf} />
           </RulesProvider>
         </MultiStepsLayout>

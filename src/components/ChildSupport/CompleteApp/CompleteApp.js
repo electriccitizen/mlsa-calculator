@@ -183,7 +183,7 @@ export const CompleteApp = ({ state, pdf }) => {
       </Stack>
       <Text pl={16} pr={16} mt={8} fontSize="sm">
         Your session will remain active as long as this browser window remains
-        open. Click <a onClick={handleExit}>exit interview</a> to clear your
+        open. Click <a href="/" onClick={handleExit}>exit interview</a> to clear your
         data and return to the homepage.
       </Text>
     </FormizStep>
