@@ -7,6 +7,7 @@ import { Box } from "@chakra-ui/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
+import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 
 export const OtherIncome = () => {
   const updateState = {}
@@ -209,6 +210,12 @@ export const OtherIncome = () => {
             mr={4}
           />
       )}
+      <AdministrativeRules
+        rules={[105,106,108,144]}
+        explanation={
+          "For definitions and more information, click on the links below:"
+        }
+      />
     </FormizStep>
   )
 }

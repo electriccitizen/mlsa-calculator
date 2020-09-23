@@ -5,6 +5,7 @@ import { FieldRadio } from "../../Fields/FieldRadio"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldDate } from "../../Fields/FieldDate"
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const CurrentJobSecondary = d => {
   const form = useForm({ subscribe: { fields: ["OtherParentName"] } })
@@ -15,7 +16,7 @@ export const CurrentJobSecondary = d => {
       [name]: value,
     })
   }
-  const otherParent = form.values.OtherParent
+  const otherParent = form.values.OtherParentName
     ? form.values.OtherParentName
     : "other parent"
 
@@ -165,17 +166,25 @@ export const CurrentJobSecondary = d => {
       )}
 
       {state["EmploymentSecondary.otherJobs"] === "yes" && (
-        <FieldInput
+        <FieldRadio
           name="NumOtherSecondaryJobs"
-          label={
-            `How many additional jobs would you like to enter for ` +
-            otherParent +
-            `?`
-          }
           required="Required"
-          fieldWidth={"25%"}
+          forceStack={true}
+          label={"How many additional jobs would you like to enter?"}
+          options={[
+            { value: "1", label: "One" },
+            { value: "2", label: "Two" },
+            { value: "3", label: "Three" },
+            { value: "4", label: "Four" },
+          ]}
         />
       )}
+      <AdministrativeRules
+        rules={[105, 106, 108]}
+        explanation={
+          "For definitions and more information, click on the links below:"
+        }
+      />
     </FormizStep>
   )
 }

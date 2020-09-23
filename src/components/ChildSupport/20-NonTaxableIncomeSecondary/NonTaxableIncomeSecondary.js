@@ -7,6 +7,7 @@ import { FieldSelect } from "../../Fields/FieldSelect"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 import { v4 as uuidv4 } from "uuid"
 
 const defaultCollection = [
@@ -19,7 +20,11 @@ const defaultCollection = [
 export const NonTaxableIncomeSecondary = () => {
   const form = useForm({
     subscribe: {
-      fields: ["OtherIncomeSecondary", "OtherIncomeSecondary.nontaxable"],
+      fields: [
+        "OtherParentName",
+        "OtherIncomeSecondary",
+        "OtherIncomeSecondary.nontaxable",
+      ],
     },
   })
   const [state, setState] = useState({})
@@ -93,7 +98,11 @@ export const NonTaxableIncomeSecondary = () => {
     <>
       {form.values.OtherIncomeSecondary &&
         form.values.OtherIncomeSecondary.nontaxable === true && (
-          <FormizStep name="NonTaxableIncomeSecondary" order={20000}>
+          <FormizStep
+            label={"Non-taxable (other)"}
+            name="NonTaxableIncomeSecondary"
+            order={20000}
+          >
             <SectionHeader
               header={otherParent + `'s other non-taxable income:`}
             />
@@ -121,6 +130,12 @@ export const NonTaxableIncomeSecondary = () => {
             {NonTaxableIncomeSecondary.length <= 20 && (
               <AddPlaceholder label="Add another entry?" onClick={addItem} />
             )}
+            <AdministrativeRules
+              rules={[105, 106, 108]}
+              explanation={
+                "For definitions and more information, click on the links below:"
+              }
+            />
           </FormizStep>
         )}
     </>

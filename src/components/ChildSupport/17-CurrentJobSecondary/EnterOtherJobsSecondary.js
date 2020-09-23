@@ -5,6 +5,7 @@ import { FieldDate } from "../../Fields/FieldDate"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { SectionHeader } from "../../Utils/SectionHeader"
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const EnterOtherJobsSecondary = () => {
   const form = useForm({
@@ -23,13 +24,15 @@ export const EnterOtherJobsSecondary = () => {
   function switchLabel(index) {
     switch (state["OtherJobSecondary." + index + ".payment"]) {
       case "salary":
-        GrossAmountLabel = "Gross amount (amount before taxes) paid per paycheck"
+        GrossAmountLabel =
+          "Gross amount (amount before taxes) paid per paycheck"
         break
       case "hourly":
         GrossAmountLabel = "Gross amount (amount before taxes) paid per hour"
         break
       case "commission":
-        GrossAmountLabel = "Gross amount (amount before taxes) paid per paycheck"
+        GrossAmountLabel =
+          "Gross amount (amount before taxes) paid per paycheck"
         break
       default:
         GrossAmountLabel = "Gross amount (amount before taxes)"
@@ -48,7 +51,7 @@ export const EnterOtherJobsSecondary = () => {
           key={index}
           name={`EnterOtherJobsSecondary` + index}
           order={17500 + index}
-          label={"Other Parent's Jobx " + index}
+          label={"Job details (" + index + " of " + numOtherJobsSecondary + ")"}
         >
           <SectionHeader
             header={
@@ -171,6 +174,12 @@ export const EnterOtherJobsSecondary = () => {
               />
             )}
           </>
+          <AdministrativeRules
+            rules={[105, 106, 108]}
+            explanation={
+              "For definitions and more information, click on the links below:"
+            }
+          />
         </FormizStep>
       ))}
     </>

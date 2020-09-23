@@ -2,6 +2,7 @@ import React from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldRadio } from "../../Fields/FieldRadio"
+import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 
 export const NumberChildren = () => {
   const form = useForm({ subscribe: { fields: ["OtherParentName"] } })
@@ -27,6 +28,12 @@ export const NumberChildren = () => {
           { value: "7", label: "Seven" },
           { value: "8", label: "Eight" },
         ]}
+      />
+      <AdministrativeRules
+        rules={[101, 102, 103]}
+        explanation={
+          "For definitions and more information, click on the links below:"
+        }
       />
     </FormizStep>
   )

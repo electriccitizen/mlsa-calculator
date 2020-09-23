@@ -6,6 +6,7 @@ import { FieldInput } from "../../Fields/FieldInput"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
+import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 import { v4 as uuidv4 } from "uuid"
 
 const defaultCollection = [
@@ -86,6 +87,12 @@ export const OtherAllowableDeductionsSecondary = () => {
             {OtherAllowableDeductionsSecondary.length <= 20 && (
               <AddPlaceholder label="Add another entry?" onClick={addItem} />
             )}
+            <AdministrativeRules
+              rules={[110,111]}
+              explanation={
+                "For definitions and more information, click on the links below:"
+              }
+            />
           </FormizStep>
         )}
     </>

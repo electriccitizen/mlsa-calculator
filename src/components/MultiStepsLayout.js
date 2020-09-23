@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
-import { useForm } from '@formiz/core'
+import { useForm } from "@formiz/core"
 import { PageLayout } from "../layout/PageLayout"
 import { Box, Grid, Button, Stack } from "@chakra-ui/core"
 import { CustomDrawer } from "./Utils/CustomDrawer"
@@ -25,8 +25,9 @@ export const MultiStepsLayout = ({
   buttonTitle,
   ...props
 }) => {
-  const form = useForm({ subscribe: "form" })
+  const form = useForm({ subscribe: { form: true, fields: ['TermsOfUse'] } })
   const hasSteps = !!form.steps.length
+
   return (
     <PageLayout {...props}>
       <form noValidate onSubmit={hasSteps ? form.submitStep : form.submit}>
@@ -57,26 +58,28 @@ export const MultiStepsLayout = ({
               gridColumn="3"
               colorScheme="brand"
               isDisabled={
-                (form.isLastStep ? !form.isValid : !form.isStepValid) &&
-                form.isStepSubmitted
+                (app === "support" && form.values && form.values.TermsOfUse !== "yes")
+                  ? true
+                  : (form.isLastStep ? !form.isValid : !form.isStepValid) &&
+                    form.isStepSubmitted
               }
             >
               {form.isLastStep ? submitLabel : "Next"}
             </Button>
-
           </Grid>
-
         )}
-        {app === "supportIntro" &&
-        <Box mt="8" fontSize={"md"} align={"center"}>
-          If you have used this tool before, you can <Link to={"/child-support/calculator"}>skip to the start</Link>.
-        </Box>
-        }
-        {app === "restitutionIntro" &&
-        <Box mt="8" fontSize={"md"} align={"center"}>
-          If you have used this tool before, you can <Link to={"/restitution/worksheet"}>skip to the start</Link>.
-        </Box>
-        }
+        {app === "supportIntro" && (
+          <Box mt="8" fontSize={"md"} align={"center"}>
+            If you have used this tool before, you can{" "}
+            <Link to={"/child-support/calculator"}>skip to the start</Link>.
+          </Box>
+        )}
+        {app === "restitutionIntro" && (
+          <Box mt="8" fontSize={"md"} align={"center"}>
+            If you have used this tool before, you can{" "}
+            <Link to={"/restitution/worksheet"}>skip to the start</Link>.
+          </Box>
+        )}
       </form>
     </PageLayout>
   )

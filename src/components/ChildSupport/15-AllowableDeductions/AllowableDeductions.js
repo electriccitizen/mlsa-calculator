@@ -6,12 +6,13 @@ import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { SectionHeader } from "../../Utils/SectionHeader"
+import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 
 export const AllowableDeductions = () => {
   const [checkedItems, setCheckedItems] = useState({})
   return (
     <FormizStep
-      label="Allowable deductions"
+      label="Your allowable deductions"
       name="AllowableDeductions"
       order={15000}
     >
@@ -333,6 +334,12 @@ export const AllowableDeductions = () => {
           </Box>
         )}
       </>
+      <AdministrativeRules
+        rules={[110,111]}
+        explanation={
+          "For definitions and more information, click on the links below:"
+        }
+      />
     </FormizStep>
   )
 }

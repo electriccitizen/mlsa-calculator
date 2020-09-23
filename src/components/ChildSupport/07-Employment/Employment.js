@@ -5,6 +5,8 @@ import { FieldRadio } from "../../Fields/FieldRadio"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { AddressField } from "../02-BasicInformation/AddressField"
+import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
+
 export const Employment = d => {
   const [state, setState] = useState({})
   let updateState = (name, value) => {
@@ -144,6 +146,12 @@ export const Employment = d => {
             </>
           )}
       </>
+      <AdministrativeRules
+        rules={[105,106,108]}
+        explanation={
+          "For definitions and more information, click on the links below:"
+        }
+      />
     </FormizStep>
   )
 }

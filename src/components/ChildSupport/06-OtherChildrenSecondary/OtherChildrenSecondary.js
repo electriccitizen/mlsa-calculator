@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { SectionHeader } from "../../Utils/SectionHeader"
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const OtherChildrenSecondary = () => {
   const form = useForm({
@@ -33,6 +34,7 @@ export const OtherChildrenSecondary = () => {
           name="OtherChildrenSecondary"
           placeholder="None"
           required="Required"
+          label={"Select yes or no"}
           updateState={updateState}
           options={[
             { value: "yes", label: "Yes" },
@@ -60,6 +62,12 @@ export const OtherChildrenSecondary = () => {
           />
         )}
       </>
+      <AdministrativeRules
+        rules={[103, 110, 111]}
+        explanation={
+          "For definitions and more information, click on the links below:"
+        }
+      />
     </FormizStep>
   )
 }

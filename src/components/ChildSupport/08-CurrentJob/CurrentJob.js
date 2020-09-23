@@ -6,6 +6,8 @@ import { FieldSelect } from "../../Fields/FieldSelect"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddressField } from "../02-BasicInformation/AddressField"
 import { FieldDate } from "../../Fields/FieldDate"
+import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
+
 export const CurrentJob = d => {
   const form = useForm({ subscribe: { fields: ["EmploymentStatus"] } })
   const [state, setState] = useState({})
@@ -153,6 +155,12 @@ export const CurrentJob = d => {
                   />
                 </>
               )}
+          <AdministrativeRules
+            rules={[105,106,108]}
+            explanation={
+              "For definitions and more information, click on the links below:"
+            }
+          />
         </FormizStep>
       )}
     </>

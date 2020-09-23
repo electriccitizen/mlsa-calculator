@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 // import printJS from "print-js"
 import { Formiz, useForm } from "@formiz/core"
-import { TermsOfUse } from "../../components/ChildSupport/01-InitiateInterview/TermsOfUse"
+import { TermsOfUse } from "../../components/ChildSupport/TermsOfUse"
 import { InitiateInterview } from "../../components/ChildSupport/01-InitiateInterview/IntiateInterview"
 import { BasicInformation } from "../../components/ChildSupport/02-BasicInformation/BasicInformation"
 import { OtherParent } from "../../components/ChildSupport/03-OtherParent/OtherParent"
@@ -39,96 +39,170 @@ import { HealthInsurance } from "../../components/ChildSupport/27-HealthInsuranc
 import { HealthInsurancePolicies } from "../../components/ChildSupport/27-HealthInsurance/HealthInsurancePolicies"
 import { FinancialAffadavitTwo } from "../../components/ChildSupport/28-FinancialAffadavitTwo/FinancialAffadavitTwo"
 import { FinancialAffadavitThree } from "../../components/ChildSupport/29-FinancialAffadavitThree/FinancialAffadavitThree"
-//import { Beforeunload } from "react-beforeunload"
+import { CompleteApp } from "../../components/ChildSupport/CompleteApp/CompleteApp"
 import { MultiStepsLayout } from "../../components/MultiStepsLayout"
 import { RulesProvider } from "../../hooks/useRulesContext"
+import { Beforeunload } from "react-beforeunload"
 
 export default function Calculator() {
   const form = useForm({ subscribe: { fields: ["Documents"] } })
+  const [appState, setAppState] = useState({
+    loading: false,
+    pdf: null,
+    complete: false,
+    values: [],
+  })
+
+  function isJson(str) {
+    try {
+      JSON.parse(str)
+    } catch (e) {
+      return false
+    }
+    return true
+  }
 
   const handleSubmit = values => {
-    form.invalidateFields({
-      "docker.image": "You can display an error after an API call",
+    setAppState({ complete: false, values: values })
+    const data = values
+    fetch("/.netlify/functions/pdf-gen/", {
+      method: "POST", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     })
-    const stepWithError = form.getFieldStepName("docker.image")
-    form.goToStep(stepWithError)
+      .then(response => response.json())
+      .then(data => {
+        //console.log('Data:', data);
+        setAppState({
+          complete: true,
+          loading: false,
+          pdf: data,
+          values: values,
+        })
+      })
+      .catch(error => {
+        console.error("Error:", error)
+      })
   }
+  console.log(appState.complete)
+  //
+  // fetch('../../.netlify/functions/pdf-gen/', {
+  //   method: 'post',
+  //   headers: {
+  //     'Accept': 'application/json, text/plain, */*',
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: foo
+  // })
+  //
+  //   .then(data => {
+  //     console.log(data.body)
+  //     setAppState({
+  //       complete: true,
+  //       loading: false,
+  //       pdf: data,
+  //       values: values,
+  //     })
+  //   })
+
+  // fetch("../../.netlify/functions/pdf-gen/", {
+  //   method: "POST", // or 'PUT'
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({a: 1, b: 2})
+  // })
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     setAppState({
+  //       complete: true,
+  //       loading: false,
+  //       pdf: data,
+  //       values: values,
+  //     })
+  //   })
+  //   .catch(error => {
+  //     console.error("Error:", error)
+  //   })
+  // }
 
   const documents = form.values.Documents ? form.values.Documents : ""
 
   const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
-    setTimeout(() => setIsLoading(false), 26000)
+    setTimeout(() => setIsLoading(false), 100)
   })
 
   return (
     <>
-      {isLoading ? (
-        <h1>Loading</h1>
-      ) : (
-        <Formiz connect={form} onValidSubmit={handleSubmit}>
-          <MultiStepsLayout
-            app="support"
-            buttonTitle="Child Support Calculator"
-            submitLabel="Finish"
-          >
-            <RulesProvider>
-              <TermsOfUse />
-              <InitiateInterview />
-              <BasicInformation />
-              <OtherParent />
-              <NumberChildren />
-              <EnterChildren />
-              <OtherChildren />
-              <EnterMyOtherChildren />
-              {(documents === "both" || documents === "worksheets") && (
-                <>
-                  <OtherChildrenSecondary />
-                  <EnterMyOtherChildrenSecondary />
-                </>
-              )}
-              <Employment />
-              <CurrentJob />
-              <OtherJobs />
-              <EnterOtherJobs />
-              <OtherIncome />
-              <TaxableIncome />
-              <NonTaxableIncome />
-              <ChildExpenses />
-              <AllowableDeductions />
-              <OtherAllowableDeductions />
-              <StandardOfLiving />
-              {(documents === "both" || documents === "worksheets") && (
-                <>
-                  <CurrentJobSecondary />
-                  <EnterOtherJobsSecondary />
-                  <OtherIncomeSecondary />
-                  <TaxableIncomeSecondary />
-                  <NonTaxableIncomeSecondary />
-                  <ChildExpensesSecondary />
-                  <AllowableDeductionsSecondary />
-                  <OtherAllowableDeductionsSecondary />
-                  <StandardOfLivingSecondary />
-                </>
-              )}
-              <ParentingDays />
-              {(documents === "both" || documents === "affadavit") && (
-                <>
-                  <FinancialAffadavitOne />
-                  <Schools />
-                  <OtherSchools />
-                  <HealthInsurance />
-                  <HealthInsurancePolicies />
-                  <FinancialAffadavitTwo />
-                  <FinancialAffadavitThree />
-                </>
-              )}
-            </RulesProvider>
-          </MultiStepsLayout>
-        </Formiz>
-      )}
-
-      {/*</Beforeunload>*/}
+      <Beforeunload onBeforeunload={event => event.preventDefault()} />
+      {/*{isLoading ? (*/}
+      {/*  <h1>Loading</h1>*/}
+      {/*) : (*/}
+      <Formiz connect={form} onValidSubmit={handleSubmit}>
+        <MultiStepsLayout
+          app="support"
+          buttonTitle="Child Support Calculator"
+          submitLabel="Finish"
+        >
+          <RulesProvider>
+            <TermsOfUse />
+            {/*<InitiateInterview />*/}
+            {/*<BasicInformation />*/}
+            {/*<OtherParent />*/}
+            {/*<NumberChildren />*/}
+            {/*<EnterChildren />*/}
+            {/*<OtherChildren />*/}
+            {/*<EnterMyOtherChildren />*/}
+            {/*{(documents === "both" || documents === "worksheets") && (*/}
+            {/*  <>*/}
+            {/*    <OtherChildrenSecondary />*/}
+            {/*    <EnterMyOtherChildrenSecondary />*/}
+            {/*  </>*/}
+            {/*)}*/}
+            {/*<Employment />*/}
+            {/*<CurrentJob />*/}
+            {/*<OtherJobs />*/}
+            {/*<EnterOtherJobs />*/}
+            {/*<OtherIncome />*/}
+            {/*<TaxableIncome />*/}
+            {/*<NonTaxableIncome />*/}
+            {/*<ChildExpenses />*/}
+            {/*<AllowableDeductions />*/}
+            {/*<OtherAllowableDeductions />*/}
+            {/*<StandardOfLiving />*/}
+            {/*{(documents === "both" || documents === "worksheets") && (*/}
+            {/*  <>*/}
+            {/*    <CurrentJobSecondary />*/}
+            {/*    <EnterOtherJobsSecondary />*/}
+            {/*    <OtherIncomeSecondary />*/}
+            {/*    <TaxableIncomeSecondary />*/}
+            {/*    <NonTaxableIncomeSecondary />*/}
+            {/*    <ChildExpensesSecondary />*/}
+            {/*    <AllowableDeductionsSecondary />*/}
+            {/*    <OtherAllowableDeductionsSecondary />*/}
+            {/*    <StandardOfLivingSecondary />*/}
+            {/*  </>*/}
+            {/*)}*/}
+            {/*<ParentingDays />*/}
+            {/*{(documents === "both" || documents === "affadavit") && (*/}
+            <>
+              {/*<FinancialAffadavitOne />*/}
+              {/*<Schools />*/}
+              {/*<OtherSchools />*/}
+              {/*<HealthInsurance />*/}
+              {/*<HealthInsurancePolicies />*/}
+              {/*<FinancialAffadavitTwo />*/}
+              <FinancialAffadavitThree />
+            </>
+            {/*)}*/}
+            <CompleteApp />
+          </RulesProvider>
+        </MultiStepsLayout>
+      </Formiz>
+      {/*)}*/}
     </>
   )
 }

@@ -73,7 +73,10 @@ export default function SiteHeader() {
                   '               "Helvetica Neue", sans-serif;'
                 }
                 as={"h1"}
+                fontSize={["xl","xl","3xl","4xl","4xl"]}
+
                 ml={16}
+                mt={["0px","6px","-8px","-12px"]}
               >
                 <GatsbyLink className={"logo"} to={"/"}>
                   {data.site.siteMetadata.title}
@@ -87,7 +90,7 @@ export default function SiteHeader() {
                 }
                 ml={16}
                 color="gray.200"
-                fontSize={{ xs: "xs", md: "lg" }}
+                fontSize={[ "xs","xs","lg"]}
               >
                 Provided by the Montana Legal Services Association
               </Box>
@@ -96,7 +99,7 @@ export default function SiteHeader() {
               <Stack isInline align="center" mb="1" ml="auto">
                 <FaMoon />
                 <Switch
-                  size="md"
+                  size={"md"}
                   isChecked={colorMode === "light"}
                   onChange={toggleColorMode}
                   colorScheme="brand"

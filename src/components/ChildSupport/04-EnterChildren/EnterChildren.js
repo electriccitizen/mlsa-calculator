@@ -6,6 +6,7 @@ import { FieldRadio } from "../../Fields/FieldRadio"
 import { Box, Stack } from "@chakra-ui/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AlertBox } from '../../Utils/AlertBox'
+import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 
 export const EnterChildren = () => {
   const form = useForm({
@@ -52,20 +53,17 @@ export const EnterChildren = () => {
                 label="First name"
                 required="Required"
                 type="text"
-                updateState={updateState}
               />
               <FieldInput
                 name={`PrimaryChildren.${index}.mname`}
                 label="Middle"
                 type="text"
-                updateState={updateState}
               />
               <FieldInput
                 name={`PrimaryChildren.${index}.lname`}
                 label="Last name"
                 required="Required"
                 type="text"
-                updateState={updateState}
               />
             </Stack>
             <Box flex="1">
@@ -98,7 +96,6 @@ export const EnterChildren = () => {
                   in the child support calculations. Continue to the next step.
                 </AlertBox>
               )}
-            {state[`PrimaryChildren.${index}.status`] === "none" && (
               <FieldRadio
                 name={`PrimaryChildren.${index}.disabled`}
                 label="Does this child have a disability?"
@@ -109,8 +106,13 @@ export const EnterChildren = () => {
                   { value: "no", label: "No" },
                 ]}
               />
-            )}
           </>
+          <AdministrativeRules
+            rules={[103]}
+            explanation={
+              "For definitions and more information, click on the links below:"
+            }
+          />
         </FormizStep>
       ))}
     </>

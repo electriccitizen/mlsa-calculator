@@ -116,7 +116,7 @@ export const EnterOtherJobs = () => {
               type="text"
             />
           )}
-          {state[`OtherJob.${index}.current`] && (
+          {state[`OtherJob.${index}.type`] && (
             <SectionHeader header={`Wage information`} />
           )}
 

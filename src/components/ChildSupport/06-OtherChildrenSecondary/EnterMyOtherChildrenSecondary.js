@@ -7,6 +7,7 @@ import { FieldRadio } from "../../Fields/FieldRadio"
 import { Stack } from "@chakra-ui/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AlertBox } from "../../Utils/AlertBox"
+import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 
 export const EnterMyOtherChildrenSecondary = () => {
   const form = useForm({
@@ -20,7 +21,7 @@ export const EnterMyOtherChildrenSecondary = () => {
       [name]: value,
     })
   }
-  const otherParent = form.values.OtherParent
+  const otherParent = form.values.OtherParentName
     ? form.values.OtherParentName
     : "other parent"
   return (
@@ -34,7 +35,7 @@ export const EnterMyOtherChildrenSecondary = () => {
         >
           <SectionHeader
             header={
-              `Enter the details for ` +
+              `Enter details for ` +
               otherParent +
               `'s other children (` +
               (index + 1) +
@@ -53,20 +54,17 @@ export const EnterMyOtherChildrenSecondary = () => {
               label="First name"
               required="Required"
               type="text"
-              updateState={updateState}
             />
             <FieldInput
               name={`OtherChildrenSecondary.${index}.mname`}
               label="Middle"
               type="text"
-              updateState={updateState}
             />
             <FieldInput
               name={`OtherChildrenSecondary.${index}.lname`}
               label="Last name"
               required="Required"
               type="text"
-              updateState={updateState}
             />
           </Stack>
           <FieldDate
@@ -81,6 +79,7 @@ export const EnterMyOtherChildrenSecondary = () => {
             required="Required"
             index={index}
             updateState={updateState}
+            forceStack={true}
             options={[
               { value: "me", label: "Me" },
               {
@@ -177,6 +176,7 @@ export const EnterMyOtherChildrenSecondary = () => {
             required="Required"
             index={index}
             updateState={updateState}
+            forceStack={true}
             options={[
               { value: "emancipated", label: "Emancipated" },
               { value: "married", label: "Married" },
@@ -184,13 +184,12 @@ export const EnterMyOtherChildrenSecondary = () => {
               { value: "none", label: "None of the above" },
             ]}
           />
-          {state[`OtherChildrenSecondary.${index}.status`] === "yes" && (
+          {state[`OtherChildrenSecondary.${index}.status`] !== "none" && (
             <AlertBox>
               Sorry, but this child does not qualify and will not be counted in
               the child support calculations. Continue to the next step.
             </AlertBox>
           )}
-          {state[`OtherChildrenSecondary.${index}.status`] === "none" && (
             <FieldRadio
               name={`OtherChildrenSecondary.${index}.disabled`}
               label="Does this child have a disability?"
@@ -202,7 +201,12 @@ export const EnterMyOtherChildrenSecondary = () => {
                 { value: "no", label: "No" },
               ]}
             />
-          )}
+          <AdministrativeRules
+            rules={[103,110,111]}
+            explanation={
+              "For definitions and more information, click on the links below:"
+            }
+          />
         </FormizStep>
       ))}
     </>

@@ -3,6 +3,7 @@ import { FormizStep } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { Stack } from "@chakra-ui/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const OtherParent = () => {
   return (
@@ -29,6 +30,12 @@ export const OtherParent = () => {
           label="Last"
         />
       </Stack>
+      <AdministrativeRules
+        rules={[101, 102, 103]}
+        explanation={
+          "For definitions and more information, click on the links below:"
+        }
+      />
     </FormizStep>
   )
 }

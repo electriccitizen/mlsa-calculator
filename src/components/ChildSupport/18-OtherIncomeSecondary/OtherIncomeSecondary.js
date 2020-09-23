@@ -7,6 +7,7 @@ import { FieldRadio } from "../../Fields/FieldRadio"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { SectionHeader } from "../../Utils/SectionHeader"
+import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 
 export const OtherIncomeSecondary = () => {
   const form = useForm({
@@ -225,6 +226,12 @@ export const OtherIncomeSecondary = () => {
           />
         </Box>
       )}
+      <AdministrativeRules
+        rules={[105,106,108,144]}
+        explanation={
+          "For definitions and more information, click on the links below:"
+        }
+      />
     </FormizStep>
   )
 }

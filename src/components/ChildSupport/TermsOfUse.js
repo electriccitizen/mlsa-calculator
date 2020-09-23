@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { FormizStep } from "@formiz/core"
-import { FieldRadio } from "../../Fields/FieldRadio"
-import { SectionHeader } from "../../Utils/SectionHeader"
+import { FieldRadio } from "../Fields/FieldRadio"
+import { SectionHeader } from "../Utils/SectionHeader"
 import {
   Icon,
   Box,
@@ -78,7 +78,7 @@ export const TermsOfUse = () => {
         </Text>
         <Box>
           <FieldRadio
-            name="initiate.terms.calculator"
+            name="TermsOfUse"
             required="Required"
             updateState={updateState}
             mb={1}

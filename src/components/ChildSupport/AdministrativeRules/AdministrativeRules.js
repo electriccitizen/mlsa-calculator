@@ -154,7 +154,6 @@ const Rules = [
 export const AdministrativeRules = ({ explanation, rules, isRulesStatus }) => {
   const [isRules, setIsRules] = useRules()
   let updateState = value => {
-    console.log(value)
     setIsRules(value === true ? false : true)
   }
 

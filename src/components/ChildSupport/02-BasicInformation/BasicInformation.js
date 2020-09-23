@@ -77,7 +77,7 @@ export const BasicInformation = () => {
         />
       )}
       <AdministrativeRules
-        rules={[101, 102, 103, 140]}
+        rules={[101, 102, 103]}
         explanation={
           "For definitions and more information, click on the links below:"
         }

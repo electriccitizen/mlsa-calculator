@@ -6,6 +6,7 @@ import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
+import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 
 export const AllowableDeductionsSecondary = () => {
   const form = useForm({
@@ -338,6 +339,12 @@ export const AllowableDeductionsSecondary = () => {
           </Box>
         </Box>
       )}
+      <AdministrativeRules
+        rules={[110,111]}
+        explanation={
+          "For definitions and more information, click on the links below:"
+        }
+      />
     </FormizStep>
   )
 }

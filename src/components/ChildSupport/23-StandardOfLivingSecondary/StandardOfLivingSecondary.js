@@ -3,11 +3,12 @@ import { FormizStep, useForm } from "@formiz/core"
 import { Box } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
+import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddAnother } from "../../Utils/AddAnother"
+import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 import { v4 as uuidv4 } from "uuid"
-import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 
 const defaultCollection = [
   {
@@ -78,7 +79,7 @@ export const StandardOfLivingSecondary = number => {
       </Box>
       <FieldRadio
         name={`StandardOfLivingSecondary.mileage`}
-        label="Have you driven any miles for long-distance parenting?"
+        label={`Has ${otherParent} driven any miles for long-distance parenting?`}
         required="Required"
         updateState={updateState}
         options={[
@@ -89,15 +90,16 @@ export const StandardOfLivingSecondary = number => {
       {state["StandardOfLivingSecondary.mileage"] === "yes" && (
         <FieldInput
           name={`StandardOfLivingSecondary.mileage.distance`}
-          label="How many miles do you drive annually to exercise long-distance parenting?"
+          label={`How many miles does ${otherParent} drive annually to exercise long-distance parenting?`}
           type="text"
+          fieldWidth={"25%"}
           placeholder=""
           mb="4"
         />
       )}
       <FieldRadio
         name={`StandardOfLivingSecondary.transportation`}
-        label="Do you have other, non-automobile transportation costs?"
+        label={`Does ${otherParent} have other, non-automobile transportation costs?`}
         required="Required"
         updateState={updateState}
         options={[
@@ -110,13 +112,14 @@ export const StandardOfLivingSecondary = number => {
           name={`StandardOfLivingSecondary.transportation.othercost`}
           label="How much are those other costs, annually?"
           type="text"
+          fieldWidth={"25%"}
           placeholder=""
           mb="4"
         />
       )}
       <FieldRadio
         name={`StandardOfLivingSecondary.other`}
-        label="Do you have other standard of living adjustments to add?"
+        label={`Does ${otherParent} have other standard of living adjustments to add?`}
         required="Required"
         updateState={updateState}
         options={[
@@ -140,6 +143,12 @@ export const StandardOfLivingSecondary = number => {
         additionalExpenses.length <= 20 && (
           <AddPlaceholder label="Add adjustment" onClick={addItem} />
         )}
+      <AdministrativeRules
+        rules={[128,130]}
+        explanation={
+          "For definitions and more information, click on the links below:"
+        }
+      />
     </FormizStep>
   )
 }

@@ -19,7 +19,7 @@ export const FinancialAffadavitThree = () => {
 
   return (
     <FormizStep
-      label={"Financial Affidavit Information, Part 3"}
+      label={"Financial Affidavit, Part 3"}
       name="FinancialAffadavitThree"
       order={29000}
     >

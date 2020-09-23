@@ -7,10 +7,13 @@ import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { SectionHeader } from "../../Utils/SectionHeader"
+import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 import { v4 as uuidv4 } from "uuid"
 
 export const ChildExpenses = () => {
-  const form = useForm()
+  const form = useForm({ subscribe: true })
+
+
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
@@ -37,6 +40,8 @@ export const ChildExpenses = () => {
     setAdditionalExpenses(s => s.filter(x => x.id !== id))
   }
 
+  //console.log(form.flatValues)
+
   return (
     <>
       {Array.apply(null, { length: numChildren }).map((e, index) => (
@@ -49,7 +54,7 @@ export const ChildExpenses = () => {
           <Box mb="8">
             <SectionHeader
               header={
-                `Enter the expenses for ` +
+                `Enter expenses for ` +
                 (form.values.PrimaryChildren &&
                   form.values.PrimaryChildren[0].fname) +
                 ` (Child ` +
@@ -198,6 +203,12 @@ export const ChildExpenses = () => {
                 )}
             </>
           )}
+          <AdministrativeRules
+            rules={[123]}
+            explanation={
+              "For definitions and more information, click on the links below:"
+            }
+          />
         </FormizStep>
       ))}
     </>

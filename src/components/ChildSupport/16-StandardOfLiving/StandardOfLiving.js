@@ -3,11 +3,12 @@ import { FormizStep, useForm } from "@formiz/core"
 import {  Box } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
+import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddAnother } from "../../Utils/AddAnother"
+import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 import { v4 as uuidv4 } from "uuid"
-import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 
 const defaultCollection = [
   {
@@ -130,6 +131,12 @@ export const StandardOfLiving = () => {
         additionalExpenses.length <= 20 && (
           <AddPlaceholder label="Add adjustment" onClick={addItem} />
         )}
+      <AdministrativeRules
+        rules={[128,130]}
+        explanation={
+          "For definitions and more information, click on the links below:"
+        }
+      />
     </FormizStep>
   )
 }

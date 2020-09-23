@@ -38,7 +38,7 @@ export const SectionHeader = ({ header, helpText, helpLinks }) => {
         alignItems="center"
         d="flex"
         bg={isDarkTheme ? "gray.800" : "gray.200"}
-        p={4}
+        p={2}
         mb={4}
         mt={0}
         color={isDarkTheme ? "gray.300" : "gray.700"}
@@ -56,7 +56,7 @@ export const SectionHeader = ({ header, helpText, helpLinks }) => {
                   ml="auto"
                   colorScheme={isDarkTheme ? "gray" : "brand"}
                   aria-label="Additional help"
-                  size="xs"
+                  size="sm"
                   borderColor={"brand.400"}
                   icon={<FaQuestion />}
                 />

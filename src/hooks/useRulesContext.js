@@ -8,7 +8,7 @@ function useRules() {
   return context
 }
 function RulesProvider(props) {
-  const [isRules, setIsRules] = React.useState(true)
+  const [isRules, setIsRules] = React.useState(false)
   const value = React.useMemo(() => [isRules, setIsRules], [isRules])
   return <RulesContext.Provider value={value} {...props} />
 }

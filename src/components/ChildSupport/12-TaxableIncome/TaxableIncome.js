@@ -8,6 +8,7 @@ import { FieldSelect } from "../../Fields/FieldSelect"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
+import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 import { v4 as uuidv4 } from "uuid"
 
 const defaultCollection = [
@@ -109,7 +110,7 @@ export const TaxableIncome = () => {
     <>
       {form.values.OtherIncome && form.values.OtherIncome.taxable === true && (
         <FormizStep
-          label="Other taxable incomex"
+          label="Taxable (other)"
           name="TaxableIncome"
           order={12000}
         >
@@ -120,7 +121,6 @@ export const TaxableIncome = () => {
               "            your taxable incomes."
             }
           />
-
           <Box>
             {collection.map(({ id, name }, index) => (
               <Box key={index}>
@@ -147,6 +147,12 @@ export const TaxableIncome = () => {
           {TaxableIncome.length <= 20 && (
             <AddPlaceholder label="Add another entry?" onClick={addItem} />
           )}
+          <AdministrativeRules
+            rules={[105,106,108]}
+            explanation={
+              "For definitions and more information, click on the links below:"
+            }
+          />
         </FormizStep>
       )}
     </>

@@ -36,13 +36,13 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
   const numOtherChildrenSecondary = form.values.NumOtherChildrenSecondary
 
   let stepLabel
-  const switchLabel = (name, label, index, x, numChildren ) => {
+  const switchLabel = (name, label, index, x, numChildren) => {
     switch (name) {
       case "OtherParent":
         stepLabel = form.values.OtherParentName
           ? `Step ${index + 1}: Other parent (${form.values.OtherParentName})`
           : `Step ${index + 1}: Other parent's name`
-        break;
+        break
       case "NumberChildren":
         stepLabel = form.values.OtherParentName
           ? `Step ${index + 1}: Your children with ${
@@ -78,7 +78,7 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
         stepLabel = form.values.OtherParentName
           ? `Step ${index + 1}: ${
               form.values.OtherParentName
-            }'s allowable deductions`
+            }'s Standard of Living adjustment`
           : `Step ${index + 1}: Standard of Living adjustment (other parent)`
         break
       case `ChildExpenses0`:
@@ -94,7 +94,22 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
               form.values.PrimaryChildren[x] &&
               form.values.PrimaryChildren[x].fname
             } (${parseInt(x) + 1} of ${numChildren})`
-          : `Step ${index + 1}: ``Step ${index + 1}: Expenses for ${x}`
+          : ""
+        break
+      case `ChildExpensesSecondary0`:
+      case "ChildExpensesSecondary1":
+      case "ChildExpensesSecondary2":
+      case "ChildExpensesSecondary3":
+      case "ChildExpensesSecondary4":
+      case "ChildExpensesSecondary5":
+      case "ChildExpensesSecondary6":
+      case "ChildExpensesSecondary7":
+        stepLabel = form.values.OtherChildrenSecondary
+          ? `Step ${index + 1}: ${form.values.OtherParentName}'s expenses for ${
+              form.values.OtherChildrenSecondary[x] &&
+              form.values.OtherChildrenSecondary[x].fname
+            } (${parseInt(x) + 1} of ${numOtherChildrenSecondary})`
+          : ""
         break
       case "EnterChildren0":
       case "EnterChildren1":
@@ -157,7 +172,7 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
         placement="right"
         onClose={onClose}
         finalFocusRef={btnRef}
-        size={"md"}
+        size={"sm"}
       >
         <DrawerOverlay>
           <DrawerContent bg={colorMode === "dark" ? "gray.300" : "gray.50"}>
@@ -192,7 +207,12 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
                       pl={
                         step.name.startsWith("EnterChildren") ||
                         step.name.startsWith("EnterMyOtherChildren") ||
-                        step.name.startsWith("EnterOtherJobs") === true
+                        step.name.startsWith("TaxableIncome") ||
+                        step.name.startsWith("NonTaxableIncome") ||
+                        step.name.startsWith("OtherAllowableDeductions") ||
+                        step.name.startsWith("OtherJobs") === true ||
+                        step.name.startsWith("EnterOtherJobs") === true ||
+                        step.name === "CurrentJob" === true
                           ? "8"
                           : "0"
                       }

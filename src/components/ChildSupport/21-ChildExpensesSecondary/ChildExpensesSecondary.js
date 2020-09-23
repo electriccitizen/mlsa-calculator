@@ -7,11 +7,13 @@ import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { SectionHeader } from "../../Utils/SectionHeader"
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 import { v4 as uuidv4 } from "uuid"
 
 export const ChildExpensesSecondary = () => {
-  const form = useForm({ subscribe: { fields: true } })
-  const numSecondaryChildren = form.values.NumSecondaryChildren
+  //const form = useForm({ subscribe: { fields: ["NumOtherChildrenSecondary"] } })
+  const form = useForm({ subscribe: true })
+  const numSecondaryChildren = form.values.NumOtherChildrenSecondary
   const [state, setState] = useState({})
   const updateState = (name, value, index) => {
     setState({
@@ -36,6 +38,10 @@ export const ChildExpensesSecondary = () => {
     setAdditionalExpenses(s => s.filter(x => x.id !== id))
   }
 
+  const otherParent = form.values.OtherParentName
+    ? form.values.OtherParentName
+    : "other parent"
+
   return (
     <>
       {Array.apply(null, { length: numSecondaryChildren }).map((e, index) => (
@@ -43,13 +49,14 @@ export const ChildExpensesSecondary = () => {
           key={index}
           name={`ChildExpensesSecondary` + index}
           order={21500 + index}
+          label={`Child expenses (${index + 1} of ${numSecondaryChildren})`}
         >
           <Box mb="8">
             <SectionHeader
               header={
-                `Enter the expenses for ` +
-                (form.values.OtherChildren &&
-                  form.values.OtherChildren[index].fname) +
+                `Enter ${otherParent}'s expenses for ` +
+                (form.values.OtherChildrenSecondary &&
+                  form.values.OtherChildrenSecondary[index].fname) +
                 ` (Child ` +
                 (index + 1) +
                 ` of ` +
@@ -61,8 +68,8 @@ export const ChildExpensesSecondary = () => {
 
           <Text fontWeight={"md"} mb={4}>
             Enter the annual amounts spent on each expense for{" "}
-            {form.values.OtherChildren &&
-              form.values.OtherChildren[index].fname}{" "}
+            {form.values.OtherChildrenSecondary &&
+              form.values.OtherChildrenSecondary[index].fname}{" "}
             if any.
           </Text>
           <FieldMoneyInput
@@ -141,6 +148,12 @@ export const ChildExpensesSecondary = () => {
             additionalExpenses.length <= 20 && (
               <AddPlaceholder label="Add expense" onClick={addItem} />
             )}
+          <AdministrativeRules
+            rules={[123]}
+            explanation={
+              "For definitions and more information, click on the links below:"
+            }
+          />
         </FormizStep>
       ))}
     </>

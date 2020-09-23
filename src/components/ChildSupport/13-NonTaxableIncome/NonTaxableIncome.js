@@ -8,6 +8,7 @@ import { FieldSelect } from "../../Fields/FieldSelect"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
+import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 import { v4 as uuidv4 } from "uuid"
 
 const defaultCollection = [
@@ -100,7 +101,7 @@ export const NonTaxableIncome = () => {
     <>
       {form.values.OtherIncome && form.values.OtherIncome.nontaxable === true && (
         <FormizStep
-          label="Non-Taxable Income"
+          label="Non-taxable (other)"
           name="NonTaxableIncome"
           order={13000}
         >
@@ -129,6 +130,12 @@ export const NonTaxableIncome = () => {
           {NonTaxableIncome.length <= 20 && (
             <AddPlaceholder label="Add another entry?" onClick={addItem} />
           )}
+          <AdministrativeRules
+            rules={[105,106,108]}
+            explanation={
+              "For definitions and more information, click on the links below:"
+            }
+          />
         </FormizStep>
       )}
     </>

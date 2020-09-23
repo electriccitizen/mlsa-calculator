@@ -8,7 +8,13 @@ export default function TermsOfUse() {
     <>
       <PageLayout>
         <Box mb="8">
-          <Heading as="h1" mb={4}>
+          <Heading
+            fontFamily={
+              '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
+              "               Roboto, Oxygen-Sans, Ubuntu, Cantarell,\n" +
+              '               "Helvetica Neue", sans-serif;'
+            }
+            as="h1" mb={4}>
             Privacy Notice
           </Heading>
           <Text mb={"4"}>

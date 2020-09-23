@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { FormizStep } from "@formiz/core"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { SectionHeader } from "../../Utils/SectionHeader"
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const OtherChildren = () => {
   const [state, setState] = useState({})
@@ -15,19 +16,20 @@ export const OtherChildren = () => {
   return (
     <FormizStep label="Your other children" name="OtherChildren" order={5000}>
       <>
-          <SectionHeader
-            header={`Do you have other children with someone else?`}
-          />
-          <FieldRadio
-            name="OtherChildren.primary"
-            placeholder="None"
-            required="Required"
-            updateState={updateState}
-            options={[
-              { value: "yes", label: "Yes" },
-              { value: "no", label: "No" },
-            ]}
-          />
+        <SectionHeader
+          header={`Do you have other children with someone else?`}
+        />
+        <FieldRadio
+          name="OtherChildren.primary"
+          placeholder="None"
+          required="Required"
+          updateState={updateState}
+          label={"Select yes or no"}
+          options={[
+            { value: "yes", label: "Yes" },
+            { value: "no", label: "No" },
+          ]}
+        />
         {state["OtherChildren.primary"] === "yes" && (
           <>
             <FieldRadio
@@ -46,9 +48,15 @@ export const OtherChildren = () => {
                 { value: "8", label: "Eight" },
               ]}
             />
-            </>
+          </>
         )}
       </>
+      <AdministrativeRules
+        rules={[103, 110, 111]}
+        explanation={
+          "For definitions and more information, click on the links below:"
+        }
+      />
     </FormizStep>
   )
 }

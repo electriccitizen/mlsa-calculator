@@ -42,23 +42,10 @@ exports.handler = function (event, context, callback) {
     console.log(body)
     body["basic.mother.name"] = body["basic.fname"] + " " + body["basic.lname"]
     body["basic.father.name"] = body["other.fname"] + " " + body["other.lnamer"]
-    for (let [key, value] of Object.entries(body)) {
-      //console.log(`${key}: ${value}`)
-    }
-    console.log(flatten(body))
-    console.log(typeof body)
   } else {
     body = null
     console.log("no luck")
   }
-
-  // pdfFiller.fillForm( sourcePDF, data)
-  //   .toFile('outputFile.PDF')
-  //   .then(() => {
-  //     // your file has been written
-  //   }).catch((err) => {
-  //   console.log(err);
-  // });
 
   pdfFiller
     .fillForm(sourcePDF, data)
@@ -72,14 +59,6 @@ exports.handler = function (event, context, callback) {
       })
     })
     .catch(err => {})
-  //exec('pdftk ./home/broeker/Projects/mlsa-calculator/outputFile.PDF dump_data_fields output DATA.txt', context.done);
-  //console.log('fooker')
-  // console.log(exec('pwd', context.done));
-  //  console.log(exec('pdftk --version', context.done));
-  //        callback(null, {
-  //          statusCode: 200,
-  //          body: 'foo',
-  //        });
 }
 
 // Return full stream.Readable at end

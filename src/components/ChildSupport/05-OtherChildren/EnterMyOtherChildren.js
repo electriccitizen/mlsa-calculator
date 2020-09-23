@@ -7,6 +7,7 @@ import { FieldRadio } from "../../Fields/FieldRadio"
 import { Stack } from "@chakra-ui/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AlertBox } from "../../Utils/AlertBox"
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const EnterMyOtherChildren = () => {
   const form = useForm({ subscribe: { fields: ["NumOtherChildren"] } })
@@ -47,7 +48,6 @@ export const EnterMyOtherChildren = () => {
                 label="First name"
                 required="Required"
                 type="text"
-                updateState={updateState}
               />
               <FieldInput
                 name={`OtherChildren.${index}.mname`}
@@ -175,20 +175,24 @@ export const EnterMyOtherChildren = () => {
                   in the child support calculations. Continue to the next step.
                 </AlertBox>
               )}
-            {state[`OtherChildren.${index}.status`] === "none" && (
-              <FieldRadio
-                name={`OtherChildren.${index}.disabled`}
-                label="Does this child have a disability?"
-                required="Required"
-                index={index}
-                updateState={updateState}
-                options={[
-                  { value: "yes", label: "Yes" },
-                  { value: "no", label: "No" },
-                ]}
-              />
-            )}
+            <FieldRadio
+              name={`OtherChildren.${index}.disabled`}
+              label="Does this child have a disability?"
+              required="Required"
+              index={index}
+              updateState={updateState}
+              options={[
+                { value: "yes", label: "Yes" },
+                { value: "no", label: "No" },
+              ]}
+            />
           </>
+          <AdministrativeRules
+            rules={[103, 110, 111]}
+            explanation={
+              "For definitions and more information, click on the links below:"
+            }
+          />
         </FormizStep>
       ))}
     </>

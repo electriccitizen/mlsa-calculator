@@ -1,6 +1,6 @@
 import React from "react"
 import { Link as GatsbyLink } from "gatsby"
-import { FaRegFileAlt, FaCalculator } from 'react-icons/fa'
+import { FaRegFileAlt, FaCalculator } from "react-icons/fa"
 import {
   Heading,
   Divider,
@@ -11,7 +11,7 @@ import {
   useColorMode,
   List,
   ListItem,
-} from '@chakra-ui/core'
+} from "@chakra-ui/core"
 
 import { PageLayout } from "../layout/PageLayout"
 export default function Home() {
@@ -20,29 +20,45 @@ export default function Home() {
     <>
       <PageLayout>
         <Box mt="4" mb="4">
-          <Heading mb={4}>Getting started</Heading>
+          <Heading
+            fontFamily={
+              '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
+              "               Roboto, Oxygen-Sans, Ubuntu, Cantarell,\n" +
+              '               "Helvetica Neue", sans-serif;'
+            }
+            mb={4}
+          >
+            Getting started
+          </Heading>
           <Text mb={2}>
             These tools were developed by the Montana Legal Services Association
             to help determine child support costs and to calculate possible
             restitution costs for victims of crime.
           </Text>
           <Text mb={4} color={colorMode === "dark" ? "gray.600" : "gray.500"}>
-            Choose the tool you'd like to use to get started. If this is
-            your first time here, our short guides will help you effectively use
+            Choose the tool you'd like to use to get started. If this is your
+            first time here, our short guides will help you effectively use
             these tools.
           </Text>
           <Box display={{ md: "flex" }}>
-            <Box pl={["4","8","8"]} pr={["4","8","8"]} mb={{ xs: "4" }} flex={1}>
-              <GatsbyLink className={colorMode === "dark" ? "homedark" : "homelight"} to="/child-support">
-              <Box
-                fontSize={"sm"}
-                as={Button}
-                colorScheme={"brand"}
-                width={"100%"}
+            <Box
+              pl={["4", "8", "8"]}
+              pr={["4", "8", "8"]}
+              mb={{ xs: "4" }}
+              flex={1}
+            >
+              <GatsbyLink
+                className={colorMode === "dark" ? "homedark" : "homelight"}
+                to="/child-support"
               >
-                <Icon  mr={2} as={FaCalculator} />{" "}
-               Child Support Calculator
-              </Box>
+                <Box
+                  fontSize={"sm"}
+                  as={Button}
+                  colorScheme={"brand"}
+                  width={"100%"}
+                >
+                  <Icon mr={2} as={FaCalculator} /> Child Support Calculator
+                </Box>
               </GatsbyLink>
               <Text
                 mt={2}
@@ -57,17 +73,25 @@ export default function Home() {
               </GatsbyLink>
             </Box>
 
-            <Box pl={["4","8","8"]} pr={["4","8","8"]} flex={1} ml={{ md: 12 }}>
-              <GatsbyLink className={colorMode === "dark" ? "homedark" : "homelight"} to="/restitution">
-              <Box
-                fontSize={"sm"}
-                as={Button}
-                colorScheme={"brand"}
-                width={"100%"}
+            <Box
+              pl={["4", "8", "8"]}
+              pr={["4", "8", "8"]}
+              flex={1}
+              ml={{ md: 12 }}
+            >
+              <GatsbyLink
+                className={colorMode === "dark" ? "homedark" : "homelight"}
+                to="/restitution"
               >
-                <Icon as={FaRegFileAlt} mr={2} />
-                Restitution Worksheet
-              </Box>
+                <Box
+                  fontSize={"sm"}
+                  as={Button}
+                  colorScheme={"brand"}
+                  width={"100%"}
+                >
+                  <Icon as={FaRegFileAlt} mr={2} />
+                  Restitution Worksheet
+                </Box>
               </GatsbyLink>
               <Text
                 mt={2}
