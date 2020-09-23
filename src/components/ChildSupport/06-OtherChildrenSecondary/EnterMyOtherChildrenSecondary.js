@@ -21,7 +21,7 @@ export const EnterMyOtherChildrenSecondary = () => {
       [name]: value,
     })
   }
-  const otherParent = form.values.OtherParent.fname
+  const otherParent const otherParent = form.values.OtherParent
     ? form.values.OtherParent.fname
     : "other parent"
   return (

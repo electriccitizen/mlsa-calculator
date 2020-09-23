@@ -10,7 +10,7 @@ export const ParentingDays = number => {
   const form = useForm({ subscribe: true })
   const numChildren = form.values.NumPrimaryChildren
 
-  const otherParent = form.values.OtherParent.fname
+  const otherParent = form.values.OtherParent
     ? form.values.OtherParent.fname
     : "Other parent"
 
