@@ -176,7 +176,7 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
       >
         <DrawerOverlay>
           <DrawerContent bg={colorMode === "dark" ? "gray.300" : "gray.50"}>
-            <DrawerCloseButton />
+            <DrawerCloseButton color={"gray.100"} />
             <DrawerHeader color={"gray.100"} bg={"brand.500"}>
               <Icon
                 as={
@@ -190,53 +190,59 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
             </DrawerHeader>
             <DrawerBody color={"gray.900"}>
               <Menu>
-                {form.steps.map((step, index) =>
-                  step.name === "TermsOfUse" && !step.isValid ? (
-                    <MenuItem
-                      onClick={() => handleSubmit("/")}
-                      pl={0}
-                      key={index}
-                    >
-                      Exit the worksheet?
-                    </MenuItem>
-                  ) : (
-                    <MenuItem
-                      key={index}
-                      isDisabled={step.isValid ? false : true}
-                      onClick={() => form.goToStep(step.name)}
-                      pl={
-                        step.name.startsWith("EnterChildren") ||
-                        step.name.startsWith("EnterMyOtherChildren") ||
-                        step.name.startsWith("TaxableIncome") ||
-                        step.name.startsWith("NonTaxableIncome") ||
-                        step.name.startsWith("OtherAllowableDeductions") ||
-                        step.name.startsWith("OtherJobs") === true ||
-                        step.name.startsWith("EnterOtherJobs") === true ||
-                        step.name === "CurrentJob" === true
-                          ? "8"
-                          : "0"
-                      }
-                    >
-                      {switchLabel(
-                        step.name,
-                        step.label,
-                        index,
-                        (step.name.startsWith("ChildExpenses") ||
+                {form.steps.map(
+                  (step, index) =>
+                    step.name !== "CompleteApp" && (
+                      <MenuItem
+                        key={index}
+                        isDisabled={step.isValid ? false : true}
+                        onClick={() => form.goToStep(step.name)}
+                        pl={
                           step.name.startsWith("EnterChildren") ||
-                          step.name.startsWith("EnterMyOtherChildren")) &&
-                          step.name.charAt(step.name.length - 1),
-                        numChildren
-                      )}
-                    </MenuItem>
-                  )
+                          step.name.startsWith("EnterMyOtherChildren") ||
+                          step.name.startsWith("TaxableIncome") ||
+                          step.name.startsWith("NonTaxableIncome") ||
+                          step.name.startsWith("OtherAllowableDeductions") ||
+                          step.name.startsWith("OtherJobs") === true ||
+                          step.name.startsWith("EnterOtherJobs") === true ||
+                          (step.name === "CurrentJob") === true
+                            ? "8"
+                            : "0"
+                        }
+                      >
+                        {switchLabel(
+                          step.name,
+                          step.label,
+                          index,
+                          (step.name.startsWith("ChildExpenses") ||
+                            step.name.startsWith("EnterChildren") ||
+                            step.name.startsWith("EnterMyOtherChildren")) &&
+                            step.name.charAt(step.name.length - 1),
+                          numChildren
+                        )}
+                      </MenuItem>
+                    )
                 )}
-                {app === "supportIntro" && (
-                  <MenuItem
-                    pl={0}
-                    onClick={() => handleSubmit("/child-support/calculator")}
-                  >
-                    Start interview
+                {form.isValid && app === "support" && (
+                  <MenuItem onClick={() => form.goToStep("CompleteApp")} pl={0}>
+                   Complete interview
                   </MenuItem>
+                )}
+                {app === "support" && (
+                  <MenuItem onClick={() => handleSubmit("/")} pl={0}>
+                    Exit interview
+                  </MenuItem>
+                )}
+
+                {app === "supportIntro" && (
+                  <>
+                    <MenuItem
+                      pl={0}
+                      onClick={() => handleSubmit("/child-support/calculator")}
+                    >
+                      Start interview
+                    </MenuItem>
+                  </>
                 )}
                 {app === "restitutionIntro" && (
                   <MenuItem

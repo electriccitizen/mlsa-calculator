@@ -14,7 +14,7 @@ export const OtherParent = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldInput
-          name={`OtherParentName`}
+          name={`OtherParent.fname`}
           label="First"
           required="Required"
           //

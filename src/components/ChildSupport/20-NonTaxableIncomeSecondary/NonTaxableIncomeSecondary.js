@@ -21,7 +21,7 @@ export const NonTaxableIncomeSecondary = () => {
   const form = useForm({
     subscribe: {
       fields: [
-        "OtherParentName",
+        "OtherParent.fname",
         "OtherIncomeSecondary",
         "OtherIncomeSecondary.nontaxable",
       ],
@@ -54,8 +54,8 @@ export const NonTaxableIncomeSecondary = () => {
     setCollection(c => c.filter(x => x.id !== id))
   }
 
-  const otherParent = form.values.OtherParentName
-    ? form.values.OtherParentName
+  const otherParent = form.values.OtherParent.fname
+    ? form.values.OtherParent.fname
     : "Other parent"
   const Expense = index => (
     <FieldSelect

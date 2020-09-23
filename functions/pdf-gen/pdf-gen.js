@@ -15,33 +15,23 @@ process.env.LD_LIBRARY_PATH = process.env.LAMBDA_TASK_ROOT + "/src/bin"
 
 const data = {
   "initiate.csed": "1234",
-  "basic.mother.name": "Jane Doe",
-  "basic.father.name": "John Doe",
+  "basic.mother.name": "Dane Doe",
+  "basic.father.name": "Dohnny Doe",
   "initiate.documents.a": "On",
 }
 
-const boo = {
-  "basic.mname": null,
-  "basic.": null,
-  "basic.fname": "safd",
-  "basic.lname": "asdf",
-  "basic.address": "asdf",
-  "basic.city": "asdf",
-  "basic.state": "asdf",
-  "basic.zip": "asdf",
-  "basic.mailing": "yes",
-  "initiate.relationship": "mother",
-  "initiate.documents": "affadavit",
+function processData(myData) {
+  data["basic.mother.name"] = myData.Primary.fname + " " + myData.Primary.lname
+  data["basic.father.name"] =
+    myData.OtherParent.fname + " " + myData.OtherParent.lname
+  return data
 }
 
-//exports.handler = async (event, context,callback) => {
 exports.handler = function (event, context, callback) {
   var body = ""
   if (event.body !== null && event.body !== undefined) {
-    body = JSON.parse(event.body)
-    console.log(body)
-    body["basic.mother.name"] = body["basic.fname"] + " " + body["basic.lname"]
-    body["basic.father.name"] = body["other.fname"] + " " + body["other.lnamer"]
+    const formData = JSON.parse(event.body)
+    processData(formData)
   } else {
     body = null
     console.log("no luck")

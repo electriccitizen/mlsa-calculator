@@ -3,10 +3,14 @@ import { FormizStep } from "@formiz/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { Text, Link, Icon, useColorMode, Tooltip, Box } from "@chakra-ui/core"
 import { FaExternalLinkAlt } from "react-icons/fa/index"
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
+import { useRules, RulesProvider } from "../../../hooks/useRulesContext"
+
 export const IntroHelp = () => {
   const { colorMode } = useColorMode()
   return (
-    <FormizStep label="Getting help" name="introHelp" order={1000}>
+    <RulesProvider>
+      <FormizStep label="Getting help" name="introHelp" order={1000}>
         <SectionHeader header={"Getting help"} />
         <Text>
           As you go through each section of the interview, you will find help
@@ -20,8 +24,32 @@ export const IntroHelp = () => {
           mb={4}
           color={colorMode === "dark" ? "gray.600" : "gray.500"}
         >
+          Try toggling the administrative rules help.
+        </Text>
+        <Box pl={"12"} pr={"12"}>
+          <SectionHeader header={"Administrative rules help:"} />
+          <AdministrativeRules
+            rules={[101, 102, 103, 140]}
+            isRulesStatus={true}
+            explanation={
+              "For definitions and more information, click on the links below:"
+            }
+          />
+          <Box mt="4" mb="4" fontSize={"lg"}>
+            These rules will be available on each page of the interview and
+            provide links to relevant administrative rules of Montana.
+          </Box>
+        </Box>
+        <Text
+          pr={4}
+          pl={4}
+          mt={4}
+          mb={4}
+          color={colorMode === "dark" ? "gray.600" : "gray.500"}
+        >
           Try clicking the question mark below for an example.
         </Text>
+
         <Box pl={"12"} pr={"12"}>
           <SectionHeader
             header={"Additional help example:"}
@@ -37,6 +65,10 @@ export const IntroHelp = () => {
                 " also include links to specific guidelines.",
             }}
           />
+          <Box mt="4" mb="4" fontSize={"lg"}>
+            This icon will be available any time there is additional informatin
+            or tips about a particular step in the interview.
+          </Box>
         </Box>
         <Text
           pr={4}
@@ -47,7 +79,7 @@ export const IntroHelp = () => {
         >
           Now try hovering over the tooltip below:
         </Text>
-        <Box pl={"12"} pr={"12"}>
+        <Box mt="4" mb="4" fontSize={"lg"} pl={"12"} pr={"12"}>
           <SectionHeader header={"Tooltip example:"} />
           <Text mb={8}>
             You will see this symbol
@@ -78,6 +110,7 @@ export const IntroHelp = () => {
           progress through the interview. that apply to specific questions
           throughout the interview.
         </Text>
-    </FormizStep>
+      </FormizStep>
+    </RulesProvider>
   )
 }

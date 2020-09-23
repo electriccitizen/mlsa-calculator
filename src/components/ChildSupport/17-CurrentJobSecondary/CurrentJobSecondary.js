@@ -8,7 +8,7 @@ import { FieldDate } from "../../Fields/FieldDate"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const CurrentJobSecondary = d => {
-  const form = useForm({ subscribe: { fields: ["OtherParentName"] } })
+  const form = useForm({ subscribe: { fields: ["OtherParent.fname"] } })
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
@@ -16,8 +16,8 @@ export const CurrentJobSecondary = d => {
       [name]: value,
     })
   }
-  const otherParent = form.values.OtherParentName
-    ? form.values.OtherParentName
+  const otherParent = form.values.OtherParent.fname
+    ? form.values.OtherParent.fname
     : "other parent"
 
   let GrossAmountLabel = ""

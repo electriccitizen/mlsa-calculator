@@ -36,9 +36,7 @@ export default function Home() {
             restitution costs for victims of crime.
           </Text>
           <Text mb={4} color={colorMode === "dark" ? "gray.600" : "gray.500"}>
-            Choose the tool you'd like to use to get started. If this is your
-            first time here, our short guides will help you effectively use
-            these tools.
+            Choose the tool you'd like to use to get started with a short guide.
           </Text>
           <Box display={{ md: "flex" }}>
             <Box
@@ -63,8 +61,9 @@ export default function Home() {
               <Text
                 mt={2}
                 color={colorMode === "dark" ? "gray.600" : "gray.500"}
+                fontSize={"xl"}
               >
-                Use our calculator to help determine child support costs for
+                Help determine child support costs for
                 those involved in, or considering divorce, child custody, or
                 parenting plan actions.
               </Text>
@@ -95,11 +94,10 @@ export default function Home() {
               </GatsbyLink>
               <Text
                 mt={2}
+                fontSize={"xl"}
                 color={colorMode === "dark" ? "gray.600" : "gray.500"}
               >
-                Use the restitution worksheet to help determine child support
-                costs for those involved in, or considering divorce, child
-                custody, or parenting plan actions.
+                Use the restitution worksheet to help determine [need further description for this tool roughly same length as calculator text].
               </Text>
               <GatsbyLink to="/restitution">
                 <Button>Start</Button>

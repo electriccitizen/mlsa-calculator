@@ -21,7 +21,11 @@ const defaultCollection = [
 export const TaxableIncomeSecondary = () => {
   const form = useForm({
     subscribe: {
-      fields: ["OtherParentName","OtherIncomeSecondary", "OtherIncomeSecondary.taxable"],
+      fields: [
+        "OtherParent.fname",
+        "OtherIncomeSecondary",
+        "OtherIncomeSecondary.taxable",
+      ],
     },
   })
   const [state, setState] = useState({})
@@ -51,8 +55,8 @@ export const TaxableIncomeSecondary = () => {
     setCollection(c => c.filter(x => x.id !== id))
   }
 
-  const otherParent = form.values.OtherParentName
-    ? form.values.OtherParentName
+  const otherParent = form.values.OtherParent.fname
+    ? form.values.OtherParent.fname
     : "Other parent"
 
   const Amount = index => (

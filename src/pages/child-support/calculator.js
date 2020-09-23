@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-// import printJS from "print-js"
+import printJS from "print-js"
 import { Formiz, useForm } from "@formiz/core"
 import { TermsOfUse } from "../../components/ChildSupport/TermsOfUse"
 import { InitiateInterview } from "../../components/ChildSupport/01-InitiateInterview/IntiateInterview"
@@ -74,7 +74,6 @@ export default function Calculator() {
     })
       .then(response => response.json())
       .then(data => {
-        //console.log('Data:', data);
         setAppState({
           complete: true,
           loading: false,
@@ -86,72 +85,27 @@ export default function Calculator() {
         console.error("Error:", error)
       })
   }
-  console.log(appState.complete)
-  //
-  // fetch('../../.netlify/functions/pdf-gen/', {
-  //   method: 'post',
-  //   headers: {
-  //     'Accept': 'application/json, text/plain, */*',
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: foo
-  // })
-  //
-  //   .then(data => {
-  //     console.log(data.body)
-  //     setAppState({
-  //       complete: true,
-  //       loading: false,
-  //       pdf: data,
-  //       values: values,
-  //     })
-  //   })
 
-  // fetch("../../.netlify/functions/pdf-gen/", {
-  //   method: "POST", // or 'PUT'
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({a: 1, b: 2})
-  // })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     setAppState({
-  //       complete: true,
-  //       loading: false,
-  //       pdf: data,
-  //       values: values,
-  //     })
-  //   })
-  //   .catch(error => {
-  //     console.error("Error:", error)
-  //   })
-  // }
+  // console.log(appState.pdf)
 
   const documents = form.values.Documents ? form.values.Documents : ""
-
-  const [isLoading, setIsLoading] = useState(true)
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 100)
-  })
 
   return (
     <>
       <Beforeunload onBeforeunload={event => event.preventDefault()} />
-      {/*{isLoading ? (*/}
-      {/*  <h1>Loading</h1>*/}
-      {/*) : (*/}
       <Formiz connect={form} onValidSubmit={handleSubmit}>
         <MultiStepsLayout
           app="support"
           buttonTitle="Child Support Calculator"
-          submitLabel="Finish"
+          submitLabel={
+            documents === "both" ? "Generate documents" : "Generate document"
+          }
         >
           <RulesProvider>
             <TermsOfUse />
-            {/*<InitiateInterview />*/}
-            {/*<BasicInformation />*/}
-            {/*<OtherParent />*/}
+            <InitiateInterview />
+            <BasicInformation />
+            <OtherParent />
             {/*<NumberChildren />*/}
             {/*<EnterChildren />*/}
             {/*<OtherChildren />*/}
@@ -195,14 +149,14 @@ export default function Calculator() {
               {/*<HealthInsurance />*/}
               {/*<HealthInsurancePolicies />*/}
               {/*<FinancialAffadavitTwo />*/}
-              <FinancialAffadavitThree />
+              {/*<FinancialAffadavitThree />*/}
             </>
             {/*)}*/}
-            <CompleteApp />
+            {/*{console.log(appState.pdf)}*/}
+            <CompleteApp state={appState.complete} pdf={appState.pdf} />
           </RulesProvider>
         </MultiStepsLayout>
       </Formiz>
-      {/*)}*/}
     </>
   )
 }

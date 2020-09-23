@@ -5,14 +5,15 @@ import { FieldDate } from "../../Fields/FieldDate"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { Box, Stack } from "@chakra-ui/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
-import { AlertBox } from '../../Utils/AlertBox'
-import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
+import { AlertBox } from "../../Utils/AlertBox"
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const EnterChildren = () => {
   const form = useForm({
-    subscribe: { fields: ["OtherParentName", "NumPrimaryChildren"] },
+    subscribe: { fields: ["OtherParent.fname", "NumPrimaryChildren"] },
   })
-  const otherParent = form.values.OtherParentName && form.values.OtherParentName
+  const otherParent =
+    form.values.OtherParent.fname && form.values.OtherParent.fname
   let numChildren = form.values.NumPrimaryChildren
 
   const [state, setState] = useState({})
@@ -96,16 +97,16 @@ export const EnterChildren = () => {
                   in the child support calculations. Continue to the next step.
                 </AlertBox>
               )}
-              <FieldRadio
-                name={`PrimaryChildren.${index}.disabled`}
-                label="Does this child have a disability?"
-                required="Required"
-                index={index}
-                options={[
-                  { value: "yes", label: "Yes" },
-                  { value: "no", label: "No" },
-                ]}
-              />
+            <FieldRadio
+              name={`PrimaryChildren.${index}.disabled`}
+              label="Does this child have a disability?"
+              required="Required"
+              index={index}
+              options={[
+                { value: "yes", label: "Yes" },
+                { value: "no", label: "No" },
+              ]}
+            />
           </>
           <AdministrativeRules
             rules={[103]}

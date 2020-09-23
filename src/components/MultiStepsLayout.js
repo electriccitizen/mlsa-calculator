@@ -5,7 +5,7 @@ import { useForm } from "@formiz/core"
 import { PageLayout } from "../layout/PageLayout"
 import { Box, Grid, Button, Stack } from "@chakra-ui/core"
 import { CustomDrawer } from "./Utils/CustomDrawer"
-
+import { navigate } from "gatsby"
 const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   form: PropTypes.object,
@@ -25,9 +25,11 @@ export const MultiStepsLayout = ({
   buttonTitle,
   ...props
 }) => {
-  const form = useForm({ subscribe: { form: true, fields: ['TermsOfUse'] } })
+  const form = useForm({ subscribe: { form: true, fields: ["TermsOfUse"] } })
   const hasSteps = !!form.steps.length
-
+  const handleExit = (dest) => {
+    navigate(dest)
+  }
   return (
     <PageLayout {...props}>
       <form noValidate onSubmit={hasSteps ? form.submitStep : form.submit}>
@@ -53,19 +55,45 @@ export const MultiStepsLayout = ({
             >
               Step {form.currentStep.index + 1} / {form.steps.length}
             </Box>
+            {!form.isLastStep &&
             <Button
               type="submit"
               gridColumn="3"
               colorScheme="brand"
               isDisabled={
-                (app === "support" && form.values && form.values.TermsOfUse !== "yes")
+                app === "support" &&
+                form.values &&
+                form.values.TermsOfUse !== "yes"
                   ? true
                   : (form.isLastStep ? !form.isValid : !form.isStepValid) &&
-                    form.isStepSubmitted
+                  form.isStepSubmitted
               }
             >
               {form.isLastStep ? submitLabel : "Next"}
             </Button>
+            }
+            {form.isLastStep && app === "support" && (
+              <Box
+                gridColumn="3"
+                textAlign="right"
+                fontSize="sm"
+                color="gray.500"
+                mt={2}
+              >
+                <Button colorScheme={"red"} onClick={() => handleExit("/")}>Exit interview</Button>
+              </Box>
+            )}
+            {form.isLastStep && app === "supportIntro" && (
+              <Box
+                gridColumn="3"
+                textAlign="right"
+                fontSize="sm"
+                color="gray.500"
+                mt={2}
+              >
+                <Button colorScheme={"brand"} onClick={() => handleExit("/child-support/calculator")}>Start interview</Button>
+              </Box>
+            )}
           </Grid>
         )}
         {app === "supportIntro" && (

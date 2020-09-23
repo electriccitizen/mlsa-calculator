@@ -2,11 +2,12 @@ import React from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldRadio } from "../../Fields/FieldRadio"
-import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const NumberChildren = () => {
-  const form = useForm({ subscribe: { fields: ["OtherParentName"] } })
-  const otherParent = form.values.OtherParentName && form.values.OtherParentName
+  const form = useForm({ subscribe: { fields: ["OtherParent.fname"] } })
+  const otherParent =
+    form.values.OtherParent.fname && form.values.OtherParent.fname
 
   return (
     <FormizStep label="Number of Children" name="NumberChildren" order={3000}>

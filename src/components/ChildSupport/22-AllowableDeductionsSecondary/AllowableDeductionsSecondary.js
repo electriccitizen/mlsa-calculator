@@ -6,14 +6,14 @@ import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
-import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const AllowableDeductionsSecondary = () => {
   const form = useForm({
-    subscribe: { fields: ["OtherParentName"] },
+    subscribe: { fields: ["OtherParent.fname"] },
   })
-  const otherParent = form.values.OtherParentName
-    ? form.values.OtherParentName
+  const otherParent = form.values.OtherParent.fname
+    ? form.values.OtherParent.fname
     : "Other parent"
   const [checkedItems, setCheckedItems] = useState({})
   return (
@@ -340,7 +340,7 @@ export const AllowableDeductionsSecondary = () => {
         </Box>
       )}
       <AdministrativeRules
-        rules={[110,111]}
+        rules={[110, 111]}
         explanation={
           "For definitions and more information, click on the links below:"
         }

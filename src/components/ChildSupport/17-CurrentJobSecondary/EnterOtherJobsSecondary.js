@@ -9,7 +9,7 @@ import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const EnterOtherJobsSecondary = () => {
   const form = useForm({
-    subscribe: { fields: ["OtherParentName", "NumOtherSecondaryJobs"] },
+    subscribe: { fields: ["OtherParent.fname", "NumOtherSecondaryJobs"] },
   })
   const numOtherJobsSecondary = form.values.NumOtherSecondaryJobs
   const [state, setState] = useState({})
@@ -40,8 +40,8 @@ export const EnterOtherJobsSecondary = () => {
     return GrossAmountLabel
   }
 
-  const otherParent = form.values.OtherParentName
-    ? form.values.OtherParentName
+  const otherParent = form.values.OtherParent.fname
+    ? form.values.OtherParent.fname
     : "other parent"
 
   return (

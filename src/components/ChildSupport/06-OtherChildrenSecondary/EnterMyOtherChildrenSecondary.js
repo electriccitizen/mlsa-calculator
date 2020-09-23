@@ -7,11 +7,11 @@ import { FieldRadio } from "../../Fields/FieldRadio"
 import { Stack } from "@chakra-ui/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AlertBox } from "../../Utils/AlertBox"
-import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const EnterMyOtherChildrenSecondary = () => {
   const form = useForm({
-    subscribe: { fields: ["OtherParentName", "NumOtherChildrenSecondary"] },
+    subscribe: { fields: ["OtherParent.fname", "NumOtherChildrenSecondary"] },
   })
   const numChildrenSecondary = form.values.NumOtherChildrenSecondary
   const [state, setState] = useState({})
@@ -21,8 +21,8 @@ export const EnterMyOtherChildrenSecondary = () => {
       [name]: value,
     })
   }
-  const otherParent = form.values.OtherParentName
-    ? form.values.OtherParentName
+  const otherParent = form.values.OtherParent.fname
+    ? form.values.OtherParent.fname
     : "other parent"
   return (
     <>
@@ -190,19 +190,19 @@ export const EnterMyOtherChildrenSecondary = () => {
               the child support calculations. Continue to the next step.
             </AlertBox>
           )}
-            <FieldRadio
-              name={`OtherChildrenSecondary.${index}.disabled`}
-              label="Does this child have a disability?"
-              required="Required"
-              index={index}
-              updateState={updateState}
-              options={[
-                { value: "yes", label: "Yes" },
-                { value: "no", label: "No" },
-              ]}
-            />
+          <FieldRadio
+            name={`OtherChildrenSecondary.${index}.disabled`}
+            label="Does this child have a disability?"
+            required="Required"
+            index={index}
+            updateState={updateState}
+            options={[
+              { value: "yes", label: "Yes" },
+              { value: "no", label: "No" },
+            ]}
+          />
           <AdministrativeRules
-            rules={[103,110,111]}
+            rules={[103, 110, 111]}
             explanation={
               "For definitions and more information, click on the links below:"
             }

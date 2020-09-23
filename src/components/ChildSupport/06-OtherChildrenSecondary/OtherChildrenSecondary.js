@@ -6,7 +6,7 @@ import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const OtherChildrenSecondary = () => {
   const form = useForm({
-    subscribe: { fields: ["OtherParentName"] },
+    subscribe: { fields: ["OtherParent.fname"] },
   })
   const [state, setState] = useState({})
 
@@ -16,8 +16,8 @@ export const OtherChildrenSecondary = () => {
       [name]: value,
     })
   }
-  const otherParent = form.values.OtherParentName
-    ? form.values.OtherParentName
+  const otherParent = form.values.OtherParent.fname
+    ? form.values.OtherParent.fname
     : "other parent"
 
   return (

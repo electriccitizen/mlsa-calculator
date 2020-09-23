@@ -38,8 +38,8 @@ export const ChildExpensesSecondary = () => {
     setAdditionalExpenses(s => s.filter(x => x.id !== id))
   }
 
-  const otherParent = form.values.OtherParentName
-    ? form.values.OtherParentName
+  const otherParent = form.values.OtherParent.fname
+    ? form.values.OtherParent.fname
     : "other parent"
 
   return (

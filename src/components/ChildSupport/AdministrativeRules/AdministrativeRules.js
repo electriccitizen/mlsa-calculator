@@ -152,7 +152,7 @@ const Rules = [
 ]
 
 export const AdministrativeRules = ({ explanation, rules, isRulesStatus }) => {
-  const [isRules, setIsRules] = useRules()
+  const [isRules, setIsRules] = useRules(true)
   let updateState = value => {
     setIsRules(value === true ? false : true)
   }

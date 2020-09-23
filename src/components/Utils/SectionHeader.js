@@ -45,7 +45,7 @@ export const SectionHeader = ({ header, helpText, helpLinks }) => {
         fontWeight={"bold"}
         rounded={"lg"}
       >
-        <Heading mt={0} as={"h3"} size="md">
+        <Heading p={2} mt={0} as={"h3"} size="md">
           {header}
         </Heading>
         {helpText && (

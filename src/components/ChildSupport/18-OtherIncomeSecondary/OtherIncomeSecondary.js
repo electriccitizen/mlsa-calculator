@@ -7,14 +7,14 @@ import { FieldRadio } from "../../Fields/FieldRadio"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { SectionHeader } from "../../Utils/SectionHeader"
-import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const OtherIncomeSecondary = () => {
   const form = useForm({
-    subscribe: { fields: ["OtherParentName"] },
+    subscribe: { fields: ["OtherParent.fname"] },
   })
-  const otherParent = form.values.OtherParentName
-    ? form.values.OtherParentName
+  const otherParent = form.values.OtherParent.fname
+    ? form.values.OtherParent.fname
     : "Other parent"
 
   const [checkedItems, setCheckedItems] = useState({})
@@ -227,7 +227,7 @@ export const OtherIncomeSecondary = () => {
         </Box>
       )}
       <AdministrativeRules
-        rules={[105,106,108,144]}
+        rules={[105, 106, 108, 144]}
         explanation={
           "For definitions and more information, click on the links below:"
         }

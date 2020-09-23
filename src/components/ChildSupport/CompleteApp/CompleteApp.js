@@ -1,14 +1,242 @@
-import React from "react"
-import { FormizStep } from "@formiz/core"
-import { FieldInput } from "../../Fields/FieldInput"
-import { Button, Stack } from "@chakra-ui/core"
+import React, { useState } from "react"
+import { FormizStep, useForm } from "@formiz/core"
+import { Heading, Box, Button, Text, Stack } from "@chakra-ui/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
+import printJS from "print-js"
+import { navigate } from "gatsby"
 
-export const CompleteApp = () => {
+export const CompleteApp = ({ state, pdf }) => {
+  const form = useForm({ subscribe: { fields: ["Documents"] } })
+
+  const [counter, setCounter] = useState(0)
+
+  const handlePrint = () => {
+    const base64 = pdf
+    printJS({ printable: base64, type: "pdf", base64: true })
+  }
+
+  const handleExit = () => {
+    setCounter(0)
+    navigate("/")
+  }
+
+  const pdfFile = pdf ? pdf.pdf : null
+
+  const Documents = form.values.Documents
+  const docPlural = Documents === "both" ? "documents " : "document "
+
+  const docText =
+    Documents === "both"
+      ? "child support worksheet and financial affadavit"
+      : Documents === "affadavit"
+      ? "financial affadavit"
+      : "child support worksheet"
+
   return (
     <FormizStep label={"Complete Interview"} name="CompleteApp" order={30000}>
-      <SectionHeader header={`Complete`} />
-     <Button colorScheme={"brand"}>Download PDF</Button>
+      <SectionHeader header={`Interview complete`} />
+      <Text mb={4} fontSize="lg">
+        Your interview is now complete. Generate your completed {docText} below
+        for download or printing:
+      </Text>
+
+      <Box
+        bg={state === true ? "gray.100" : "none"}
+        width={["100%", "80%", "80%"]}
+        alignContent={"center"}
+        margin={"auto"}
+        mb={8}
+       p={state === true ? "8" : "0"}
+        rounded={"lg"}
+      >
+        {state === true && (
+          <Stack
+            direction={["column", "column", "row"]}
+            spacing={["0", "0", "1rem"]}
+          >
+            {(Documents === "both" || Documents === "worksheets") && (
+              <>
+                <Box flex={1}>
+                  <Heading
+                    fontFamily={
+                      '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
+                      "               Roboto, Oxygen-Sans, Ubuntu, Cantarell,\n" +
+                      '               "Helvetica Neue", sans-serif;'
+                    }
+                    as={"h3"}
+                    fontSize="lg"
+                  >
+                    Child Support Worksheet
+                  </Heading>
+                  <Text fontSize={"sm"}>
+                    Montana Child Support Worksheet A and any supporting
+                    documentation.
+                  </Text>
+                </Box>
+                <Box mt={8} flex={1}>
+                  <Button
+                    isDisabled={state === true ? false : true}
+                    width="auto"
+                    colorScheme="brand"
+                    type="button"
+                    mr={4}
+                  >
+                    <a
+                      class="logo"
+                      href={"data:application/pdf;base64," + pdfFile + ""}
+                      download="MontanaChildSupportWorksheet.pdf"
+                    >
+                      Download
+                    </a>
+                  </Button>
+                  <Button
+                    isDisabled={state === true ? false : true}
+                    width="auto"
+                    colorScheme="brand"
+                    type="button"
+                    onClick={handlePrint}
+                  >
+                    Print
+                  </Button>
+                  <Text mt="2" fontSize={"sm"}>
+                    Revision {counter}
+                  </Text>
+                </Box>
+              </>
+            )}
+          </Stack>
+        )}
+
+        {state === true && (
+          <Stack
+            direction={["column", "column", "row"]}
+            spacing={["0", "0", "1rem"]}
+            mt={8}
+          >
+            {(Documents === "both" || Documents === "affadavit") && (
+              <>
+                <Box flex={1}>
+                  <Heading
+                    fontFamily={
+                      '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
+                      "               Roboto, Oxygen-Sans, Ubuntu, Cantarell,\n" +
+                      '               "Helvetica Neue", sans-serif;'
+                    }
+                    as={"h3"}
+                    fontSize="lg"
+                  >
+                    Financial affadavit
+                  </Heading>
+                  <Text fontSize={"sm"}>
+                    Your financial affadivit document and any supporting
+                    documentation.
+                  </Text>
+                </Box>
+                <Box mt={8} flex={1}>
+                  <Button
+                    isDisabled={state === true ? false : true}
+                    width="auto"
+                    colorScheme="brand"
+                    type="button"
+                    mr={4}
+                  >
+                    <a
+                      class="logo"
+                      href={"data:application/pdf;base64," + pdfFile + ""}
+                      download="MontanaChildSupportWorksheet.pdf"
+                    >
+                      Download
+                    </a>
+                  </Button>
+                  <Button
+                    isDisabled={state === true ? false : true}
+                    width="auto"
+                    colorScheme="brand"
+                    type="button"
+                    onClick={handlePrint}
+                  >
+                    Print
+                  </Button>
+                  <Text mt="2" fontSize={"sm"}>
+                    Revision {counter}
+                  </Text>
+                </Box>
+              </>
+            )}
+          </Stack>
+        )}
+
+      </Box>
+      <Stack align={"center"} >
+        <Button
+          colorScheme={"brand"}
+          type={"submit"}
+          onClick={() => setCounter(counter + 1)}
+        >
+          {counter === 0
+            ? "Generate " + docPlural
+            : "Regenerate " + docPlural + "?"}
+        </Button>
+        { counter > 0 && (
+        <Text width="300px" fontSize={"sm"}>If necessary, you can edit your responses and regenerate your {docPlural}.</Text>
+        )}
+      </Stack>
+      <Text pl={16} pr={16} mt={8} fontSize="sm">
+        Your session will remain active as long as this browser window remains
+        open. Click <a onClick={handleExit}>exit interview</a> to clear your
+        data and return to the homepage.
+      </Text>
     </FormizStep>
   )
 }
+
+// {(Documents === "both" || Documents === "worksheets") && (
+//   <>
+//     <Heading
+//       fontFamily={
+//         '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
+//         "               Roboto, Oxygen-Sans, Ubuntu, Cantarell,\n" +
+//         '               "Helvetica Neue", sans-serif;'
+//       }
+//       as={"h3"}
+//       fontSize="lg"
+//       mt={8}
+//     >
+//       Financial Affadavit
+//     </Heading>
+//     <Text fontSize={"sm"}>
+
+//     </Text>
+//     <Box>
+//       <>
+//         <Button
+//           isDisabled={state === true ? false : true}
+//           width="auto"
+//           colorScheme="brand"
+//           type="button"
+//           mr={4}
+//         >
+//           <a
+//             class="logo"
+//             href={"data:application/pdf;base64," + pdfFile + ""}
+//             download="MontanaChildSupportWorksheet.pdf"
+//           >
+//             Download
+//           </a>
+//         </Button>
+//         <Button
+//           isDisabled={state === true ? false : true}
+//           width="auto"
+//           colorScheme="brand"
+//           type="button"
+//           onClick={handlePrint}
+//         >
+//           Print
+//         </Button>
+//         <Text mt="2" fontSize={"sm"}>
+//           Version {counter}
+//         </Text>
+//       </>
+//     </Box>
+//   </>
+// )}

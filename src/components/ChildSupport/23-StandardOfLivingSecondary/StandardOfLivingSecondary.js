@@ -7,7 +7,7 @@ import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddAnother } from "../../Utils/AddAnother"
-import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 import { v4 as uuidv4 } from "uuid"
 
 const defaultCollection = [
@@ -19,11 +19,11 @@ const defaultCollection = [
 
 export const StandardOfLivingSecondary = number => {
   const form = useForm({
-    subscribe: { fields: ["OtherParentName"] },
+    subscribe: { fields: ["OtherParent.fname"] },
   })
 
-  const otherParent = form.values.OtherParentName
-    ? form.values.OtherParentName
+  const otherParent = form.values.OtherParent.fname
+    ? form.values.OtherParent.fname
     : "Other parent"
 
   const [state, setState] = useState({})
@@ -74,8 +74,9 @@ export const StandardOfLivingSecondary = number => {
       order={23000}
     >
       <Box mb="8">
-        <SectionHeader header={otherParent + `'s Standard of Living adjustment`} />
-
+        <SectionHeader
+          header={otherParent + `'s Standard of Living adjustment`}
+        />
       </Box>
       <FieldRadio
         name={`StandardOfLivingSecondary.mileage`}
@@ -144,7 +145,7 @@ export const StandardOfLivingSecondary = number => {
           <AddPlaceholder label="Add adjustment" onClick={addItem} />
         )}
       <AdministrativeRules
-        rules={[128,130]}
+        rules={[128, 130]}
         explanation={
           "For definitions and more information, click on the links below:"
         }
