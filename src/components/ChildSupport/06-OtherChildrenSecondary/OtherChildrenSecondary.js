@@ -16,7 +16,7 @@ export const OtherChildrenSecondary = () => {
       [name]: value,
     })
   }
-  const otherParent const otherParent = form.values.OtherParent
+  const otherParent = form.values.OtherParent
     ? form.values.OtherParent.fname
     : "other parent"
 

@@ -54,7 +54,7 @@ export const NonTaxableIncomeSecondary = () => {
     setCollection(c => c.filter(x => x.id !== id))
   }
 
-  const otherParent const otherParent = form.values.OtherParent
+  const otherParent = form.values.OtherParent
     ? form.values.OtherParent.fname
     : "Other parent"
   const Expense = index => (
