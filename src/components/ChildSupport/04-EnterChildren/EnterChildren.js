@@ -13,7 +13,7 @@ export const EnterChildren = () => {
     subscribe: { fields: ["OtherParent.fname", "NumPrimaryChildren"] },
   })
   const otherParent =
-    form.values.OtherParent.fname && form.values.OtherParent.fname
+    form.values.OtherParent && form.values.OtherParent.fname
   let numChildren = form.values.NumPrimaryChildren
 
   const [state, setState] = useState({})
