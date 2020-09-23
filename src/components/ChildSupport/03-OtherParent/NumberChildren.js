@@ -7,7 +7,7 @@ import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 export const NumberChildren = () => {
   const form = useForm({ subscribe: { fields: ["OtherParent.fname"] } })
   const otherParent =
-    form.values.OtherParent.fname && form.values.OtherParent.fname
+    form.values.OtherParent && form.values.OtherParent.fname
 
   return (
     <FormizStep label="Number of Children" name="NumberChildren" order={3000}>
