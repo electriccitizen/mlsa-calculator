@@ -12,6 +12,9 @@ var exec = require("child_process").exec
 process.env.PATH =
   process.env.PATH + ":" + process.env.LAMBDA_TASK_ROOT + "/src/bin"
 process.env.LD_LIBRARY_PATH = process.env.LAMBDA_TASK_ROOT + "/src/bin"
+process.env.PATH =
+  process.env.PATH + ":" + "/var/task/src/bin"
+process.env.LD_LIBRARY_PATH = "/var/task/src/bin/src/bin"
   ///var/lang/bin:/usr/local/bin:/usr/bin/:/bin:/opt/bin:/var/task/src/bin
 const data = {
   "initiate.csed": "1234",
