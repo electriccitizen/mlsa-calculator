@@ -13,8 +13,9 @@ var exec = require("child_process").exec
 //   process.env.PATH + ":" + process.env.LAMBDA_TASK_ROOT + "/src/bin"
 // process.env.LD_LIBRARY_PATH = process.env.LAMBDA_TASK_ROOT + "/src/bin"
 
-process.env.PATH = process.env.PATH + ":" + "/var/task/src/functions/src/bin"
-process.env.LD_LIBRARY_PATH = "/var/task/src/functions/src/bin"
+process.env.PATH =
+  process.env.PATH + ":" + "/var/task/src/functions/pdf-gen/src/bin"
+process.env.LD_LIBRARY_PATH = "/var/task/src/functions/pdf-gen/src/bin"
 ///var/lang/bin:/usr/local/bin:/usr/bin/:/bin:/opt/bin:/var/task/src/bin
 const data = {
   "initiate.csed": "1234",
@@ -66,10 +67,9 @@ exports.handler = function (event, context, callback) {
   // });
 
   //console.log(process.env.PATH)
- exec("pdftk --version", context.done)
-  //exec("pdftk --version", (error, stdout, stderr) => {
-
-  exec("ls -lah " + process.env.LAMBDA_TASK_ROOT + "/src/functions/pdf-gen/src/bin", (error, stdout, stderr) => {
+  //exec("pdftk --version", context.done)
+  exec("pdftk --version", (error, stdout, stderr) => {
+    //exec("ls -lah " + process.env.LAMBDA_TASK_ROOT + "/src/functions/pdf-gen/src/bin", (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`)
       return
