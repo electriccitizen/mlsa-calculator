@@ -125,8 +125,18 @@ function streamToString(stream, cb) {
     //   console.log(`stdout: ${stdout}`);
     // });
 
-    //exec("pdftk --version", (error, stdout, stderr) => {
-    console.log(exec("pdftk --version", context.done))
+    exec("pdftk --version", (error, stdout, stderr) => {
+      if (error) {
+        console.log(`error: ${error.message}`)
+        return
+      }
+      if (stderr) {
+        console.log(`stderr: ${stderr}`)
+        return
+      }
+      console.log(`stdout: ${stdout}`)
+    })
+
     exec("ls -lah /var/task/src/bin", (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`)
