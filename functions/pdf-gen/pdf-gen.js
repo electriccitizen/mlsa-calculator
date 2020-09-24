@@ -37,6 +37,7 @@ exports.handler = function (event, context, callback) {
     console.log("error")
   }
   console.log(exec("pdftk --version", context.done))
+  console.log(process.env.PATH + '--' + process.env.LAMBDA_TASK_ROOT + '--' + process.env.LD_LIBRARY_PATH)
   //localhost:8888/
   // pdfFiller
   //   .fillForm(sourcePDF, data)
