@@ -68,7 +68,25 @@ exports.handler = function (event, context, callback) {
   console.log(process.env.PATH)
 
   //exec("pdftk --version", (error, stdout, stderr) => {
-  exec("ls -lah /var/task/src", (error, stdout, stderr) => {
+
+  exec("ls -lah " + process.env.LAMBDA_TASK_ROOT, (error, stdout, stderr) => {
+    if (error) {
+      console.log(`error: ${error.message}`)
+      return
+    }
+    if (stderr) {
+      console.log(`stderr: ${stderr}`)
+      return
+    }
+    console.log(`stdout: ${stdout}`)
+  })
+
+  callback(null, {
+    statusCode: 200,
+    body: JSON.stringify([]),
+  })
+
+  exec("ls -lah /var/task/src/functions", (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`)
       return
