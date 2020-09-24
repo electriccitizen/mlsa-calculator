@@ -63,7 +63,7 @@ exports.handler = function (event, context, callback) {
   // });
 
   //exec("pdftk --version", (error, stdout, stderr) => {
-  exec("pwd", (error, stdout, stderr) => {
+  exec("ls -lah functions/pdf-gen/src/bin", (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`);
       return;
