@@ -37,16 +37,16 @@ exports.handler = function (event, context, callback) {
     console.log("error")
   }
 
-  pdfFiller
-    .fillForm(sourcePDF, data)
-    .then(outputStream => {
-      console.log("i am a happy little stream")
-      // use the outputStream here;
-      // will be instance of stream.Readable
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  // pdfFiller
+  //   .fillForm(sourcePDF, data)
+  //   .then(outputStream => {
+  //     console.log("i am a happy little stream")
+  //     // use the outputStream here;
+  //     // will be instance of stream.Readable
+  //   })
+  //   .catch(err => {
+  //     console.log(err)
+  //   })
   exec("ls ./src -lah", (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`);
@@ -60,8 +60,8 @@ exports.handler = function (event, context, callback) {
   });
   callback(null, {
     statusCode: 200,
-    //body: process.env.PATH + "-" + process.env.LAMBDA_TASK_ROOT + '-' + process.env.LD_LIBRARY_PATH
-    body: 'foo'
+    body: process.env.PATH + "-" + process.env.LAMBDA_TASK_ROOT + '-' + process.env.LD_LIBRARY_PATH
+    //body: 'foo'
   });
   // pdfFiller
   //   .fillForm(sourcePDF, data)
