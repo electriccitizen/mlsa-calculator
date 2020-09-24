@@ -12,7 +12,7 @@ var exec = require("child_process").exec
 process.env.PATH =
   process.env.PATH + ":" + process.env.LAMBDA_TASK_ROOT + "/src/bin"
 process.env.LD_LIBRARY_PATH = process.env.LAMBDA_TASK_ROOT + "/src/bin"
-
+  ///var/lang/bin:/usr/local/bin:/usr/bin/:/bin:/opt/bin:/var/task/src/bin
 const data = {
   "initiate.csed": "1234",
   "basic.mother.name": "Dane Doe",
@@ -63,7 +63,7 @@ exports.handler = function (event, context, callback) {
   // });
 
   //exec("pdftk --version", (error, stdout, stderr) => {
-  exec(console.log(process.env.PATH ), (error, stdout, stderr) => {
+  exec(console.log("ls -lah /var/task/src/bin"), (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`);
       return;
