@@ -36,7 +36,8 @@ exports.handler = function (event, context, callback) {
     body = null
     console.log("error")
   }
-
+  console.log(exec("pdftk --version", context.done))
+  //localhost:8888/
   // pdfFiller
   //   .fillForm(sourcePDF, data)
   //   .then(outputStream => {
@@ -47,7 +48,7 @@ exports.handler = function (event, context, callback) {
   //   .catch(err => {
   //     console.log(err)
   //   })
-  exec("ls ./src -lah", (error, stdout, stderr) => {
+  exec("pdftk --version", (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`);
       return;
@@ -60,9 +61,8 @@ exports.handler = function (event, context, callback) {
   });
   callback(null, {
     statusCode: 200,
-    body: process.env.PATH + "-" + process.env.LAMBDA_TASK_ROOT + '-' + process.env.LD_LIBRARY_PATH
-    //body: 'foo'
-  });
+    body: "foo",
+  })
   // pdfFiller
   //   .fillForm(sourcePDF, data)
   //   .then(outputStream => {
