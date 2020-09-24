@@ -49,7 +49,7 @@ export const CompleteApp = ({ state, pdf }) => {
        p={state === true ? "8" : "0"}
         rounded={"lg"}
       >
-        {state === true && (
+
           <Stack
             direction={["column", "column", "row"]}
             spacing={["0", "0", "1rem"]}
@@ -105,9 +105,7 @@ export const CompleteApp = ({ state, pdf }) => {
               </>
             )}
           </Stack>
-        )}
 
-        {state === true && (
           <Stack
             direction={["column", "column", "row"]}
             spacing={["0", "0", "1rem"]}
@@ -164,7 +162,6 @@ export const CompleteApp = ({ state, pdf }) => {
               </>
             )}
           </Stack>
-        )}
 
       </Box>
       <Stack align={"center"} >
