@@ -28,17 +28,17 @@ function processData(myData) {
 }
 
 exports.handler = function (event, context, callback) {
-  var body = ""
-  if (event.body !== null && event.body !== undefined) {
-    const formData = JSON.parse(event.body)
-    processData(formData)
-  } else {
-    body = null
-    console.log("error")
-  }
+  // var body = ""
+  // if (event.body !== null && event.body !== undefined) {
+  //   const formData = JSON.parse(event.body)
+  //   processData(formData)
+  // } else {
+  //   body = null
+  //   console.log("error")
+  // }
   //console.log(exec("pdftk --version", context.done))
-  console.log(exec("pwd", context.done))
-  console.log(process.env.PATH + '--' + process.env.LAMBDA_TASK_ROOT + '--' + process.env.LD_LIBRARY_PATH)
+  //console.log(exec("pwd"))
+  //console.log(process.env.PATH + '--' + process.env.LAMBDA_TASK_ROOT + '--' + process.env.LD_LIBRARY_PATH)
   //localhost:8888/
   // pdfFiller
   //   .fillForm(sourcePDF, data)
@@ -61,6 +61,21 @@ exports.handler = function (event, context, callback) {
   //   }
   //   console.log(`stdout: ${stdout}`);
   // });
+
+  //exec("pdftk --version", (error, stdout, stderr) => {
+  exec("pwd", (error, stdout, stderr) => {
+    if (error) {
+      console.log(`error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.log(`stderr: ${stderr}`);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+  });
+
+
   callback(null, {
     statusCode: 200,
     body: "foo",
