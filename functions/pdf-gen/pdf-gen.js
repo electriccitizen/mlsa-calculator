@@ -63,7 +63,7 @@ exports.handler = function (event, context, callback) {
   // });
 
   //exec("pdftk --version", (error, stdout, stderr) => {
-  exec(console.log(process.env.LAMBDA_TASK_ROOT)), (error, stdout, stderr) => {
+  exec(console.log(process.env.LAMBDA_TASK_ROOT), (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`);
       return;
@@ -78,7 +78,7 @@ exports.handler = function (event, context, callback) {
 
   callback(null, {
     statusCode: 200,
-    body: "foo",
+    body: JSON.stringify(data),
   })
   // pdfFiller
   //   .fillForm(sourcePDF, data)
