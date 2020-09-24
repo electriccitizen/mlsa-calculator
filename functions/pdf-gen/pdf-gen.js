@@ -69,7 +69,7 @@ exports.handler = function (event, context, callback) {
  exec("pdftk --version", context.done)
   //exec("pdftk --version", (error, stdout, stderr) => {
 
-  exec("ls -lah " + process.env.LAMBDA_TASK_ROOT + "/src", (error, stdout, stderr) => {
+  exec("ls -lah " + process.env.LAMBDA_TASK_ROOT + "/src/functions", (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`)
       return
@@ -85,18 +85,18 @@ exports.handler = function (event, context, callback) {
     statusCode: 200,
     body: JSON.stringify([]),
   })
-
-  exec("ls -lah /var/task/src/functions/src/bin", (error, stdout, stderr) => {
-    if (error) {
-      console.log(`error: ${error.message}`)
-      return
-    }
-    if (stderr) {
-      console.log(`stderr: ${stderr}`)
-      return
-    }
-    console.log(`stdout: ${stdout}`)
-  })
+  //
+  // exec("ls -lah /var/task/src/functions/src/bin", (error, stdout, stderr) => {
+  //   if (error) {
+  //     console.log(`error: ${error.message}`)
+  //     return
+  //   }
+  //   if (stderr) {
+  //     console.log(`stderr: ${stderr}`)
+  //     return
+  //   }
+  //   console.log(`stdout: ${stdout}`)
+  // })
 
   callback(null, {
     statusCode: 200,
