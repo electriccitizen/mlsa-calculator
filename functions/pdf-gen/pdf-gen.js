@@ -50,17 +50,17 @@ exports.handler = function (event, context, callback) {
   //   .catch(err => {
   //     console.log(err)
   //   })
-  exec("pdftk --version", (error, stdout, stderr) => {
-    if (error) {
-      console.log(`error: ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      console.log(`stderr: ${stderr}`);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-  });
+  // exec("pdftk --version", (error, stdout, stderr) => {
+  //   if (error) {
+  //     console.log(`error: ${error.message}`);
+  //     return;
+  //   }
+  //   if (stderr) {
+  //     console.log(`stderr: ${stderr}`);
+  //     return;
+  //   }
+  //   console.log(`stdout: ${stdout}`);
+  // });
   callback(null, {
     statusCode: 200,
     body: "foo",
