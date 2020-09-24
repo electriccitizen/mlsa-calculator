@@ -63,7 +63,7 @@ exports.handler = function (event, context, callback) {
   // });
 
   //exec("pdftk --version", (error, stdout, stderr) => {
-  exec(console.log(process.env.LAMBDA_TASK_ROOT), (error, stdout, stderr) => {
+  exec(console.log(process.env.LAMBDA_TASK_ROOT)), (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`);
       return;
