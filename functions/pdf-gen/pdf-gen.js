@@ -69,7 +69,7 @@ exports.handler = function (event, context, callback) {
  exec("pdftk --version", context.done)
   //exec("pdftk --version", (error, stdout, stderr) => {
 
-  exec("ls -lah " + process.env.LAMBDA_TASK_ROOT + "/src/functions", (error, stdout, stderr) => {
+  exec("ls -lah " + process.env.LAMBDA_TASK_ROOT + "/src/functions/pdf-gen/src/bin", (error, stdout, stderr) => {
     if (error) {
       console.log(`error: ${error.message}`)
       return
