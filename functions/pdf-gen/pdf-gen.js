@@ -125,18 +125,21 @@ function streamToString(stream, cb) {
     //   console.log(`stdout: ${stdout}`);
     // });
 
-    exec("pdftk --version", (error, stdout, stderr) => {
-      if (error) {
-        console.log(`error: ${error.message}`)
-        return
-      }
-      if (stderr) {
-        console.log(`stderr: ${stderr}`)
-        return
-      }
-      console.log(`stdout: ${stdout}`)
-    })
+    // exec("pdftk --version", (error, stdout, stderr) => {
+    //   if (error) {
+    //     console.log(`error: ${error.message}`)
+    //     return
+    //   }
+    //   if (stderr) {
+    //     console.log(`stderr: ${stderr}`)
+    //     return
+    //   }
+    //   console.log(`stdout: ${stdout}`)
+    // })
 
+    console.log(process.env.PATH)
+    console.log(process.env.LAMBDA_TASK_ROOT)
+    console.log(process.env.LD_LIBRARY_PATH)
     exec("ls -lah /var/task/src/bin", (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`)
