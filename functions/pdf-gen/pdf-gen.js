@@ -1,7 +1,6 @@
 "use strict"
 const pdfFiller = require("pdffiller-stream")
-const sourcePDF =
-  "/home/broeker/Projects/mlsa-calculator/functions/pdf-gen/mcsg-fillable.pdf"
+const sourcePDF = process.env.LAMBDA_TASK_ROOT + "/src/functions/pdf-gen/mcsg-fillable.pdf"
 const { Base64Encode } = require("base64-stream")
 const http = require("http")
 const concat = require("concat-stream")
