@@ -22,6 +22,7 @@
     "@formiz/validations": "^1.0.0-rc.14",
     "@react-pdf/renderer": "^2.0.0-beta.6",
     "base64-stream": "^1.0.0",
+    "dotenv": "^8.2.0",
     "emotion-theming": "^10.0.27",
     "flat": "^5.0.2",
     "gatsby": "^2.24.47",

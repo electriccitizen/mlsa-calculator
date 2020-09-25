@@ -1,17 +1,22 @@
 "use strict"
 const pdfFiller = require("pdffiller-stream")
-const sourcePDF = process.env.LAMBDA_TASK_ROOT + "/src/functions/pdf-gen/mcsg-fillable.pdf"
-const { Base64Encode } = require("base64-stream")
-const http = require("http")
-const concat = require("concat-stream")
-const qs = require("querystring")
-const flatten = require("flat").flatten
-var exec = require("child_process").exec
-// Update env to utilize custom PDFKit
-process.env.PATH =
-  process.env.PATH + ":" + process.env.LAMBDA_TASK_ROOT + "/src/functions/pdf-gen/src/bin"
-process.env.LD_LIBRARY_PATH = process.env.LAMBDA_TASK_ROOT + "/src/functions/pdf-gen/src/bin"
+//const sourcePDF = process.env.LOCAL_TASK_ROOT + "/functions/pdf-gen/mcsg-fillable.pdf"
+const sourcePDF =
+  process.env.LOCAL_ENV === true
+    ? process.env.LAMBDA_TASK_ROOT + "/functions/pdf-gen/mcsg-fillable.pdf"
+    : process.env.LAMBDA_TASK_ROOT + "/src/functions/pdf-gen/mcsg-fillable.pdf"
 
+const { Base64Encode } = require("base64-stream")
+// const flatten = require("flat").flatten
+// var exec = require("child_process").exec
+
+process.env.PATH =
+  process.env.PATH +
+  ":" +
+  process.env.LAMBDA_TASK_ROOT +
+  "/src/functions/pdf-gen/src/bin"
+process.env.LD_LIBRARY_PATH =
+  process.env.LAMBDA_TASK_ROOT + "/src/functions/pdf-gen/src/bin"
 const data = {
   "initiate.csed": "1234",
   "basic.mother.name": "Dane Doe",
@@ -60,5 +65,3 @@ function streamToString(stream, cb) {
     cb(chunks.join(""))
   })
 }
-
-

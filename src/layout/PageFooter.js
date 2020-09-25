@@ -24,7 +24,7 @@ export const PageFooter = ({ handleDebug, debugMode }) => {
         spacing={["0", "0", "1rem"]}
         fontSize={"small"}
         mt={8}
-        mb={12}
+        mb={8}
         pt={4}
         borderTopWidth={1}
         borderColor={"gray.300"}
@@ -42,7 +42,7 @@ export const PageFooter = ({ handleDebug, debugMode }) => {
 
       </Stack>
       <Box><Logos /></Box>
-      <Box mt="4" fontSize="small">
+      <Box mt="8" fontSize="small">
         This project was funded by the National Crime Victim Law Institute
         (NCVLI) under grant No. 2017-VF-GX-K130, awarded by the Office for
         Victims of Crime, Office of Justice Programs, U.S. Department of
