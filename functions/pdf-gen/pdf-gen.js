@@ -1,6 +1,5 @@
 "use strict"
 const pdfFiller = require("pdffiller-stream")
-//const sourcePDF = process.env.LOCAL_TASK_ROOT + "/functions/pdf-gen/mcsg-fillable.pdf"
 const sourcePDF =
   process.env.LOCAL_ENV === true
     ? process.env.LAMBDA_TASK_ROOT + "/functions/pdf-gen/mcsg-fillable.pdf"
