@@ -44,30 +44,36 @@ export const PageLayout = ({ children }) => {
 
   return (
     <>
+
       <Stack
         flex="1"
         minH="100vh"
         flexWrap="nowrap"
         flexDirection={{ base: "column", lg: "row" }}
       >
+
         <Box flex="1" position="relative">
+
           <Box
             position={{ lg: "absolute" }}
-            top={{ lg: 0 }}
+            top={0}
             left={{ lg: 0 }}
             right={{ lg: 0 }}
             bottom={{ lg: 0 }}
             overflow="auto"
           >
             <SiteHeader />
-            <div id="outer-container">
+            <div mt="32" id="outer-container">
+
               <main id="page-wrap">
+
                 <Box
                   pr={[4,8]}
                   pl={[4,8]}
                   fontSize="2xl"
                   maxW="50rem"
                   mx="auto"
+                  mt={"6em"}
                 >
                   {children}
                   <PageFooter handleDebug={handleDebug} debugMode={debugMode} />

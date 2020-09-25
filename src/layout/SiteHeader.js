@@ -62,9 +62,11 @@ export default function SiteHeader() {
             isInline
             align="center"
             ml="auto"
-            mb={8}
+            top={0}
+            position={"fixed"}
+            width={"100%"}
+            mb={32}
           >
-            I
             <Box width="90%">
               <Heading
                 fontFamily={

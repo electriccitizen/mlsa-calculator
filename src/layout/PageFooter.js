@@ -37,7 +37,7 @@ export const PageFooter = ({ handleDebug, debugMode }) => {
         </Box>
         <Spacer />
         <Box align={["left","left","right"]}  >
-          See our <Link to={"/terms-of-use"}>Terms of Use</Link>{" "} and{" "} <Link to={"/privacy-notice"}>Privacy Notice</Link>
+          See our <Link to={"/disclaimer"}>Disclaimer and Accessibility</Link>{" "}statement and{" "} <Link to={"/privacy-notice"}>Privacy Notice</Link>
         </Box>
 
       </Stack>

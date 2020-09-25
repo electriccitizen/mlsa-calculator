@@ -29,7 +29,7 @@ module.exports = {
         name: "Restitution Worksheet",
         link: "/restitution",
         text: "Create a restitution log.",
-        icon: "FaQuestionCircle",
+        icon: "FaRegFileAlt",
       },
     ],
     menuLinks3: [
@@ -40,9 +40,15 @@ module.exports = {
         icon: "FaThumbsUp",
       },
       {
+        name: "Contact",
+        link: "/contact",
+        text: "Contact the MLSA.",
+        icon: "FaPhoneAlt",
+      },
+      {
         name: "About",
         link: "/about",
-        text: "Learn more about this tool and MLSA.",
+        text: "Learn more about the MLSA.",
         icon: "FaQuestionCircle",
       },
     ],

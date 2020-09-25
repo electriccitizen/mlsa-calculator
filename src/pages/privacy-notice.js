@@ -53,7 +53,7 @@ export default function TermsOfUse() {
             </Heading>
             <Text mt={2} color={colorMode === "dark" ? "gray.600" : "gray.500"}>
               You can contact Montana Legal Services Association's Victim Legal
-              Assistance Network at vlan@mtlsa.org if you have any questions
+              Assistance Network at <a href={"mailto:vlan@mtlsa.org"}>vlan@mtlsa.org</a> if you have any questions
               about this Privacy Policy.
             </Text>
           </Box>

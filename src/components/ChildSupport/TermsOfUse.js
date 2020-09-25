@@ -10,6 +10,7 @@ import {
   ListItem,
   Text,
   UnorderedList,
+  OrderedList,
   useColorMode,
 } from "@chakra-ui/core"
 import { LinkIcon } from "@chakra-ui/icons"
@@ -40,32 +41,42 @@ export const TermsOfUse = () => {
           color={colorMode === "dark" ? "gray.600" : "gray.500"}
         >
           <ListItem>
-            <LinkIcon color="brand.400" boxSize="4" as={FaCheckCircle} /> This
-            site does not give legal advice. Talk to a lawyer if you need legal
-            advice.
+            <LinkIcon color="brand.400" boxSize="4" as={FaCheckCircle} />
+            This site does not give legal advice. If you have additional
+            questions about child support, you should contact an experienced
+            attorney.
           </ListItem>
           <ListItem>
-            <LinkIcon color="brand.400" boxSize="4" as={FaCheckCircle} /> You
-            may not use this site for any commercial purpose.
+            <LinkIcon color="brand.400" boxSize="4" as={FaCheckCircle} />
+            This tool is not a substitute for receiving child support assistance
+            from a lawyer or the State of Montana's Child Support Enforcement
+            Division.
           </ListItem>
           <ListItem>
             <LinkIcon color="brand.400" boxSize="4" as={FaCheckCircle} /> This
             site is for people who meet any of the following criteria:
-            <UnorderedList mt={4} ml={12} spacing={4}>
+            <OrderedList mt={4} ml={12} spacing={4}>
               <ListItem>
                 People without lawyers who access this site from a statewide
                 legal aid website, pro bono website, or approved court website.
               </ListItem>
               <ListItem>
-                Nonprofit and charitable organization staff or court staff who
-                help other permitted users.
+                Government employees who provide social or legal services to
+                low-income people and victims of crime.
+              </ListItem>
+              <ListItem>
+                Nonprofit and charitable organization staff, including court
+                staff who help other permitted users.
               </ListItem>
               <ListItem>
                 Lawyers and their staff who provide not-for-profit or reduced
                 fee legal help to low-income people, victims of crime, or
                 nonprofit and charitable organizations.
               </ListItem>
-            </UnorderedList>
+            </OrderedList>
+          </ListItem>
+          <ListItem>
+            You should not use this site for any commercial purposes.
           </ListItem>
         </List>
         <Text mt={8} mb={4}>

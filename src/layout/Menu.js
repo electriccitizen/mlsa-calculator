@@ -17,6 +17,8 @@ import {
   FaGlobe,
   FaThumbsUp,
   FaQuestionCircle,
+  FaRegFileAlt,
+  FaPhoneAlt,
 } from "react-icons/fa/index"
 const propTypes = {
   direction: PropTypes.oneOf(["left", "right"]),
@@ -34,6 +36,10 @@ function IconSwap(icon) {
       return FaGlobe
     case "FaQuestionCircle":
       return FaQuestionCircle
+    case "FaRegFileAlt":
+      return FaRegFileAlt
+    case "FaPhoneAlt":
+      return FaPhoneAlt
     default:
       return null
   }

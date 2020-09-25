@@ -13,7 +13,9 @@ export default function Safety() {
             "               Roboto, Oxygen-Sans, Ubuntu, Cantarell,\n" +
             '               "Helvetica Neue", sans-serif;'
           }
-          as="h1" mb={4}>
+          as="h1"
+          mb={4}
+        >
           Safe Internet Use
         </Heading>
         <Text mb={"4"}>
@@ -25,11 +27,7 @@ export default function Safety() {
           <Heading as="h2" size="lg" mb={4}>
             Escape Button
           </Heading>
-          <Text
-            mb={"4"}
-            mt={2}
-            color={colorMode === "dark" ? "gray.600" : "gray.500"}
-          >
+          <Text mb={"4"} mt={2}>
             <p>
               Many websites that have information about domestic violence,
               sexual assault, or stalking have a “quick escape” or “leave this
@@ -50,7 +48,7 @@ export default function Safety() {
           <Heading as="h2" size="lg" mb={4}>
             Internet Safety Tips
           </Heading>
-          <Text mt={2} color={colorMode === "dark" ? "gray.600" : "gray.500"}>
+          <Text mt={2}>
             <p>
               To minimize the chances of someone knowing that you are
               researching information about domestic violence, sexual assault,
@@ -126,6 +124,58 @@ export default function Safety() {
                 See Quick Safety Chart
               </Link>
             </p>
+          </Text>
+          <Heading as="h2" size="lg" mb={4}>
+            If you are in immediate danger, call 911
+          </Heading>
+          <Text mb={4}>
+            You can also contact a local victim service program in Montana, or
+            one of the National Hotlines below. If you want more information,
+            click on their names to go to their associated Web sites.
+          </Text>
+          <Box mb={2} ml={12}>
+            <ul>
+              <li>
+                <a href={"https://www.thehotline.org/"} isExternal>National Domestic Violence Hotline</a>: 1-800-799-SAFE (7233) OR
+                TTY: 1-800-787-3224
+              </li>
+              <li>
+                <a href={"https://www.rainn.org/"} isExternal >National Sexual Assault Hotline (RAINN)</a>: 1-800-656-HOPE (4673)
+              </li>
+              <li><a isExternal href={"https://suicidepreventionlifeline.org/"}>National Suicide Prevention Lifeline</a> 1-800-273-8255</li>
+
+            </ul>
+          </Box>
+          <Heading as="h2" size="lg" mb={4}>
+            Safety Planning
+          </Heading>
+          <Text mb={4}>
+            "Safety planning" refers to making a personal plan to try to stay
+            safe while in an abusive relationship, or when planning to leave, or
+            after leaving that relationship.
+          </Text>
+          <Text mb={4}>
+            Each person’s safety plan is unique. A safety plan might involve:
+          </Text>
+          <Box mb={2} ml={12}>
+            <ul>
+              <li>
+                Getting things ready to be able to leave quickly, such as making
+                a "go bag."
+              </li>
+              <li>
+                Having “safe words” to alert other people when you are in danger
+                or to tell them to go somewhere safe.
+              </li>
+              <li>Asking friends and family for help.</li>
+              <li>Hiring a lawyer.</li>
+              <li>And more.</li>
+            </ul>
+          </Box>
+          <Text mb={4}>
+            More Safety Planning information is available from the
+            <a href={"https://www.thehotline.org/"} isExternal>National
+            Domestic Violence Hotline</a> website.
           </Text>
         </Box>
       </Box>
