@@ -27,7 +27,7 @@ export const IntroWhat = () => {
               color={"gray.500"}
               href="#"
             >
-              <Icon boxSize={10} color={"brand.400"} as={FaFileAlt} /> Child
+              <Icon boxSize={6} color={"brand.400"} as={FaFileAlt} /> Child
               Support Worksheet
             </Heading>
 
@@ -48,7 +48,7 @@ export const IntroWhat = () => {
               color={"gray.500"}
               href="#"
             >
-              <Icon boxSize={10} color={"brand.400"} as={FaFileInvoiceDollar} />{" "}
+              <Icon boxSize={6} color={"brand.400"} as={FaFileInvoiceDollar} />{" "}
               Financial Affadavit
             </Heading>
 
@@ -73,7 +73,7 @@ export const IntroWhat = () => {
           will allow you to create one.
         </Text>
         <Text mt={2}>
-          Note: both of these forms along with additional information are
+          Both of these forms along with additional information are
           available{" "}
           <Link
             color="brand.400"

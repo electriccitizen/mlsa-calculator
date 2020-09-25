@@ -62,7 +62,24 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    // SOURCE FILESYSTEM (STATIC IMAGES)
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: "Montana Legal Help Tools",
+        short_name: "MLSA",
+        start_url: "/",
+        icon: "src/images/favicon.svg", // This path is relative to the root of the site.
+      },
+    },
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+      `gatsby-plugin-sharp`,
   ],
 }

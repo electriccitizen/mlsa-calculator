@@ -63,7 +63,8 @@ export const PageLayout = ({ children }) => {
             <div id="outer-container">
               <main id="page-wrap">
                 <Box
-                  p={{ base: 4, lg: 8 }}
+                  pr={[4,8]}
+                  pl={[4,8]}
                   fontSize="2xl"
                   maxW="50rem"
                   mx="auto"

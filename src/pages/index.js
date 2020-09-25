@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <>
       <PageLayout>
-        <Box mt="4" mb="4">
+        <Box mb="4">
           <Heading
             fontFamily={
               '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
@@ -27,6 +27,7 @@ export default function Home() {
               '               "Helvetica Neue", sans-serif;'
             }
             mb={4}
+            fontSize={"3xl"}
           >
             Getting started
           </Heading>
@@ -36,7 +37,7 @@ export default function Home() {
             restitution costs for victims of crime.
           </Text>
           <Text mb={4} color={colorMode === "dark" ? "gray.600" : "gray.500"}>
-            Choose the tool you'd like to use to get started with a short guide.
+            Choose a tool below to get started with a short guide:
           </Text>
           <Box display={{ md: "flex" }}>
             <Box
@@ -106,11 +107,11 @@ export default function Home() {
           </Box>
         </Box>
 
-        <Divider mb="2" orientation="horizontal" />
+        <Divider pt="4" mb="2" orientation="horizontal" />
 
         <Box mt={{ base: 8, md: 8 }} flex={1}>
           <Heading fontWeight="normal" as={"h3"} size={"md"}>
-            Other related resources and links
+            Other related resources and links:
           </Heading>
           <List styleType="disc" mt="2" ml={8} fontSize={"lg"} spacing={2}>
             <ListItem>

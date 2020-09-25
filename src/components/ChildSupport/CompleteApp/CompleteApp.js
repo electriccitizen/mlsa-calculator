@@ -175,7 +175,7 @@ export const CompleteApp = ({ state, pdf }) => {
             : "Regenerate " + docPlural + "?"}
         </Button>
         {counter > 0 && (
-          <Text width="300px" fontSize={"sm"}>
+          <Text pt={4} width="300px" fontSize={"sm"}>
             If necessary, you can edit your responses and regenerate your{" "}
             {docPlural}.
           </Text>

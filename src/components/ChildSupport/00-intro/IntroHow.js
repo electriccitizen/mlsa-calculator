@@ -47,8 +47,7 @@ export const IntroHow = () => {
         </p>
         <p>
           You may print a copy of all the rules or just refer to the ones you
-          need when you need them. You can navigate through the rules by using
-          the Prev and Next buttons on the web page (see screen shot below).
+          need when you need them.
         </p>
       </Box>
     </FormizStep>
