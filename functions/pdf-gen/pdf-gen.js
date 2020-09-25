@@ -4,7 +4,8 @@ const sourcePDF =
   process.env.LOCAL_ENV === true
     ? process.env.LAMBDA_TASK_ROOT + "/functions/pdf-gen/mcsg-fillable.pdf"
     : process.env.LAMBDA_TASK_ROOT + "/src/functions/pdf-gen/mcsg-fillable.pdf"
-
+const sourcePDF =
+  "/home/broeker/Projects/mlsa-calculator/functions/pdf-gen/mcsg-fillable.pdf"
 const { Base64Encode } = require("base64-stream")
 // const flatten = require("flat").flatten
 // var exec = require("child_process").exec
