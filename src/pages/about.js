@@ -16,7 +16,7 @@ export default function About() {
           as="h1"
           mb={4}
         >
-          Contact Montana Legal Services Association
+          About Montana Legal Services Association
         </Heading>
         <Text mb={"4"}>
           These tools, the Child Support Calculator and Restitution Worksheet,

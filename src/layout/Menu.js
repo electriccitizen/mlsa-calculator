@@ -165,7 +165,7 @@ export const Menu = ({ menuLinks, menuLinks2, menuLinks3 }) => {
                 <GatsbyLink className="menulink" to={link.link}>
                   {link.name}
                 </GatsbyLink>
-                <p>{link.text}</p>
+
               </ListItem>
             </Box>
           ))}
