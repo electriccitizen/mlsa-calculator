@@ -30,6 +30,9 @@ export const CompleteApp = ({ state, pdf }) => {
       ? "financial affadavit"
       : "child support worksheet"
 
+  const loadingMessageDownload = counter > 0 ? "Loading..." : "Download"
+  const loadingMessagePrint = counter > 0 ? "Loading..." : "Print"
+
   return (
     <FormizStep label={"Complete Interview"} name="CompleteApp" order={30000}>
       <SectionHeader header={`Interview complete`} />
@@ -84,7 +87,7 @@ export const CompleteApp = ({ state, pdf }) => {
                     href={"data:application/pdf;base64," + pdf + ""}
                     download="MontanaChildSupportWorksheet.pdf"
                   >
-                    {state === true ? "Download" : "Loading..."}
+                    {state === true ? "Download" : loadingMessageDownload }
                   </a>
                 </Button>
                 <Button
@@ -94,7 +97,7 @@ export const CompleteApp = ({ state, pdf }) => {
                   type="button"
                   onClick={handlePrint}
                 >
-                  {state === true ? "Print" : "Loading..."}
+                  {state === true ? "Print" : loadingMessagePrint }
                 </Button>
                 {counter > 0 && (
                   <Text mt="2" fontSize={"sm"}>
@@ -142,7 +145,7 @@ export const CompleteApp = ({ state, pdf }) => {
                     href={"data:application/pdf;base64," + pdf + ""}
                     download="MontanaChildSupportWorksheet.pdf"
                   >
-                    {state === true ? "Download" : "Loading..."}
+                    {state === true ? "Download" : loadingMessageDownload }
                   </a>
                 </Button>
                 <Button
@@ -152,7 +155,7 @@ export const CompleteApp = ({ state, pdf }) => {
                   type="button"
                   onClick={handlePrint}
                 >
-                  {state === true ? "Print" : "Loading..."}
+                  {state === true ? "Print" : loadingMessagePrint }
                 </Button>
                 {counter > 0 && (
                   <Text mt="2" fontSize={"sm"}>
