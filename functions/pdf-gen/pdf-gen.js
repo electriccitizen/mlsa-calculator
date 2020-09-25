@@ -1,7 +1,7 @@
 "use strict"
 const pdfFiller = require("pdffiller-stream")
 const sourcePDF =
-  process.env.LOCAL_ENV === true
+  process.env.LOCAL_ENV === "true"
     ? process.env.LAMBDA_TASK_ROOT + "/functions/pdf-gen/mcsg-fillable.pdf"
     : process.env.LAMBDA_TASK_ROOT + "/src/functions/pdf-gen/mcsg-fillable.pdf"
 
@@ -16,6 +16,8 @@ process.env.PATH =
   "/src/functions/pdf-gen/src/bin"
 process.env.LD_LIBRARY_PATH =
   process.env.LAMBDA_TASK_ROOT + "/src/functions/pdf-gen/src/bin"
+
+
 const data = {
   "initiate.csed": "1234",
   "basic.mother.name": "Dane Doe",

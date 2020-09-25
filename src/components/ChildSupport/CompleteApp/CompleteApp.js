@@ -84,7 +84,7 @@ export const CompleteApp = ({ state, pdf }) => {
                     href={"data:application/pdf;base64," + pdf + ""}
                     download="MontanaChildSupportWorksheet.pdf"
                   >
-                    Download
+                    {state === true ? "Download" : "Loading..."}
                   </a>
                 </Button>
                 <Button
@@ -94,7 +94,7 @@ export const CompleteApp = ({ state, pdf }) => {
                   type="button"
                   onClick={handlePrint}
                 >
-                  Print
+                  {state === true ? "Print" : "Loading..."}
                 </Button>
                 {counter > 0 && (
                   <Text mt="2" fontSize={"sm"}>
@@ -142,7 +142,7 @@ export const CompleteApp = ({ state, pdf }) => {
                     href={"data:application/pdf;base64," + pdf + ""}
                     download="MontanaChildSupportWorksheet.pdf"
                   >
-                    Download
+                    {state === true ? "Download" : "Loading..."}
                   </a>
                 </Button>
                 <Button
@@ -152,7 +152,7 @@ export const CompleteApp = ({ state, pdf }) => {
                   type="button"
                   onClick={handlePrint}
                 >
-                  Print
+                  {state === true ? "Print" : "Loading..."}
                 </Button>
                 {counter > 0 && (
                   <Text mt="2" fontSize={"sm"}>
