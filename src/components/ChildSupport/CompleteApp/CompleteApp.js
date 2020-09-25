@@ -50,6 +50,7 @@ export const CompleteApp = ({ state, pdf }) => {
         <Stack
           direction={["column", "column", "row"]}
           spacing={["0", "0", "1rem"]}
+          mb={4}
         >
           {(Documents === "both" || Documents === "worksheets") && (
             <>
@@ -108,7 +109,6 @@ export const CompleteApp = ({ state, pdf }) => {
         <Stack
           direction={["column", "column", "row"]}
           spacing={["0", "0", "1rem"]}
-          mt={8}
         >
           {(Documents === "both" || Documents === "affadavit") && (
             <>
