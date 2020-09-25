@@ -13,6 +13,7 @@ import {
   Menu,
   MenuItem,
   DrawerFooter,
+  Box,
   useDisclosure,
   useColorMode,
 } from "@chakra-ui/core"
@@ -147,7 +148,7 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
   }
 
   return (
-    <>
+    <Box>
       <Button
         ref={btnRef}
         colorScheme="brand"
@@ -155,6 +156,7 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
         onClick={() => {
           onOpen()
         }}
+        zIndex={5}
       >
         <Icon
           as={
@@ -174,7 +176,7 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
         finalFocusRef={btnRef}
         size={"sm"}
       >
-        <DrawerOverlay>
+        <DrawerOverlay zIndex={15}>
           <DrawerContent bg={colorMode === "dark" ? "gray.300" : "gray.50"}>
             <DrawerCloseButton color={"gray.100"} />
             <DrawerHeader color={"gray.100"} bg={"brand.500"}>
@@ -225,7 +227,7 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
                 )}
                 {form.isValid && app === "support" && (
                   <MenuItem onClick={() => form.goToStep("CompleteApp")} pl={0}>
-                   Complete interview
+                    Complete interview
                   </MenuItem>
                 )}
                 {app === "support" && (
@@ -262,7 +264,7 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
           </DrawerContent>
         </DrawerOverlay>
       </Drawer>
-    </>
+    </Box>
   )
 }
 

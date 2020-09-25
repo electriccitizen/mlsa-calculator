@@ -44,7 +44,7 @@ export const PageLayout = ({ children }) => {
 
   return (
     <>
-
+      <SiteHeader />
       <Stack
         flex="1"
         minH="100vh"
@@ -56,17 +56,15 @@ export const PageLayout = ({ children }) => {
 
           <Box
             position={{ lg: "absolute" }}
-            top={0}
+            top={{ lg: 0 }}
             left={{ lg: 0 }}
             right={{ lg: 0 }}
             bottom={{ lg: 0 }}
             overflow="auto"
           >
-            <SiteHeader />
-            <div mt="32" id="outer-container">
 
+            <div id="outer-container">
               <main id="page-wrap">
-
                 <Box
                   pr={[4,8]}
                   pl={[4,8]}

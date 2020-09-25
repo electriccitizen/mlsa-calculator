@@ -58,15 +58,16 @@ export default function SiteHeader() {
           />
           <Stack
             bg={colorMode === "dark" ? "black" : "brand.400"}
-            padding={5}
             isInline
             align="center"
             ml="auto"
-            top={0}
-            position={"fixed"}
             width={"100%"}
-            mb={32}
+            position={"fixed"}
+            zIndex={10}
+            p={4}
+
           >
+
             <Box width="90%">
               <Heading
                 fontFamily={
