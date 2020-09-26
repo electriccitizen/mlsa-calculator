@@ -149,7 +149,7 @@ export const ChildExpensesSecondary = () => {
               <AddPlaceholder label="Add expense" onClick={addItem} />
             )}
           <AdministrativeRules
-            rules={[123]}
+            rules={[110]}
             explanation={
               "For definitions and more information, click on the links below:"
             }

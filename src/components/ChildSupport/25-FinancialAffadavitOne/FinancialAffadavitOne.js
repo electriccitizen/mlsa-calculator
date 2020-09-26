@@ -51,7 +51,17 @@ export const FinancialAffadavitOne = () => {
           mr={4}
         />
       )}
-
+      <FieldRadio
+        name={`FinancialAffadavitOne.unemployed`}
+        label="Are you currently unemployed?"
+        placeholder="Select option..."
+        required="Required"
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
       <FieldInput
         name={`FinancialAffadavitOne.taxExemptions`}
         label='List the people you claim as tax exemptions. For example, "John C. Smith, Alice Smith, and Randall Smith."'

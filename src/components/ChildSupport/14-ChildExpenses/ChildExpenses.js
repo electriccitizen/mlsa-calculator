@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { IconButton, Box, Stack } from "@chakra-ui/core"
+import { IconButton, Text, Box, Stack } from "@chakra-ui/core"
 import { FaTrashAlt } from "react-icons/fa/index"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { SectionHeader } from "../../Utils/SectionHeader"
-import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 import { v4 as uuidv4 } from "uuid"
 
 export const ChildExpenses = () => {
   const form = useForm({ subscribe: true })
-
 
   const [state, setState] = useState({})
   let updateState = (name, value) => {
@@ -67,27 +66,35 @@ export const ChildExpenses = () => {
           </Box>
           <FieldRadio
             name={`ChildExpenses.${index}.housing`}
-            label="Who does this child live with?"
+            label="Who does the child live with most of the time?"
             required="Required"
             index={index}
             updateState={updateState}
+            forceStack={true}
             options={[
               { value: "me", label: "Me" },
               {
                 value: "otherparent",
                 label: "The child's other parent",
               },
+              { value: "split", label: "50-50 split" },
               { value: "other", label: "Someone else" },
             ]}
           />
+          <Text mt={2} mb={4} fontSize={"md"}>
+            Only chose 50-50 split if it is a true 50 split where the child
+            lives exactly half time with both parents.
+          </Text>
           {state[`ChildExpenses.${index}.housing`] === "other" && (
-            <FieldInput
-              name={`ChildExpenses.${index}.otherHousing`}
-              label="Who does this child live with?"
-              type="text"
-              placeholder=""
-              mb="4"
-            />
+            <>
+              <FieldInput
+                name={`ChildExpenses.${index}.otherHousing`}
+                label="Who does the child live with most of the time?"
+                type="text"
+                placeholder=""
+                mb="4"
+              />
+            </>
           )}
           {state[`ChildExpenses.${index}.housing`] && (
             <>
@@ -132,18 +139,27 @@ export const ChildExpenses = () => {
                 label="Child care cost less dependent care tax credit, per year"
                 type="text"
                 placeholder="Enter amount"
+                helper={
+                  "For information of the Dependent Care Credit see the User manual  or visit  https://www.irs.gov/taxtopics/tc602"
+                }
               />
               <FieldMoneyInput
                 name={`ChildExpenses.${index}.healthInsurance`}
                 label="Health insurance premium, per year"
                 type="text"
                 placeholder="Enter amount"
+                helper={
+                  "This amount is only the cost of the child's premium. If you need help calculating the child's portion of your health insurance premium see the User Manual or ask your employer."
+                }
               />
               <FieldMoneyInput
                 name={`ChildExpenses.${index}.medicalExpense`}
                 label="Unreimbursed medical expense over $250 for this child, per year"
                 type="text"
                 placeholder="Enter amount"
+                helper={
+                  "An example might be out-of-pocket medication. These should be expenses you are pretty sure you will have to pay every year. For more information see the User Manual."
+                }
               />
               <FieldRadio
                 name={`ChildExpenses.${index}.otherExpenses`}
@@ -155,6 +171,7 @@ export const ChildExpenses = () => {
                   { value: "yes", label: "Yes" },
                   { value: "no", label: "No" },
                 ]}
+                helper={"See the User's Manual for examples"}
               />
               {state[`ChildExpenses.${index}.otherExpenses`] === "yes" &&
                 additionalExpenses.map((expense, x) => (

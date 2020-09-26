@@ -54,6 +54,8 @@ export const FieldDate = props => {
     ...otherProps,
   }
 
+  const tenYears = new Date()
+  tenYears.setFullYear(tenYears.getFullYear() + 10)
   return (
     <FormGroup ml={2} mr={2} {...formGroupProps}>
       <DatePicker
@@ -75,7 +77,8 @@ export const FieldDate = props => {
         showMonthDropdown
         showYearDropdown
         dropdownMode="select"
-        maxDate={new Date()}
+        maxDate={tenYears}
+
         //minDate={subMonths(new Date(), 6)}
       />
     </FormGroup>

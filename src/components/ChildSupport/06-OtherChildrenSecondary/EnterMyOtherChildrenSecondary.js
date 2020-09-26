@@ -43,6 +43,10 @@ export const EnterMyOtherChildrenSecondary = () => {
               numChildrenSecondary +
               `)`
             }
+            helpText={{
+              text:
+                "This should be one half of the total dependant care costs for this child.",
+            }}
           />
           <Stack
             direction={["column", "column", "row"]}
@@ -75,7 +79,7 @@ export const EnterMyOtherChildrenSecondary = () => {
           />
           <FieldRadio
             name={`OtherChildrenSecondary.${index}.housing`}
-            label="Who does this child live with?"
+            label="Who does the child live with most of the time?"
             required="Required"
             index={index}
             updateState={updateState}
@@ -92,7 +96,7 @@ export const EnterMyOtherChildrenSecondary = () => {
           {state[`OtherChildrenSecondary.${index}.housing`] === "yes" && (
             <FieldInput
               name={`OtherChildrenSecondary.${index}.otherHousing`}
-              label="Who does this child live with?"
+              label="Who does the child live with most of the time?"
               type="text"
               placeholder=""
             />

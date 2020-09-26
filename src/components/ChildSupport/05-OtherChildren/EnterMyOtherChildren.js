@@ -69,7 +69,7 @@ export const EnterMyOtherChildren = () => {
             />
             <FieldRadio
               name={`OtherChildren.${index}.housing`}
-              label="Who does this child live with?"
+              label="Who does the child live with most of the time?"
               required="Required"
               index={index}
               forceStack={true}
@@ -86,7 +86,7 @@ export const EnterMyOtherChildren = () => {
             {state[`OtherChildren.${index}.housing`] === "other" && (
               <FieldInput
                 name={`OtherChildren.${index}.otherHousing`}
-                label="Who does this child live with?"
+                label="Who does the child live with most of the time?"
                 type="text"
                 placeholder=""
               />

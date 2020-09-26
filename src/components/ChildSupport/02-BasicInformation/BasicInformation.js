@@ -59,7 +59,7 @@ export const BasicInformation = () => {
 
         <FieldRadio
           name="PrimaryMailing"
-          label={"Is this your primary mailing address?"}
+          label={"Is this your mailing address?"}
           required="Required"
           updateState={updateState}
           options={[
@@ -76,12 +76,7 @@ export const BasicInformation = () => {
           name={"Primary.mail_address"}
         />
       )}
-      <AdministrativeRules
-        rules={[101, 102, 103]}
-        explanation={
-          "For definitions and more information, click on the links below:"
-        }
-      />
+
     </FormizStep>
   )
 }

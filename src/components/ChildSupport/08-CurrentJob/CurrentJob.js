@@ -156,7 +156,7 @@ export const CurrentJob = d => {
                 </>
               )}
           <AdministrativeRules
-            rules={[105,106,108]}
+            rules={[105,106,108,110]}
             explanation={
               "For definitions and more information, click on the links below:"
             }

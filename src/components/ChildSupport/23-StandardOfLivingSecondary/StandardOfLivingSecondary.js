@@ -123,6 +123,7 @@ export const StandardOfLivingSecondary = number => {
         label={`Does ${otherParent} have other standard of living adjustments to add?`}
         required="Required"
         updateState={updateState}
+        helper={"See the User's Manual for to find out if you have any other Standard of Living Adjustments"}
         options={[
           { value: "yes", label: "Yes" },
           { value: "no", label: "No" },

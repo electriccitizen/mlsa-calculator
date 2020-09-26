@@ -2,12 +2,12 @@ import React from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldRadio } from "../../Fields/FieldRadio"
+import { Text } from '@chakra-ui/core'
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const NumberChildren = () => {
   const form = useForm({ subscribe: { fields: ["OtherParent.fname"] } })
-  const otherParent =
-    form.values.OtherParent && form.values.OtherParent.fname
+  const otherParent = form.values.OtherParent && form.values.OtherParent.fname
 
   return (
     <FormizStep label="Number of Children" name="NumberChildren" order={3000}>
@@ -30,8 +30,9 @@ export const NumberChildren = () => {
           { value: "8", label: "Eight" },
         ]}
       />
+      <Text fontSize={"md"} mb={4}>For the purpose of this calculation, you should count your child if they are under the age of 18, or under the age of 19 and still in high school, or they are mentally or physically incapacitated and have been since before their 19th birthday.</Text>
       <AdministrativeRules
-        rules={[101, 102, 103]}
+        rules={[103]}
         explanation={
           "For definitions and more information, click on the links below:"
         }

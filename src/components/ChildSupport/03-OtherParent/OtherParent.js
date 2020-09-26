@@ -30,12 +30,7 @@ export const OtherParent = () => {
           label="Last"
         />
       </Stack>
-      <AdministrativeRules
-        rules={[101, 102, 103]}
-        explanation={
-          "For definitions and more information, click on the links below:"
-        }
-      />
+
     </FormizStep>
   )
 }

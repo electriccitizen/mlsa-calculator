@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import { FormizStep } from "@formiz/core"
-import { Box } from "@chakra-ui/core"
+import { Box, Stack } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { SectionHeader } from "../../Utils/SectionHeader"
-import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const AllowableDeductions = () => {
   const [checkedItems, setCheckedItems] = useState({})
@@ -88,254 +88,257 @@ export const AllowableDeductions = () => {
           </Box>
         )}
         {checkedItems.healthself === true && (
-          <Box d={"flex"}>
-            <Box flex={1} mr={4}>
-              <FieldMoneyInput
-                name={`AllowableDeductions.healthself.amount`}
-                label="Ordered health insurance premium for yourself"
-                required="Required"
-                type="text"
-                mr={4}
-              />
-            </Box>
-            <Box flex={1}>
-              <FieldSelect
-                name="AllowableDeductions.healthself.schedule"
-                label="How often?"
-                placeholder="Select option..."
-                required="Required"
-                fieldwidth={"25%"}
-                options={[
-                  { value: "weekly", label: "Once per week" },
-                  { value: "biweekly", label: "Every two weeks" },
-                  { value: "bimonthly", label: "Twice a month" },
-                  { value: "monthly", label: "Once per month" },
-                  { value: "yearly", label: "Yearly" },
-                ]}
-              />
-            </Box>
-          </Box>
+          <Stack
+            direction={["column", "column", "row"]}
+            spacing={["0", "0", "1rem"]}
+          >
+            <FieldMoneyInput
+              name={`AllowableDeductions.healthself.amount`}
+              label="Ordered health insurance premium for yourself"
+              required="Required"
+              type="text"
+              mr={4}
+              helper={
+                "This amount is only the cost of your portion the premium. If you need help calculating the this portion of your health insurance premium see the User Manual or ask your employer."
+              }
+            />
+
+            <FieldSelect
+              name="AllowableDeductions.healthself.schedule"
+              label="How often?"
+              placeholder="Select option..."
+              required="Required"
+              fieldwidth={"25%"}
+              options={[
+                { value: "weekly", label: "Once per week" },
+                { value: "biweekly", label: "Every two weeks" },
+                { value: "bimonthly", label: "Twice a month" },
+                { value: "monthly", label: "Once per month" },
+                { value: "yearly", label: "Yearly" },
+              ]}
+            />
+          </Stack>
         )}
         {checkedItems.healthchildren === true && (
-          <Box d={"flex"}>
-            <Box flex={1} mr={4}>
-              <FieldMoneyInput
-                name={`AllowableDeductions.healthchildren.amount`}
-                label="Ordered health insurance premium for other children"
-                required="Required"
-                type="text"
-                mr={4}
-              />
-            </Box>
-            <Box flex={1}>
-              <FieldSelect
-                name="AllowableDeductions.healthchildren.schedule"
-                label="How often?"
-                placeholder="Select option..."
-                required="Required"
-                fieldwidth={"25%"}
-                options={[
-                  { value: "weekly", label: "Once per week" },
-                  { value: "biweekly", label: "Every two weeks" },
-                  { value: "bimonthly", label: "Twice a month" },
-                  { value: "monthly", label: "Once per month" },
-                  { value: "yearly", label: "Yearly" },
-                ]}
-              />
-            </Box>
-          </Box>
+          <Stack
+            direction={["column", "column", "row"]}
+            spacing={["0", "0", "1rem"]}
+          >
+            <FieldMoneyInput
+              name={`AllowableDeductions.healthchildren.amount`}
+              label="Ordered health insurance premium for other children"
+              required="Required"
+              type="text"
+              helper={
+                "This amount is only the cost of the portion the premium for other children you support. If you need help calculating the this portion of your health insurance premium see the User Manual or ask your employer."
+              }
+            />
+            <FieldSelect
+              name="AllowableDeductions.healthchildren.schedule"
+              label="How often?"
+              placeholder="Select option..."
+              required="Required"
+              fieldwidth={"25%"}
+              options={[
+                { value: "weekly", label: "Once per week" },
+                { value: "biweekly", label: "Every two weeks" },
+                { value: "bimonthly", label: "Twice a month" },
+                { value: "monthly", label: "Once per month" },
+                { value: "yearly", label: "Yearly" },
+              ]}
+            />
+          </Stack>
         )}
         {checkedItems.taxfed === true && (
-          <Box d={"flex"}>
-            <Box flex={1} mr={4}>
-              <FieldMoneyInput
-                name={`AllowableDeductions.taxfed.amount`}
-                label="Federal income tax"
-                required="Required"
-                type="text"
-                mr={4}
-              />
-            </Box>
-            <Box flex={1}>
-              <FieldSelect
-                name="AllowableDeductions.taxfed.schedule"
-                label="How often?"
-                placeholder="Select option..."
-                required="Required"
-                options={[
-                  { value: "weekly", label: "Once per week" },
-                  { value: "biweekly", label: "Every two weeks" },
-                  { value: "bimonthly", label: "Twice a month" },
-                  { value: "monthly", label: "Once per month" },
-                  { value: "yearly", label: "Yearly" },
-                ]}
-              />
-            </Box>
-          </Box>
+          <Stack
+            direction={["column", "column", "row"]}
+            spacing={["0", "0", "1rem"]}
+          >
+            <FieldMoneyInput
+              name={`AllowableDeductions.taxfed.amount`}
+              label="Federal income tax"
+              required="Required"
+              type="text"
+              helper={
+                "You can use your last tax return to calculate this number or see the User's manual to learn more."
+              }
+            />
+            <FieldSelect
+              name="AllowableDeductions.taxfed.schedule"
+              label="How often?"
+              placeholder="Select option..."
+              required="Required"
+              options={[
+                { value: "weekly", label: "Once per week" },
+                { value: "biweekly", label: "Every two weeks" },
+                { value: "bimonthly", label: "Twice a month" },
+                { value: "monthly", label: "Once per month" },
+                { value: "yearly", label: "Yearly" },
+              ]}
+            />
+          </Stack>
         )}
         {checkedItems.taxstate === true && (
-          <Box d={"flex"}>
-            <Box flex={1} mr={4}>
-              <FieldMoneyInput
-                name={`AllowableDeductions.taxstate.amount`}
-                label="State income tax"
-                required="Required"
-                type="text"
-                mr={4}
-              />
-            </Box>
-            <Box flex={1}>
-              <FieldSelect
-                name="AllowableDeductions.taxstate.schedule"
-                label="How often?"
-                placeholder="Select option..."
-                required="Required"
-                fieldwidth={"25%"}
-                options={[
-                  { value: "weekly", label: "Once per week" },
-                  { value: "biweekly", label: "Every two weeks" },
-                  { value: "bimonthly", label: "Twice a month" },
-                  { value: "monthly", label: "Once per month" },
-                  { value: "yearly", label: "Yearly" },
-                ]}
-              />
-            </Box>
-          </Box>
+          <Stack
+            direction={["column", "column", "row"]}
+            spacing={["0", "0", "1rem"]}
+          >
+            <FieldMoneyInput
+              name={`AllowableDeductions.taxstate.amount`}
+              label="State income tax"
+              required="Required"
+              type="text"
+              helper={
+                "You can use your last tax return to calculate this number or see the User's manual to learn more."
+              }
+            />
+            <FieldSelect
+              name="AllowableDeductions.taxstate.schedule"
+              label="How often?"
+              placeholder="Select option..."
+              required="Required"
+              fieldwidth={"25%"}
+              options={[
+                { value: "weekly", label: "Once per week" },
+                { value: "biweekly", label: "Every two weeks" },
+                { value: "bimonthly", label: "Twice a month" },
+                { value: "monthly", label: "Once per month" },
+                { value: "yearly", label: "Yearly" },
+              ]}
+            />
+          </Stack>
         )}
         {checkedItems.ssn === true && (
-          <Box d={"flex"}>
-            <Box flex={1} mr={4}>
-              <FieldMoneyInput
-                name={`AllowableDeductions.ssn.amount`}
-                label="Social Security (FICA plus Medicare)"
-                required="Required"
-                type="text"
-                mr={4}
-              />
-            </Box>
-            <Box flex={1}>
-              <FieldSelect
-                name="AllowableDeductions.ssn.schedule"
-                label="How often?"
-                placeholder="Select option..."
-                required="Required"
-                fieldwidth={"25%"}
-                options={[
-                  { value: "weekly", label: "Once per week" },
-                  { value: "biweekly", label: "Every two weeks" },
-                  { value: "bimonthly", label: "Twice a month" },
-                  { value: "monthly", label: "Once per month" },
-                  { value: "yearly", label: "Yearly" },
-                ]}
-              />
-            </Box>
-          </Box>
+          <Stack
+            direction={["column", "column", "row"]}
+            spacing={["0", "0", "1rem"]}
+          >
+            <FieldMoneyInput
+              name={`AllowableDeductions.ssn.amount`}
+              label="Social Security (FICA plus Medicare)"
+              required="Required"
+              type="text"
+              helper={
+                "You can use your last tax return to calculate this number or see the User's manual to learn more."
+              }
+            />
+            <FieldSelect
+              name="AllowableDeductions.ssn.schedule"
+              label="How often?"
+              placeholder="Select option..."
+              required="Required"
+              fieldwidth={"25%"}
+              options={[
+                { value: "weekly", label: "Once per week" },
+                { value: "biweekly", label: "Every two weeks" },
+                { value: "bimonthly", label: "Twice a month" },
+                { value: "monthly", label: "Once per month" },
+                { value: "yearly", label: "Yearly" },
+              ]}
+            />
+          </Stack>
         )}
         {checkedItems.retirement === true && (
-          <Box d={"flex"}>
-            <Box flex={1} mr={4}>
-              <FieldMoneyInput
-                name={`AllowableDeductions.retirement.amount`}
-                label="Mandatory retirement contributions"
-                required="Required"
-                type="text"
-                mr={4}
-              />
-            </Box>
-            <Box flex={1}>
-              <FieldSelect
-                name="AllowableDeductions.retirement.schedule"
-                label="How often?"
-                placeholder="Select option..."
-                required="Required"
-                fieldwidth={"25%"}
-                options={[
-                  { value: "weekly", label: "Once per week" },
-                  { value: "biweekly", label: "Every two weeks" },
-                  { value: "bimonthly", label: "Twice a month" },
-                  { value: "monthly", label: "Once per month" },
-                  { value: "yearly", label: "Yearly" },
-                ]}
-              />
-            </Box>
-          </Box>
+          <Stack
+            direction={["column", "column", "row"]}
+            spacing={["0", "0", "1rem"]}
+          >
+            <FieldMoneyInput
+              name={`AllowableDeductions.retirement.amount`}
+              label="Mandatory retirement contributions"
+              required="Required"
+              type="text"
+              mr={4}
+            />
+            <FieldSelect
+              name="AllowableDeductions.retirement.schedule"
+              label="How often?"
+              placeholder="Select option..."
+              required="Required"
+              fieldwidth={"25%"}
+              options={[
+                { value: "weekly", label: "Once per week" },
+                { value: "biweekly", label: "Every two weeks" },
+                { value: "bimonthly", label: "Twice a month" },
+                { value: "monthly", label: "Once per month" },
+                { value: "yearly", label: "Yearly" },
+              ]}
+            />
+          </Stack>
         )}
         {checkedItems.reqemp === true && (
-          <Box d={"flex"}>
-            <Box flex={1} mr={4}>
-              <FieldMoneyInput
-                name={`AllowableDeductions.reqemp.amount`}
-                label="Required employment expense"
-                required="Required"
-                type="text"
-                mr={4}
-              />
-            </Box>
-            <Box flex={1}>
-              <FieldSelect
-                name="AllowableDeductions.reqemp.schedule"
-                label="How often?"
-                placeholder="Select option..."
-                required="Required"
-                fieldwidth={"25%"}
-                options={[
-                  { value: "weekly", label: "Once per week" },
-                  { value: "biweekly", label: "Every two weeks" },
-                  { value: "bimonthly", label: "Twice a month" },
-                  { value: "monthly", label: "Once per month" },
-                  { value: "yearly", label: "Yearly" },
-                ]}
-              />
-            </Box>
-          </Box>
+          <Stack
+            direction={["column", "column", "row"]}
+            spacing={["0", "0", "1rem"]}
+          >
+            <FieldMoneyInput
+              name={`AllowableDeductions.reqemp.amount`}
+              label="Required employment expense"
+              required="Required"
+              type="text"
+              mr={4}
+            />
+            <FieldSelect
+              name="AllowableDeductions.reqemp.schedule"
+              label="How often?"
+              placeholder="Select option..."
+              required="Required"
+              fieldwidth={"25%"}
+              options={[
+                { value: "weekly", label: "Once per week" },
+                { value: "biweekly", label: "Every two weeks" },
+                { value: "bimonthly", label: "Twice a month" },
+                { value: "monthly", label: "Once per month" },
+                { value: "yearly", label: "Yearly" },
+              ]}
+            />
+          </Stack>
         )}
         {checkedItems.extmed === true && (
-          <Box d={"flex"}>
-            <Box flex={1} mr={4}>
-              <FieldMoneyInput
-                name={`AllowableDeductions.extmed.amount`}
-                label="Extraordinary medical expense for yourself - per year"
-                required="Required"
-                type="text"
-                mr={4}
-              />
-            </Box>
-            <Box flex={1}>
-              <FieldInput
-                name={`AllowableDeductions.extmed.desc`}
-                label="List the types of extraordinary medical expenses you have."
-                required="Required"
-                type="text"
-                mr={4}
-              />
-            </Box>
-          </Box>
+          <Stack
+            direction={["column", "column", "row"]}
+            spacing={["0", "0", "1rem"]}
+          >
+            <FieldMoneyInput
+              name={`AllowableDeductions.extmed.amount`}
+              label="Extraordinary dical expense for yourself - per year"
+              required="Required"
+              type="text"
+              mr={4}
+            />
+            <FieldInput
+              name={`AllowableDeductions.extmed.desc`}
+              label="List the types of extraordinary medical expenses you have."
+              required="Required"
+              type="text"
+              mr={4}
+            />
+          </Stack>
         )}
         {checkedItems.inhome === true && (
-          <Box d={"flex"}>
-            <Box flex={1} mr={4}>
-              <FieldMoneyInput
-                name={`AllowableDeductions.inhome.amount`}
-                label="In-home nursing care expense - per year"
-                required="Required"
-                type="text"
-                mr={4}
-              />
-            </Box>
-            <Box flex={1}>
-              <FieldInput
-                name={`AllowableDeductions.inhome.desc`}
-                label="List the types of in-home nursing care expenses you have and who you pay."
-                required="Required"
-                type="text"
-                mr={4}
-              />
-            </Box>
-          </Box>
+          <Stack
+            direction={["column", "column", "row"]}
+            spacing={["0", "0", "1rem"]}
+          >
+            <FieldMoneyInput
+              name={`AllowableDeductions.inhome.amount`}
+              label="In-home nursing care expense - per year"
+              required="Required"
+              type="text"
+              mr={4}
+            />
+            <FieldInput
+              name={`AllowableDeductions.inhome.desc`}
+              label="List the types of in-home nursing care expenses you have and who you pay."
+              required="Required"
+              type="text"
+              mr={4}
+            />
+          </Stack>
         )}
       </>
       <AdministrativeRules
-        rules={[110,111]}
+        rules={[110, 111]}
         explanation={
           "For definitions and more information, click on the links below:"
         }

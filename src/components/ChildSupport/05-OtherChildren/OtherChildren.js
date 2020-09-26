@@ -18,6 +18,10 @@ export const OtherChildren = () => {
       <>
         <SectionHeader
           header={`Do you have other children with someone else?`}
+          helpText={{
+            text:
+              "This does not include your step-children. It does include adopted children. Only count your children that you support. This could be children that live with you, or your children that live with another parent as long as you provide support for that child.",
+          }}
         />
         <FieldRadio
           name="OtherChildren.primary"

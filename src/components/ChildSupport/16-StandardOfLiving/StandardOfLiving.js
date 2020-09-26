@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import {  Box } from "@chakra-ui/core"
+import { Box } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddAnother } from "../../Utils/AddAnother"
-import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 import { v4 as uuidv4 } from "uuid"
 
 const defaultCollection = [
@@ -61,11 +61,14 @@ export const StandardOfLiving = () => {
   )
   return (
     <FormizStep
-      label="Your Standard of Living adjustment"
+      label="Your Long Distance Parenting and Standard of Living adjustment"
       name={`StandardOfLiving`}
       order={16000}
     >
-      <SectionHeader header={`Your Standard of Living adjustment`} />
+      <SectionHeader
+        header={`Your Long Distance Parenting and Standard of Living adjustment`}
+        helpText={{ text: "See the User's Manual for to find out if you have any other Standard of Living Adjustments"}}
+      />
       <FieldRadio
         name={`StandardOfLiving.mileage`}
         label="Have you driven any miles for long-distance parenting?"
@@ -82,7 +85,7 @@ export const StandardOfLiving = () => {
           label="How many miles do you drive annually to exercise long-distance parenting?"
           type="text"
           placeholder=""
-          mb="4"
+
         />
       )}
       <FieldRadio
@@ -109,6 +112,7 @@ export const StandardOfLiving = () => {
         label="Do you have other standard of living adjustments to add?"
         required="Required"
         updateState={updateState}
+        helper={"See the User's Manual for to find out if you have any other Standard of Living Adjustments"}
         options={[
           { value: "yes", label: "Yes" },
           { value: "no", label: "No" },
@@ -132,7 +136,7 @@ export const StandardOfLiving = () => {
           <AddPlaceholder label="Add adjustment" onClick={addItem} />
         )}
       <AdministrativeRules
-        rules={[128,130]}
+        rules={[128, 130]}
         explanation={
           "For definitions and more information, click on the links below:"
         }

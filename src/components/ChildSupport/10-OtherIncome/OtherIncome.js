@@ -3,11 +3,11 @@ import { FormizStep } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
-import { Box } from "@chakra-ui/core"
+import { Divider, Text, Stack } from "@chakra-ui/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
-import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const OtherIncome = () => {
   const updateState = {}
@@ -30,7 +30,8 @@ export const OtherIncome = () => {
           { value: "pension", label: "Pensions, retirement" },
           {
             value: "social",
-            label: "Social Security (retirement income, not disability)",
+            label:
+              "Social Security Retirement Income (not Disability Income or Supplemental Income)",
           },
           { value: "interest", label: "Interest/Dividends" },
           { value: "unearned", label: "Other unearned income" },
@@ -48,41 +49,45 @@ export const OtherIncome = () => {
         ]}
       />
       {checkedItems.sep === true && (
-        <Box d="flex">
-          <FieldMoneyInput
-            name={`OtherIncome.SepEarning`}
-            label="Self-employment net earnings (- loss)"
-            required="Required"
-            type="text"
-            mr={4}
-          />
-          <FieldSelect
-            name="OtherIncome.SepEarning.PaySchedule"
-            label="Paid how often?"
-            placeholder="Select option..."
-            required="Required"
-            fieldwidth={"25%"}
-            options={[
-              { value: "weekly", label: "Once per week" },
-              { value: "biweekly", label: "Every two weeks" },
-              { value: "bimonthly", label: "Twice a month" },
-              { value: "monthly", label: "Once per month" },
-              { value: "yearly", label: "Yearly" },
-            ]}
-          />
-          <FieldInput
-            name={`OtherIncome.SepEarning.Desc`}
-            label="Describe your self-employment activities"
-            required="Required"
-            type="text"
-          />
-          <FieldMoneyInput
-            name={`OtherIncome.SepEarning.HoursPerWeek`}
-            label="Hours per week spent in self-employment activities"
-            required="Required"
-            type="text"
-            mr={4}
-          />
+        <>
+          <Divider mb={4} />
+          <Stack direction={"row"} spacing={["0", "0", "1rem"]}>
+            <FieldMoneyInput
+              name={`otherincome.sepearning`}
+              label="Self-employment net earnings (- loss)"
+              required="required"
+              type="text"
+            />
+            <FieldSelect
+              name="otherincome.sepearning.payschedule"
+              label="Paid how often?"
+              placeholder="Select option..."
+              required="Required"
+              fieldwidth={"25%"}
+              options={[
+                { value: "weekly", label: "Once per week" },
+                { value: "biweekly", label: "Every two weeks" },
+                { value: "bimonthly", label: "Twice a month" },
+                { value: "monthly", label: "Once per month" },
+                { value: "yearly", label: "Yearly" },
+              ]}
+            />
+          </Stack>
+          <Stack direction={"row"} spacing={["0", "0", "1rem"]}>
+            <FieldInput
+              name={`OtherIncome.SepEarning.Desc`}
+              label="Describe your self-employment activities"
+              required="Required"
+              type="text"
+              width={"80%"}
+            />
+            <FieldMoneyInput
+              name={`OtherIncome.SepEarning.HoursPerWeek`}
+              label="Hours per week spent in self-employment activities"
+              required="Required"
+              type="text"
+            />
+          </Stack>
           <FieldRadio
             name="OtherIncome.SepEarning.Primary"
             placeholder="None"
@@ -97,30 +102,57 @@ export const OtherIncome = () => {
               { value: "no", label: "No" },
             ]}
           />
-        </Box>
+          <Text fontSize={"sm"} mt={2}>
+            This amount may not be the same amount of income you claim on your
+            taxes. Certian deductions are allowable for tax purposes but not for
+            child support purposes. The User Guide can help you calculate the
+            appropriate self-employment income.
+          </Text>
+        </>
       )}
 
       {checkedItems.pension === true && (
-        <FieldMoneyInput
-          name={`OtherIncome.Pension`}
-          label="Pensions, retirement - per year (before taxes)"
-          required="Required"
-          type="text"
-          mr={4}
-        />
+        <>
+          <Divider mb={4} />
+          <FieldMoneyInput
+            name={`OtherIncome.Pension`}
+            label="Pensions, retirement - per year (before taxes)"
+            required="Required"
+            type="text"
+            mr={4}
+          />
+          <Text fontSize={"sm"} mt={2}>
+            Pensions and retirement includes all pensions, including VA pensions
+            and military pensions, IRA distributions, Railroad retirement and
+            all other retirement funds. Do not include Social Security here.
+          </Text>
+        </>
       )}
 
       {checkedItems.social === true && (
-        <FieldMoneyInput
-          name={`OtherIncome.SSN`}
-          label="Pensions, Social Security, per year (before taxes)"
-          required="Required"
-          type="text"
-          mr={4}
-        />
+        <>
+          <Divider mb={4} />
+          <FieldMoneyInput
+            name={`OtherIncome.SSN`}
+            label="Pensions, Social Security, per year (before taxes)"
+            required="Required"
+            type="text"
+            mr={4}
+          />
+          <Text fontSize={"sm"} mt={2}>
+            Enter only social Security Retirement and/or survivors benefits. Do
+            not enter Social Security Disability Income (SSDI) benefits here.
+            Disability benefits, (but not benefits received by a child on behalf
+            of a disabled parent) should be entered as "other taxable income
+            below. Do not enter Social Security Income (SSI) received by a
+            parent or for a child anywhere in this calculator.
+          </Text>
+        </>
       )}
 
       {checkedItems.interest === true && (
+        <>
+          <Divider mb={4} />
           <FieldMoneyInput
             name={`OtherIncome.Interest`}
             label="Interest/Dividend income - per year (before taxes)"
@@ -128,9 +160,12 @@ export const OtherIncome = () => {
             type="text"
             mr={4}
           />
+        </>
       )}
 
       {checkedItems.unearned === true && (
+        <>
+          <Divider mb={4} />
           <FieldMoneyInput
             name={`OtherIncome.Unearned`}
             label="Other unearned income - per year (before taxes)"
@@ -138,25 +173,27 @@ export const OtherIncome = () => {
             type="text"
             mr={4}
           />
+        </>
       )}
 
       {checkedItems.imputed === true && (
-        <Box d={"flex"} mr={12}>
-          <Box flex={1} mr={4}>
+        <>
+          <Divider mb={4} />
+          <Stack
+            direction={["column", "column", "row"]}
+            spacing={["0", "0", "1rem"]}
+          >
             <FieldMoneyInput
               name={`OtherIncome.Imputed`}
               label="Imputed income (before taxes)"
               required="Required"
               type="text"
             />
-          </Box>
-          <Box flex={1}>
             <FieldSelect
               name="OtherIncome.Imputed.Schedule"
               label="Paid how often?"
               placeholder="Select option..."
               required="Required"
-              fieldwidth={"25%"}
               options={[
                 { value: "weekly", label: "Once per week" },
                 { value: "biweekly", label: "Every two weeks" },
@@ -165,10 +202,12 @@ export const OtherIncome = () => {
                 { value: "yearly", label: "Yearly" },
               ]}
             />
-          </Box>
-        </Box>
+          </Stack>
+        </>
       )}
       {checkedItems.eitc === true && (
+        <>
+          <Divider mb={4} />
           <FieldMoneyInput
             name={`OtherIncome.EITC`}
             label="Earned Income Tax Credit (EITC) - per year (before taxes)"
@@ -176,11 +215,25 @@ export const OtherIncome = () => {
             type="text"
             mr={4}
           />
+          <Text fontSize={"sm"} mt={2}>
+            See here:{" "}
+            <a
+              isExternal
+               href="https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/earned-income-tax-credit-income-limits-and-maximum-credit-amounts"
+            >
+              Limits and Maximum Credit Amounts
+            </a>
+          </Text>
+        </>
       )}
 
       {checkedItems.prize === true && (
-        <Box d={"flex"} mr={12}>
-          <Box flex={1} mr={4}>
+        <>
+          <Divider mb={4} />
+          <Stack
+            direction={["column", "column", "row"]}
+            spacing={["0", "0", "1rem"]}
+          >
             <FieldMoneyInput
               name={`OtherIncome.prize`}
               label="Prize, award, settlement, or other one-time cash payment (before taxes)"
@@ -188,8 +241,7 @@ export const OtherIncome = () => {
               type="text"
               mr={4}
             />
-          </Box>
-          <Box flex={1}>
+
             <FieldInput
               name={`OtherIncome.prize.desc`}
               label="Describe the prize, including its present location."
@@ -197,11 +249,31 @@ export const OtherIncome = () => {
               type="text"
               mr={4}
             />
-          </Box>
-        </Box>
+          </Stack>
+          <Text fontSize={"sm"} mt={2}>
+              One-time payments can be spread out over several years. Because one-time payments will not happen every year, you may want to do another calculation that does not include this income. See ARM 37.62.105(2)(a)
+          </Text>
+        </>
       )}
-
+      {checkedItems.taxable === true && (
+        <>
+          <Divider mb={4} />
+          <Text fontSize={"sm"} mt={2}>
+            Enter on next screen. Examples include income from an S-corp, scholarships or grants that exceeded the qualifed tuition related expenses (find this on your tuition statement IRS Form 1098-T) Social Security Disability benefits (but not Disability benefits recieved by a child on behalf of a disabled parent. See ARM 37.62.144
+          </Text>
+        </>
+      )}
+      {checkedItems.nontaxable === true && (
+        <>
+          <Divider mb={4} />
+          <Text fontSize={"sm"} mt={2}>
+            Enter on next screen. Examples include tax-exempt interest, accelerated depreciation on business assests, qualifed tuition related expenses (find this on your tuition statement IRS Form 1098-T) See ARM 37.62.105(2).
+          </Text>
+        </>
+      )}
       {checkedItems.bonus === true && (
+        <>
+          <Divider mb={4} />
           <FieldMoneyInput
             name={`OtherIncome.bonus`}
             label="Bonus amount - per year (before taxes)"
@@ -209,9 +281,10 @@ export const OtherIncome = () => {
             type="text"
             mr={4}
           />
+        </>
       )}
       <AdministrativeRules
-        rules={[105,106,108,144]}
+        rules={[105, 106, 108, 144]}
         explanation={
           "For definitions and more information, click on the links below:"
         }
