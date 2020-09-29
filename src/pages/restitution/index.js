@@ -23,11 +23,11 @@ export default function (Restitution) {
         submitLabel="Finish"
       >
         <IntroHow />
-        <IntroCanDo />
-        <IntroCantDo />
-        <IntroPrep />
+        {/*<IntroCanDo />*/}
+        {/*<IntroCantDo />*/}
+        {/*<IntroPrep />*/}
         <IntroCode />
-        <IntroAdditional />
+        {/*<IntroAdditional />*/}
         <IntroSafety />
         <IntroHelp />
       </MultiStepsLayout>

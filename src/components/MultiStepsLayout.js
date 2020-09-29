@@ -94,6 +94,17 @@ export const MultiStepsLayout = ({
                 <Button colorScheme={"brand"} onClick={() => handleExit("/child-support/calculator")}>Start interview</Button>
               </Box>
             )}
+            {form.isLastStep && app === "restitutionIntro" && (
+              <Box
+                gridColumn="3"
+                textAlign="right"
+                fontSize="sm"
+                color="gray.500"
+                mt={2}
+              >
+                <Button colorScheme={"brand"} onClick={() => handleExit("/restitution/worksheet")}>Start interview</Button>
+              </Box>
+            )}
           </Grid>
         )}
         {app === "supportIntro" && (

@@ -1,0 +1,58 @@
+import React from "react"
+import { FormizStep } from "@formiz/core"
+import { FieldInput } from "../../Fields/FieldInput"
+import { Stack } from "@chakra-ui/core"
+import { SectionHeader } from "../../Utils/SectionHeader"
+import { isEmail } from "@formiz/validations"
+
+export const PersonalInfo = () => {
+  return (
+    <FormizStep
+      label={`Personal information`}
+      name="PersonalInformation"
+      order={1000}
+    >
+      <SectionHeader header={`Personal information`} />
+      <Stack
+        direction={["column", "column", "row"]}
+        spacing={["0", "0", "1rem"]}
+      >
+        <FieldInput
+          name={`Primary.fname`}
+          label="First name"
+          required="Required"
+        />
+        <FieldInput
+          name={`Primary.mname`}
+          label="Middle"
+          placeholder="Optional"
+        />
+        <FieldInput
+          name={`Primary.lname`}
+          required="Required"
+          label="Last name"
+        />
+      </Stack>
+      <Stack
+        direction={["column", "column", "row"]}
+        spacing={["0", "0", "1rem"]}
+      >
+        <FieldInput
+          name={`Primary.phone`}
+          label="Phone number"
+          required="Required"
+        />
+        <FieldInput
+          name={`Primary.email`}
+          label="Email address"
+          validations={[
+            {
+              rule: isEmail(),
+              message: "Please enter a valid email",
+            },
+            ]}
+        />
+      </Stack>
+    </FormizStep>
+  )
+}
