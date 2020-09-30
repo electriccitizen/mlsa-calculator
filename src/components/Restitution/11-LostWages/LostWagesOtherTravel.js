@@ -19,7 +19,7 @@ const defaultCollection = [
 ]
 export const LostWagesOtherTravel = () => {
   const form = useForm({
-    subscribe: { fields: ["LostWagesCourtTravel.other"] },
+    subscribe: { fields: ["LostWagesCarTravel.status"] },
   })
   const [state, setState] = useState({})
   let updateState = (name, value) => {
@@ -51,24 +51,40 @@ export const LostWagesOtherTravel = () => {
 
   const Note = index => (
     <>
-      <FieldDate
-        name={`LostWagesOtherTravel.${index}.date`}
-        label="Date of travel"
-        required="Required"
-        type="text"
-        placeholder="MM/DD/YYYY"
-      />
+      <Stack
+        direction={["column", "column", "row"]}
+        spacing={["0", "0", "1rem"]}
+      >
+        <FieldDate
+          name={`LostWagesOtherTravel.${index}.date`}
+          label="Date of travel"
+          required="Required"
+          type="text"
+          placeholder="MM/DD/YYYY"
+        />
+        <FieldMoneyInput
+          name={`LostWagesOther.${index}.amt`}
+          label="How much was the expense?"
+          required="Required"
+          validations={[
+            {
+              rule: isNumber(),
+              message: "Please enter a valid dollar amount a number",
+            },
+          ]}
+        />
+      </Stack>
       <Stack
         direction={["column", "column", "row"]}
         spacing={["0", "0", "1rem"]}
       >
         <FieldInput
           name={`LostWagesOtherTravel.${index}.notes`}
-          label="Why did you miss work?"
+          label="What was the reason for travel?"
         />
         <FieldInput
-          name={`LostWagesOtherTravel.${index}.expense`}
-          label="How many hours of work did you miss?"
+          name={`LostWagesOtherTravel.${index}.description`}
+          label="Describe what kind of travel expense"
           required="Required"
           validations={[
             {
@@ -78,25 +94,12 @@ export const LostWagesOtherTravel = () => {
           ]}
         />
       </Stack>
-      <FieldMoneyInput
-        name={`LostWagesOtherTravel.${index}.amt`}
-        label="What is your hourly wage?"
-        required="Required"
-        helper={
-          "To determine your hourly wage if you are on salary, divide your annual salary by 2,080."
-        }
-        validations={[
-          {
-            rule: isNumber(),
-            message: "Please enter a valid dollar amount a number",
-          },
-        ]}
-      />
+
       <FieldRadio
         name={`LostWagesOtherTravel.${index}.receipt`}
         placeholder="None"
         required="Required"
-        label={"Do you have any documents that show you missed work?"}
+        label={"Do you have a receipt or other way of showing the cost?"}
         updateState={updateState}
         options={[
           { value: "yes", label: "Yes" },
@@ -106,20 +109,19 @@ export const LostWagesOtherTravel = () => {
     </>
   )
 
-  return form.values.LostWagesCourtTravel &&
-    form.values.LostWagesCourtTravel.other === "yes" ? (
+  return (
     <FormizStep
-      label={`Lost wages (other travel)`}
-      name="LostWagesOther"
+      label={`Travel expenses (other travel)`}
+      name="LostWagesOtherTravel"
       order={11500}
     >
-      <SectionHeader header={`Lost wages (other travel)`} />
+      <SectionHeader header={`Travel expenses (other travel)`} />
       <FieldRadio
-        name="LostWagesOther.status"
+        name="LostWagesOtherTravel.status"
         placeholder="None"
         required="Required"
         label={
-          "Did you miss work to participate in the investigation and prosecution of the crime (other than going to court)?"
+          "Did you have other travel expense? For example did you have to take public transit or fly to a different city for a surgery?"
         }
         updateState={updateState}
         options={[
@@ -130,9 +132,7 @@ export const LostWagesOtherTravel = () => {
 
       {status === "yes" && (
         <AddAnotherHeader
-          header={
-            "Add as many entries as needed for any missed work periods below."
-          }
+          header={"Add as many entries as needed for related travel expenses."}
         />
       )}
 
@@ -151,7 +151,5 @@ export const LostWagesOtherTravel = () => {
         <AddPlaceholder label="Add another" onClick={addItem} />
       )}
     </FormizStep>
-  ) : (
-    ""
   )
 }

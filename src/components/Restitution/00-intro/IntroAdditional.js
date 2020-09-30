@@ -8,8 +8,7 @@ export const IntroAdditional = () => {
     <FormizStep label={"Additional help"} name="introAdditional" order={1000}>
       <SectionHeader header={"Find additional help:"} />
       <Text mb={2}>
-        (rewrite) For more information about child support in Montana, you can
-        contact the following:
+        For more information about restitution and the criminal process in Montana, you can contact the following:
       </Text>
       <Heading
         as="h2"
@@ -31,6 +30,7 @@ export const IntroAdditional = () => {
         </Link>
         . <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
       </Text>
+
       <Heading
         as="h2"
         fontSize="2xl"
@@ -39,25 +39,18 @@ export const IntroAdditional = () => {
         color={"gray.500"}
         href="#"
       >
-        <Icon color={"brand.400"} as={FaInfoCircle} /> MontanaLawHelp
+        <Icon color={"brand.400"} as={FaInfoCircle} /> Montana Bar Lawyer
+        Referral and Information Service
       </Heading>
       <Text mb={2}>
-        MLSA operates{" "}
-        <Link href={"https://>www.MontanaLawHelp.org"} color={"brand.400"}>
-          www.MontanaLawHelp.org
+        You may be able to find an attorney to help you by calling the State
+        of Montana Bar Lawyer Referral and Information Service (LRIS) at (406)
+        449-6577. Or visit{" "}
+        <Link href={"http://www.montanabar.org"} color={"brand.400"}>
+          {" "}
+          LRIS online
         </Link>{" "}
-        <Icon boxSize={"12px"} as={FaExternalLinkAlt} />, a website with legal
-        information on topics including child support and other family law
-        issues. Find{" "}
-        <Link
-          href={
-            "https://www.montanalawhelp.org/issues/families-and-kids/child-support"
-          }
-          color={"brand.400"}
-        >
-          more information about child support in Montana
-        </Link>{" "}
-        <Icon boxSize={"12px"} as={FaExternalLinkAlt} /> at our LawHelp website.
+        <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
       </Text>
       <Heading
         as="h2"
@@ -67,32 +60,16 @@ export const IntroAdditional = () => {
         color={"gray.500"}
         href="#"
       >
-        <Icon color={"brand.400"} as={FaInfoCircle} /> Montana Child Support
-        Enforcement Division (CSED)
+        <Icon color={"brand.400"} as={FaInfoCircle} /> AskKarla
       </Heading>
       <Text mb={2}>
-        The Montana Child Support Enforcement Division (CSED), part of the MT
-        Department of Health and Human Services (DPHHS). To open a case with
-        CSED,{" "}
-        <Link
-          href={
-            "https://lawhelpinteractive.org/DispInterview?q=FmLSVfmGtLZ7fRvIcaIv2YiSdixIDjGVp6W4gZKaP%2F6zPrylM3kC6S2%2FsFsA%2B%2FBINC%2BkMhNmksQCIJXKDHRYin3dm1KXFrlrwoBySU799rMegEN85vGWk3kZOA0KoKinvb2gvb4X0D%2FVTl7E%2BhBYiPVyTps0SbN1eKw0gaaMKA34eb0ZCil3O2oGeTm90H5uyUtQ0W%2BJKPPiPJJMbh4NP0Ud1hLX7FPXe4hH2J1HR0pxY%2BGta0zYMKkBMbDV0%2BogInDTBbEltQwhs8INnp1k7z4h0gPRwGTR2x2zPRg2T%2FxhH3JBA8yYxdpF3C%2BG22xWeLNdDxGQO32f2KcPDv9zVQ%3D%3D#"
-          }
-          color={"brand.400"}
-        >
-          you may download an application.
+        If you're eligible for MLSA, you may also get legal advice by email
+        from AskKarla. Go to{" "}
+        <Link href={"https://askkarla.org/"} color={"brand.400"}>
+          {" "}
+          AskKarla
         </Link>{" "}
-        <Icon boxSize={"12px"} as={FaExternalLinkAlt} /> You may pick up an
-        application at a{" "}
-        <Link
-          href={
-            "https://lawhelpinteractive.org/DispInterview?q=FmLSVfmGtLZ7fRvIcaIv2YiSdixIDjGVp6W4gZKaP%2F6zPrylM3kC6S2%2FsFsA%2B%2FBINC%2BkMhNmksQCIJXKDHRYin3dm1KXFrlrwoBySU799rMegEN85vGWk3kZOA0KoKinvb2gvb4X0D%2FVTl7E%2BhBYiPVyTps0SbN1eKw0gaaMKA34eb0ZCil3O2oGeTm90H5uyUtQ0W%2BJKPPiPJJMbh4NP0Ud1hLX7FPXe4hH2J1HR0pxY%2BGta0zYMKkBMbDV0%2BogInDTBbEltQwhs8INnp1k7z4h0gPRwGTR2x2zPRg2T%2FxhH3JBA8yYxdpF3C%2BG22xWeLNdDxGQO32f2KcPDv9zVQ%3D%3D#"
-          }
-          color={"brand.400"}
-        >
-          local child support office
-        </Link>{" "}
-        <Icon boxSize={"12px"} as={FaExternalLinkAlt} />.
+        <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
       </Text>
     </FormizStep>
   )

@@ -1,9 +1,8 @@
 import React from "react"
-import { Link, Heading, Text, Box, useColorMode } from "@chakra-ui/core"
+import { Link, Heading, Text, Box } from "@chakra-ui/core"
 
 import { PageLayout } from "../layout/PageLayout"
 export default function Safety() {
-  const { colorMode } = useColorMode()
   return (
     <PageLayout>
       <Box mb="8">

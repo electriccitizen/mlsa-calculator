@@ -9,7 +9,6 @@ import {
   List,
   ListItem,
   Text,
-  UnorderedList,
   OrderedList,
   useColorMode,
 } from "@chakra-ui/core"

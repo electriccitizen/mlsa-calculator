@@ -5,9 +5,10 @@ import { IntroHow } from "../../components/Restitution/00-intro/IntroHow"
 import { IntroCanDo } from "../../components/Restitution/00-intro/IntroCanDo"
 import { IntroCantDo } from "../../components/Restitution/00-intro/IntroCantDo"
 import { IntroPrep } from "../../components/Restitution/00-intro/IntroPrep"
-import { IntroCode } from "../../components/Restitution/00-intro/IntroCode"
+import { IntroLearnMore } from "../../components/Restitution/00-intro/IntroLearnMore"
 import { IntroAdditional } from "../../components/Restitution/00-intro/IntroAdditional"
 import { IntroSafety } from "../../components/Restitution/00-intro/IntroSafety"
+import { IntroQuestions } from '../../components/Restitution/00-intro/IntroQuestions'
 import { IntroHelp } from "../../components/Restitution/00-intro/IntroHelp"
 import { MultiStepsLayout } from "../../components/MultiStepsLayout"
 
@@ -23,12 +24,13 @@ export default function (Restitution) {
         submitLabel="Finish"
       >
         <IntroHow />
-        {/*<IntroCanDo />*/}
-        {/*<IntroCantDo />*/}
-        {/*<IntroPrep />*/}
-        <IntroCode />
-        {/*<IntroAdditional />*/}
+        <IntroCanDo />
+        <IntroCantDo />
+        <IntroPrep />
+        <IntroLearnMore />
+        <IntroAdditional />
         <IntroSafety />
+        <IntroQuestions />
         <IntroHelp />
       </MultiStepsLayout>
     </Formiz>

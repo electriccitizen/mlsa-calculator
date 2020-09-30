@@ -9,13 +9,14 @@ export const IntroHow = () => {
     <FormizStep label={"Getting started"} name="introHow" order={100}>
       <SectionHeader header={"Getting started"} />
       <Text mb={4}>
-        This application was built by the Montana Legal Services Association to
-        help estimate the financial costs that victims incur as a result of a
-        crime.
+        You will be asked a series of questions in order to produce a
+        restitution workbook that outlines your expenses as a crime victim.
       </Text>
       <Text mb={4}>
-        This tool will help you keep track of expenses related to the crime so
-        that you can determine an estimate for proposed restitution.
+        Restitution is money that a court orders a defendant to pay to a crime
+        victim or the Crime Victim Compensation Program, This workbook will
+        help you estimate your expenses, but may not affect the amount the Court
+        decides to set for restitution.
       </Text>
       <Text mb={4}>
         This tool is not a substitute for legal advice. The Court is not
@@ -37,7 +38,7 @@ export const IntroHow = () => {
         of your personal data.
       </Text>
       <Text>
-        To complete this application, you need to have copies of estimates, bills, or receipts related to the crime.
+        You will be asked about injuries, mental health costs, funeral expenses, lost or damaged property, and other topics.
       </Text>
     </FormizStep>
   )

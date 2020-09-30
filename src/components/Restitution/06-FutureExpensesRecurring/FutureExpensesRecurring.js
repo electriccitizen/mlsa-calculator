@@ -9,7 +9,6 @@ import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
 import { v4 as uuidv4 } from "uuid"
-import { FieldDate } from "../../Fields/FieldDate"
 import { AlertBox } from "../../Utils/AlertBox"
 
 const defaultCollection = [

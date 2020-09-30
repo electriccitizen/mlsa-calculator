@@ -97,9 +97,7 @@ export default function Home() {
                 fontSize={"xl"}
                 color={colorMode === "dark" ? "gray.600" : "gray.500"}
               >
-                Use the restitution workbook to help determine [need further
-                description for this tool roughly same length as calculator
-                text].
+                Help estimate possible costs that are paid by a victim as a result of a crime, which could be ordered by a Court to be paid back by the defendant.
               </Text>
               <GatsbyLink to="/restitution">
                 <Button>Start</Button>

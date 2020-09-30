@@ -13,9 +13,8 @@ export const IntroCantDo = () => {
     >
       <SectionHeader header={"What this tool can't do"} />
       <Text>
-        [rewrite] This calculator cannot take the place of a lawyer’s legal
-        advice or information from the State of Montana Child Support
-        Enforcement Division (CSED).
+        This workbook cannot take the place of court-ordered restitution or a
+        lawyer’s legal advice.
       </Text>
       <Text p={4} mt={2} color={colorMode === "dark" ? "gray.400" : "gray.500"}>
         <Icon color="red.700" as={FaStopCircle} /> There is no claim or
@@ -26,13 +25,7 @@ export const IntroCantDo = () => {
         Association and/or CSED are not responsible for what happens if you use
         this calculator.
       </Text>
-      <Text>
-        This calculator may not be right for you if you have a complicated case.
-        For example, you may need additional help if there is a dispute about
-        self-employment income, if you are ineligible to work due to illegality
-        or disability, or if you work full time but not all months of the year
-        (e.g. teacher).
-      </Text>
+
     </FormizStep>
   )
 }

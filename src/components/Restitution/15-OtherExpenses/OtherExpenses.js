@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { isNumber } from "@formiz/validations"
-import { Box } from "@chakra-ui/core"
+import { Box, Stack } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { SectionHeader } from "../../Utils/SectionHeader"
@@ -10,6 +10,7 @@ import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
 import { AlertBox } from "../../Utils/AlertBox"
 import { v4 as uuidv4 } from "uuid"
+import { FieldDate } from "../../Fields/FieldDate"
 
 const defaultCollection = [
   {
@@ -47,43 +48,56 @@ export const OtherExpenses = () => {
 
   const status = state["OtherExpenses.status"]
 
-  const Expense = index => (
-    <FieldInput
-      name={`OtherExpenses.${index}.expense`}
-      label="Describe the expense"
-      required="Required"
-    />
-  )
-  const Amount = index => (
-    <FieldMoneyInput
-      name={`OtherExpenses.${index}.amt`}
-      label="Amount"
-      required="Required"
-      validations={[
-        {
-          rule: isNumber(),
-          message: "Please enter a valid dollar amount a number",
-        },
-      ]}
-    />
-  )
-
   const Note = index => (
-    <FieldInput name={`OtherExpenses.${index}.notes`} label="Notes" />
-  )
-
-  const Receipt = index => (
-    <FieldRadio
-      name={`OtherExpenses.${index}.receipt`}
-      placeholder="None"
-      required="Required"
-      label={"Do you have a receipt?"}
-      updateState={updateState}
-      options={[
-        { value: "yes", label: "Yes" },
-        { value: "no", label: "No" },
-      ]}
-    />
+    <>
+      <Stack
+        direction={["column", "column", "row"]}
+        spacing={["0", "0", "1rem"]}
+      >
+        <FieldDate
+          name={`Other.${index}.date`}
+          label="Date of expense"
+          required="Required"
+          type="text"
+          placeholder="MM/DD/YYYY"
+        />
+        <FieldMoneyInput
+          name={`Other.${index}.expense`}
+          label="Amount of expense?"
+          required="Required"
+          validations={[
+            {
+              rule: isNumber(),
+              message: "Please enter a number",
+            },
+          ]}
+        />
+      </Stack>
+      <FieldInput
+        name={`Other.${index}.description`}
+        label="Description of expense"
+        required={"Required"}
+      />
+      <FieldInput
+        name={`Education.${index}.descriptionNotes`}
+        label="Please describe how the expense relates to the crime"
+      />
+      <FieldInput
+        name={`Other.${index}.notes`}
+        label="Notes related to payment"
+      />
+      <FieldRadio
+        name={`Other.${index}.receipt`}
+        placeholder="None"
+        required="Required"
+        label={"Do you have a receipt or other way of showing the cost?"}
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
+    </>
   )
 
   return (
@@ -101,7 +115,9 @@ export const OtherExpenses = () => {
         name="OtherExpenses.status"
         placeholder="None"
         required="Required"
-        label={"Did you have any other related expenses?"}
+        label={
+          "Did you have other expenses? (e.g. child care while at court.) "
+        }
         updateState={updateState}
         options={[
           { value: "yes", label: "Yes" },
@@ -112,7 +128,15 @@ export const OtherExpenses = () => {
       {status === "yes" && (
         <>
           <AlertBox>
-           Disclaimer that a lot of things might not be covered
+            This tool is meant to help victims determine estimate the financial
+            costs that arose out of a crime and their victimization. The Court
+            may or may not take some of these expenses into account when
+            ordering the defendant to pay restitution. Additionally, restitution
+            is not a remedy for immediate financial compensation from
+            defendants. If you need immediate financial assistance to cover
+            expenses related to the crime, consider applying for Crime Victim
+            Compensation or contacting a private attorney for additional
+            information.
           </AlertBox>
           <AddAnotherHeader header={"Add any other related expenses below."} />
         </>
@@ -122,10 +146,7 @@ export const OtherExpenses = () => {
         additionalExpenses.map((expense, index) => (
           <Box key={index}>
             <AddAnother
-              expense={Expense(index)}
-              amount={Amount(index)}
               note={Note(index)}
-              receipt={Receipt(index)}
               index={index}
               removeItem={removeItem}
               expenseID={expense.id}

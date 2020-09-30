@@ -6,7 +6,6 @@ import { FieldRadio } from "../../Fields/FieldRadio"
 import { Stack } from "@chakra-ui/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddressField } from "./AddressField"
-import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const BasicInformation = () => {
   const [state, setState] = useState({})

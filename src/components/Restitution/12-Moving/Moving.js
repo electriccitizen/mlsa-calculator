@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { isNumber } from "@formiz/validations"
-import { Box } from "@chakra-ui/core"
+import { Box, Stack } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
@@ -9,6 +9,7 @@ import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
 import { v4 as uuidv4 } from "uuid"
+import { FieldDate } from "../../Fields/FieldDate"
 
 const defaultCollection = [
   {
@@ -46,45 +47,57 @@ export const Moving = () => {
 
   const status = state["Moving.status"]
 
-  const Expense = index => (
-    <FieldInput
-      name={`Moving.${index}.expense`}
-      label="Describe the expense"
-      required="Required"
-    />
-  )
-  const Amount = index => (
-    <FieldMoneyInput
-      name={`Moving.${index}.amt`}
-      label="Amount"
-      required="Required"
-      validations={[
-        {
-          rule: isNumber(),
-          message: "Please enter a valid dollar amount a number",
-        },
-      ]}
-    />
-  )
-
   const Note = index => (
-    <FieldInput name={`Moving.${index}.notes`} label="Notes" />
+    <>
+      <Stack
+        direction={["column", "column", "row"]}
+        spacing={["0", "0", "1rem"]}
+      >
+        <FieldDate
+          name={`Moving.${index}.date`}
+          label="Date of expense"
+          required="Required"
+          type="text"
+          placeholder="MM/DD/YYYY"
+        />
+        <FieldMoneyInput
+          name={`Working.${index}.expense`}
+          label="Amount of expense?"
+          required="Required"
+          validations={[
+            {
+              rule: isNumber(),
+              message: "Please enter a number",
+            },
+          ]}
+        />
+      </Stack>
+      <FieldInput
+        name={`Working.${index}.description`}
+        label="Description of expense"
+        required={"Required"}
+      />
+      <FieldInput
+        name={`Working.${index}.descriptionNotes`}
+        label="How does it relate to the crime?"
+      />
+      <FieldInput
+        name={`Working.${index}.notes`}
+        label="Notes related to payment"
+      />
+      <FieldRadio
+        name={`Working.${index}.receipt`}
+        placeholder="None"
+        required="Required"
+        label={"Do you have a receipt or other way of showing the cost?"}
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
+    </>
   )
-
-  const Receipt = index => (
-    <FieldRadio
-      name={`Moving.${index}.receipt`}
-      placeholder="None"
-      required="Required"
-      label={"Do you have a receipt?"}
-      updateState={updateState}
-      options={[
-        { value: "yes", label: "Yes" },
-        { value: "no", label: "No" },
-      ]}
-    />
-  )
-
   return (
     <FormizStep label={`Moving expenses`} name="Moving" order={12000}>
       <SectionHeader header={`Moving expenses`} />
@@ -108,10 +121,7 @@ export const Moving = () => {
         additionalExpenses.map((expense, index) => (
           <Box key={index}>
             <AddAnother
-              expense={Expense(index)}
-              amount={Amount(index)}
               note={Note(index)}
-              receipt={Receipt(index)}
               index={index}
               removeItem={removeItem}
               expenseID={expense.id}

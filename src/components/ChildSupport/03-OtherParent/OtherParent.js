@@ -3,7 +3,6 @@ import { FormizStep } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { Stack } from "@chakra-ui/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
-import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const OtherParent = () => {
   return (

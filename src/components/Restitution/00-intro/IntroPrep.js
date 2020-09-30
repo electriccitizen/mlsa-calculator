@@ -6,59 +6,59 @@ import {
   List,
   ListItem,
   ListIcon,
-  useColorMode,
-  Heading,
   Box,
 } from "@chakra-ui/core"
 import { FaCheckCircle } from "react-icons/fa/index"
 export const IntroPrep = () => {
-  const { colorMode } = useColorMode()
   return (
     <FormizStep label={"Preparation checklist"} name="introPrep" order={1000}>
       <SectionHeader header={"Preparation checklist"} />
       <Text>
-        [rewrite] The following are examples of documentation and other
-        information you may need in order to successfully complete the
-        worksheet.
-      </Text>
-      <Text p={4} mt={2} color={colorMode === "dark" ? "gray.400" : "gray.500"}>
-        You may need to provide both existing costs and future costs for
-        expenses related to injury or mental health. Examples of information you
-        may need include:
+        You may need to provide information for both existing and future
+        expenses related to the crime. The following are examples of
+        documentation and other information you may need in order to
+        successfully complete the workbook:
       </Text>
 
       <Box display={{ md: "flex" }}>
         <Box mt={{ base: 4, md: 4 }} flex={1}>
-          <Heading
-            as="h2"
-            fontSize="2xl"
-            lineHeight="tall"
-            fontWeight="normal"
-            color={"gray.500"}
-            href="#"
-          ></Heading>
           <List spacing={4}>
             <ListItem>
               <ListIcon as={FaCheckCircle} color="brand.400" />
-              (rewrite) This list
+              Information on criminal case (cause number, prosecutor name)*
             </ListItem>
             <ListItem>
               <ListIcon as={FaCheckCircle} color="brand.400" />
-              Basic income info for current and past employers
+              Funeral expenses
             </ListItem>
             <ListItem>
               <ListIcon as={FaCheckCircle} color="brand.400" />
-              Health expense records
+              Injury expenses
             </ListItem>
             <ListItem>
               <ListIcon as={FaCheckCircle} color="brand.400" />
-              Investment records
+              Property Damage expenses
             </ListItem>
             <ListItem>
               <ListIcon as={FaCheckCircle} color="brand.400" />
-              Addresses and contact info for current and past employers
+              Mental Health Services expenses
+            </ListItem>
+            <ListItem>
+              <ListIcon as={FaCheckCircle} color="brand.400" />
+              Information on lost wages
+            </ListItem>
+            <ListItem>
+              <ListIcon as={FaCheckCircle} color="brand.400" />
+              Travel expenses for participation in the criminal court process
+            </ListItem>
+            <ListItem>
+              <ListIcon as={FaCheckCircle} color="brand.400" />
+              Moving & Safety Expenses
             </ListItem>
           </List>
+          <Text fontSize={"lg"} mt={4}>
+            *This information is not necessary for the workbook, but it may be helpful moving forward.
+          </Text>
         </Box>
       </Box>
     </FormizStep>

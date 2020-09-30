@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { isNumber } from "@formiz/validations"
-import { Box } from "@chakra-ui/core"
+import { Box, Stack } from '@chakra-ui/core'
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
+import { FieldDate } from '../../Fields/FieldDate'
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
@@ -46,43 +47,56 @@ export const Safety = () => {
 
   const status = state["Safety.status"]
 
-  const Expense = index => (
-    <FieldInput
-      name={`Safety.${index}.expense`}
-      label="Describe the expense"
-      required="Required"
-    />
-  )
-  const Amount = index => (
-    <FieldMoneyInput
-      name={`Safety.${index}.amt`}
-      label="Amount"
-      required="Required"
-      validations={[
-        {
-          rule: isNumber(),
-          message: "Please enter a valid dollar amount a number",
-        },
-      ]}
-    />
-  )
-
   const Note = index => (
-    <FieldInput name={`Safety.${index}.notes`} label="Notes" />
-  )
-
-  const Receipt = index => (
-    <FieldRadio
-      name={`Safety.${index}.receipt`}
-      placeholder="None"
-      required="Required"
-      label={"Do you have a receipt?"}
-      updateState={updateState}
-      options={[
-        { value: "yes", label: "Yes" },
-        { value: "no", label: "No" },
-      ]}
-    />
+    <>
+      <Stack
+        direction={["column", "column", "row"]}
+        spacing={["0", "0", "1rem"]}
+      >
+        <FieldDate
+          name={`Safety.${index}.date`}
+          label="Date of expense"
+          required="Required"
+          type="text"
+          placeholder="MM/DD/YYYY"
+        />
+        <FieldMoneyInput
+          name={`Safety.${index}.expense`}
+          label="Amount of expense?"
+          required="Required"
+          validations={[
+            {
+              rule: isNumber(),
+              message: "Please enter a number",
+            },
+          ]}
+        />
+      </Stack>
+      <FieldInput
+        name={`Safety.${index}.description`}
+        label="Description of expense"
+        required={"Required"}
+      />
+      <FieldInput
+        name={`Safety.${index}.descriptionNotes`}
+        label="How does it relate to the crime?"
+      />
+      <FieldInput
+        name={`Safety.${index}.notes`}
+        label="Notes related to payment"
+      />
+      <FieldRadio
+        name={`Safety.${index}.receipt`}
+        placeholder="None"
+        required="Required"
+        label={"Do you have a receipt or other way of showing the cost?"}
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
+    </>
   )
 
   return (
@@ -92,7 +106,7 @@ export const Safety = () => {
         name="Safety.status"
         placeholder="None"
         required="Required"
-        label={"Did you have to implement safety precautions?"}
+        label={"Did you have to take additional safety precautions?"}
         updateState={updateState}
         options={[
           { value: "yes", label: "Yes" },
@@ -108,10 +122,7 @@ export const Safety = () => {
         additionalExpenses.map((expense, index) => (
           <Box key={index}>
             <AddAnother
-              expense={Expense(index)}
-              amount={Amount(index)}
               note={Note(index)}
-              receipt={Receipt(index)}
               index={index}
               removeItem={removeItem}
               expenseID={expense.id}

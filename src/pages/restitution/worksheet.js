@@ -20,11 +20,14 @@ import { LostWages } from "../../components/Restitution/11-LostWages/LostWages"
 import { LostWagesCourt } from "../../components/Restitution/11-LostWages/LostWagesCourt"
 import { LostWagesOther } from "../../components/Restitution/11-LostWages/LostWagesOther"
 import { LostWagesFuture } from "../../components/Restitution/11-LostWages/LostWagesFuture"
-import { LostWagesCourtTravel } from "../../components/Restitution/11-LostWages/LostWagesCourtTravel"
+import { LostWagesCarTravel } from "../../components/Restitution/11-LostWages/LostWagesCarTravel"
+import { LostWagesOtherTravel } from "../../components/Restitution/11-LostWages/LostWagesOtherTravel"
 import { Moving } from "../../components/Restitution/12-Moving/Moving"
 import { Safety } from "../../components/Restitution/13-Safety/Safety"
 import { Education } from "../../components/Restitution/14-Education/Education"
 import { OtherExpenses } from "../../components/Restitution/15-OtherExpenses/OtherExpenses"
+import { CompleteApp } from '../../components/Restitution/CompleteApp/CompleteApp'
+import { Beforeunload } from 'react-beforeunload'
 
 export default function Worksheet() {
   const form = useForm({ subscribe: false })
@@ -38,7 +41,9 @@ export default function Worksheet() {
   }
 
   return (
+
     <Formiz onValidSubmit={handleSubmit}>
+      <Beforeunload onBeforeunload={event => event.preventDefault()} />
       <MultiStepsLayout
         app="restitution"
         buttonTitle="Restitution Workbook"
@@ -60,14 +65,16 @@ export default function Worksheet() {
         <PropertyStolenLost />
         <PropertyDamage />
         <LostWages />
-        <LostWagesFuture />
-        <LostWagesOther />
         <LostWagesCourt />
-        <LostWagesCourtTravel />
+        <LostWagesOther />
+        <LostWagesFuture />
+        <LostWagesCarTravel />
+        <LostWagesOtherTravel />
         <Moving />
         <Safety />
         <Education />
         <OtherExpenses />
+        <CompleteApp />
       </MultiStepsLayout>
     </Formiz>
   )

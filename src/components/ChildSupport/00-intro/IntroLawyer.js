@@ -46,7 +46,7 @@ export const IntroLawyer = () => {
           from AskKarla. Go to{" "}
           <Link href={"https://askkarla.org/"} color={"brand.400"}>
             {" "}
-            AskCarla
+            AskKarla
           </Link>{" "}
           <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
         </Text>

@@ -1,19 +1,12 @@
 import React from "react"
-import { FaCheckCircle } from "react-icons/fa"
 import {
-  List,
-  ListItem,
-  UnorderedList,
   Heading,
   Text,
   Box,
-  useColorMode,
 } from "@chakra-ui/core"
 
 import { PageLayout } from "../layout/PageLayout"
-import { LinkIcon } from "@chakra-ui/icons"
 export default function Disclaimer() {
-  const { colorMode } = useColorMode()
   return (
     <>
       <PageLayout>

@@ -102,11 +102,11 @@ export const LostWagesOther = () => {
 
   return (
     <FormizStep
-      label={`Lost wages (other)`}
+      label={`Lost wages (other reasons)`}
       name="LostWagesOther"
       order={11200}
     >
-      <SectionHeader header={`Lost wages (other)`} />
+      <SectionHeader header={`Lost wages (other reasons)`} />
       <FieldRadio
         name="LostWagesOther.status"
         placeholder="None"

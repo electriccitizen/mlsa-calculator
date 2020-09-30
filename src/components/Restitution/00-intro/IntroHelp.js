@@ -9,9 +9,8 @@ export const IntroHelp = () => {
     <FormizStep label={"Getting help"} name="introHelp" order={1000}>
       <SectionHeader header={"Getting help along the way:"} />
       <Text>
-        As you go through each section of the interview, you will find help
-        icons that contain helpful information, along with links to specific
-        administrative rules where they best apply.
+        As you go through each section of the workbook, you will find help
+        icons that contain helpful information.
       </Text>
       <Text
         pr={4}

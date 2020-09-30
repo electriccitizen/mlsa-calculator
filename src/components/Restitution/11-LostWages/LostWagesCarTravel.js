@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { isNumber } from "@formiz/validations"
 import { Box, Stack } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
-import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
@@ -17,10 +15,8 @@ const defaultCollection = [
     name: "Default name",
   },
 ]
-export const LostWagesCourtTravel = () => {
-  const form = useForm({
-    subscribe: { fields: ["LostWagesCourtTravel.status"] },
-  })
+export const LostWagesCarTravel = () => {
+  const form = useForm({ subscribe: false })
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
@@ -47,9 +43,7 @@ export const LostWagesCourtTravel = () => {
     setAdditionalExpenses(s => s.filter(x => x.id !== id))
   }
 
-  const status = state["LostWagesCourtTravel.status"]
-  const car = state["LostWagesCourtTravel.car"]
-  const other = state["LostWagesCourtTravel.other"]
+  const car = state["LostWagesCarTravel.car"]
 
   const Note = index => (
     <>
@@ -58,7 +52,7 @@ export const LostWagesCourtTravel = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldDate
-          name={`LostWagesCourtTravel.${index}.date`}
+          name={`LostWagesCarTravel.${index}.date`}
           label="Date of travel"
           required="Required"
           type="text"
@@ -66,7 +60,7 @@ export const LostWagesCourtTravel = () => {
           pt={[0, 0, 6]}
         />
         <FieldInput
-          name={`LostWagesCourtTravel.${index}.notes`}
+          name={`LostWagesCarTravel.${index}.notes`}
           label="How many miles did you travel round trip?"
         />
       </Stack>
@@ -81,7 +75,7 @@ export const LostWagesCourtTravel = () => {
       </Box>
 
       <FieldInput
-        name={`LostWagesCourtTravel.${index}.notes`}
+        name={`LostWagesCarTravel.${index}.notes`}
         label="What was the reason for the travel?"
       />
     </>
@@ -89,13 +83,13 @@ export const LostWagesCourtTravel = () => {
 
   return (
     <FormizStep
-      label={`Lost wages (other travel)`}
-      name="LostWagesCourtTravel"
+      label={`Travel expenses (car travel)`}
+      name="LostWagesCarTravel"
       order={11400}
     >
-      <SectionHeader header={`Lost wages (other travel)`} />
+      <SectionHeader header={`Travel expenses (car travel)`} />
       <FieldRadio
-        name="LostWagesCourtTravel.status"
+        name="LostWagesCarTravel.status"
         placeholder="None"
         required="Required"
         label={
@@ -107,35 +101,19 @@ export const LostWagesCourtTravel = () => {
           { value: "no", label: "No" },
         ]}
       />
-      {status === "yes" && (
-        <FieldRadio
-          name="LostWagesCourtTravel.car"
-          placeholder="None"
-          required="Required"
-          label={"Did you travel by car?"}
-          updateState={updateState}
-          options={[
-            { value: "yes", label: "Yes" },
-            { value: "no", label: "No" },
-          ]}
-        />
-      )}
+      <FieldRadio
+        name="LostWagesCarTravel.car"
+        placeholder="None"
+        required="Required"
+        label={"Did you travel by car?"}
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
 
-      {car  && (
-        <FieldRadio
-          name="LostWagesCourtTravel.other"
-          placeholder="None"
-          required="Required"
-          label={"Did you have other travel expense? For example did you have to take public transit or fly to a different city for a surgery?"}
-          updateState={updateState}
-          options={[
-            { value: "yes", label: "Yes" },
-            { value: "no", label: "No" },
-          ]}
-        />
-      )}
-
-      {car === "yes" && other && (
+      {car === "yes" && (
         <AddAnotherHeader
           header={
             "Add as many entries as needed for car-related travel expenses below"
