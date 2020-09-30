@@ -10,7 +10,6 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
         ],
       },
     })
-    ut
   }
 }
 // gatsby-node.js
