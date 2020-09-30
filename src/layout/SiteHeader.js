@@ -63,6 +63,8 @@ export default function SiteHeader() {
             ml="auto"
             width={"100%"}
             position={"fixed"}
+            top={0}
+            left={0}
             zIndex={10}
             p={4}
 

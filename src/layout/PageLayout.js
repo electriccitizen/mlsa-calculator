@@ -49,7 +49,7 @@ export const PageLayout = ({ children }) => {
         flex="1"
         minH="100vh"
         flexWrap="nowrap"
-        flexDirection={{ base: "column", lg: "row" }}
+
       >
 
         <Box flex="1" position="relative">

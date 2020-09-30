@@ -49,11 +49,11 @@ export const Menu = ({ menuLinks, menuLinks2, menuLinks3 }) => {
 
   const styles = {
     bmBurgerButton: {
-      position: "absolute",
+      position: "fixed",
       width: "26px",
       height: "20px",
       left: "30px",
-      top: "40px",
+      top: "36px",
       border: "1px white",
     },
     bmBurgerBars: {
