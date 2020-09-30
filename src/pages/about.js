@@ -19,7 +19,7 @@ export default function About() {
           About Montana Legal Services Association
         </Heading>
         <Text mb={"4"}>
-          These tools, the Child Support Calculator and Restitution Worksheet,
+          These tools, the Child Support Calculator and Restitution Workbook,
           are provided by Montana Legal Services Association and its MT Victim
           Legal Assistance Network (MT VLAN).
         </Text>
@@ -52,7 +52,12 @@ export default function About() {
           coordinated, comprehensive, and holistic wrap-around services to crime
           victims across the state. {" "}
         </Text>
-        <Text mb={"4"}>MT VLAN offers civil legal advice and representation, advocacy for victim’s rights and safety, support and referrals, and access to legal information and resources to victims of crime, while also developing new online technology tools to assist victims and service providers.</Text>
+        <Text mb={"4"}>
+          MT VLAN offers civil legal advice and representation, advocacy for
+          victim’s rights and safety, support and referrals, and access to legal
+          information and resources to victims of crime, while also developing
+          new online technology tools to assist victims and service providers.
+        </Text>
       </Box>
     </PageLayout>
   )

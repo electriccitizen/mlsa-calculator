@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { isNumber } from "@formiz/validations"
-import { Box } from "@chakra-ui/core"
+import { Box, Stack } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
@@ -47,51 +47,43 @@ export const LostWagesFuture = () => {
 
   const status = state["LostWagesFuture.status"]
 
-  const Expense = index => (
-    <FieldInput
-      name={`LostWagesFuture.${index}.expense`}
-      label="How many hours of work will you miss?"
-      required="Required"
-      validations={[
-        {
-          rule: isNumber(),
-          message: "Please enter a number",
-        },
-      ]}
-    />
-  )
-  const Amount = index => (
-    <FieldMoneyInput
-      name={`LostWagesFuture.${index}.amt`}
-      label="How much are you paid per hour?"
-      required="Required"
-      validations={[
-        {
-          rule: isNumber(),
-          message: "Please enter a valid dollar amount a number",
-        },
-      ]}
-    />
-  )
-
   const Note = index => (
-    <FieldInput
-      name={`LostWagesFuture.${index}.notes`}
-      label="How did you estimate that?"
-    />
-  )
-
-  const Note2 = index => (
-    <FieldInput name={`LostWagesFuture.${index}.note2`} label="Notes" />
+    <>
+      <Stack
+        direction={["column", "column", "row"]}
+        spacing={["0", "0", "1rem"]}
+      >
+        <FieldInput
+          name={`LostWagesFuture.${index}.description`}
+          label="Describe the future loss"
+        />
+        <FieldMoneyInput
+          name={`LostWagesFuture.${index}.amt`}
+          label="Estimate the amount of future loss"
+          required="Required"
+          validations={[
+            {
+              rule: isNumber(),
+              message: "Please enter a valid dollar amount a number",
+            },
+          ]}
+        />
+      </Stack>
+      <FieldInput
+        name={`LostWagesFuture.${index}.notes`}
+        label="How did you estimate that?"
+      />
+      <FieldInput name={`LostWagesFuture.${index}.note2`} label="Do you have any other notes?" />
+    </>
   )
 
   return (
     <FormizStep
-      label={`Lost wages (future losses)`}
+      label={`Lost wages (future)`}
       name="LostWagesFuture"
-      order={11000}
+      order={11300}
     >
-      <SectionHeader header={`Lost wages (future losses)`} />
+      <SectionHeader header={`Lost wages (future)`} />
       <FieldRadio
         name="LostWagesFuture.status"
         placeholder="None"
@@ -106,14 +98,15 @@ export const LostWagesFuture = () => {
 
       {status === "yes" && (
         <AlertBox>
-          Screen about having a lawyer calculate future earnings
+          You may want to talk to a lawyer to calculate money you lost from
+          future work do to the crime.
         </AlertBox>
       )}
 
       {status === "yes" && (
         <AddAnotherHeader
           header={
-            "Add as many entries as needed for any missed work periods below."
+            "Add as many entries as needed for any future missed work periods below."
           }
         />
       )}
@@ -122,10 +115,7 @@ export const LostWagesFuture = () => {
         additionalExpenses.map((expense, index) => (
           <Box key={index}>
             <AddAnother
-              expense={Expense(index)}
-              amount={Amount(index)}
               note={Note(index)}
-              note2={Note2(index)}
               index={index}
               removeItem={removeItem}
               expenseID={expense.id}

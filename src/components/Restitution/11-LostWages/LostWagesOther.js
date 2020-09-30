@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { isNumber } from "@formiz/validations"
-import { Box } from "@chakra-ui/core"
+import { Box, Stack } from '@chakra-ui/core'
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { SectionHeader } from "../../Utils/SectionHeader"
@@ -46,61 +46,67 @@ export const LostWagesOther = () => {
 
   const status = state["LostWagesOther.status"]
 
-  const Expense = index => (
-    <FieldInput
-      name={`LostWagesOther.${index}.expense`}
-      label="How many hours of work did you miss?"
-      required="Required"
-      validations={[
-        {
-          rule: isNumber(),
-          message: "Please enter a valid dollar amount a number",
-        },
-      ]}
-    />
-  )
-  const Amount = index => (
-    <FieldMoneyInput
-      name={`LostWagesOther.${index}.amt`}
-      label="How much are you paid per hour?"
-      required="Required"
-      validations={[
-        {
-          rule: isNumber(),
-          message: "Please enter a valid dollar amount a number",
-        },
-      ]}
-    />
-  )
-
   const Note = index => (
-    <FieldInput
-      name={`LostWagesOther.${index}.notes`}
-      label="Notes about this entry (e.g. job name)"
-    />
-  )
+    <>
+      <FieldInput
+        name={`LostWagesOther.${index}.notes`}
+        label="What day or days did you miss work?"
+        helper={"Enter an exact date, or a range of dates"}
+      />
+      <Stack
+        direction={["column", "column", "row"]}
+        spacing={["0", "0", "1rem"]}
+      >
+        <FieldInput
+          name={`LostWagesOther.${index}.notes`}
+          label="Why did you miss work?"
+        />
+        <FieldInput
+          name={`LostWagesOther.${index}.expense`}
+          label="How many hours of work did you miss?"
+          required="Required"
+          validations={[
+            {
+              rule: isNumber(),
+              message: "Please enter a number",
+            },
+          ]}
+        />
 
-  const Receipt = index => (
-    <FieldRadio
-      name={`LostWagesOther.${index}.receipt`}
-      placeholder="None"
-      required="Required"
-      label={"Can you show that you missed work?"}
-      updateState={updateState}
-      options={[
-        { value: "yes", label: "Yes" },
-        { value: "no", label: "No" },
-      ]}
-    />
+      </Stack>
+      <FieldMoneyInput
+        name={`LostWagesOther.${index}.amt`}
+        label="What is your hourly wage?"
+        required="Required"
+        helper={"To determine your hourly wage if you are on salary, divide your annual salary by 2,080."}
+        validations={[
+          {
+            rule: isNumber(),
+            message: "Please enter a valid dollar amount a number",
+          },
+        ]}
+      />
+      <FieldRadio
+        name={`LostWagesOther.${index}.receipt`}
+        placeholder="None"
+        required="Required"
+        label={"Do you have any documents that show you missed work?"}
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
+    </>
   )
 
   return (
     <FormizStep
-      label={`Lost wages (other losses)`}
+      label={`Lost wages (other)`}
       name="LostWagesOther"
-      order={11000}
+      order={11200}
     >
-      <SectionHeader header={`Lost wages (other losses)`} />
+      <SectionHeader header={`Lost wages (other)`} />
       <FieldRadio
         name="LostWagesOther.status"
         placeholder="None"
@@ -127,10 +133,7 @@ export const LostWagesOther = () => {
         additionalExpenses.map((expense, index) => (
           <Box key={index}>
             <AddAnother
-              expense={Expense(index)}
-              amount={Amount(index)}
               note={Note(index)}
-              receipt={Receipt(index)}
               index={index}
               removeItem={removeItem}
               expenseID={expense.id}

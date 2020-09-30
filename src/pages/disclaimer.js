@@ -75,7 +75,7 @@ export default function Disclaimer() {
             <Heading as={"h3"} fontSize="lg">
               Information Not Legal Advice
             </Heading>
-            These tools, the Child Support Calculator and Restitution Worksheet,
+            These tools, the Child Support Calculator and Restitution Workbook,
             are provided by Montana Legal Services Association and its MT Victim
             Legal Assistance Network (MT VLAN).
           </Text>

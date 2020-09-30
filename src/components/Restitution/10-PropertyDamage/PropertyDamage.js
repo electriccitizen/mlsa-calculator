@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { isNumber } from "@formiz/validations"
-import { Box } from "@chakra-ui/core"
+import { Box, Stack } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
@@ -9,6 +9,7 @@ import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { v4 as uuidv4 } from "uuid"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
+import { FieldDate } from "../../Fields/FieldDate"
 const defaultCollection = [
   {
     id: uuidv4(),
@@ -47,51 +48,80 @@ export const PropertyDamage = () => {
   const damage = state["PropertyDamage"]
   const replaceRepair = state["PropertyDamage.replaceRepair"]
 
-  const Expense = index => (
-    <FieldInput
-      name={`PropertyDamage.${index}.expense`}
-      label="Paid by who (or needs to be paid?)"
-      required="Required"
-    />
-  )
-  const Amount = index => (
-    <FieldMoneyInput
-      name={`PropertyDamage.${index}.amt`}
-      label="Amount"
-      required="Required"
-      validations={[
-        {
-          rule: isNumber(),
-          message: "Please enter a valid dollar amount a number",
-        },
-      ]}
-    />
-  )
-
   const Note = index => (
-    <FieldInput
-      name={`PropertyDamage.${index}.notes`}
-      label="Describe the item/other notes"
-    />
+    <>
+      <Stack
+        direction={["column", "column", "row"]}
+        spacing={["0", "0", "1rem"]}
+      >
+        <FieldDate
+          name={`PropertyDamage.${index}.date`}
+          label="Date of purchase or expense"
+          required="Required"
+          type="text"
+          placeholder="MM/DD/YYYY"
+        />
+        <FieldMoneyInput
+          name={`PropertyDamage.${index}.itemCost`}
+          label="Cost of repair or replacement?"
+          required="Required"
+          validations={[
+            {
+              rule: isNumber(),
+              message: "Please enter a valid dollar amount a number",
+            },
+          ]}
+        />
+      </Stack>
+      <Stack
+        direction={["column", "column", "row"]}
+        spacing={["0", "0", "1rem"]}
+      >
+        <FieldMoneyInput
+          name={`PropertyDamage.${index}.amtInsurance`}
+          label="Amount paid by insurance"
+          required="Required"
+          validations={[
+            {
+              rule: isNumber(),
+              message: "Please enter a valid dollar amount a number",
+            },
+          ]}
+        />
+        <FieldMoneyInput
+          name={`PropertyDamage.${index}.amt`}
+          label="Amount paid by you"
+          required="Required"
+          validations={[
+            {
+              rule: isNumber(),
+              message: "Please enter a valid dollar amount a number",
+            },
+          ]}
+        />
+      </Stack>
+      <FieldInput
+        name={`PropertyDamage.${index}.notes`}
+        label="Describe the expense and how it relates to the crime"
+      />
+      <FieldRadio
+        name={`PropertyDamage.${index}.receipt`}
+        placeholder="None"
+        required="Required"
+        label={
+          "Do you have receipts or other way of showing the cost (estimate, bill, etc.)?"
+        }
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
+    </>
   )
-
-  const Receipt = index => (
-    <FieldRadio
-      name={`PropertyDamage.${index}.receipt`}
-      placeholder="None"
-      required="Required"
-      label={"Do you have a receipt?"}
-      updateState={updateState}
-      options={[
-        { value: "yes", label: "Yes" },
-        { value: "no", label: "No" },
-      ]}
-    />
-  )
-
   return (
     <FormizStep
-      label={`Damaged property expenses`}
+      label={`Damaged property`}
       name="PropertyDamage"
       order={10000}
     >
@@ -100,7 +130,9 @@ export const PropertyDamage = () => {
         name="PropertyDamage"
         placeholder="None"
         required="Required"
-        label={"Was anything damaged during the crime?"}
+        label={
+          "Did you have to repair, clean or replace something or will you need to?"
+        }
         updateState={updateState}
         options={[
           { value: "yes", label: "Yes" },
@@ -108,22 +140,6 @@ export const PropertyDamage = () => {
         ]}
       />
       {damage === "yes" && (
-        <FieldRadio
-          name="PropertyDamage.replaceRepair"
-          placeholder="None"
-          required="Required"
-          label={
-            "Did you have to repair, clean or replace something or will you need to?"
-          }
-          updateState={updateState}
-          options={[
-            { value: "yes", label: "Yes" },
-            { value: "no", label: "No" },
-          ]}
-        />
-      )}
-
-      {damage === "yes" && replaceRepair === "yes" && (
         <AddAnotherHeader
           header={
             "Add each of your repair or replacement costs for any damaged items."
@@ -131,14 +147,10 @@ export const PropertyDamage = () => {
         />
       )}
       {damage === "yes" &&
-        replaceRepair === "yes" &&
         additionalExpenses.map((expense, index) => (
           <Box key={index}>
             <AddAnother
-              expense={Expense(index)}
-              amount={Amount(index)}
               note={Note(index)}
-              receipt={Receipt(index)}
               index={index}
               removeItem={removeItem}
               expenseID={expense.id}

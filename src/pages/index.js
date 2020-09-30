@@ -64,9 +64,8 @@ export default function Home() {
                 color={colorMode === "dark" ? "gray.600" : "gray.500"}
                 fontSize={"xl"}
               >
-                Help determine child support costs for
-                those involved in, or considering divorce, child custody, or
-                parenting plan actions.
+                Help determine child support costs for those involved in, or
+                considering divorce, child custody, or parenting plan actions.
               </Text>
               <GatsbyLink to="/child-support">
                 <Button>Start</Button>
@@ -90,7 +89,7 @@ export default function Home() {
                   width={"100%"}
                 >
                   <Icon as={FaRegFileAlt} mr={2} />
-                  Restitution Worksheet
+                  Restitution Workbook
                 </Box>
               </GatsbyLink>
               <Text
@@ -98,7 +97,9 @@ export default function Home() {
                 fontSize={"xl"}
                 color={colorMode === "dark" ? "gray.600" : "gray.500"}
               >
-                Use the restitution worksheet to help determine [need further description for this tool roughly same length as calculator text].
+                Use the restitution workbook to help determine [need further
+                description for this tool roughly same length as calculator
+                text].
               </Text>
               <GatsbyLink to="/restitution">
                 <Button>Start</Button>

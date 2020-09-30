@@ -16,26 +16,26 @@ export const CaseInfo = () => {
           name={`Primary.caseName`}
           label="What is the name of the person who committed the crime?"
           required="Required"
-          fieldWidth={"55%"}
         />
 
-      </Stack>
+
       <FieldInput
         name={`Primary.prosecutor`}
         label="Who is the prosecutor?"
-        fieldWidth={"55%"}
+        pt={[0,0,6]}
       />
+      </Stack>
       <Stack
         direction={["column", "column", "row"]}
         spacing={["0", "0", "1rem"]}
       >
         <FieldInput
           name={`Primary.causeNumber`}
-          label="What is the cause number?"
+          label="What is the Cause Number?"
         />
         <FieldInput
           name={`Primary.caseID`}
-          label="What is the case ID?"
+          label="What is the Case ID?"
         />
       </Stack>
     </FormizStep>

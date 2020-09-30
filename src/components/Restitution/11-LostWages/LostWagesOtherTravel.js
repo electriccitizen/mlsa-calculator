@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { Box, Stack } from '@chakra-ui/core'
 import { isNumber } from "@formiz/validations"
+import { Box, Stack } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
-import { FieldRadio } from "../../Fields/FieldRadio"
 import { SectionHeader } from "../../Utils/SectionHeader"
+import { FieldRadio } from "../../Fields/FieldRadio"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
 import { v4 as uuidv4 } from "uuid"
-import { FieldDate } from '../../Fields/FieldDate'
+import { FieldDate } from "../../Fields/FieldDate"
 
 const defaultCollection = [
   {
@@ -17,9 +17,10 @@ const defaultCollection = [
     name: "Default name",
   },
 ]
-
-export const FirstResponderExpenses = () => {
-  const form = useForm({ subscribe: { fields: ["MedicalExpenses.expenses"] } })
+export const LostWagesOtherTravel = () => {
+  const form = useForm({
+    subscribe: { fields: ["LostWagesCourtTravel.other"] },
+  })
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
@@ -46,47 +47,56 @@ export const FirstResponderExpenses = () => {
     setAdditionalExpenses(s => s.filter(x => x.id !== id))
   }
 
-  const expenses = state["FirstResponderExpenses"]
+  const status = state["LostWagesOtherTravel.status"]
 
   const Note = index => (
     <>
+      <FieldDate
+        name={`LostWagesOtherTravel.${index}.date`}
+        label="Date of travel"
+        required="Required"
+        type="text"
+        placeholder="MM/DD/YYYY"
+      />
       <Stack
         direction={["column", "column", "row"]}
         spacing={["0", "0", "1rem"]}
       >
-        <FieldDate
-          name={`FirstResponderExpenses.${index}.date`}
-          label="Date of purchase or expense"
-          required="Required"
-          type="text"
-          placeholder="MM/DD/YYYY"
+        <FieldInput
+          name={`LostWagesOtherTravel.${index}.notes`}
+          label="Why did you miss work?"
         />
-        <FieldMoneyInput
-          name={`FirstResponderExpenses.${index}.amt`}
-          label="Amount of expense"
+        <FieldInput
+          name={`LostWagesOtherTravel.${index}.expense`}
+          label="How many hours of work did you miss?"
           required="Required"
           validations={[
             {
               rule: isNumber(),
-              message: "Please enter a valid dollar amount a number",
+              message: "Please enter a number",
             },
           ]}
         />
       </Stack>
-      <FieldInput
-        name={`FirstResponderExpenses.${index}.description`}
-        label="Description of expense"
+      <FieldMoneyInput
+        name={`LostWagesOtherTravel.${index}.amt`}
+        label="What is your hourly wage?"
         required="Required"
-      />
-      <FieldInput
-        name={`FirstResponderExpenses.${index}.notes`}
-        label="Enter notes about how the expense was paid or if there is any amount still owing"
+        helper={
+          "To determine your hourly wage if you are on salary, divide your annual salary by 2,080."
+        }
+        validations={[
+          {
+            rule: isNumber(),
+            message: "Please enter a valid dollar amount a number",
+          },
+        ]}
       />
       <FieldRadio
-        name={`FirstResponderExpenses.${index}.receipt`}
+        name={`LostWagesOtherTravel.${index}.receipt`}
         placeholder="None"
         required="Required"
-        label={"Do you have receipts or other way of showing the cost (estimate, bill, etc.)?"}
+        label={"Do you have any documents that show you missed work?"}
         updateState={updateState}
         options={[
           { value: "yes", label: "Yes" },
@@ -96,20 +106,21 @@ export const FirstResponderExpenses = () => {
     </>
   )
 
-
-  return form.values.MedicalExpenses &&
-    form.values.MedicalExpenses.expenses === "yes" ? (
+  return form.values.LostWagesCourtTravel &&
+    form.values.LostWagesCourtTravel.other === "yes" ? (
     <FormizStep
-      label={`First responder`}
-      name="FirstResponderExpenses"
-      order={4000}
+      label={`Lost wages (other travel)`}
+      name="LostWagesOther"
+      order={11500}
     >
-      <SectionHeader header={`First responder expenses`} />
+      <SectionHeader header={`Lost wages (other travel)`} />
       <FieldRadio
-        name="FirstResponderExpenses"
+        name="LostWagesOther.status"
         placeholder="None"
         required="Required"
-        label={"Did your receive help from a first responder?"}
+        label={
+          "Did you miss work to participate in the investigation and prosecution of the crime (other than going to court)?"
+        }
         updateState={updateState}
         options={[
           { value: "yes", label: "Yes" },
@@ -117,12 +128,15 @@ export const FirstResponderExpenses = () => {
         ]}
       />
 
-      {expenses === "yes" && (
+      {status === "yes" && (
         <AddAnotherHeader
-          header={"Add each of your first responder expenses below."}
+          header={
+            "Add as many entries as needed for any missed work periods below."
+          }
         />
       )}
-      {expenses === "yes" &&
+
+      {status === "yes" &&
         additionalExpenses.map((expense, index) => (
           <Box key={index}>
             <AddAnother
@@ -133,9 +147,11 @@ export const FirstResponderExpenses = () => {
             />
           </Box>
         ))}
-      {expenses === "yes" && additionalExpenses.length <= 20 && (
-        <AddPlaceholder label="Add an expense" onClick={addItem} />
+      {status === "yes" && additionalExpenses.length <= 20 && (
+        <AddPlaceholder label="Add another" onClick={addItem} />
       )}
     </FormizStep>
-  ) : null
+  ) : (
+    ""
+  )
 }

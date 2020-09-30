@@ -16,11 +16,11 @@ export const PropertyStolen = () => {
 
   return (
     <FormizStep
-      label={`Stolen property expenses`}
+      label={`Property expenses`}
       name="PropertyStolen"
       order={9000}
     >
-      <SectionHeader header={`Stolen property expenses`} />
+      <SectionHeader header={`Stolen or lost property expenses`} />
       <FieldRadio
         name="PropertyStolenExpenses.stolen"
         placeholder="None"
@@ -38,7 +38,7 @@ export const PropertyStolen = () => {
           placeholder="None"
           required="Required"
           label={"Did you recover any of the items?"}
-          helper={"Include language about recovering property that is evidence"}
+          helper={"If any of your property was kept as evidence, you have a right to have the property returned at the end of the criminal proceeding."}
           updateState={updateState}
           options={[
             { value: "yes", label: "Yes" },

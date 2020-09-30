@@ -19,23 +19,22 @@ export const IntroCode = () => {
         color={"gray.500"}
         href="#"
       >
-      <Icon color={"brand.400"} as={FaInfoCircle} /> Montana Code
+        <Icon color={"brand.400"} as={FaInfoCircle} /> Montana Code
       </Heading>
-<Text mb={4}>
-    Learn more about Restitution. You can find the law about these rights at
-  {" "} <a
-      isExternal
-      href={
-        "https://leg.mt.gov/bills/mca/title_0460/chapter_0180/part_0020/section_0010/0460-0180-0020-0010.html"
-      }
-    >
-      Montana Code Annotated § 46-18-201.
-    </a>
-    <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
+      <Text mb={4}>
+        Learn more about Restitution. You can find the law about these rights at{" "}
+        <a
+          isExternal
+          href={
+            "https://leg.mt.gov/bills/mca/title_0460/chapter_0180/part_0020/section_0010/0460-0180-0020-0010.html"
+          }
+        >
+          Montana Code Annotated § 46-18-201.
+        </a>
+        <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
+      </Text>
 
-</Text>
-
-        <Heading
+      <Heading
         as="h2"
         fontSize="2xl"
         lineHeight="tall"
@@ -43,13 +42,10 @@ export const IntroCode = () => {
         color={"gray.500"}
         href="#"
       >
-        <Icon color={"brand.400"} as={FaInfoCircle} /> Sample Restitution Worksheet
+        <Icon color={"brand.400"} as={FaInfoCircle} /> Sample Restitution
+        Workbook
       </Heading>
-      <Text mb={2}>
-         [insert
-       sample image of complete worksheet].
-      </Text>
-
+      <Text mb={2}>[insert sample image of complete worksheet].</Text>
     </FormizStep>
   )
 }

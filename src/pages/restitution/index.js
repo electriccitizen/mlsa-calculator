@@ -19,7 +19,7 @@ export default function (Restitution) {
     <Formiz onValidSubmit={handleSubmit}>
       <MultiStepsLayout
         app="restitutionIntro"
-        buttonTitle="Restitution Worksheet"
+        buttonTitle="Restitution Workbook"
         submitLabel="Finish"
       >
         <IntroHow />

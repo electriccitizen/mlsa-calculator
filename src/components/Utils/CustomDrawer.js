@@ -207,6 +207,14 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
                           step.name.startsWith("OtherAllowableDeductions") ||
                           step.name.startsWith("OtherJobs") === true ||
                           step.name.startsWith("EnterOtherJobs") === true ||
+                          step.name.startsWith("FirstResponderExpenses") === true ||
+                          step.name.startsWith("SupplyExpenses") === true ||
+                          step.name.startsWith("FutureExpenses") === true ||
+                          step.name.startsWith("MentalHealthFuture") === true ||
+                          step.name.startsWith("PropertyStolenLost") === true ||
+                          step.name.startsWith("PropertyStolenRecovered") === true ||
+                          step.name.startsWith("PropertyDamage") === true ||
+                          step.name.startsWith("LostWages") === true ||
                           (step.name === "CurrentJob") === true
                             ? "8"
                             : "0"
@@ -251,7 +259,7 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
                     pl={0}
                     onClick={() => handleSubmit("/restitution/worksheet")}
                   >
-                    Start worksheet
+                    Start workbook
                   </MenuItem>
                 )}
               </Menu>

@@ -20,7 +20,7 @@ const defaultCollection = [
 ]
 
 export const FutureExpenses = () => {
-  const form = useForm({ subscribe: { fields: ["MedicalExpenses.injury"] } })
+  const form = useForm({ subscribe: { fields: ["MedicalExpenses.expenses"] } })
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
@@ -106,9 +106,9 @@ export const FutureExpenses = () => {
     </>
   )
   return form.values.MedicalExpenses &&
-    form.values.MedicalExpenses.injury === "yes" ? (
+    form.values.MedicalExpenses.expenses === "yes" ? (
     <FormizStep
-      label={`Future medical expenses`}
+      label={`Future expenses`}
       name="FutureExpenses"
       order={5000}
     >

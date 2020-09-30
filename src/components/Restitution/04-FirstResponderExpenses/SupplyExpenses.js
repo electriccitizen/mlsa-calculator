@@ -19,7 +19,7 @@ const defaultCollection = [
 ]
 
 export const SupplyExpenses = () => {
-  const form = useForm({ subscribe: { fields: ["MedicalExpenses.injury"] } })
+  const form = useForm({ subscribe: { fields: ["MedicalExpenses.expenses"] } })
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
@@ -98,9 +98,9 @@ export const SupplyExpenses = () => {
 
 
   return form.values.MedicalExpenses &&
-    form.values.MedicalExpenses.injury === "yes" ? (
+    form.values.MedicalExpenses.expenses === "yes" ? (
     <FormizStep
-      label={`Medication and medical supply expenses`}
+      label={`Medication and medical supplies`}
       name="SupplyExpenses"
       order={4100}
     >
@@ -119,7 +119,7 @@ export const SupplyExpenses = () => {
 
       {expenses === "yes" && (
         <AddAnotherHeader
-          header={"Add each of your first medicine or medical supply expenses below."}
+          header={"Add each of your medicine or medical supply expenses below."}
         />
       )}
       {expenses === "yes" &&

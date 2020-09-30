@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { isNumber } from "@formiz/validations"
-import { Box } from "@chakra-ui/core"
+import { Box, Stack } from "@chakra-ui/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
@@ -9,6 +9,7 @@ import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
 import { v4 as uuidv4 } from "uuid"
+import { FieldDate } from "../../Fields/FieldDate"
 
 const defaultCollection = [
   {
@@ -47,72 +48,105 @@ export const LostWagesCourtTravel = () => {
   }
 
   const status = state["LostWagesCourtTravel.status"]
-
-  const Expense = index => (
-    <FieldInput
-      name={`LostWagesCourt.${index}.mileage`}
-      label="How many miles total did you travel?"
-      required="Required"
-      validations={[
-        {
-          rule: isNumber(),
-          message: "Please enter a valid dollar amount a number",
-        },
-      ]}
-    />
-  )
-  const Amount = index => (
-    <FieldMoneyInput
-      name={`LostWagesCourt.${index}.amt`}
-      label="What is the mileage or public transit rate?"
-      required="Required"
-      helper={"What is the mileage or public transit rate"}
-      validations={[
-        {
-          rule: isNumber(),
-          message: "Please enter a valid dollar amount a number",
-        },
-      ]}
-    />
-  )
+  const car = state["LostWagesCourtTravel.car"]
+  const other = state["LostWagesCourtTravel.other"]
 
   const Note = index => (
-    <FieldInput name={`LostWages.${index}.notes`} label="Notes" />
+    <>
+      <Stack
+        direction={["column", "column", "row"]}
+        spacing={["0", "0", "1rem"]}
+      >
+        <FieldDate
+          name={`LostWagesCourtTravel.${index}.date`}
+          label="Date of travel"
+          required="Required"
+          type="text"
+          placeholder="MM/DD/YYYY"
+          pt={[0, 0, 6]}
+        />
+        <FieldInput
+          name={`LostWagesCourtTravel.${index}.notes`}
+          label="How many miles did you travel round trip?"
+        />
+      </Stack>
+      <Box mb="4" fontSize={"sm"}>
+        See:{" "}
+        <a
+          isExternal
+          href={"https://www.irs.gov/tax-professionals/standard-mileage-rates"}
+        >
+          IRS Standard Mileage Rates
+        </a>
+      </Box>
+
+      <FieldInput
+        name={`LostWagesCourtTravel.${index}.notes`}
+        label="What was the reason for the travel?"
+      />
+    </>
   )
 
   return (
     <FormizStep
-      label={`Lost wages (court travel expenses)`}
+      label={`Lost wages (other travel)`}
       name="LostWagesCourtTravel"
-      order={11000}
+      order={11400}
     >
-      <SectionHeader header={`Lost wages (court travel expenses)`} />
+      <SectionHeader header={`Lost wages (other travel)`} />
       <FieldRadio
         name="LostWagesCourtTravel.status"
         placeholder="None"
         required="Required"
-        label={"Did you have to travel for court?"}
+        label={
+          "Did you have to travel for court, to participate in the criminal court process or to get treatment for injuries, including mental health services?"
+        }
         updateState={updateState}
         options={[
           { value: "yes", label: "Yes" },
           { value: "no", label: "No" },
         ]}
       />
-
       {status === "yes" && (
+        <FieldRadio
+          name="LostWagesCourtTravel.car"
+          placeholder="None"
+          required="Required"
+          label={"Did you travel by car?"}
+          updateState={updateState}
+          options={[
+            { value: "yes", label: "Yes" },
+            { value: "no", label: "No" },
+          ]}
+        />
+      )}
+
+      {car  && (
+        <FieldRadio
+          name="LostWagesCourtTravel.other"
+          placeholder="None"
+          required="Required"
+          label={"Did you have other travel expense? For example did you have to take public transit or fly to a different city for a surgery?"}
+          updateState={updateState}
+          options={[
+            { value: "yes", label: "Yes" },
+            { value: "no", label: "No" },
+          ]}
+        />
+      )}
+
+      {car === "yes" && other && (
         <AddAnotherHeader
           header={
-            "Add as many entries as needed for any missed work periods below."
+            "Add as many entries as needed for car-related travel expenses below"
           }
         />
       )}
 
-      {status === "yes" &&
+      {car === "yes" &&
         additionalExpenses.map((expense, index) => (
           <Box key={index}>
             <AddAnother
-              expense={Expense(index)}
-              amount={Amount(index)}
               note={Note(index)}
               index={index}
               removeItem={removeItem}
@@ -120,7 +154,7 @@ export const LostWagesCourtTravel = () => {
             />
           </Box>
         ))}
-      {status === "yes" && additionalExpenses.length <= 20 && (
+      {car === "yes" && additionalExpenses.length <= 20 && (
         <AddPlaceholder label="Add another" onClick={addItem} />
       )}
     </FormizStep>

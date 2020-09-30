@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { isNumber } from "@formiz/validations"
-import { Box } from "@chakra-ui/core"
+import { Box, Stack } from '@chakra-ui/core'
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
@@ -9,6 +9,7 @@ import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
 import { v4 as uuidv4 } from "uuid"
+import { FieldDate } from '../../Fields/FieldDate'
 
 const defaultCollection = [
   {
@@ -51,52 +52,68 @@ export const PropertyStolenRecovered = () => {
   const rental = state["PropertyStolenRecovered.rental"]
   const replaceRepair = state["PropertyStolenRecovered.replaceRepair"]
 
-  const Expense = index => (
-    <FieldInput
-      name={`PropertyStolenRecovered.${index}.expense`}
-      label="Paid (by who) or needs to be paid?"
-      required="Required"
-    />
-  )
-  const Amount = index => (
-    <FieldMoneyInput
-      name={`PropertyStolenRecovered.${index}.amt`}
-      label="Amount"
-      required="Required"
-      validations={[
-        {
-          rule: isNumber(),
-          message: "Please enter a valid dollar amount a number",
-        },
-      ]}
-    />
-  )
-
   const Note = index => (
-    <FieldInput
-      name={`PropertyStolenRecovered.${index}.notes`}
-      label="Describe the item/other notes"
-    />
-  )
+    <>
+      <FieldDate
+        name={`PropertyStolenRecovered.${index}.date`}
+        label="Date of purchase or expense"
+        required="Required"
+        type="text"
+        placeholder="MM/DD/YYYY"
+      />
+      <Stack
+        direction={["column", "column", "row"]}
+        spacing={["0", "0", "1rem"]}
+      >
 
-  const Receipt = index => (
-    <FieldRadio
-      name={`PropertyStolenRecovered.${index}.receipt`}
-      placeholder="None"
-      required="Required"
-      label={"Do you have a receipt or other way of showing the cost?"}
-      updateState={updateState}
-      options={[
-        { value: "yes", label: "Yes" },
-        { value: "no", label: "No" },
-      ]}
-    />
+        <FieldMoneyInput
+          name={`PropertyStolenRecovered.${index}.amtInsurance`}
+          label="Amount paid by insurance"
+          required="Required"
+          validations={[
+            {
+              rule: isNumber(),
+              message: "Please enter a valid dollar amount a number",
+            },
+          ]}
+        />
+        <FieldMoneyInput
+          name={`PropertyStolenRecovered.${index}.amt`}
+          label="Amount paid by you"
+          required="Required"
+          validations={[
+            {
+              rule: isNumber(),
+              message: "Please enter a valid dollar amount a number",
+            },
+          ]}
+        />
+
+      </Stack>
+      <FieldInput
+        name={`PropertyStolenRecovered.${index}.notes`}
+        label="Describe the expense and how it relates to the crime"
+      />
+      <FieldRadio
+        name={`PropertyStolenRecovered.${index}.receipt`}
+        placeholder="None"
+        required="Required"
+        label={
+          "Do you have receipts or other way of showing the cost (estimate, bill, etc.)?"
+        }
+        updateState={updateState}
+        options={[
+          { value: "yes", label: "Yes" },
+          { value: "no", label: "No" },
+        ]}
+      />
+      </>
   )
 
   return form.values.PropertyStolenExpenses &&
     form.values.PropertyStolenExpenses.recovered === "yes" ? (
     <FormizStep
-      label={`Stolen property (recovered items)`}
+      label={`Recovered items`}
       name="PropertyStolenRecovered"
       order={9500}
     >
@@ -109,6 +126,7 @@ export const PropertyStolenRecovered = () => {
             "rental, replacement, or repair costs.",
         }}
       />
+
       <FieldRadio
         name="PropertyStolenRecovered.damaged"
         placeholder="None"
@@ -164,10 +182,7 @@ export const PropertyStolenRecovered = () => {
         additionalExpenses.map((expense, index) => (
           <Box key={index}>
             <AddAnother
-              expense={Expense(index)}
-              amount={Amount(index)}
               note={Note(index)}
-              receipt={Receipt(index)}
               index={index}
               removeItem={removeItem}
               expenseID={expense.id}
