@@ -141,11 +141,11 @@ export const CurrentJobSecondary = d => {
           required="Required"
           fieldWidth={"25%"}
           options={[
-            { value: "weekly", label: "Once per week" },
-            { value: "biweekly", label: "Every two weeks" },
-            { value: "bimonthly", label: "Twice a month" },
-            { value: "monthly", label: "Once per month" },
-            { value: "yearly", label: "Yearly" },
+            { value: "52", label: "Once per week" },
+            { value: "26", label: "Every two weeks" },
+            { value: "24", label: "Twice a month" },
+            { value: "12", label: "Once per month" },
+            { value: "1", label: "Yearly" },
           ]}
         />
       )}

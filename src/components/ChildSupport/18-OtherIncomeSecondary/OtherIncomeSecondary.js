@@ -65,22 +65,22 @@ export const OtherIncomeSecondary = () => {
             spacing={["0", "0", "1rem"]}
           >
             <FieldMoneyInput
-              name={`OtherIncomeSecondary.SepEarning`}
+              name={`OtherIncomeSecondary.SepEarning.net`}
               label="Self-employment net earnings (- loss)"
               required="Required"
               type="text"
             />
             <FieldSelect
-              name="OtherIncomeSecondary.SepEarning.PaySchedule"
+              name="OtherIncomeSecondary.SepEarning.schedule"
               label="Paid how often?"
               placeholder="Select option..."
               required="Required"
               options={[
-                { value: "weekly", label: "Once per week" },
-                { value: "biweekly", label: "Every two weeks" },
-                { value: "bimonthly", label: "Twice a month" },
-                { value: "monthly", label: "Once per month" },
-                { value: "yearly", label: "Yearly" },
+                { value: "52", label: "Once per week" },
+                { value: "26", label: "Every two weeks" },
+                { value: "24", label: "Twice a month" },
+                { value: "12", label: "Once per month" },
+                { value: "1", label: "Yearly" },
               ]}
             />
           </Stack>
@@ -89,7 +89,7 @@ export const OtherIncomeSecondary = () => {
             spacing={["0", "0", "1rem"]}
           >
             <FieldInput
-              name={`OtherIncomeSecondary.SepEarning.Desc`}
+              name={`OtherIncomeSecondary.SepEarning.desc`}
               label="Describe your self-employment activities"
               required="Required"
               type="text"
@@ -97,7 +97,7 @@ export const OtherIncomeSecondary = () => {
             />
 
             <FieldMoneyInput
-              name={`OtherIncomeSecondary.SepEarning.HoursPerWeek`}
+              name={`OtherIncomeSecondary.SepEarning.hoursPerWeek`}
               label="Hours per week spent in self-employment activities"
               required="Required"
               type="text"
@@ -108,7 +108,7 @@ export const OtherIncomeSecondary = () => {
             spacing={["0", "0", "1rem"]}
           >
             <FieldRadio
-              name="OtherIncomeSecondary.SepEarning.Primary"
+              name="OtherIncomeSecondary.SepEarning.primary"
               placeholder="None"
               required="Required"
               label={
@@ -134,7 +134,7 @@ export const OtherIncomeSecondary = () => {
         <Box mr={12}>
           <Divider mb={4} />
           <FieldMoneyInput
-            name={`OtherIncomeSecondary.Pension`}
+            name={`OtherIncomeSecondary.pension`}
             label="Pensions, retirement - per year (before taxes)"
             required="Required"
             type="text"
@@ -171,7 +171,7 @@ export const OtherIncomeSecondary = () => {
         <Box mr={12}>
           <Divider mb={4} />
           <FieldMoneyInput
-            name={`OtherIncomeSecondary.Interest`}
+            name={`OtherIncomeSecondary.interest`}
             label="Interest/Dividend income - per year (before taxes)"
             required="Required"
             type="text"
@@ -183,7 +183,7 @@ export const OtherIncomeSecondary = () => {
         <Box mr={12}>
           <Divider mb={4} />
           <FieldMoneyInput
-            name={`OtherIncomeSecondary.Unearned`}
+            name={`OtherIncomeSecondary.unearned`}
             label="Other unearned income - per year (before taxes)"
             required="Required"
             type="text"
@@ -199,23 +199,23 @@ export const OtherIncomeSecondary = () => {
           spacing={["0", "0", "1rem"]}
         >
             <FieldMoneyInput
-              name={`OtherIncomeSecondary.Imputed`}
+              name={`OtherIncomeSecondary.imputed`}
               label="Imputed income (before taxes)"
               required="Required"
               type="text"
             />
             <FieldSelect
-              name="OtherIncomeSecondary.Imputed.Schedule"
+              name="OtherIncomeSecondary.imputedSchedule"
               label="Paid how often?"
               placeholder="Select option..."
               required="Required"
               fieldwidth={"25%"}
               options={[
-                { value: "weekly", label: "Once per week" },
-                { value: "biweekly", label: "Every two weeks" },
-                { value: "bimonthly", label: "Twice a month" },
-                { value: "monthly", label: "Once per month" },
-                { value: "yearly", label: "Yearly" },
+                { value: "52", label: "Once per week" },
+                { value: "26", label: "Every two weeks" },
+                { value: "24", label: "Twice a month" },
+                { value: "12", label: "Once per month" },
+                { value: "1", label: "Yearly" },
               ]}
             />
         </Stack>
@@ -225,7 +225,7 @@ export const OtherIncomeSecondary = () => {
         <Box mr={12}>
           <Divider mb={4} />
           <FieldMoneyInput
-            name={`OtherIncomeSecondary.EITC`}
+            name={`OtherIncomeSecondary.eitc`}
             label="Earned Income Tax Credit (EITC) - per year (before taxes)"
             required="Required"
             type="text"

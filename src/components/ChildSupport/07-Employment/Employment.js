@@ -5,7 +5,7 @@ import { FieldRadio } from "../../Fields/FieldRadio"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { AddressField } from "../02-BasicInformation/AddressField"
-import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
+import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const Employment = d => {
   const [state, setState] = useState({})
@@ -24,7 +24,7 @@ export const Employment = d => {
       <>
         <SectionHeader header={`Employment information`} />
         <FieldRadio
-          name="EmploymentStatus"
+          name="EmploymentPrimary.initiate"
           placeholder="None"
           required="Required"
           label={"Do you have a job?"}
@@ -34,9 +34,9 @@ export const Employment = d => {
             { value: "no", label: "No" },
           ]}
         />
-        {state["EmploymentStatus"] === "yes" && (
+        {state["EmploymentPrimary.initiate"] === "yes" && (
           <FieldRadio
-            name="EmploymentFulltime"
+            name="EmploymentPrimary.initiateFulltime"
             placeholder="None"
             required="Required"
             updateState={updateState}
@@ -47,9 +47,9 @@ export const Employment = d => {
             ]}
           />
         )}
-        {state["EmploymentStatus"] === "no" && (
+        {state["EmploymentPrimary.initiate"] === "no" && (
           <FieldRadio
-            name="Employment.ever"
+            name="EmploymentPrimaryEver"
             placeholder="None"
             required="Required"
             updateState={updateState}
@@ -60,11 +60,11 @@ export const Employment = d => {
             ]}
           />
         )}
-        {(state["Employment.ever"] === "yes" ||
-          state["EmploymentFulltime"] === "yes") && (
+        {(state["EmploymentPrimary.initiateEver"] === "yes" ||
+          state["EmploymentPrimary.initiate"] === "yes") && (
           <>
             <FieldInput
-              name={`Employment.info`}
+              name={`EmploymentPrimary.info`}
               label="What kinds of work do you/did you do for your employer(s)?"
               required="Required"
               type="text"
@@ -73,7 +73,7 @@ export const Employment = d => {
 
             <FieldRadio
               mt={4}
-              name="Employment.cashBenefits"
+              name="EmploymentPrimary.cashBenefits"
               placeholder="None"
               required="Required"
               updateState={updateState}
@@ -87,11 +87,11 @@ export const Employment = d => {
             />
           </>
         )}
-        {state["EmploymentStatus"] === "yes" &&
-          state["Employment.cashBenefits"] === "yes" && (
+        {state["EmploymentPrimary.initiate"] === "yes" &&
+          state["EmploymentPrimary.cashBenefits"] === "yes" && (
             <>
               <FieldInput
-                name={`Employment.cashBenefitsDetails`}
+                name={`EmploymentPrimary.cashBenefitsDetails`}
                 label="Describe the non-cash benefit you receive and how often you receive it."
                 required="Required"
                 type="text"
@@ -99,7 +99,7 @@ export const Employment = d => {
               />
               <FieldMoneyInput
                 mt={4}
-                name={`Employment.cashBenefitsAmount`}
+                name={`EmploymentPrimary.cashBenefitsAmount`}
                 label="What is the value of the benefit, per year?"
                 required="Required"
                 type="text"
@@ -107,9 +107,9 @@ export const Employment = d => {
               />
             </>
           )}
-        {state["EmploymentStatus"] === "yes" && state["EmploymentFulltime"] && (
+        {state["EmploymentPrimary.initiate"] === "yes" && state["EmploymentPrimary.initiateFulltime"] && (
           <FieldRadio
-            name="Employment.union"
+            name="EmploymentPrimary.union"
             placeholder="None"
             required="Required"
             updateState={updateState}
@@ -120,11 +120,11 @@ export const Employment = d => {
             ]}
           />
         )}
-        {state["EmploymentStatus"] === "yes" &&
-          state["Employment.union"] === "yes" && (
+        {state["EmploymentPrimary.initiate"] === "yes" &&
+          state["EmploymentPrimary.union"] === "yes" && (
             <>
               <FieldInput
-                name={`Employment.unionName`}
+                name={`EmploymentPrimary.unionName`}
                 label="Name of your union local"
                 required="Required"
                 type="text"
@@ -132,7 +132,7 @@ export const Employment = d => {
                 mb="2"
               />
               <FieldMoneyInput
-                name={`Employment.unionDues`}
+                name={`EmploymentPrimary.unionDues`}
                 label="Amount of monthly dues"
                 required="Required"
                 type="text"
@@ -141,13 +141,13 @@ export const Employment = d => {
               />
               <AddressField
                 label={"Street Address"}
-                name={"Employment.unionAddress"}
+                name={"EmploymentPrimary.unionAddress"}
               />
             </>
           )}
       </>
       <AdministrativeRules
-        rules={[105,106,108]}
+        rules={[105, 106, 108]}
         explanation={
           "For definitions and more information, click on the links below:"
         }

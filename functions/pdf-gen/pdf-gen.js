@@ -1,4 +1,7 @@
 "use strict"
+
+const { processData } = require('./processors/process')
+
 const pdfFiller = require("pdffiller-stream")
 const sourcePDF =
   process.env.LOCAL_ENV === "true"
@@ -17,33 +20,18 @@ process.env.PATH =
 process.env.LD_LIBRARY_PATH =
   process.env.LAMBDA_TASK_ROOT + "/src/functions/pdf-gen/src/bin"
 
-
-const data = {
-  "initiate.csed": "1234",
-  "basic.mother.name": "Dane Doe",
-  "basic.father.name": "Dohnny Doe",
-  "initiate.documents.a": "On",
-}
-
-function processData(myData) {
-  data["basic.mother.name"] = myData.Primary.fname + " " + myData.Primary.lname
-  data["basic.father.name"] =
-    myData.OtherParent.fname + " " + myData.OtherParent.lname
-  return data
-}
-
 exports.handler = function (event, context, callback) {
   var body = ""
-  if (event.body !== null && event.body !== undefined) {
-    const formData = JSON.parse(event.body)
-    processData(formData)
-  } else {
-    body = null
-    console.log("error")
-  }
+  // if (event.body !== null && event.body !== undefined) {
+  //   const formData = JSON.parse(event.body)
+  //   const data = processData(formData)
+  // } else {
+  //   body = null
+  //   console.log("error")
+  // }
 
   pdfFiller
-    .fillForm(sourcePDF, data)
+    .fillForm(sourcePDF, processData(JSON.parse(event.body)))
     .then(outputStream => {
       outputStream = outputStream.pipe(new Base64Encode())
       streamToString(outputStream, data => {

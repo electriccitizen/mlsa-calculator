@@ -1,7 +1,7 @@
-import theme from "@chakra-ui/theme"
+import { extendTheme } from "@chakra-ui/core"
 import { mode } from "@chakra-ui/theme-tools"
+
 const styles = {
-  ...theme.styles,
   global: props => ({
     "*, *::before, &::after": {
       borderColor: mode("gray.400", "gray.400")(props),
@@ -36,7 +36,10 @@ const styles = {
         color: "gray.800",
       },
       h3: {
-        fontFamily: "serif",
+        fontFamily:
+          '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
+          "               Roboto, Oxygen-Sans, Ubuntu, Cantarell,\n" +
+          '               "Helvetica Neue", sans-serif;',
       },
     },
 
@@ -49,11 +52,11 @@ const styles = {
   }),
 }
 
-const customTheme = {
-  ...theme,
+const theme = extendTheme({
   fonts: {
-    ...theme.fonts,
-    heading: "serif",
+    heading: '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
+      "               Roboto, Oxygen-Sans, Ubuntu, Cantarell,\n" +
+      '               "Helvetica Neue", sans-serif;',
     // body:
     //   'system-ui',
     // html:
@@ -61,7 +64,6 @@ const customTheme = {
     // mono: "'system-ui",
   },
   colors: {
-    ...theme.colors,
     brand: {
       50: "pink",
       100: "pink",
@@ -77,5 +79,9 @@ const customTheme = {
     },
   },
   styles,
-}
-export default customTheme
+  config: {
+    useSystemColorMode: false,
+    initialColorMode: "light",
+  },
+})
+export default theme

@@ -19,7 +19,7 @@ const defaultProps = {
 
 export default function SiteHeader() {
   const { colorMode, toggleColorMode } = useColorMode()
-
+  console.log(colorMode)
   return (
     <StaticQuery
       query={graphql`
@@ -104,7 +104,7 @@ export default function SiteHeader() {
                 <FaMoon />
                 <Switch
                   size={"md"}
-                  isChecked={colorMode === "light"}
+                  isChecked={true}
                   onChange={toggleColorMode}
                   colorScheme="brand"
                 />

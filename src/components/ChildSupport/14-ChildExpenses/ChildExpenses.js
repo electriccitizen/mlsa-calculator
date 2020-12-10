@@ -117,7 +117,7 @@ export const ChildExpenses = () => {
                 ]}
                 mb="4"
               />
-              {state[`ChildExpenses.${index}.housing`] === "yes" && (
+              {state[`ChildExpenses.${index}.support`] === "yes" && (
                 <FieldMoneyInput
                   name={`ChildExpenses.${index}.childSupportAmount`}
                   label="Monthly child support you are ordered to pay for this child."

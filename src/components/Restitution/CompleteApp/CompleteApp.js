@@ -47,11 +47,6 @@ export const CompleteApp = ({ state, pdf }) => {
           <>
             <Box flex={1}>
               <Heading
-                fontFamily={
-                  '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
-                  "               Roboto, Oxygen-Sans, Ubuntu, Cantarell,\n" +
-                  '               "Helvetica Neue", sans-serif;'
-                }
                 as={"h3"}
                 fontSize="lg"
               >

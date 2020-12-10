@@ -80,22 +80,23 @@ export const PageLayout = ({ children }) => {
             </div>
           </Box>
         </Box>
-        {debugMode === "on" && (
-          <Flex
-            borderColor="gray.200"
-            flexDir="column"
-            minW="15rem"
-            w={{ lg: "30vw" }}
-            maxH={{ lg: "100vh" }}
-            overflow="auto"
-            backgroundColor={isDarkTheme ? "gray.900" : "gray.800"}
-            color="gray.100"
-            p={{ base: 4, lg: 8 }}
-          >
-            <Debug />
-          </Flex>
-        )}
+
       </Stack>
+      {debugMode === "on" && (
+        <Flex
+          borderColor="gray.200"
+          flexDir="column"
+          minW="15rem"
+          w={{ lg: "30vw" }}
+          maxH={{ lg: "100vh" }}
+          overflow="auto"
+          backgroundColor={isDarkTheme ? "gray.900" : "gray.800"}
+          color="gray.100"
+          p={{ base: 4, lg: 8 }}
+        >
+          <Debug />
+        </Flex>
+      )}
     </>
   )
 }
