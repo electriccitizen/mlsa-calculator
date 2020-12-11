@@ -11,7 +11,6 @@ import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const OtherIncome = () => {
-  const updateState = {}
   const [checkedItems, setCheckedItems] = useState({})
   return (
     <FormizStep label="Your other income" name="OtherIncome" order={10000}>
