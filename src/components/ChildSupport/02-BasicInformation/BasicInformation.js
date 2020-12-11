@@ -3,7 +3,7 @@ import { FormizStep } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldDate } from "../../Fields/FieldDate"
 import { FieldRadio } from "../../Fields/FieldRadio"
-import { Stack } from "@chakra-ui/core"
+import { Stack } from "@chakra-ui/react"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddressField } from "./AddressField"
 

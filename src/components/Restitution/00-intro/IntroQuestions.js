@@ -5,7 +5,7 @@ import {
   List,
   ListItem,
   ListIcon,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 import { FaCheckCircle } from "react-icons/fa/index"
 export const IntroQuestions = () => {
   return (

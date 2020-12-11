@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { FormizStep } from "@formiz/core"
-import { Heading, Box, Button, Text, Stack } from "@chakra-ui/core"
+import { Heading, Box, Button, Text, Stack } from "@chakra-ui/react"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import printJS from "print-js"
 import { navigate } from "gatsby"

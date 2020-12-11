@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { IconButton, Box, Stack, Text } from "@chakra-ui/core"
+import { IconButton, Box, Stack, Text } from "@chakra-ui/react"
 import { FaTrashAlt } from "react-icons/fa/index"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"

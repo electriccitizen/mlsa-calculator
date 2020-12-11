@@ -11,7 +11,7 @@ import {
   useColorMode,
   List,
   ListItem,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 
 import { PageLayout } from "../layout/PageLayout"
 export default function Home() {

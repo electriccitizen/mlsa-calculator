@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from '@formiz/core';
-import { Box } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/react';
 
 const propTypes = {};
 const defaultProps = {};

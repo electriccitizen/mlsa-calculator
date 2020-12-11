@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { Box } from "@chakra-ui/core"
+import { Box } from "@chakra-ui/react"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"

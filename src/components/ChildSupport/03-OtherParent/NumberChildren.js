@@ -2,7 +2,7 @@ import React from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldRadio } from "../../Fields/FieldRadio"
-import { Text } from '@chakra-ui/core'
+import { Text } from '@chakra-ui/react'
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const NumberChildren = () => {

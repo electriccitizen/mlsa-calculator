@@ -2,7 +2,7 @@ import React from "react"
 import { StaticQuery, graphql } from "gatsby"
 import { Link as GatsbyLink } from "gatsby"
 import PropTypes from "prop-types"
-import { Stack, useColorMode, Switch, Heading, Box } from "@chakra-ui/core"
+import { Stack, useColorMode, Switch, Heading, Box } from "@chakra-ui/react"
 import { Menu } from "./Menu"
 import { FaSun, FaMoon } from "react-icons/fa"
 

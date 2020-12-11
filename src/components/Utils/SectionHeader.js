@@ -8,7 +8,7 @@ import {
   Link,
   List,
   ListItem,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 import { useDarkTheme } from "../../hooks/isDarkTheme"
 import {
   Popover,
@@ -18,7 +18,7 @@ import {
   PopoverBody,
   PopoverArrow,
   PopoverCloseButton,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 import { FaQuestion } from "react-icons/fa"
 import { FaExternalLinkAlt } from "react-icons/fa/index"
 

@@ -1,6 +1,6 @@
 import React from "react"
 import { FieldInput } from "../../Fields/FieldInput"
-import { Stack } from "@chakra-ui/core"
+import { Stack } from "@chakra-ui/react"
 
 export const InsuranceAddressField = ({ header, index, label, name }) => {
   return (

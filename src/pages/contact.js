@@ -1,5 +1,5 @@
 import React from "react"
-import { Heading, Text, Box } from "@chakra-ui/core"
+import { Heading, Text, Box } from "@chakra-ui/react"
 
 import { PageLayout } from "../layout/PageLayout"
 

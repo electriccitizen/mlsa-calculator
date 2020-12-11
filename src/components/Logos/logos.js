@@ -1,7 +1,7 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
-import { Stack, Box } from "@chakra-ui/core"
+import { Stack, Box } from "@chakra-ui/react"
 export const Logos = () => {
   const data = useStaticQuery(graphql`
     query {

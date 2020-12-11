@@ -1,6 +1,6 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
-import { Text, useColorMode, Tooltip, Box } from "@chakra-ui/core"
+import { Text, useColorMode, Tooltip, Box } from "@chakra-ui/react"
 import { SectionHeader } from "../../Utils/SectionHeader"
 
 export const IntroHelp = () => {

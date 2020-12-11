@@ -60,6 +60,7 @@ const calcSola = (form, percentages) => {
   //18A TODO long distance parent worksheet D
   let primaryDist = form.StandardOfLiving.mileage.distance
   let secondaryDist = form.StandardOfLivingSecondary.mileage.distance
+  
   // From Table 3
   const globalMileageRate = 0.575
   const globalStandardExpense = 1150

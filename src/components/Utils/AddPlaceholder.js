@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Button } from "@chakra-ui/core"
+import { Button } from "@chakra-ui/react"
 import { useDarkTheme } from "../../hooks/isDarkTheme"
 import { FaPlus } from "react-icons/fa/index"
 const propTypes = {

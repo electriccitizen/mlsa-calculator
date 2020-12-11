@@ -3,7 +3,7 @@ import { FormizStep } from "@formiz/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import {
   Text,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 
 export const IntroCanDo = () => {
   return (

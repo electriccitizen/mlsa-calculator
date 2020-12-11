@@ -9,7 +9,7 @@ import {
   useColorMode,
   Heading,
   Box,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 import { FaCheckCircle } from "react-icons/fa/index"
 export const IntroPrep = () => {
   const { colorMode } = useColorMode()

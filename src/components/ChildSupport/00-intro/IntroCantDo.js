@@ -1,7 +1,7 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
-import { Text, Icon, useColorMode } from "@chakra-ui/core"
+import { Text, Icon, useColorMode } from "@chakra-ui/react"
 import { FaStopCircle } from "react-icons/fa"
 export const IntroCantDo = () => {
   const { colorMode } = useColorMode()

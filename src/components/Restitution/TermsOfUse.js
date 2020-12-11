@@ -12,7 +12,7 @@ import {
   Text,
   UnorderedList,
   useColorMode,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 import { LinkIcon } from "@chakra-ui/icons"
 import { FaCheckCircle, FaExternalLinkAlt } from "react-icons/fa/index"
 

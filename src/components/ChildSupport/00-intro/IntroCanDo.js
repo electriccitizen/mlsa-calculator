@@ -8,7 +8,7 @@ import {
   ListItem,
   ListIcon,
   useColorMode,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 import { FaCheckCircle } from "react-icons/fa"
 
 export const IntroCanDo = () => {

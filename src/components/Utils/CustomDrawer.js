@@ -16,7 +16,7 @@ import {
   Box,
   useDisclosure,
   useColorMode,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 import { FaChevronDown, FaRegFileAlt, FaCalculator } from "react-icons/fa"
 import { useForm } from "@formiz/core"
 const propTypes = {
