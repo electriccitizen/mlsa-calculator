@@ -32,10 +32,9 @@ export const CurrentJob = d => {
     default:
       GrossAmountLabel = null
   }
-
   return (
     <>
-      {form.values.EmploymentPrimary.initiate === "yes" && (
+      {form.values.EmploymentPrimary && form.values.EmploymentPrimary.initiate === "yes" && (
         <FormizStep label="Your current job" name="CurrentJob" order={8000}>
           <SectionHeader header={`Enter information about your current job`} />
           <FieldRadio
