@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, Heading, Text, Box } from "@chakra-ui/core"
+import { Link, Heading, Text, Box } from "@chakra-ui/react"
 
 import { PageLayout } from "../layout/PageLayout"
 export default function Safety() {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { IconButton, Box, Stack, Text } from "@chakra-ui/core"
+import { IconButton, Box, Stack, Text } from "@chakra-ui/react"
 import { FaTrashAlt } from "react-icons/fa/index"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from "uuid"
 export const ChildExpensesSecondary = () => {
   //const form = useForm({ subscribe: { fields: ["NumOtherChildrenSecondary"] } })
   const form = useForm({ subscribe: true })
-  const numSecondaryChildren = form.values.NumOtherChildrenSecondary
+  const numChildren = form.values.NumPrimaryChildren
   const [state, setState] = useState({})
   const updateState = (name, value, index) => {
     setState({
@@ -44,23 +44,23 @@ export const ChildExpensesSecondary = () => {
 
   return (
     <>
-      {Array.apply(null, { length: numSecondaryChildren }).map((e, index) => (
+      {Array.apply(null, { length: numChildren }).map((e, index) => (
         <FormizStep
           key={index}
           name={`ChildExpensesSecondary` + index}
           order={21500 + index}
-          label={`Child expenses (${index + 1} of ${numSecondaryChildren})`}
+          label={`Child expenses (${index + 1} of ${numChildren})`}
         >
           <Box mb="8">
             <SectionHeader
               header={
                 `Enter ${otherParent}'s expenses for ` +
-                (form.values.OtherChildrenSecondary &&
-                  form.values.OtherChildrenSecondary[index].fname) +
+                (form.values.PrimaryChildren &&
+                  form.values.PrimaryChildren[index].fname) +
                 ` (Child ` +
                 (index + 1) +
                 ` of ` +
-                numSecondaryChildren +
+                numChildren +
                 `)`
               }
             />
@@ -68,8 +68,8 @@ export const ChildExpensesSecondary = () => {
 
           <Text fontWeight={"md"} mb={4}>
             Enter the annual amounts spent on each expense for{" "}
-            {form.values.OtherChildrenSecondary &&
-              form.values.OtherChildrenSecondary[index].fname}{" "}
+            {form.values.PrimaryChildren &&
+              form.values.PrimaryChildren[index].fname}{" "}
             if any.
           </Text>
           <FieldMoneyInput

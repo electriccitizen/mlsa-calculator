@@ -1,13 +1,12 @@
 import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { Heading, Box, Button, Text, Stack } from "@chakra-ui/core"
+import { Heading, Box, Button, Text, Stack } from "@chakra-ui/react"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import printJS from "print-js"
 import { navigate } from "gatsby"
 
 export const CompleteApp = ({ state, pdf }) => {
   const form = useForm({ subscribe: { fields: ["Documents"] } })
-
   const [counter, setCounter] = useState(0)
 
   const handlePrint = () => {
@@ -58,15 +57,7 @@ export const CompleteApp = ({ state, pdf }) => {
           {(Documents === "both" || Documents === "worksheets") && (
             <>
               <Box flex={1}>
-                <Heading
-                  fontFamily={
-                    '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
-                    "               Roboto, Oxygen-Sans, Ubuntu, Cantarell,\n" +
-                    '               "Helvetica Neue", sans-serif;'
-                  }
-                  as={"h3"}
-                  fontSize="lg"
-                >
+                <Heading as={"h3"} fontSize="lg">
                   Child Support Worksheet
                 </Heading>
                 <Text fontSize={"sm"}>
@@ -87,7 +78,7 @@ export const CompleteApp = ({ state, pdf }) => {
                     href={"data:application/pdf;base64," + pdf + ""}
                     download="MontanaChildSupportWorksheet.pdf"
                   >
-                    {state === true ? "Download" : loadingMessageDownload }
+                    {state === true ? "Download" : loadingMessageDownload}
                   </a>
                 </Button>
                 <Button
@@ -97,7 +88,7 @@ export const CompleteApp = ({ state, pdf }) => {
                   type="button"
                   onClick={handlePrint}
                 >
-                  {state === true ? "Print" : loadingMessagePrint }
+                  {state === true ? "Print" : loadingMessagePrint}
                 </Button>
                 {counter > 0 && (
                   <Text mt="2" fontSize={"sm"}>
@@ -116,15 +107,7 @@ export const CompleteApp = ({ state, pdf }) => {
           {(Documents === "both" || Documents === "affadavit") && (
             <>
               <Box flex={1}>
-                <Heading
-                  fontFamily={
-                    '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
-                    "               Roboto, Oxygen-Sans, Ubuntu, Cantarell,\n" +
-                    '               "Helvetica Neue", sans-serif;'
-                  }
-                  as={"h3"}
-                  fontSize="lg"
-                >
+                <Heading as={"h3"} fontSize="lg">
                   Financial affadavit
                 </Heading>
                 <Text fontSize={"sm"}>
@@ -145,7 +128,7 @@ export const CompleteApp = ({ state, pdf }) => {
                     href={"data:application/pdf;base64," + pdf + ""}
                     download="MontanaChildSupportWorksheet.pdf"
                   >
-                    {state === true ? "Download" : loadingMessageDownload }
+                    {state === true ? "Download" : loadingMessageDownload}
                   </a>
                 </Button>
                 <Button
@@ -155,7 +138,7 @@ export const CompleteApp = ({ state, pdf }) => {
                   type="button"
                   onClick={handlePrint}
                 >
-                  {state === true ? "Print" : loadingMessagePrint }
+                  {state === true ? "Print" : loadingMessagePrint}
                 </Button>
                 {counter > 0 && (
                   <Text mt="2" fontSize={"sm"}>

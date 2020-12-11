@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
-import { Stack, Icon, Switch, Button, Box, Spacer } from "@chakra-ui/core"
+import { Stack, Icon, Switch, Button, Box, Spacer } from "@chakra-ui/react"
 import { FaBug } from "react-icons/fa/index"
 import { Logos } from '../components/Logos/logos'
 

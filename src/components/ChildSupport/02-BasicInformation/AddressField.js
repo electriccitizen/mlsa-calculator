@@ -1,6 +1,6 @@
 import React from "react"
 import { FieldInput } from "../../Fields/FieldInput"
-import { Stack, Box } from "@chakra-ui/core"
+import { Stack, Box } from "@chakra-ui/react"
 
 export const AddressField = ({ header, label, name }) => {
   return (

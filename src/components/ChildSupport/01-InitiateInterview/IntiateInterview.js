@@ -3,7 +3,7 @@ import { FormizStep } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { SectionHeader } from "../../Utils/SectionHeader"
-import { Box } from "@chakra-ui/core"
+import { Box } from "@chakra-ui/react"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const InitiateInterview = () => {

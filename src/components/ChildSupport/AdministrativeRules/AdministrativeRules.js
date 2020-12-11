@@ -10,7 +10,7 @@ import {
   FormControl,
   FormLabel,
   Flex,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 import { useRules } from "../../../hooks/useRulesContext"
 
 const propTypes = {

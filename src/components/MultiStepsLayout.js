@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import { useForm } from "@formiz/core"
 import { PageLayout } from "../layout/PageLayout"
-import { Box, Grid, Button, Stack } from "@chakra-ui/core"
+import { Box, Grid, Button, Stack } from "@chakra-ui/react"
 import { CustomDrawer } from "./Utils/CustomDrawer"
 import { navigate } from "gatsby"
 const propTypes = {

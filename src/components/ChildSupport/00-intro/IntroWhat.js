@@ -1,7 +1,7 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
-import { Text, Link, Icon, useColorMode, Box, Heading } from "@chakra-ui/core"
+import { Text, Link, Icon, useColorMode, Box, Heading } from "@chakra-ui/react"
 import {
   FaFileAlt,
   FaFileInvoiceDollar,

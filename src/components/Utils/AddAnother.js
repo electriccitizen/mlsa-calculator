@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Box, useColorMode, IconButton, Stack } from "@chakra-ui/core"
+import { Box, useColorMode, IconButton, Stack } from "@chakra-ui/react"
 import { FaTrashAlt } from "react-icons/fa"
 const propTypes = {
   children: PropTypes.node,

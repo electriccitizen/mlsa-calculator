@@ -1,7 +1,7 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
-import { Stack } from "@chakra-ui/core"
+import { Stack } from "@chakra-ui/react"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { isEmail } from "@formiz/validations"
 

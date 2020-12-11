@@ -76,7 +76,6 @@ export default function Calculator() {
       })
   }
 
-
   const documents = form.values.Documents ? form.values.Documents : ""
 
   return (
@@ -97,50 +96,50 @@ export default function Calculator() {
             <OtherParent />
             <NumberChildren />
             <EnterChildren />
-            <OtherChildren />
-            <EnterMyOtherChildren />
-            {(documents === "both" || documents === "worksheets") && (
-              <>
-                <OtherChildrenSecondary />
-                <EnterMyOtherChildrenSecondary />
-              </>
-            )}
+            {/*<OtherChildren />*/}
+            {/*<EnterMyOtherChildren />*/}
+            {/*{(documents === "both" || documents === "worksheets") && (*/}
+            {/*  <>*/}
+            {/*    <OtherChildrenSecondary />*/}
+            {/*    <EnterMyOtherChildrenSecondary />*/}
+            {/*  </>*/}
+            {/*)}*/}
             <Employment />
             <CurrentJob />
             <OtherJobs />
             <EnterOtherJobs />
             <OtherIncome />
-            <TaxableIncome />
-            <NonTaxableIncome />
+            {/*<TaxableIncome />*/}
+            {/*<NonTaxableIncome />*/}
             <ChildExpenses />
             <AllowableDeductions />
-            <OtherAllowableDeductions />
+            {/*<OtherAllowableDeductions />*/}
             <StandardOfLiving />
-            {(documents === "both" || documents === "worksheets") && (
-              <>
-                <CurrentJobSecondary />
-                <EnterOtherJobsSecondary />
-                <OtherIncomeSecondary />
-                <TaxableIncomeSecondary />
-                <NonTaxableIncomeSecondary />
-                <ChildExpensesSecondary />
-                <AllowableDeductionsSecondary />
-                <OtherAllowableDeductionsSecondary />
-                <StandardOfLivingSecondary />
-              </>
-            )}
-            <ParentingDays />
-            {(documents === "both" || documents === "affadavit") && (
-            <>
-              <FinancialAffadavitOne />
-              <Schools />
-              <OtherSchools />
-              <HealthInsurance />
-              <HealthInsurancePolicies />
-              <FinancialAffadavitTwo />
-              <FinancialAffadavitThree />
-            </>
-            )}
+            {/*{(documents === "both" || documents === "worksheets") && (*/}
+            {/*  <>*/}
+            <CurrentJobSecondary />
+            <EnterOtherJobsSecondary />
+            <OtherIncomeSecondary />
+            {/*    <TaxableIncomeSecondary />*/}
+            {/*    <NonTaxableIncomeSecondary />*/}
+            <ChildExpensesSecondary />
+            <AllowableDeductionsSecondary />
+            {/*    <OtherAllowableDeductionsSecondary />*/}
+            <StandardOfLivingSecondary />
+            {/*  </>*/}
+            {/*)}*/}
+            {/*<ParentingDays />*/}
+            {/*{(documents === "both" || documents === "affadavit") && (*/}
+            {/*<>*/}
+            {/*  <FinancialAffadavitOne />*/}
+            {/*  <Schools />*/}
+            {/*  <OtherSchools />*/}
+            {/*  <HealthInsurance />*/}
+            {/*  <HealthInsurancePolicies />*/}
+            {/*  <FinancialAffadavitTwo />*/}
+            {/*  <FinancialAffadavitThree />*/}
+            {/*</>*/}
+            {/*)}*/}
             <CompleteApp state={appState.complete} pdf={appState.pdf} />
           </RulesProvider>
         </MultiStepsLayout>

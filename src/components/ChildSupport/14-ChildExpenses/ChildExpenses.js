@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { IconButton, Text, Box, Stack } from "@chakra-ui/core"
+import { IconButton, Text, Box, Stack } from "@chakra-ui/react"
 import { FaTrashAlt } from "react-icons/fa/index"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
@@ -117,7 +117,7 @@ export const ChildExpenses = () => {
                 ]}
                 mb="4"
               />
-              {state[`ChildExpenses.${index}.housing`] === "yes" && (
+              {state[`ChildExpenses.${index}.support`] === "yes" && (
                 <FieldMoneyInput
                   name={`ChildExpenses.${index}.childSupportAmount`}
                   label="Monthly child support you are ordered to pay for this child."

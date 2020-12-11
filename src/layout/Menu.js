@@ -8,7 +8,7 @@ import {
   Divider,
   useColorMode,
   List,
-} from "@chakra-ui/core"
+} from "@chakra-ui/react"
 
 import { push as BurgerMenu } from "react-burger-menu"
 

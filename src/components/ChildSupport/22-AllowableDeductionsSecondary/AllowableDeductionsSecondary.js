@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { Stack } from "@chakra-ui/core"
+import { Stack } from "@chakra-ui/react"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { SectionHeader } from "../../Utils/SectionHeader"
@@ -42,8 +42,8 @@ export const AllowableDeductionsSecondary = () => {
             value: "healthchildren",
             label: "Health insurance premium other children",
           },
-          { value: "taxfed", label: "Federal income tax" },
-          { value: "taxstate", label: "State income tax" },
+          { value: "federal", label: "Federal income tax" },
+          { value: "state", label: "State income tax" },
           { value: "ssn", label: "Social Security (FICA plus Medicare)" },
           {
             value: "retirement",
@@ -80,13 +80,13 @@ export const AllowableDeductionsSecondary = () => {
             label="How often?"
             placeholder="Select option..."
             required="Required"
-            fieldwidth={"25%"}
+            fieldWidth={"55%"}
             options={[
-              { value: "weekly", label: "Once per week" },
-              { value: "biweekly", label: "Every two weeks" },
-              { value: "bimonthly", label: "Twice a month" },
-              { value: "monthly", label: "Once per month" },
-              { value: "yearly", label: "Yearly" },
+              { value: "52", label: "Once per week" },
+              { value: "26", label: "Every two weeks" },
+              { value: "24", label: "Twice a month" },
+              { value: "12", label: "Once per month" },
+              { value: "1", label: "Yearly" },
             ]}
           />
         </Stack>
@@ -110,13 +110,13 @@ export const AllowableDeductionsSecondary = () => {
             label="How often?"
             placeholder="Select option..."
             required="Required"
-            fieldwidth={"25%"}
+            fieldWidth={"55%"}
             options={[
-              { value: "weekly", label: "Once per week" },
-              { value: "biweekly", label: "Every two weeks" },
-              { value: "bimonthly", label: "Twice a month" },
-              { value: "monthly", label: "Once per month" },
-              { value: "yearly", label: "Yearly" },
+              { value: "52", label: "Once per week" },
+              { value: "26", label: "Every two weeks" },
+              { value: "24", label: "Twice a month" },
+              { value: "12", label: "Once per month" },
+              { value: "1", label: "Yearly" },
             ]}
           />
         </Stack>
@@ -140,24 +140,24 @@ export const AllowableDeductionsSecondary = () => {
             label="How often?"
             placeholder="Select option..."
             required="Required"
-            fieldwidth={"25%"}
+            fieldWidth={"55%"}
             options={[
-              { value: "weekly", label: "Once per week" },
-              { value: "biweekly", label: "Every two weeks" },
-              { value: "bimonthly", label: "Twice a month" },
-              { value: "monthly", label: "Once per month" },
-              { value: "yearly", label: "Yearly" },
+              { value: "52", label: "Once per week" },
+              { value: "26", label: "Every two weeks" },
+              { value: "24", label: "Twice a month" },
+              { value: "12", label: "Once per month" },
+              { value: "1", label: "Yearly" },
             ]}
           />
         </Stack>
       )}
-      {checkedItems.taxfed === true && (
+      {checkedItems.federal === true && (
         <Stack
           direction={["column", "column", "row"]}
           spacing={["0", "0", "1rem"]}
         >
           <FieldMoneyInput
-            name={`AllowableDeductionsSecondary.taxfed.amount`}
+            name={`AllowableDeductionsSecondary.federal.amount`}
             label="Federal income tax"
             required="Required"
             type="text"
@@ -166,28 +166,28 @@ export const AllowableDeductionsSecondary = () => {
             }
           />
           <FieldSelect
-            name="AllowableDeductionsSecondary.taxfed.schedule"
+            name="AllowableDeductionsSecondary.federal.schedule"
             label="How often?"
             placeholder="Select option..."
             required="Required"
-            fieldwidth={"25%"}
+            fieldWidth={"55%"}
             options={[
-              { value: "weekly", label: "Once per week" },
-              { value: "biweekly", label: "Every two weeks" },
-              { value: "bimonthly", label: "Twice a month" },
-              { value: "monthly", label: "Once per month" },
-              { value: "yearly", label: "Yearly" },
+              { value: "52", label: "Once per week" },
+              { value: "26", label: "Every two weeks" },
+              { value: "24", label: "Twice a month" },
+              { value: "12", label: "Once per month" },
+              { value: "1", label: "Yearly" },
             ]}
           />
         </Stack>
       )}
-      {checkedItems.taxstate === true && (
+      {checkedItems.state === true && (
         <Stack
           direction={["column", "column", "row"]}
           spacing={["0", "0", "1rem"]}
         >
           <FieldMoneyInput
-            name={`AllowableDeductionsSecondary.taxstate.amount`}
+            name={`AllowableDeductionsSecondary.state.amount`}
             label="State income tax"
             required="Required"
             type="text"
@@ -197,17 +197,17 @@ export const AllowableDeductionsSecondary = () => {
           />
 
           <FieldSelect
-            name="AllowableDeductionsSecondary.taxstate.schedule"
+            name="AllowableDeductionsSecondary.state.schedule"
             label="How often?"
             placeholder="Select option..."
             required="Required"
-            fieldWidth={"25%"}
+            fieldWidth={"55%"}
             options={[
-              { value: "weekly", label: "Once per week" },
-              { value: "biweekly", label: "Every two weeks" },
-              { value: "bimonthly", label: "Twice a month" },
-              { value: "monthly", label: "Once per month" },
-              { value: "yearly", label: "Yearly" },
+              { value: "52", label: "Once per week" },
+              { value: "26", label: "Every two weeks" },
+              { value: "24", label: "Twice a month" },
+              { value: "12", label: "Once per month" },
+              { value: "1", label: "Yearly" },
             ]}
           />
         </Stack>
@@ -233,11 +233,11 @@ export const AllowableDeductionsSecondary = () => {
             required="Required"
             fieldWidth={"25%"}
             options={[
-              { value: "weekly", label: "Once per week" },
-              { value: "biweekly", label: "Every two weeks" },
-              { value: "bimonthly", label: "Twice a month" },
-              { value: "monthly", label: "Once per month" },
-              { value: "yearly", label: "Yearly" },
+              { value: "52", label: "Once per week" },
+              { value: "26", label: "Every two weeks" },
+              { value: "24", label: "Twice a month" },
+              { value: "12", label: "Once per month" },
+              { value: "1", label: "Yearly" },
             ]}
           />
         </Stack>
@@ -259,13 +259,13 @@ export const AllowableDeductionsSecondary = () => {
             label="How often?"
             placeholder="Select option..."
             required="Required"
-            fieldwidth={"25%"}
+            fieldWidth={"55%"}
             options={[
-              { value: "weekly", label: "Once per week" },
-              { value: "biweekly", label: "Every two weeks" },
-              { value: "bimonthly", label: "Twice a month" },
-              { value: "monthly", label: "Once per month" },
-              { value: "yearly", label: "Yearly" },
+              { value: "52", label: "Once per week" },
+              { value: "26", label: "Every two weeks" },
+              { value: "24", label: "Twice a month" },
+              { value: "12", label: "Once per month" },
+              { value: "1", label: "Yearly" },
             ]}
           />
         </Stack>
@@ -287,13 +287,13 @@ export const AllowableDeductionsSecondary = () => {
             label="How often?"
             placeholder="Select option..."
             required="Required"
-            fieldwidth={"25%"}
+            fieldWidth={"55%"}
             options={[
-              { value: "weekly", label: "Once per week" },
-              { value: "biweekly", label: "Every two weeks" },
-              { value: "bimonthly", label: "Twice a month" },
-              { value: "monthly", label: "Once per month" },
-              { value: "yearly", label: "Yearly" },
+              { value: "52", label: "Once per week" },
+              { value: "26", label: "Every two weeks" },
+              { value: "24", label: "Twice a month" },
+              { value: "12", label: "Once per month" },
+              { value: "1", label: "Yearly" },
             ]}
           />
         </Stack>

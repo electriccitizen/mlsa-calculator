@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Heading, Box } from "@chakra-ui/core"
+import { Heading, Box } from "@chakra-ui/react"
 
 const propTypes = {
   children: PropTypes.node,
