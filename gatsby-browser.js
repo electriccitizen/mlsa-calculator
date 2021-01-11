@@ -4,9 +4,5 @@ import theme from "./src/theme"
 //import theme from '@chakra-ui/theme';
 
 export const wrapRootElement = ({ element }) => {
-  return (
-    <ChakraProvider resetCSS theme={theme}>
-      {element}
-    </ChakraProvider>
-  )
+  return <ChakraProvider theme={theme}>{element}</ChakraProvider>
 }
