@@ -54,13 +54,14 @@ module.exports = {
     ],
   },
   plugins: [
-    // {
-    //   resolve: "gatsby-plugin-chakra-ui",
-    //   options: {
-    //     isResettingCSS: true, // optional, default to true
-    //     isUsingColorMode: true, // optional, default to true
-    //   },
-    // },
+    {
+      resolve: "@chakra-ui/gatsby-plugin",
+      options: {
+        isResettingCSS: true,
+        isUsingColorMode: true,
+        portalZIndex: 40,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -86,6 +87,6 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
-      `gatsby-plugin-sharp`,
+    `gatsby-plugin-sharp`,
   ],
 }
