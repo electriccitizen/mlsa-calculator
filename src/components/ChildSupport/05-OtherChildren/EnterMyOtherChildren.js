@@ -20,8 +20,6 @@ export const EnterMyOtherChildren = () => {
     })
   }
 
-  console.log(form.values.OtherChildren)
-  console.log('foo')
   return (
     <>
       {Array.apply(null, { length: numOtherChildren }).map((e, index) => (
