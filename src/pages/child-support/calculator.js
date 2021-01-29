@@ -86,7 +86,8 @@ export default function Calculator() {
     <>
       <Beforeunload onBeforeunload={event => event.preventDefault()} />
       <Formiz connect={form} onValidSubmit={handleSubmit} 
-    initialValues={ values }> 
+      initialValues={ values }> 
+
       
         <MultiStepsLayout
           app="support"
