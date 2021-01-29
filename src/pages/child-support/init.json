@@ -1,0 +1,197 @@
+{
+  "TermsOfUse": "yes",
+  "Documents": "both",
+  "Action": "modify",
+  "Location": "yes",
+  "CSED": "12345",
+  "PrimaryMailing": "no",
+  "NumPrimaryChildren": "2",
+  "OtherChildrenPrimary": "yes",
+  "NumOtherChildren": "2",
+  "OtherParentChildren": "yes",
+  "NumOtherChildrenSecondary": "2",
+  "OtherIncome": null,
+  "AllowableDeductions": null,
+  "OtherIncomeSecondary": null,
+  "AllowableDeductionsSecondary": null,
+  "Primary": {
+    "fname": "Jane",
+    "mname": "M",
+    "lname": "Doe",
+    "dob": "1973-01-25T06:00:00.000Z",
+    "phone": "555-555-5555",
+    "dl": "12345",
+    "address": "123 Sesame St",
+    "address2": null,
+    "city": "New York",
+    "state": "NY",
+    "zip": "55410",
+    "mail_address": "999 Diablo Ave"
+  },
+  "OtherParent": {
+    "fname": "John",
+    "mname": "D",
+    "lname": "Doe"
+  },
+  "PrimaryChildren": {
+    "0": {
+      "fname": "Bobby",
+      "mname": "C",
+      "lname": "Doe",
+      "dob": "2021-01-21T06:00:00.000Z",
+      "status": "none",
+      "disabled": "no"
+    },
+    "1": {
+      "fname": "Bobette",
+      "mname": "C",
+      "lname": "Doe",
+      "dob": "2000-01-27T06:00:00.000Z",
+      "status": "none",
+      "disabled": "no"
+    }
+  },
+  "OtherChildren": {
+    "0": {
+      "fname": "Kenny",
+      "mname": "A",
+      "lname": "Smith",
+      "dob": "2021-01-06T06:00:00.000Z",
+      "housing": "other",
+      "benefits": "100",
+      "disabled": "no",
+      "support": "yes",
+      "depcare": "yes",
+      "depcareAmount": "100",
+      "childSupportAmount": "100",
+      "medical": "yes",
+      "medicalAmount": "100",
+      "status": "none"
+    },
+    "1": {
+      "fname": "Kenetta",
+      "mname": "A",
+      "lname": "Smith",
+      "dob": "2021-01-04T06:00:00.000Z",
+      "housing": "otherparent",
+      "benefits": "200",
+      "status": "none",
+      "support": "yes",
+      "childSupportAmount": "200",
+      "depcare": "yes",
+      "depcareAmount": "200",
+      "medical": "yes",
+      "medicalAmount": "200",
+      "disabled": "yes"
+    }
+  },
+  "OtherChildrenSecondary": {
+    "0": {
+      "fname": "Lil John",
+      "mname": "A",
+      "lname": "Moe",
+      "dob": "2021-01-04T06:00:00.000Z",
+      "housing": "me",
+      "benefits": "10",
+      "depcare": "no",
+      "medical": "no",
+      "otherParent": "yes",
+      "status": "none",
+      "disabled": "no",
+      "childSupportAmount": null,
+      "support": "yes"
+    },
+    "1": {
+      "fname": "Johnette",
+      "mname": "Z",
+      "lname": "Moe",
+      "dob": "2021-01-13T06:00:00.000Z",
+      "housing": "me",
+      "benefits": "1",
+      "support": "no",
+      "depcare": "no",
+      "medical": "no",
+      "otherParent": "no",
+      "status": "none",
+      "disabled": "no"
+    }
+  },
+  "EmploymentPrimary": {
+    "initiate": null
+  },
+  "ChildExpenses": {
+    "0": {
+      "housing": null
+    },
+    "1": {
+      "housing": null
+    }
+  },
+  "StandardOfLiving": {
+    "mileage": null,
+    "transportation": null,
+    "other": null
+  },
+  "EmploymentSecondary": {
+    "status": null
+  },
+  "ChildExpensesSecondary": {
+    "0": {
+      "childCareCost": null,
+      "healthInsurance": null,
+      "medicalExpense": null,
+      "otherExpenses": null
+    },
+    "1": {
+      "childCareCost": null,
+      "healthInsurance": null,
+      "medicalExpense": null,
+      "otherExpenses": null
+    }
+  },
+  "StandardOfLivingSecondary": {
+    "mileage": null,
+    "transportation": null,
+    "other": null
+  },
+  "ParentingDays": {
+    "0": {
+      "name": null,
+      "amount": ""
+    },
+    "1": {
+      "name": null,
+      "amount": ""
+    },
+    "primary": null
+  },
+  "FinancialAffadavitOne": {
+    "taxStatus": null,
+    "unemployed": null,
+    "taxExemptions": null,
+    "daycare": null,
+    "support": null
+  },
+  "Schools": {
+    "level": null,
+    "current": null
+  },
+  "Insurance": {
+    "ongoing": null,
+    "current": null
+  },
+  "FinancialAffadavitTwo": {
+    "workReason": null,
+    "workersComp": null,
+    "seekingComp": null,
+    "unemployment": null,
+    "employmentEfforts": null,
+    "publicAssistance": null
+  },
+  "FinancialAffadavitThree": {
+    "otherExpenses": null,
+    "courtOrder": null,
+    "expectedChanges": null,
+    "comments": null
+  }
+}
