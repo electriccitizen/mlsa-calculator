@@ -20,7 +20,6 @@ const defaultProps = {
 export const FieldRadio = props => {
   const {
     errorMessage,
-    id,
     isValid,
     isSubmitted,
     resetKey,
@@ -54,7 +53,6 @@ export const FieldRadio = props => {
   const formGroupProps = {
     errorMessage,
     helper,
-    id,
     isRequired: !!required,
     label,
     showError,
@@ -63,7 +61,7 @@ export const FieldRadio = props => {
 
   return (
     <FormGroup {...formGroupProps}>
-      <RadioGroup key={resetKey} value={value || ""} onChange={handleChange}>
+      <RadioGroup name="radio" key={resetKey} value={value || ""} onChange={handleChange}>
         <Stack
           direction={forceStack ? ["column"] : ["column", "column", "row"]}
           spacing={forceStack ? [".2rem"] : ["0"]}
@@ -73,7 +71,6 @@ export const FieldRadio = props => {
               mr={4}
               size="lg"
               colorScheme="brand"
-              key={item.value}
               value={item.value}
             >
               {item.label}

@@ -121,23 +121,23 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
             } (${parseInt(x) + 1} of ${numChildren})`
           : `Step ${index + 1}: ${label}`
         break
-      case "EnterMyOtherChildren0":
-      case "EnterMyOtherChildren1":
-        stepLabel = form.values.OtherChildren
-          ? `Step ${index + 1}: ${
-              form.values.OtherChildren[x] && form.values.OtherChildren[x].fname
-            } (${parseInt(x) + 1} of ${numOtherChildren})`
-          : `Step ${index + 1}: ``Step ${index + 1}: Expenses for ${x}`
-        break
-      case "EnterMyOtherChildrenSecondary0":
-      case "EnterMyOtherChildrenSecondary1":
-        stepLabel = form.values.OtherChildrenSecondary
-          ? `Step ${index + 1}: ${
-              form.values.OtherChildrenSecondary[x] &&
-              form.values.OtherChildrenSecondary[x].fname
-            } (${parseInt(x) + 1} of ${numOtherChildrenSecondary})`
-          : `Step ${index + 1}: ``Step ${index + 1}: Expenses for ${x}`
-        break
+      // case "EnterMyOtherChildren0":
+      // case "EnterMyOtherChildren1":
+      //   stepLabel = form.values.OtherChildren
+      //     ? `Step ${index + 1}: ${
+      //         form.values.OtherChildren[x] && form.values.OtherChildren[x].fname
+      //       } (${parseInt(x) + 1} of ${numOtherChildren})`
+      //     : `Step ${index + 1}: ``Step ${index + 1}: Expenses for ${x}`
+      //   break
+      // case "EnterMyOtherChildrenSecondary0":
+      // case "EnterMyOtherChildrenSecondary1":
+      //   stepLabel = form.values.OtherChildrenSecondary
+      //     ? `Step ${index + 1}: ${
+      //         form.values.OtherChildrenSecondary[x] &&
+      //         form.values.OtherChildrenSecondary[x].fname
+      //       } (${parseInt(x) + 1} of ${numOtherChildrenSecondary})`
+      //     : `Step ${index + 1}: ``Step ${index + 1}: Expenses for ${x}`
+      //   break
       default:
         stepLabel = `Step ${index + 1}: ${label}`
     }

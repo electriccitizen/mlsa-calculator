@@ -51,9 +51,6 @@ export const PageLayout = ({ children }) => {
         flexWrap="nowrap"
 
       >
-
-        <Box flex="1" position="relative">
-
           <Box
             position={{ lg: "absolute" }}
             top={{ lg: 0 }}
@@ -61,8 +58,8 @@ export const PageLayout = ({ children }) => {
             right={{ lg: 0 }}
             bottom={{ lg: 0 }}
             overflow="auto"
+            flex="1"
           >
-
             <div id="outer-container">
               <main id="page-wrap">
                 <Box
@@ -74,20 +71,23 @@ export const PageLayout = ({ children }) => {
                   mt={"6em"}
                 >
                   {children}
+                 
                   <PageFooter handleDebug={handleDebug} debugMode={debugMode} />
+                
                 </Box>
               </main>
             </div>
           </Box>
-        </Box>
 
-      </Stack>
+
       {debugMode === "on" && (
-        <Flex
+        <Box
           borderColor="gray.200"
-          flexDir="column"
+          pos="absolute"
+          top="90"
+          right="0"
           minW="15rem"
-          w={{ lg: "30vw" }}
+          w={{ lg: "30vh" }}
           maxH={{ lg: "100vh" }}
           overflow="auto"
           backgroundColor={isDarkTheme ? "gray.900" : "gray.800"}
@@ -95,8 +95,14 @@ export const PageLayout = ({ children }) => {
           p={{ base: 4, lg: 8 }}
         >
           <Debug />
-        </Flex>
+        </Box>
       )}
+     
+
+      
+
+      </Stack>
+      
     </>
   )
 }

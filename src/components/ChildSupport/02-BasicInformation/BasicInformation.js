@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { FormizStep } from "@formiz/core"
+import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldDate } from "../../Fields/FieldDate"
 import { FieldRadio } from "../../Fields/FieldRadio"
@@ -8,6 +8,7 @@ import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddressField } from "./AddressField"
 
 export const BasicInformation = () => {
+  const form = useForm({ subscribe: { fields: ["PrimaryMailing"] } })
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
@@ -15,6 +16,7 @@ export const BasicInformation = () => {
       [name]: value,
     })
   }
+  const formPrimaryMailing = (form.fields.PrimaryMailing && form.fields.PrimaryMailing.value)
   return (
     <FormizStep
       label="Your contact information"
@@ -68,7 +70,7 @@ export const BasicInformation = () => {
         />
       </>
 
-      {state.PrimaryMailing === "no" && (
+      {(state.PrimaryMailing === "no" || formPrimaryMailing === "no") && (
         <AddressField
           header={"What is your mailing address?"}
           label={"Mailing Address"}

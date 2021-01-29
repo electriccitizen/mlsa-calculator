@@ -1,10 +1,11 @@
 import React, { useState } from "react"
-import { FormizStep } from "@formiz/core"
+import { FormizStep, useForm } from "@formiz/core"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const OtherChildren = () => {
+  const form = useForm({ subscribe: { fields: ["OtherChildrenPrimary","NumOtherChildren"] } })
   const [state, setState] = useState({})
   const updateState = (name, value, index) => {
     setState({
@@ -12,6 +13,8 @@ export const OtherChildren = () => {
       [name]: value,
     })
   }
+
+  const formOtherChildrenPrimary = (form.fields.OtherChildrenPrimary && form.fields.OtherChildrenPrimary.value)
 
   return (
     <FormizStep label="Your other children" name="OtherChildren" order={5000}>
@@ -24,7 +27,7 @@ export const OtherChildren = () => {
           }}
         />
         <FieldRadio
-          name="OtherChildren.primary"
+          name="OtherChildrenPrimary"
           placeholder="None"
           required="Required"
           updateState={updateState}
@@ -34,7 +37,7 @@ export const OtherChildren = () => {
             { value: "no", label: "No" },
           ]}
         />
-        {state["OtherChildren.primary"] === "yes" && (
+        {(state["OtherChildrenPrimary"] === "yes" || formOtherChildrenPrimary === "yes") && (
           <>
             <FieldRadio
               name="NumOtherChildren"

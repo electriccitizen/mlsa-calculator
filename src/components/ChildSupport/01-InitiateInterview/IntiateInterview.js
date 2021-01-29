@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { FormizStep } from "@formiz/core"
+import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { SectionHeader } from "../../Utils/SectionHeader"
@@ -7,6 +7,7 @@ import { Box } from "@chakra-ui/react"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const InitiateInterview = () => {
+  const form = useForm({ subscribe: { fields: ["Documents", "Action", "Location"] } })
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
@@ -14,6 +15,12 @@ export const InitiateInterview = () => {
       [name]: value,
     })
   }
+
+  const formDocuments = (form.fields.Documents ? form.fields.Documents.value : 'foo')
+  const formAction = (form.fields.Action ? form.fields.Action.value : 'foo')
+  const formLocation = (form.fields.Location && form.fields.Location.value)
+
+  // console.log(form.fields.Documents.value)
 
   return (
     <FormizStep label="Start interview" name="initiateInterview" order={1000}>
@@ -45,7 +52,7 @@ export const InitiateInterview = () => {
           { value: "affadavit", label: "Financial Affadavit" },
         ]}
       />
-      {(state.Documents === "worksheets" || state.Documents === "both") && (
+      {((state.Documents === "worksheets" ||  formDocuments === "worksheets") || (state.Documents === "both" || formDocuments === "both")) && (
         <>
           <FieldRadio
             name="Action"
@@ -67,7 +74,7 @@ export const InitiateInterview = () => {
             ]}
           />
 
-          {state.Action === "establish" ? (
+          {(state.Action === "establish" || formAction === "establish") ? (
             <>
               <FieldInput
                 name="CSED"
@@ -77,7 +84,7 @@ export const InitiateInterview = () => {
               />
             </>
           ) : (
-            state.Action === "modify" && (
+            (state.Action === "modify" || formAction === "modify") && (
               <>
                 <FieldRadio
                   name="Location"
@@ -89,7 +96,7 @@ export const InitiateInterview = () => {
                     { value: "no", label: "No" },
                   ]}
                 />
-                {state.Location === "no" && (
+                {(state.Location === "no" || formLocation === "no") && (
                   <Box
                     borderRadius="lg"
                     p={8}
@@ -103,7 +110,7 @@ export const InitiateInterview = () => {
                   </Box>
                 )}
 
-                {state.Location === "yes" && (
+                {(state.Location === "yes" || formLocation === "yes") && (
                   <FieldInput
                     name="CSED"
                     label="Enter the District Court Case number or CSED Case number for the case in which you are seeking child support:"

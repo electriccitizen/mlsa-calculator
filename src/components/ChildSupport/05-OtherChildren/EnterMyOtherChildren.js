@@ -10,7 +10,7 @@ import { AlertBox } from "../../Utils/AlertBox"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const EnterMyOtherChildren = () => {
-  const form = useForm({ subscribe: { fields: ["NumOtherChildren"] } })
+  const form = useForm()
   const numOtherChildren = form.values.NumOtherChildren
   const [state, setState] = useState({})
   const updateState = (name, value, index) => {
@@ -20,6 +20,8 @@ export const EnterMyOtherChildren = () => {
     })
   }
 
+  console.log(form.values.OtherChildren)
+  console.log('foo')
   return (
     <>
       {Array.apply(null, { length: numOtherChildren }).map((e, index) => (
@@ -108,7 +110,7 @@ export const EnterMyOtherChildren = () => {
                 { value: "no", label: "No" },
               ]}
             />
-            {state[`OtherChildren.${index}.support`] === "yes" && (
+            {(state[`OtherChildren.${index}.support`] === "yes" || form.values.OtherChildren[0].support === 'yes') && (
               <FieldMoneyInput
                 name={`OtherChildren.${index}.childSupportAmount`}
                 label="Monthly child support you are ordered to pay for this child."
@@ -127,7 +129,7 @@ export const EnterMyOtherChildren = () => {
                 { value: "no", label: "No" },
               ]}
             />
-            {state[`OtherChildren.${index}.depcare`] === "yes" && (
+            {(state[`OtherChildren.${index}.depcare`] === "yes" || `form.values.OtherChildren.${index}.depcareAmount` ) && (
               <FieldMoneyInput
                 name={`OtherChildren.${index}.depcareAmount`}
                 label="Enter 50% of the yearly dependent care expense for this child."

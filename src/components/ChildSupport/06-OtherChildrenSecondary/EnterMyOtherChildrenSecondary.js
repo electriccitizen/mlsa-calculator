@@ -188,12 +188,13 @@ export const EnterMyOtherChildrenSecondary = () => {
               { value: "none", label: "None of the above" },
             ]}
           />
-          {state[`OtherChildrenSecondary.${index}.status`] !== "none" && (
-            <AlertBox>
-              Sorry, but this child does not qualify and will not be counted in
-              the child support calculations. Continue to the next step.
-            </AlertBox>
-          )}
+          {state[`OtherChildren.${index}.status`] &&
+              state[`OtherChildren.${index}.status`] !== "none" && (
+                <AlertBox>
+                  Sorry, but this child does not qualify and will not be counted
+                  in the child support calculations. Continue to the next step.
+                </AlertBox>
+              )}
           <FieldRadio
             name={`OtherChildrenSecondary.${index}.disabled`}
             label="Does this child have a disability?"

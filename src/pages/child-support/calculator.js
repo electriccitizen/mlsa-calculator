@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 import { Formiz, useForm } from "@formiz/core"
+import * as init from './init.json'; 
+
 import { TermsOfUse } from "../../components/ChildSupport/TermsOfUse"
 import { InitiateInterview } from "../../components/ChildSupport/01-InitiateInterview/IntiateInterview"
 import { BasicInformation } from "../../components/ChildSupport/02-BasicInformation/BasicInformation"
@@ -78,10 +80,14 @@ export default function Calculator() {
 
   const documents = form.values.Documents ? form.values.Documents : ""
 
+  const values = init.default
+
   return (
     <>
       <Beforeunload onBeforeunload={event => event.preventDefault()} />
-      <Formiz connect={form} onValidSubmit={handleSubmit}>
+      <Formiz connect={form} onValidSubmit={handleSubmit} 
+    initialValues={ values }> 
+      
         <MultiStepsLayout
           app="support"
           buttonTitle="Child Support Calculator"

@@ -6,7 +6,7 @@ import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const OtherChildrenSecondary = () => {
   const form = useForm({
-    subscribe: { fields: ["OtherParent.fname"] },
+    subscribe: { fields: ["OtherParent.fname","OtherParentChildren","NumOtherChildrenSecondary"] },
   })
   const [state, setState] = useState({})
 
@@ -16,6 +16,9 @@ export const OtherChildrenSecondary = () => {
       [name]: value,
     })
   }
+
+  const formOtherParentChildren = (form.fields.OtherParentChildren && form.fields.OtherParentChildren.value)
+
   const otherParent = form.values.OtherParent
     ? form.values.OtherParent.fname
     : "other parent"
@@ -24,7 +27,7 @@ export const OtherChildrenSecondary = () => {
     <FormizStep
       name="OtherChildrenSecondary"
       order={6000}
-      label={"Does the other parent have other children with somebody else?"}
+      label={"Does the other parent have other children with someone else?"}
     >
       <>
         <SectionHeader
@@ -35,7 +38,7 @@ export const OtherChildrenSecondary = () => {
           }}
         />
         <FieldRadio
-          name="OtherChildrenSecondary"
+          name="OtherParentChildren"
           placeholder="None"
           required="Required"
           label={"Select yes or no"}
@@ -45,7 +48,7 @@ export const OtherChildrenSecondary = () => {
             { value: "no", label: "No" },
           ]}
         />
-        {state.OtherChildrenSecondary === "yes" && (
+        {(state.OtherChildrenSecondary === "yes" || formOtherParentChildren === "yes") && (
           <FieldRadio
             name="NumOtherChildrenSecondary"
             required="Required"
