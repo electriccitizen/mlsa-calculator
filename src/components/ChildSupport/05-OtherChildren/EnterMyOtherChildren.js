@@ -10,7 +10,7 @@ import { AlertBox } from "../../Utils/AlertBox"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const EnterMyOtherChildren = () => {
-  const form = useForm()
+  const form = useForm({ subscribe: { fields: ["NumOtherChildren"] } })
   const numOtherChildren = form.values.NumOtherChildren
   const [state, setState] = useState({})
   const updateState = (name, value, index) => {
@@ -108,7 +108,7 @@ export const EnterMyOtherChildren = () => {
                 { value: "no", label: "No" },
               ]}
             />
-            {(state[`OtherChildren.${index}.support`] === "yes" || form.values.OtherChildren[0].support === 'yes') && (
+            {state[`OtherChildren.${index}.support`] === "yes" && (
               <FieldMoneyInput
                 name={`OtherChildren.${index}.childSupportAmount`}
                 label="Monthly child support you are ordered to pay for this child."
@@ -127,7 +127,7 @@ export const EnterMyOtherChildren = () => {
                 { value: "no", label: "No" },
               ]}
             />
-            {(state[`OtherChildren.${index}.depcare`] === "yes" || `form.values.OtherChildren.${index}.depcareAmount` ) && (
+            {state[`OtherChildren.${index}.depcare`] === "yes" && (
               <FieldMoneyInput
                 name={`OtherChildren.${index}.depcareAmount`}
                 label="Enter 50% of the yearly dependent care expense for this child."

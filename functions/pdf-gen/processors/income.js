@@ -13,7 +13,6 @@ const calcIncome = form => {
   const primaryWages = calcWages(form, "EmploymentPrimary")
   data["income.mother.wages"] = Number(primaryWages).toLocaleString()
   totalPrimary.push(primaryWages)
-  //console.log(totalPrimary)
 
   const secondaryWages = calcWages(form, "EmploymentSecondary")
   data["income.father.wages"] = Number(secondaryWages).toLocaleString()
@@ -21,62 +20,73 @@ const calcIncome = form => {
   //console.log(totalSecondary)
 
   // SEP
-  const primarySep =
+  if (form.OtherIncome.SepEarning) {
+    const primarySep =
     form.OtherIncome.SepEarning.net * form.OtherIncome.SepEarning.schedule
+    data["income.mother.sep"] = format(primarySep)
+    totalPrimary.push(parseInt(primarySep))
+  }
 
-  data["income.mother.sep"] = format(primarySep)
-  totalPrimary.push(parseInt(primarySep))
-
+  if (form.OtherIncomeSecondary.SepEarning) {
   const secondarySep =
-    form.OtherIncomeSecondary.SepEarning &&
     form.OtherIncomeSecondary.SepEarning.net *
       form.OtherIncomeSecondary.SepEarning.schedule
-
-  data["income.father.sep"] = format(secondarySep)
-  totalSecondary.push(parseInt(secondarySep))
-
+      data["income.father.sep"] = format(secondarySep)
+      totalSecondary.push(parseInt(secondarySep))
+  }
+  
   // SSN
-  const primarySsn = form.OtherIncome.SSN && form.OtherIncome.SSN
-  data["income.mother.ssn"] = format(primarySsn)
-  totalPrimary.push(parseInt(primarySsn))
+  if (form.OtherIncome.SSN) {
+    const primarySsn = form.OtherIncome.SSN
+    data["income.mother.ssn"] = format(primarySsn)
+    totalPrimary.push(parseInt(primarySsn))
+  }
 
-  const secondarySsn =
-    form.OtherIncomeSecondary.SSN && form.OtherIncomeSecondary.SSN
+  if (form.OtherIncomeSecondary.SSN) {
+  const secondarySsn = form.OtherIncomeSecondary.SSN
   data["income.father.ssn"] = format(secondarySsn)
   totalSecondary.push(parseInt(secondarySsn))
+  }
 
   // Unearned
-  const primaryUnearned = form.OtherIncome.unearned && form.OtherIncome.unearned
-  data["income.mother.unearned"] = format(primaryUnearned)
-  totalPrimary.push(parseInt(primaryUnearned))
+  if (form.OtherIncome.unearned) {
+    const primaryUnearned = form.OtherIncome.unearned
+    data["income.mother.unearned"] = format(primaryUnearned)
+    totalPrimary.push(parseInt(primaryUnearned))
+  }
 
-  const secondaryUnearned =
-    form.OtherIncomeSecondary.unearned && form.OtherIncomeSecondary.unearned
-  data["income.father.unearned"] = format(secondaryUnearned)
-  totalSecondary.push(parseInt(secondaryUnearned))
-
+  if (form.OtherIncomeSecondary.unearned) {
+    const secondaryUnearned = form.OtherIncomeSecondary.unearned
+    data["income.father.unearned"] = format(secondaryUnearned)
+    totalSecondary.push(parseInt(secondaryUnearned))
+  }
+  
   // Imputed
-  const primaryImputed =
-    form.OtherIncome.imputed &&
-    form.OtherIncome.imputed * form.OtherIncome.imputedSchedule
-  data["income.mother.imputed"] = format(primaryImputed)
-  totalPrimary.push(parseInt(primaryImputed))
+  if (form.OtherIncome.imputed) {
+    const primaryImputed = form.OtherIncome.imputed * form.OtherIncome.imputedSchedule
+    data["income.mother.imputed"] = format(primaryImputed)
+    totalPrimary.push(parseInt(primaryImputed))
+  }
 
-  const secondaryImputed =
-    form.OtherIncomeSecondary.imputed &&
-    form.OtherIncomeSecondary.imputed *
+  if (form.OtherIncomeSecondary.imputed) {
+    const secondaryImputed = form.OtherIncomeSecondary.imputed *
       form.OtherIncomeSecondary.imputedSchedule
-  data["income.father.imputed"] = format(secondaryImputed)
-  totalSecondary.push(parseInt(secondaryImputed))
+      data["income.father.imputed"] = format(secondaryImputed)
+      totalSecondary.push(parseInt(secondaryImputed))
+  }
 
   // EITC
-  const primaryEitc = form.OtherIncome.eitc && form.OtherIncome.eitc
-  data["income.mother.earned"] = format(primaryEitc)
-  totalPrimary.push(parseInt(primaryEitc))
-  const secondaryEitc =
-    form.OtherIncomeSecondary.eitc && form.OtherIncomeSecondary.eitc
-  data["income.father.earned"] = format(secondaryEitc)
-  totalSecondary.push(parseInt(secondaryEitc))
+  if (form.OtherIncome.eitc) {
+    const primaryEitc = form.OtherIncome.eitc
+    data["income.mother.earned"] = format(primaryEitc)
+    totalPrimary.push(parseInt(primaryEitc))
+  }
+  
+  if (form.OtherIncomeSecondary.eitc) {
+    const secondaryEitc = form.OtherIncomeSecondary.eitc
+    data["income.father.earned"] = format(secondaryEitc)
+    totalSecondary.push(parseInt(secondaryEitc))
+  }
 
   // TOTAL WAGES
   data["income.mother.total-unformat"] = totalPrimary.reduce((a, b) => a + b, 0)
@@ -84,10 +94,12 @@ const calcIncome = form => {
     (a, b) => a + b,
     0
   )
+
   data["income.mother.total"] = format(totalPrimary.reduce((a, b) => a + b, 0))
   data["income.father.total"] = format(
     totalSecondary.reduce((a, b) => a + b, 0)
   )
+
   data["income.mother.total-callout"] = data["income.mother.total"]
   data["income.father.total-callout"] = data["income.father.total"]
 

@@ -4,7 +4,7 @@ import { Debug } from "../components/Utils/Debug"
 import { useDarkTheme } from "../hooks/isDarkTheme"
 import SiteHeader from "../layout/SiteHeader"
 import { PageFooter } from "../layout/PageFooter"
-import { Box, Flex, Stack } from "@chakra-ui/react"
+import { Box, Stack } from "@chakra-ui/react"
 
 const propTypes = {
   children: PropTypes.node,

@@ -13,17 +13,19 @@ const calcAllowableDeductions = form => {
   // 2a and 2b -- only apply to "other" children" TODO
 
   // 2c
-  const alimonyPrimary =
-    form.AllowableDeductions.alimony.amount *
-    form.AllowableDeductions.alimony.schedule
-  data["allowable.mother.alimony"] = format(alimonyPrimary)
-  totalPrimary.push(parseInt(alimonyPrimary))
+  if (form.AllowableDeductions.alimony) {
+    const alimonyPrimary = form.AllowableDeductions.alimony.amount *
+      form.AllowableDeductions.alimony.schedule
+      data["allowable.mother.alimony"] = format(alimonyPrimary)
+      totalPrimary.push(parseInt(alimonyPrimary))
+  }
 
-  const alimonySecondary =
-    form.AllowableDeductionsSecondary.alimony.amount *
+  if (form.AllowableDeductionsSecondary.alimony) {
+    const alimonySecondary = form.AllowableDeductionsSecondary.alimony.amount *
     form.AllowableDeductionsSecondary.alimony.schedule
-  data["allowable.father.alimony"] = format(alimonySecondary)
-  totalSecondary.push(parseInt(alimonySecondary))
+    data["allowable.father.alimony"] = format(alimonySecondary)
+    totalSecondary.push(parseInt(alimonySecondary))
+  }
 
   // 2d Ordered health ins other children
   if (form.AllowableDeductions.healthchildren) {

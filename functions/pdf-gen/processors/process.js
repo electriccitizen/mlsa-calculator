@@ -34,28 +34,28 @@ const processData = form => {
   )
 
   // INCOME
-  let income = calcIncome(form)
+  // let income = calcIncome(form)
 
   // ALLOWABLE DEDUCTIONS
-  let deductions = calcAllowableDeductions(form)
+  // let deductions = calcAllowableDeductions(form)
 
   // Line 3 INCOME AFTER DEDUCTIONS
-  primary =
-    unFormat(income["income.mother.total"]) -
-    unFormat(deductions["allowable.mother.total"])
-  secondary =
-    unFormat(income["income.father.total"]) -
-    unFormat(deductions["allowable.father.total"])
-  data["allowable.mother.income"] = format(primary)
-  data["allowable.father.income"] = format(secondary)
-  data["allowable.mother.income-callout"] = format(primary)
-  data["allowable.father.income-callout"] = format(secondary)
+  // primary =
+  //   unFormat(income["income.mother.total"]) -
+  //   unFormat(deductions["allowable.mother.total"])
+  // secondary =
+  //   unFormat(income["income.father.total"]) -
+  //   unFormat(deductions["allowable.father.total"])
+  // data["allowable.mother.income"] = format(primary)
+  // data["allowable.father.income"] = format(secondary)
+  // data["allowable.mother.income-callout"] = format(primary)
+  // data["allowable.father.income-callout"] = format(secondary)
 
   // PARENT PERCENTAGES
-  let percentages = calcPercentages(form, primary, secondary)
+  //let percentages = calcPercentages(form, primary, secondary)
 
   // ** SOLA PACS
-  let sola = calcSola(form, percentages)
+  //let sola = calcSola(form, percentages)
 
   //14 TODO  -- no data
   // if line 6 > line 5, skip to line 21 and enter line 6 amount
@@ -154,7 +154,7 @@ const processData = form => {
     ...income,
     ...deductions,
     ...percentages,
-    ...sola,
+    // ...sola,
   }
 
   return final

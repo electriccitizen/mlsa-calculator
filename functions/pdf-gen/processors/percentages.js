@@ -34,13 +34,13 @@ const calcPercentages = (form, incomePrimary, incomeSecondary) => {
     ? (data["ppa.father.income"] = 0)
     : (data["ppa.father.income"] = format(incomeAvailableSecondary))
 
-  // 6
+  // 6 TODO Worksheet C
   data["ppa.mother.income"] === 0
-    ? (data["ppa.mother.line6"] = "Total from Worksheet C")
+    ? (data["ppa.mother.line6"] = 0)
     : (data["ppa.mother.line6"] = format(incomePrimary * 0.12))
 
   data["ppa.father.income"] === 0
-    ? (data["ppa.father.line6"] = "Total from Worksheet C")
+    ? (data["ppa.father.line6"] = format(0))
     : (data["ppa.father.line6"] = format(incomeSecondary * 0.12))
 
   // 7 larger of line 5 and line 6
@@ -53,7 +53,6 @@ const calcPercentages = (form, incomePrimary, incomeSecondary) => {
 
   data["ppa.father.compare"] = format(
     Math.max(
-      unFormatMax(data["ppa.father.income"]),
       unFormatMax(data["ppa.father.line6"])
     )
   )
@@ -61,7 +60,7 @@ const calcPercentages = (form, incomePrimary, incomeSecondary) => {
   // 8 Combined income available
   data["ppa.combined"] = format(
     unFormatMax(data["ppa.mother.compare"]) +
-      unFormatMax(data["ppa.father.compare"])
+    unFormatMax(data["ppa.father.compare"])
   )
 
   // 9 Parental share
@@ -121,6 +120,7 @@ const calcPercentages = (form, incomePrimary, incomeSecondary) => {
   let primaryCHIP = []
   let primaryUME = []
   let primaryOther = []
+
   Object.entries(form.ChildExpenses).forEach(([index, value]) => {
     primaryCCC.push(parseInt(value.childCareCost))
     primaryCHIP.push(parseInt(value.healthInsurance))
@@ -131,11 +131,14 @@ const calcPercentages = (form, incomePrimary, incomeSecondary) => {
       })
   })
 
+  //console.log(primaryCCC)
+
   let secondaryCCC = []
   let secondaryCHIP = []
   let secondaryUME = []
   let secondaryOther = []
 
+  if (form.ChildExpensesSecondary) {
   Object.entries(form.ChildExpensesSecondary).forEach(([index, value]) => {
     secondaryCCC.push(parseInt(value.childCareCost))
     secondaryCHIP.push(parseInt(value.healthInsurance))
@@ -145,6 +148,7 @@ const calcPercentages = (form, incomePrimary, incomeSecondary) => {
         primaryOther.push(parseInt(expense.amt))
       })
   })
+  }
 
   data["ppa.costLessCredit"] = format(
     primaryCCC.concat(secondaryCCC).reduce((a, b) => a + b, 0)
