@@ -3,6 +3,7 @@ const format = number => {
   return Number(number).toLocaleString()
 }
 const calcIncome = form => {
+  
   // Total
   let data = []
   let totalPrimary = []
@@ -90,21 +91,19 @@ const calcIncome = form => {
 
   // TOTAL WAGES
   data["income.mother.total-unformat"] = totalPrimary.reduce((a, b) => a + b, 0)
-  data["income.father.total-unformat"] = totalSecondary.reduce(
-    (a, b) => a + b,
-    0
-  )
+  data["income.father.total-unformat"] = totalSecondary.reduce((a, b) => a + b, 0)
 
   data["income.mother.total"] = format(totalPrimary.reduce((a, b) => a + b, 0))
-  data["income.father.total"] = format(
-    totalSecondary.reduce((a, b) => a + b, 0)
-  )
+  data["income.father.total"] = format(totalSecondary.reduce((a, b) => a + b, 0))
 
   data["income.mother.total-callout"] = data["income.mother.total"]
   data["income.father.total-callout"] = data["income.father.total"]
 
   return data
 }
+
+
+// Helpers
 
 const calcWeeksBetween = (start, end) => {
   var a = moment(start)
@@ -135,6 +134,8 @@ const calcWages = (form, parent) => {
       break
   }
 
+  
+
   switch (jobPayment) {
     case "hourly":
       totalWages = jobHoursPerWeek * jobGrossAmount * numWeeks
@@ -144,6 +145,9 @@ const calcWages = (form, parent) => {
       totalWages = jobGrossAmount * jobSchedule
       break
   }
+
+  //console.log(totalWages)
+
 
   // let otherJobsWages = []
   //

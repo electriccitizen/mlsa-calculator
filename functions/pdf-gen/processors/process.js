@@ -1,3 +1,4 @@
+var init = require('./init.json')
 const { calcIncome } = require("./income")
 const { calcAllowableDeductions } = require("./deductions")
 const { calcPercentages } = require("./percentages")
@@ -12,10 +13,17 @@ const unFormat = number => {
   return parseInt(number.replace(regex, ""))
 }
 
+
+
 const processData = form => {
   let data = []
   let primary
   let secondary
+  
+ // form = init
+ 
+  console.log('fooking hell')
+
   // Case #
   form.CSED && (data["initiate.csed"] = form.CSED)
 
@@ -34,10 +42,10 @@ const processData = form => {
   )
 
   // INCOME
-  // let income = calcIncome(form)
+   let income = calcIncome(form)
 
   // ALLOWABLE DEDUCTIONS
-  // let deductions = calcAllowableDeductions(form)
+   let deductions = calcAllowableDeductions(form)
 
   // Line 3 INCOME AFTER DEDUCTIONS
   // primary =
@@ -52,10 +60,10 @@ const processData = form => {
   // data["allowable.father.income-callout"] = format(secondary)
 
   // PARENT PERCENTAGES
-  //let percentages = calcPercentages(form, primary, secondary)
+  let percentages = calcPercentages(form, primary, secondary)
 
   // ** SOLA PACS
-  //let sola = calcSola(form, percentages)
+  let sola = calcSola(form, percentages)
 
   //14 TODO  -- no data
   // if line 6 > line 5, skip to line 21 and enter line 6 amount
@@ -151,9 +159,9 @@ const processData = form => {
 
   let final = {
     ...data,
-    ...income,
-    ...deductions,
-    ...percentages,
+    // ...income,
+    // ...deductions,
+    // ...percentages,
     // ...sola,
   }
 

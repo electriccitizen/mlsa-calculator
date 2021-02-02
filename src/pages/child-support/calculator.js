@@ -86,12 +86,11 @@ export default function Calculator() {
     <>
       <Beforeunload onBeforeunload={event => event.preventDefault()} />
       <Formiz connect={form} onValidSubmit={handleSubmit} 
-      initialValues={ values }> 
-
-      
+      initialValues={ values }
+      > 
         <MultiStepsLayout
           app="support"
-          buttonTitle="Child Support Calculator"
+          buttonTitle="Child Support Calculatorz"
           submitLabel={
             documents === "both" ? "Generate documents" : "Generate document"
           }
@@ -138,13 +137,13 @@ export default function Calculator() {
             <ParentingDays />
             {(documents === "both" || documents === "affadavit") && (
               <>
-                <FinancialAffadavitOne />
+                {/* <FinancialAffadavitOne />
                 <Schools />
                 <OtherSchools />
                 <HealthInsurance />
                 <HealthInsurancePolicies />
                 <FinancialAffadavitTwo />
-                <FinancialAffadavitThree />
+                <FinancialAffadavitThree /> */}
               </>
             )}
             <CompleteApp state={appState.complete} pdf={appState.pdf} />

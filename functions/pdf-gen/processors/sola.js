@@ -85,8 +85,8 @@ const calcSola = (form, percentages) => {
 
   let a = primaryCost + totalPrimaryOther
   let b = secondaryCost + totalSecondaryOther
-  console.log(a - globalStandardExpense)
-  console.log(b - globalStandardExpense)
+  // console.log(a - globalStandardExpense)
+  // console.log(b - globalStandardExpense)
 
   //
 
