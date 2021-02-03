@@ -13,14 +13,12 @@ const unFormat = number => {
   return parseInt(number.replace(regex, ""))
 }
 
-
-
 const processData = form => {
   let data = []
   let primary
   let secondary
   
- // form = init
+  //form = init
  
   console.log('fooking hell')
 
@@ -159,7 +157,7 @@ const processData = form => {
 
   let final = {
     ...data,
-    // ...income,
+    ...income,
     // ...deductions,
     // ...percentages,
     // ...sola,

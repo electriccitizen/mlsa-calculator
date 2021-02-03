@@ -18,7 +18,7 @@ const calcIncome = form => {
   const secondaryWages = calcWages(form, "EmploymentSecondary")
   data["income.father.wages"] = Number(secondaryWages).toLocaleString()
   totalSecondary.push(secondaryWages)
-  //console.log(totalSecondary)
+  console.log(totalSecondary)
 
   // SEP
   if (form.OtherIncome.SepEarning) {
@@ -121,9 +121,10 @@ const calcWages = (form, parent) => {
   let jobHoursPerWeek = form[parent].hoursPerWeek
   let jobGrossAmount = form[parent].grossAmount
   let jobSchedule = form[parent].schedule
-
   let jobPayment = form[parent].payment
 
+  console.log(jobSchedule)
+  
   switch (jobType) {
     case "temporary":
       numWeeks = calcWeeksBetween(jobStart, jobEnd)
@@ -134,7 +135,7 @@ const calcWages = (form, parent) => {
       break
   }
 
-  
+//console.log(jobSchedule)
 
   switch (jobPayment) {
     case "hourly":
