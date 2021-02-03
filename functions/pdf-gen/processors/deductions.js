@@ -135,8 +135,10 @@ const calcAllowableDeductions = form => {
   data["allowable.father.total"] = format(
     totalSecondary.reduce((a, b) => a + b, 0)
   )
-  data["allowable.mother.total-callout"] = data["allowable.mother.total"]
-  data["allowable.father.total-callout"] = data["allowable.father.total"]
+  data["allowable.mother.income"] = data["allowable.mother.total"]
+  data["allowable.father.income"] = data["allowable.father.total"]
+  data["allowable.mother.income-callout"] = data["allowable.mother.total"]
+  data["allowable.father.income-callout"] = data["allowable.father.total"]
 
   return data
 }

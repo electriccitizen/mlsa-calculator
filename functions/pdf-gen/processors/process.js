@@ -158,8 +158,8 @@ const processData = form => {
   let final = {
     ...data,
     ...income,
-    // ...deductions,
-    // ...percentages,
+    ...deductions,
+    ...percentages,
     // ...sola,
   }
 
