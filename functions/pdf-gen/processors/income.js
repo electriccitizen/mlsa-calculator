@@ -4,13 +4,13 @@ const format = number => {
 }
 const calcIncome = form => {
   
-  // Total
+  // Totals
   let data = []
   let totalPrimary = []
   let totalSecondary = []
 
-  // Wages
-  // TODO other jobs for both parents
+  // 1A Wages 
+  // @TODO add "other" jobs for both parents
   const primaryWages = calcWages(form, "EmploymentPrimary")
   data["income.mother.wages"] = Number(primaryWages).toLocaleString()
   totalPrimary.push(primaryWages)
@@ -18,9 +18,8 @@ const calcIncome = form => {
   const secondaryWages = calcWages(form, "EmploymentSecondary")
   data["income.father.wages"] = Number(secondaryWages).toLocaleString()
   totalSecondary.push(secondaryWages)
-  console.log(totalSecondary)
 
-  // SEP
+  // 1B Self-Employment net earnings
   if (form.OtherIncome.SepEarning) {
     const primarySep =
     form.OtherIncome.SepEarning.net * form.OtherIncome.SepEarning.schedule
@@ -36,7 +35,7 @@ const calcIncome = form => {
       totalSecondary.push(parseInt(secondarySep))
   }
   
-  // SSN
+  // 1C Pensions, Social Security 
   if (form.OtherIncome.SSN) {
     const primarySsn = form.OtherIncome.SSN
     data["income.mother.ssn"] = format(primarySsn)
@@ -49,7 +48,7 @@ const calcIncome = form => {
   totalSecondary.push(parseInt(secondarySsn))
   }
 
-  // Unearned
+  // 1D Unearned Income
   if (form.OtherIncome.unearned) {
     const primaryUnearned = form.OtherIncome.unearned
     data["income.mother.unearned"] = format(primaryUnearned)
@@ -62,7 +61,7 @@ const calcIncome = form => {
     totalSecondary.push(parseInt(secondaryUnearned))
   }
   
-  // Imputed
+  // 1E Imputed income
   if (form.OtherIncome.imputed) {
     const primaryImputed = form.OtherIncome.imputed * form.OtherIncome.imputedSchedule
     data["income.mother.imputed"] = format(primaryImputed)
@@ -76,7 +75,7 @@ const calcIncome = form => {
       totalSecondary.push(parseInt(secondaryImputed))
   }
 
-  // EITC
+  // 1F Earned Income Tax Credit (EITC) 
   if (form.OtherIncome.eitc) {
     const primaryEitc = form.OtherIncome.eitc
     data["income.mother.earned"] = format(primaryEitc)
@@ -89,10 +88,10 @@ const calcIncome = form => {
     totalSecondary.push(parseInt(secondaryEitc))
   }
 
-  // TOTAL WAGES
-  data["income.mother.total-unformat"] = totalPrimary.reduce((a, b) => a + b, 0)
-  data["income.father.total-unformat"] = totalSecondary.reduce((a, b) => a + b, 0)
+  // 1G Other taxable income (specify): @TODO -- sum, add multiple entries to Attachment A (verify)
+  // 1H Other non-taxable income (specify(): @TODO -- sum, add multiple entries to Attachment A
 
+  // 1I TOTAL INCOME -- SUM(1A:1H)
   data["income.mother.total"] = format(totalPrimary.reduce((a, b) => a + b, 0))
   data["income.father.total"] = format(totalSecondary.reduce((a, b) => a + b, 0))
 
@@ -102,9 +101,7 @@ const calcIncome = form => {
   return data
 }
 
-
 // Helpers
-
 const calcWeeksBetween = (start, end) => {
   var a = moment(start)
   var b = moment(end)
@@ -123,8 +120,6 @@ const calcWages = (form, parent) => {
   let jobSchedule = form[parent].schedule
   let jobPayment = form[parent].payment
 
-  console.log(jobSchedule)
-  
   switch (jobType) {
     case "temporary":
       numWeeks = calcWeeksBetween(jobStart, jobEnd)
@@ -135,8 +130,6 @@ const calcWages = (form, parent) => {
       break
   }
 
-//console.log(jobSchedule)
-
   switch (jobPayment) {
     case "hourly":
       totalWages = jobHoursPerWeek * jobGrossAmount * numWeeks
@@ -146,9 +139,6 @@ const calcWages = (form, parent) => {
       totalWages = jobGrossAmount * jobSchedule
       break
   }
-
-  //console.log(totalWages)
-
 
   // let otherJobsWages = []
   //

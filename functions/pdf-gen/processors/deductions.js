@@ -2,17 +2,18 @@ const format = number => {
   return Number(number).toLocaleString()
 }
 
-const calcAllowableDeductions = form => {
-  // Total
+const calcAllowableDeductions = (form) => {
+  // Totals
   let data = []
   let primary
   let secondary
   let totalPrimary = []
   let totalSecondary = []
 
-  // 2a and 2b -- only apply to "other" children" TODO
+  // 2A Ordered child support for other children -- @TODO this applies to "other" children of the primary applicant
+  // 2B  Allowance for other children from Table 2 -- @TODO need to write logic based on TABLE 2 (see doc link on project site)
 
-  // 2c
+  // 2C Ordered alimony/spousal support
   if (form.AllowableDeductions.alimony) {
     const alimonyPrimary = form.AllowableDeductions.alimony.amount *
       form.AllowableDeductions.alimony.schedule
@@ -27,7 +28,7 @@ const calcAllowableDeductions = form => {
     totalSecondary.push(parseInt(alimonySecondary))
   }
 
-  // 2d Ordered health ins other children
+  // 2D Ordered health ins other children
   if (form.AllowableDeductions.healthchildren) {
     primary =
       form.AllowableDeductions.healthchildren.amount *
@@ -43,7 +44,7 @@ const calcAllowableDeductions = form => {
     totalSecondary.push(parseInt(secondary))
   }
 
-  //2e federal tax
+  //2E Federal income tax
   if (form.AllowableDeductions.federal) {
     primary =
       form.AllowableDeductions.federal.amount *
@@ -59,7 +60,7 @@ const calcAllowableDeductions = form => {
     totalSecondary.push(parseInt(secondary))
   }
 
-  //2f state tax
+  //2F State income tax
   if (form.AllowableDeductions.state) {
     primary =
       form.AllowableDeductions.state.amount *
@@ -75,7 +76,7 @@ const calcAllowableDeductions = form => {
     totalSecondary.push(parseInt(secondary))
   }
 
-  //2g SS plus Medicare
+  //2G Social Security (FICA plus Medicare)
   if (form.AllowableDeductions.ssn) {
     primary =
       form.AllowableDeductions.ssn.amount *
@@ -91,7 +92,7 @@ const calcAllowableDeductions = form => {
     totalSecondary.push(parseInt(secondary))
   }
 
-  //2h Mandatory retirement
+  //2H Mandatory retirement contributions
   if (form.AllowableDeductions.retirement) {
     primary =
       form.AllowableDeductions.retirement.amount *
@@ -107,7 +108,7 @@ const calcAllowableDeductions = form => {
     totalSecondary.push(parseInt(secondary))
   }
 
-  //2i Require emp expense
+  //2I Required employment expense 
   if (form.AllowableDeductions.reqemp) {
     primary =
       form.AllowableDeductions.reqemp.amount *
@@ -123,23 +124,16 @@ const calcAllowableDeductions = form => {
     totalSecondary.push(parseInt(secondary))
   }
 
-  //2j TODO ***???
-  // Dependent care for other children, less dep. care tax credit
+  //2J Dependent care expense for other children, less -- @TODO still need to read/decipher instructions for this field
+  //2K Other (specify):___ @TODO Sum, plus add to attachment
 
-  // 2k Other TODO ****
-
-  // TOTAL WAGES
+  //2L TOTAL ALLOWABLE DEDUCTIONS (Add 2a through 2k) 
   data["allowable.mother.total"] = format(
     totalPrimary.reduce((a, b) => a + b, 0)
   )
   data["allowable.father.total"] = format(
     totalSecondary.reduce((a, b) => a + b, 0)
   )
-  data["allowable.mother.income"] = data["allowable.mother.total"]
-  data["allowable.father.income"] = data["allowable.father.total"]
-  data["allowable.mother.income-callout"] = data["allowable.mother.total"]
-  data["allowable.father.income-callout"] = data["allowable.father.total"]
-
   return data
 }
 

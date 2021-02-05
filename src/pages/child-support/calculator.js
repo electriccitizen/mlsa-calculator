@@ -55,6 +55,7 @@ export default function Calculator() {
   })
 
   const handleSubmit = values => {
+    console.log('i am valid')
     setAppState({ complete: false, values: values })
     const data = values
     fetch("/.netlify/functions/pdf-gen/", {
@@ -85,12 +86,12 @@ export default function Calculator() {
   return (
     <>
       <Beforeunload onBeforeunload={event => event.preventDefault()} />
-      <Formiz connect={form} onValidSubmit={handleSubmit} 
+      <Formiz connect={form} onSubmit={handleSubmit} 
       initialValues={ values }
       > 
         <MultiStepsLayout
           app="support"
-          buttonTitle="Child Support Calculatorz"
+          buttonTitle="Child Support Calculator"
           submitLabel={
             documents === "both" ? "Generate documents" : "Generate document"
           }

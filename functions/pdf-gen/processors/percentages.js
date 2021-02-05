@@ -13,18 +13,17 @@ const unFormatMax = number => {
 const calcPercentages = (form, incomePrimary, incomeSecondary) => {
   // See https://dphhs.mt.gov/Portals/85/csed/documents/cs404-2CSGuidelinesTables.pdf
 
-  // Total
+  // Totals
   let data = []
   let primary
   let secondary
-  let totalPrimary = []
-  let totalSecondary = []
-
+ 
+  // 4 Personal allowance from Table 1 -- @TODO We need to store this in a JSON config because it changes from year-to-year
   const globalPPA = 16588
   data["ppa.mother.allowance.from-table1"] = format(globalPPA)
   data["ppa.father.allowance.from-table1"] = format(globalPPA)
 
-  // 5 Income available TODO: test with < 0
+  // 5 Income available for child support (line 3 minus line 4; if less than zero, enter zero) @TODO: test with < 0
   let incomeAvailablePrimary = incomePrimary - globalPPA
   let incomeAvailableSecondary = incomeSecondary - globalPPA
   incomeAvailablePrimary < 0
@@ -34,7 +33,9 @@ const calcPercentages = (form, incomePrimary, incomeSecondary) => {
     ? (data["ppa.father.income"] = 0)
     : (data["ppa.father.income"] = format(incomeAvailableSecondary))
 
-  // 6 TODO Worksheet C
+  // 6 If line 5 = zero, enter minimum contribution from Worksheet C. 
+  // If line 5 > 0, multiply line 3 by 12% (.12) and enter here.  
+  // @TODO logic for Worksheet C if line 5 = 0
   data["ppa.mother.income"] === 0
     ? (data["ppa.mother.line6"] = 0)
     : (data["ppa.mother.line6"] = format(incomePrimary * 0.12))
@@ -43,16 +44,17 @@ const calcPercentages = (form, incomePrimary, incomeSecondary) => {
     ? (data["ppa.father.line6"] = format(0))
     : (data["ppa.father.line6"] = format(incomeSecondary * 0.12))
 
-  // 7 larger of line 5 and line 6
+  // 7 Compare each parent’s lines 5 & 6; enter higher number
   data["ppa.mother.compare"] = format(
     Math.max(
       unFormatMax(data["ppa.mother.income"]),
       unFormatMax(data["ppa.mother.line6"])
     )
   )
-
+  
   data["ppa.father.compare"] = format(
     Math.max(
+      unFormatMax(data["ppa.father.income"]),
       unFormatMax(data["ppa.father.line6"])
     )
   )
@@ -63,7 +65,7 @@ const calcPercentages = (form, incomePrimary, incomeSecondary) => {
     unFormatMax(data["ppa.father.compare"])
   )
 
-  // 9 Parental share
+  // 9 Parental share of combined income (line 7 ÷ line 8) 
   primary =
     (unFormatMax(data["ppa.mother.compare"]) /
       unFormatMax(data["ppa.combined"])) *
@@ -74,12 +76,16 @@ const calcPercentages = (form, incomePrimary, incomeSecondary) => {
     100
   data["ppa.mother.share"] = primary.toFixed(2)
   data["ppa.father.share"] = secondary.toFixed(2)
+  
+  // Callout
+  data["ppa.mother.percentage"] = data["ppa.mother.share"]
+  data["ppa.father.percentage"] = data["ppa.father.share"]
 
-  // 10 Num Children
+  // 10 Number of children listed above due support
   data["ppa.numChildren"] = form.NumPrimaryChildren
 
-  // 11 Primary support allowance
-  // Table 2
+  // 11 Primary child support allowance from Table 2 
+  // @TODO these also need to go into a JSON config, they change yearly
 
   let globalPSA
   switch (form.NumPrimaryChildren) {
@@ -113,8 +119,7 @@ const calcPercentages = (form, incomePrimary, incomeSecondary) => {
 
   data["ppa.pcsa"] = format(globalPSA)
 
-  // 12a child care less dc tax credit
-  //primary = form.
+  // 12A Child care cost less dependent care tax credit
 
   let primaryCCC = []
   let primaryCHIP = []
@@ -130,8 +135,6 @@ const calcPercentages = (form, incomePrimary, incomeSecondary) => {
         primaryOther.push(parseInt(expense.amt))
       })
   })
-
-  //console.log(primaryCCC)
 
   let secondaryCCC = []
   let secondaryCHIP = []
@@ -149,16 +152,22 @@ const calcPercentages = (form, incomePrimary, incomeSecondary) => {
       })
   })
   }
-
+   
   data["ppa.costLessCredit"] = format(
     primaryCCC.concat(secondaryCCC).reduce((a, b) => a + b, 0)
   )
+  
+  // 12B Child health insurance premium 
   data["ppa.healthPremium"] = format(
     primaryCHIP.concat(secondaryCHIP).reduce((a, b) => a + b, 0)
   )
+
+  //12C Unreimbursed medical expense (> $250/child)
   data["ppa.unreimbursedMed"] = format(
     primaryUME.concat(secondaryUME).reduce((a, b) => a + b, 0)
   )
+  
+  //12D Other (specify) @TODO desc gets added to Attachment 
   data["ppa.other"] = format(
     primaryOther.concat(secondaryOther).reduce((a, b) => a + b, 0)
   )

@@ -2,7 +2,15 @@ import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { Radio, Stack, RadioGroup } from "@chakra-ui/react"
 import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
-import { FormGroup } from "../Utils/FormGroup"
+//import { FormGroup } from "../Utils/FormGroup"
+
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+} from "@chakra-ui/react"
+
 const propTypes = {
   label: PropTypes.node,
   helper: PropTypes.node,
@@ -20,6 +28,7 @@ const defaultProps = {
 export const FieldRadio = props => {
   const {
     errorMessage,
+    id,
     isValid,
     isSubmitted,
     resetKey,
@@ -53,6 +62,7 @@ export const FieldRadio = props => {
   const formGroupProps = {
     errorMessage,
     helper,
+    id,
     isRequired: !!required,
     label,
     showError,
@@ -60,9 +70,12 @@ export const FieldRadio = props => {
   }
 
   return (
-    <FormGroup {...formGroupProps}>
-      <RadioGroup name="radio" key={resetKey} value={value || ""} onChange={handleChange}>
+    <FormControl as="fieldset">
+      <FormLabel as="legend">{label}</FormLabel>
+        {/* <RadioGroup key={resetKey} value={value || ""} onChange={handleChange}> */}
+        <RadioGroup key={resetKey} value={value} onChange={handleChange}>
         <Stack
+          mb="4"
           direction={forceStack ? ["column"] : ["column", "column", "row"]}
           spacing={forceStack ? [".2rem"] : ["0"]}
         >
@@ -78,8 +91,16 @@ export const FieldRadio = props => {
           ))}
         </Stack>
       </RadioGroup>
+      {!!helper && (
+      <FormHelperText mb="4">
+       <div>{helper}</div> 
+      </FormHelperText>
+    )}
+    <FormErrorMessage  mb="4" id={`${id}-error`}>
+      { errorMessage }
+    </FormErrorMessage>
       {children}
-    </FormGroup>
+    </FormControl>
   )
 }
 

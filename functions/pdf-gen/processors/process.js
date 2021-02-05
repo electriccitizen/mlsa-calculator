@@ -1,4 +1,6 @@
-var init = require('./init.json')
+// Hard-coded data for testing, copied from # Debug - Form values
+const init = require('./init.json')
+
 const { calcIncome } = require("./income")
 const { calcAllowableDeductions } = require("./deductions")
 const { calcPercentages } = require("./percentages")
@@ -18,10 +20,9 @@ const processData = form => {
   let primary
   let secondary
   
-  //form = init
+  // Pass hard-coded data to processors instead of form (init.json)
+  form = init
  
-  console.log('fooking hell')
-
   // Case #
   form.CSED && (data["initiate.csed"] = form.CSED)
 
@@ -39,23 +40,23 @@ const processData = form => {
       ))
   )
 
-  // INCOME
+  // 1 INCOME
    let income = calcIncome(form)
 
-  // ALLOWABLE DEDUCTIONS
+  // 2 ALLOWABLE DEDUCTIONS
    let deductions = calcAllowableDeductions(form)
 
   // Line 3 INCOME AFTER DEDUCTIONS
-  // primary =
-  //   unFormat(income["income.mother.total"]) -
-  //   unFormat(deductions["allowable.mother.total"])
-  // secondary =
-  //   unFormat(income["income.father.total"]) -
-  //   unFormat(deductions["allowable.father.total"])
-  // data["allowable.mother.income"] = format(primary)
-  // data["allowable.father.income"] = format(secondary)
-  // data["allowable.mother.income-callout"] = format(primary)
-  // data["allowable.father.income-callout"] = format(secondary)
+  primary =
+    unFormat(income["income.mother.total"]) -
+    unFormat(deductions["allowable.mother.total"])
+  secondary =
+    unFormat(income["income.father.total"]) -
+    unFormat(deductions["allowable.father.total"])
+  data["allowable.mother.income"] = format(primary)
+  data["allowable.father.income"] = format(secondary)
+  data["allowable.mother.income-callout"] = format(primary)
+  data["allowable.father.income-callout"] = format(secondary)
 
   // PARENT PERCENTAGES
   let percentages = calcPercentages(form, primary, secondary)
@@ -160,7 +161,7 @@ const processData = form => {
     ...income,
     ...deductions,
     ...percentages,
-    // ...sola,
+    ...sola,
   }
 
   return final
