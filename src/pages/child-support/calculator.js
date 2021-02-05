@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Formiz, useForm } from "@formiz/core"
-import * as init from './init.json'; 
+import * as init from '../../../functions/pdf-gen/processors/init.json'; 
 
 import { TermsOfUse } from "../../components/ChildSupport/TermsOfUse"
 import { InitiateInterview } from "../../components/ChildSupport/01-InitiateInterview/IntiateInterview"
@@ -33,13 +33,13 @@ import { AllowableDeductionsSecondary } from "../../components/ChildSupport/22-A
 import { OtherAllowableDeductionsSecondary } from "../../components/ChildSupport/22-AllowableDeductionsSecondary/OtherAllowableDeductionsSecondary"
 import { StandardOfLivingSecondary } from "../../components/ChildSupport/23-StandardOfLivingSecondary/StandardOfLivingSecondary"
 import { ParentingDays } from "../../components/ChildSupport/24-ParentingDays/ParentingDays"
-import { FinancialAffadavitOne } from "../../components/ChildSupport/25-FinancialAffadavitOne/FinancialAffadavitOne"
-import { Schools } from "../../components/ChildSupport/26-Schools/Schools"
-import { OtherSchools } from "../../components/ChildSupport/26-Schools/OtherSchools"
-import { HealthInsurance } from "../../components/ChildSupport/27-HealthInsurance/HealthInsurance"
-import { HealthInsurancePolicies } from "../../components/ChildSupport/27-HealthInsurance/HealthInsurancePolicies"
-import { FinancialAffadavitTwo } from "../../components/ChildSupport/28-FinancialAffadavitTwo/FinancialAffadavitTwo"
-import { FinancialAffadavitThree } from "../../components/ChildSupport/29-FinancialAffadavitThree/FinancialAffadavitThree"
+// import { FinancialAffadavitOne } from "../../components/ChildSupport/25-FinancialAffadavitOne/FinancialAffadavitOne"
+// import { Schools } from "../../components/ChildSupport/26-Schools/Schools"
+// import { OtherSchools } from "../../components/ChildSupport/26-Schools/OtherSchools"
+// import { HealthInsurance } from "../../components/ChildSupport/27-HealthInsurance/HealthInsurance"
+// import { HealthInsurancePolicies } from "../../components/ChildSupport/27-HealthInsurance/HealthInsurancePolicies"
+// import { FinancialAffadavitTwo } from "../../components/ChildSupport/28-FinancialAffadavitTwo/FinancialAffadavitTwo"
+// import { FinancialAffadavitThree } from "../../components/ChildSupport/29-FinancialAffadavitThree/FinancialAffadavitThree"
 import { CompleteApp } from "../../components/ChildSupport/CompleteApp/CompleteApp"
 import { MultiStepsLayout } from "../../components/MultiStepsLayout"
 import { RulesProvider } from "../../hooks/useRulesContext"
@@ -80,7 +80,8 @@ export default function Calculator() {
   }
 
   const documents = form.values.Documents ? form.values.Documents : ""
-
+  
+  // Set default values from init.json
   const values = init.default
 
   return (

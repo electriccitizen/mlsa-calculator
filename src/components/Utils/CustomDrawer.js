@@ -33,7 +33,7 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
   const { colorMode } = useColorMode()
 
   const numChildren = form.values.NumPrimaryChildren
-  const numOtherChildren = form.values.NumOtherChildren
+  //const numOtherChildren = form.values.NumOtherChildren
   const numOtherChildrenSecondary = form.values.NumOtherChildrenSecondary
 
   let stepLabel
