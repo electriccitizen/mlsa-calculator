@@ -87,6 +87,7 @@ export default function Calculator() {
   return (
     <>
       <Beforeunload onBeforeunload={event => event.preventDefault()} />
+      {/* @TODO Temporarily using onSubmit vs onValidSubmit for testing */}
       <Formiz connect={form} onSubmit={handleSubmit} 
       initialValues={ values }
       > 

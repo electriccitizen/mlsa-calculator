@@ -16,8 +16,8 @@ export const InitiateInterview = () => {
     })
   }
 
-  const formDocuments = (form.fields.Documents ? form.fields.Documents.value : 'foo')
-  const formAction = (form.fields.Action ? form.fields.Action.value : 'foo')
+  const formDocuments = (form.fields.Documents && form.fields.Documents.value)
+  const formAction = (form.fields.Action && form.fields.Action.valued)
   const formLocation = (form.fields.Location && form.fields.Location.value)
 
   // console.log(form.fields.Documents.value)
