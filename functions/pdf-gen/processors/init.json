@@ -1,0 +1,460 @@
+{
+  "TermsOfUse": "yes",
+  "Documents": "both",
+  "Action": "modify",
+  "Location": "yes",
+  "CSED": "12345",
+  "PrimaryMailing": "no",
+  "NumPrimaryChildren": "3",
+  "OtherChildrenPrimary": "yes",
+  "NumOtherChildren": "2",
+  "OtherParentChildren": "yes",
+  "NumOtherChildrenSecondary": "2",
+  "OtherIncome": {
+    "sep": true,
+    "pension": "10",
+    "unearned": "100",
+    "imputed": "10",
+    "taxable": true,
+    "SepEarning": {
+      "net": "100",
+      "schedule": "52",
+      "desc": "Foo",
+      "hoursPerWeek": "12",
+      "primary": "no"
+    },
+    "social": true,
+    "interest": "10",
+    "eitc": "10",
+    "prize": "10",
+    "bonus": "100",
+    "nontaxable": true,
+    "SSN": "10",
+    "prizeDesc": "Foo",
+    "imputedSchedule": "12"
+  },
+  "AllowableDeductions": {
+    "healthchildren": {
+      "amount": "100",
+      "schedule": "12"
+    },
+    "other": true,
+    "alimony": {
+      "amount": "20",
+      "schedule": "12"
+    },
+    "healthself": {
+      "amount": "20",
+      "schedule": "12"
+    },
+    "federal": {
+      "amount": "20",
+      "schedule": "1"
+    },
+    "state": {
+      "amount": "20",
+      "schedule": "1"
+    },
+    "ssn": {
+      "amount": "20",
+      "schedule": "12"
+    },
+    "retirement": {
+      "amount": "20",
+      "schedule": "12"
+    },
+    "reqemp": {
+      "amount": "20",
+      "schedule": "12"
+    },
+    "extmed": {
+      "amount": "100",
+      "desc": "foo"
+    },
+    "inhome": {
+      "amount": "100",
+      "desc": "foo"
+    }
+  },
+  "NumOtherSecondaryJobs": "2",
+  "OtherIncomeSecondary": {
+    "imputed": "100",
+    "interest": "1000",
+    "nontaxable": true,
+    "imputedSchedule": "12",
+    "sep": true,
+    "pension": "75",
+    "social": true,
+    "unearned": "75",
+    "eitc": "75",
+    "prize": {
+      "desc": "Foo"
+    },
+    "bonus": "75",
+    "taxable": true,
+    "SepEarning": {
+      "net": "1000",
+      "schedule": "12",
+      "desc": "Foo",
+      "hoursPerWeek": "12",
+      "primary": "no"
+    },
+    "SSN": "75"
+  },
+  "AllowableDeductionsSecondary": {
+    "healthself": {
+      "amount": "100",
+      "schedule": "12"
+    },
+    "ssn": {
+      "amount": "100",
+      "schedule": "52"
+    },
+    "other": true,
+    "alimony": {
+      "amount": "100",
+      "schedule": "12"
+    },
+    "healthchildren": {
+      "amount": "100",
+      "schedule": "12"
+    },
+    "federal": {
+      "amount": "100",
+      "schedule": "1"
+    },
+    "state": {
+      "amount": "20",
+      "schedule": "1"
+    },
+    "retirement": {
+      "amount": "100",
+      "schedule": "1"
+    },
+    "reqemp": {
+      "amount": "100",
+      "schedule": "1"
+    },
+    "extmed": {
+      "amount": "100",
+      "desc": "foo"
+    },
+    "inhome": {
+      "amount": "100",
+      "desc": "foo"
+    }
+  },
+  "Primary": {
+    "fname": "Jane",
+    "mname": "M",
+    "lname": "Doe",
+    "dob": "1973-01-25T06:00:00.000Z",
+    "phone": "555-555-5555",
+    "dl": "12345",
+    "address": "123 Sesame St",
+    "address2": null,
+    "city": "New York",
+    "state": "NY",
+    "zip": "55410",
+    "mail_address": "999 Diablo Ave"
+  },
+  "OtherParent": {
+    "fname": "John",
+    "mname": "D",
+    "lname": "Doe"
+  },
+  "PrimaryChildren": {
+    "0": {
+      "fname": "Bobby",
+      "mname": "C",
+      "lname": "Doe",
+      "dob": "2021-01-21T06:00:00.000Z",
+      "status": "none",
+      "disabled": "no"
+    },
+    "1": {
+      "fname": "Bobette",
+      "mname": "C",
+      "lname": "Doe",
+      "dob": "2000-01-27T06:00:00.000Z",
+      "status": "none",
+      "disabled": "no"
+    },
+    "2": {
+      "fname": "Johnette",
+      "mname": "D",
+      "lname": "Smith",
+      "dob": "2021-01-13T06:00:00.000Z",
+      "status": "none",
+      "disabled": "no"
+    }
+  },
+  "OtherChildren": {
+    "0": {
+      "fname": "Kenny",
+      "mname": "A",
+      "lname": "Smith",
+      "dob": "2021-01-06T06:00:00.000Z",
+      "housing": "other",
+      "benefits": "100",
+      "status": "none",
+      "disabled": "no",
+      "support": "yes",
+      "childSupportAmount": "100",
+      "depcare": "yes",
+      "depcareAmount": "100",
+      "medical": "yes",
+      "medicalAmount": "100"
+    },
+    "1": {
+      "fname": "Kenetta",
+      "mname": "A",
+      "lname": "Smith",
+      "dob": "2021-01-04T06:00:00.000Z",
+      "housing": "otherparent",
+      "benefits": "200",
+      "status": "none",
+      "disabled": "yes",
+      "support": "yes",
+      "childSupportAmount": "50",
+      "depcare": "yes",
+      "depcareAmount": "50",
+      "medical": "yes",
+      "medicalAmount": "100"
+    }
+  },
+  "OtherChildrenSecondary": {
+    "0": {
+      "fname": "Lil John",
+      "mname": "A",
+      "lname": "Moe",
+      "dob": "2021-01-04T06:00:00.000Z",
+      "housing": "me",
+      "benefits": "10",
+      "otherParent": "yes",
+      "status": "none",
+      "disabled": "no",
+      "support": "yes",
+      "childSupportAmount": "25",
+      "depcare": "yes",
+      "depcareAmount": "25",
+      "medical": "yes",
+      "medicalAmount": "25"
+    },
+    "1": {
+      "fname": "Johnette",
+      "mname": "Z",
+      "lname": "Moe",
+      "dob": "2021-01-13T06:00:00.000Z",
+      "housing": "me",
+      "status": "none",
+      "disabled": "no",
+      "benefits": "100",
+      "support": "yes",
+      "childSupportAmount": "50",
+      "depcare": "yes",
+      "depcareAmount": "50",
+      "medical": "yes",
+      "medicalAmount": "50",
+      "otherParent": "yes"
+    }
+  },
+  "OtherAllowableDeductions": [
+    {
+      "description": "Misc",
+      "amount": "100"
+    },
+    {
+      "description": "Misc 2",
+      "amount": "200"
+    }
+  ],
+  "ParentingDays": {
+    "0": {
+      "name": null,
+      "amount": "300"
+    },
+    "1": {
+      "name": null,
+      "amount": "300"
+    },
+    "2": {
+      "name": null,
+      "amount": "300"
+    },
+    "primary": "me"
+  },
+  "EmploymentPrimary": {
+    "info": "Cleaning",
+    "start": "2021-01-27T06:00:00.000Z",
+    "initiate": "yes",
+    "initiateFulltime": "yes",
+    "cashBenefitsDetails": "Donation",
+    "cashBenefitsAmount": "1200",
+    "cashBenefits": "yes",
+    "union": "no",
+    "status": "fulltime",
+    "type": "permanent",
+    "grossAmount": "20",
+    "address": "123 Sesame",
+    "weeksPerYear": "50",
+    "payment": "hourly",
+    "hoursPerWeek": "40"
+  },
+  "TaxableIncome": {
+    "0": {
+      "amt": "1000"
+    },
+    "1": {
+      "type": "unemployment",
+      "amt": "100"
+    }
+  },
+  "NonTaxableIncome": {
+    "0": {
+      "amt": "100"
+    },
+    "1": {
+      "type": "gifts",
+      "amt": "100"
+    }
+  },
+  "ChildExpenses": {
+    "0": {
+      "benefits": "100",
+      "childCareCost": "100",
+      "healthInsurance": "100",
+      "medicalExpense": "100",
+      "housing": "me",
+      "otherExpenses": {
+        "0": {
+          "desc": "Training",
+          "amt": "100"
+        },
+        "1": {
+          "desc": "Fooman",
+          "amt": "100"
+        }
+      },
+      "support": "yes",
+      "childSupportAmount": "50"
+    },
+    "1": {
+      "benefits": "200",
+      "childCareCost": "100",
+      "healthInsurance": "100",
+      "medicalExpense": "250",
+      "housing": "other",
+      "otherHousing": "Fooman",
+      "childSupportAmount": "200",
+      "support": "yes",
+      "otherExpenses": {
+        "0": {
+          "desc": "Test1",
+          "amt": "100"
+        },
+        "1": {
+          "desc": "Test2",
+          "amt": "100"
+        }
+      }
+    },
+    "2": {
+      "benefits": "50",
+      "housing": "otherparent",
+      "support": "yes",
+      "childSupportAmount": "25",
+      "childCareCost": "100",
+      "healthInsurance": "100",
+      "medicalExpense": "100",
+      "otherExpenses": "no"
+    }
+  },
+  "StandardOfLiving": {
+    "mileage": {
+      "distance": "99"
+    },
+    "transportation": {
+      "othercost": "99"
+    },
+    "other": {
+      "1": {
+        "amt": "99",
+        "desc": "Foo"
+      }
+    }
+  },
+  "EmploymentSecondary": {
+    "status": "yes",
+    "weeksPerYear": "50",
+    "type": "permanent",
+    "otherJobs": "yes",
+    "schedule": "12",
+    "payment": "salary",
+    "grossAmount": "2000"
+  },
+  "OtherJobSecondary": {
+    "0": {
+      "current": "current",
+      "grossAmount": "100",
+      "weeksPerYear": "10",
+      "payment": "hourly",
+      "hoursPerWeek": "10",
+      "type": "permanent"
+    },
+    "1": {
+      "current": "current",
+      "type": "permanent",
+      "weeksPerYear": "20",
+      "payment": "hourly",
+      "grossAmount": "20",
+      "hoursPerWeek": "10"
+    }
+  },
+  "TaxableIncomeSecondary": {
+    "0": {
+      "amt": "2000"
+    },
+    "1": {
+      "type": "capitalgains",
+      "amt": "500"
+    }
+  },
+  "NonTaxableIncomeSecondary": [
+    {
+      "type": "bond",
+      "amount": "100"
+    },
+    {
+      "type": "grants",
+      "amount": "100"
+    }
+  ],
+  "OtherAllowableDeductionsSecondary": [
+    {
+      "description": "Foo",
+      "amount": "10"
+    },
+    {
+      "description": "Misc",
+      "amount": "100"
+    }
+  ],
+  "StandardOfLivingSecondary": {
+    "transportation": {
+      "othercost": "99"
+    },
+    "mileage": {
+      "distance": "99"
+    },
+    "other": {
+      "0": {
+        "amt": "33"
+      },
+      "1": {
+        "desc": "Foo",
+        "amt": "34"
+      }
+    }
+  }
+}
