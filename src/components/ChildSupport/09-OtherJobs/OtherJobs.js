@@ -6,7 +6,8 @@ import { Text } from "@chakra-ui/react"
 import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 
 export const OtherJobs = () => {
-  const form = useForm({ subscribe: { fields: ["EmploymentStatus"] } })
+  const form = useForm({ subscribe: { fields: ["EmploymentPrimary.initiate"] } })
+  
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
@@ -15,9 +16,10 @@ export const OtherJobs = () => {
     })
   }
 
+  
   return (
     <>
-      {form.values.EmploymentStatus === "yes" && (
+      {form.values.EmploymentPrimary && form.values.EmploymentPrimary.initiate === "yes" && (
         <FormizStep label="Your other jobs" name="OtherJobs" order={9000}>
           <SectionHeader header={`Do you have additional jobs to enter?`} />
           <Text>
