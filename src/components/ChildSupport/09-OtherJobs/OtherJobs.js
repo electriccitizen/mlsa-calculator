@@ -6,7 +6,7 @@ import { Text } from "@chakra-ui/react"
 import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 
 export const OtherJobs = () => {
-  const form = useForm({ subscribe: { fields: ["EmploymentPrimary.initiate"] } })
+  const form = useForm({ subscribe: { fields: ["EmploymentPrimary.initiate","EmploymentPrimaryEver"] } })
   
   const [state, setState] = useState({})
   let updateState = (name, value) => {
@@ -19,9 +19,9 @@ export const OtherJobs = () => {
   
   return (
     <>
-      {form.values.EmploymentPrimary && form.values.EmploymentPrimary.initiate === "yes" && (
+      {(form.values.EmploymentPrimary && form.values.EmploymentPrimary.initiate === "yes") || (form.values.EmploymentPrimaryEver === "yes") && (
         <FormizStep label="Your other jobs" name="OtherJobs" order={9000}>
-          <SectionHeader header={`Do you have additional jobs to enter?`} />
+          <SectionHeader header={`Additional jobs`} />
           <Text>
             If you have another job (or former jobs) that you want to report,
             select yes below to continue adding additional jobs. Otherwise
