@@ -35,7 +35,7 @@ export const FormGroup = ({
   showError,
   ...props
 }) => (
-  <FormControl mb="6" isInvalid={showError} isRequired={isRequired} {...props}>
+  <FormControl mb="6" isInvalid={showError} isRequired={isRequired}>
     {!!label && (
       <FormLabel htmlFor={id}>
         {label}

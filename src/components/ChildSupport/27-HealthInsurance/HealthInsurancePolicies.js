@@ -104,7 +104,7 @@ export const HealthInsurancePolicies = number => {
             </Box>
           ))}
 
-          {HealthInsurancePolicies.length <= 20 && (
+          {collection.length <= 3 && (
             <AddPlaceholder label="Add another policy?" onClick={addItem} />
           )}
         </FormizStep>

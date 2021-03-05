@@ -215,7 +215,7 @@ export const ChildExpenses = () => {
                   </Box>
                 ))}
               {state[`ChildExpenses.${index}.otherExpenses`] === "yes" &&
-                additionalExpenses.length <= 20 && (
+                additionalExpenses.length <= 3 && (
                   <AddPlaceholder label="Add expense" onClick={addItem} />
                 )}
             </>

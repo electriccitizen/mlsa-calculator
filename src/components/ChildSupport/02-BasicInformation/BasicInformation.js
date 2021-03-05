@@ -6,7 +6,7 @@ import { FieldRadio } from "../../Fields/FieldRadio"
 import { Stack } from "@chakra-ui/react"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddressField } from "./AddressField"
-
+import { AddressFieldMailing } from "./AddressFieldMailing"
 export const BasicInformation = () => {
   const form = useForm({ subscribe: { fields: ["PrimaryMailing"] } })
   const [state, setState] = useState({})
@@ -71,7 +71,7 @@ export const BasicInformation = () => {
       </>
 
       {(state.PrimaryMailing === "no" || formPrimaryMailing === "no") && (
-        <AddressField
+        <AddressFieldMailing
           header={"What is your mailing address?"}
           label={"Mailing Address"}
           name={"Primary.mail_address"}

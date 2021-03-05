@@ -127,7 +127,7 @@ export const NonTaxableIncomeSecondary = () => {
                 </Box>
               ))}
             </Box>
-            {NonTaxableIncomeSecondary.length <= 20 && (
+            {collection.length <= 3 && (
               <AddPlaceholder label="Add another entry?" onClick={addItem} />
             )}
             <AdministrativeRules

@@ -24,10 +24,6 @@ export const NumberChildren = () => {
           { value: "2", label: "Two" },
           { value: "3", label: "Three" },
           { value: "4", label: "Four" },
-          { value: "5", label: "Five" },
-          { value: "6", label: "Six" },
-          { value: "7", label: "Seven" },
-          { value: "8", label: "Eight" },
         ]}
       />
       <Text fontSize={"md"} mb={4}>For the purpose of this calculation, you should count your child if they are under the age of 18, or under the age of 19 and still in high school, or they are mentally or physically incapacitated and have been since before their 19th birthday.</Text>

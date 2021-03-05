@@ -33,13 +33,13 @@ import { AllowableDeductionsSecondary } from "../../components/ChildSupport/22-A
 import { OtherAllowableDeductionsSecondary } from "../../components/ChildSupport/22-AllowableDeductionsSecondary/OtherAllowableDeductionsSecondary"
 import { StandardOfLivingSecondary } from "../../components/ChildSupport/23-StandardOfLivingSecondary/StandardOfLivingSecondary"
 import { ParentingDays } from "../../components/ChildSupport/24-ParentingDays/ParentingDays"
-// import { FinancialAffadavitOne } from "../../components/ChildSupport/25-FinancialAffadavitOne/FinancialAffadavitOne"
-// import { Schools } from "../../components/ChildSupport/26-Schools/Schools"
-// import { OtherSchools } from "../../components/ChildSupport/26-Schools/OtherSchools"
-// import { HealthInsurance } from "../../components/ChildSupport/27-HealthInsurance/HealthInsurance"
-// import { HealthInsurancePolicies } from "../../components/ChildSupport/27-HealthInsurance/HealthInsurancePolicies"
-// import { FinancialAffadavitTwo } from "../../components/ChildSupport/28-FinancialAffadavitTwo/FinancialAffadavitTwo"
-// import { FinancialAffadavitThree } from "../../components/ChildSupport/29-FinancialAffadavitThree/FinancialAffadavitThree"
+import { FinancialAffadavitOne } from "../../components/ChildSupport/25-FinancialAffadavitOne/FinancialAffadavitOne"
+import { Schools } from "../../components/ChildSupport/26-Schools/Schools"
+import { OtherSchools } from "../../components/ChildSupport/26-Schools/OtherSchools"
+import { HealthInsurance } from "../../components/ChildSupport/27-HealthInsurance/HealthInsurance"
+import { HealthInsurancePolicies } from "../../components/ChildSupport/27-HealthInsurance/HealthInsurancePolicies"
+import { FinancialAffadavitTwo } from "../../components/ChildSupport/28-FinancialAffadavitTwo/FinancialAffadavitTwo"
+import { FinancialAffadavitThree } from "../../components/ChildSupport/29-FinancialAffadavitThree/FinancialAffadavitThree"
 import { CompleteApp } from "../../components/ChildSupport/CompleteApp/CompleteApp"
 import { MultiStepsLayout } from "../../components/MultiStepsLayout"
 import { RulesProvider } from "../../hooks/useRulesContext"
@@ -55,7 +55,6 @@ export default function Calculator() {
   })
 
   const handleSubmit = values => {
-    console.log('i am valid')
     setAppState({ complete: false, values: values })
     const data = values
     fetch("/.netlify/functions/pdf-gen/", {
@@ -89,7 +88,7 @@ export default function Calculator() {
       <Beforeunload onBeforeunload={event => event.preventDefault()} />
       {/* @TODO Temporarily using onSubmit vs onValidSubmit for testing */}
       <Formiz connect={form} onSubmit={handleSubmit} 
-      initialValues={ values }
+      // initialValues={ values }
       > 
         <MultiStepsLayout
           app="support"
@@ -140,13 +139,13 @@ export default function Calculator() {
             <ParentingDays />
             {(documents === "both" || documents === "affadavit") && (
               <>
-                {/* <FinancialAffadavitOne />
+           <FinancialAffadavitOne />
                 <Schools />
                 <OtherSchools />
                 <HealthInsurance />
                 <HealthInsurancePolicies />
                 <FinancialAffadavitTwo />
-                <FinancialAffadavitThree /> */}
+                <FinancialAffadavitThree />
               </>
             )}
             <CompleteApp state={appState.complete} pdf={appState.pdf} />

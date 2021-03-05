@@ -43,7 +43,7 @@ export const AddAnother = ({
         key={index}
         spacing="4"
         mb="6"
-        backgroundColor={colorMode === "dark" ? "gray.800" : "gray.200"}
+        backgroundColor={colorMode === "dark" ? "gray.800" : "gray.50"}
         borderRadius="lg"
         borderWidth="1px"
         borderColor={colorMode === "dark" ? "gray.900" : "gray.200"}

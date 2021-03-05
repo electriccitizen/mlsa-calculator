@@ -132,7 +132,7 @@ export const StandardOfLiving = () => {
         ))}
 
       {state["StandardOfLiving.other"] === "yes" &&
-        additionalExpenses.length <= 20 && (
+        additionalExpenses.length <= 1 && (
           <AddPlaceholder label="Add adjustment" onClick={addItem} />
         )}
       <AdministrativeRules

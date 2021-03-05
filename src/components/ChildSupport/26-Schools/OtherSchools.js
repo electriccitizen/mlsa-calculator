@@ -98,9 +98,9 @@ export const OtherSchools = () => {
       {form.values.Schools && form.values.Schools.postSecondary === "yes" && (
         <FormizStep label="Other Schools" name="OtherSchools" order={26500}>
           <SectionHeader
-            header={`Enter each of the other schools you have attended:`}
+            header={`Enter each of the schools you have attended:`}
           />
-          <AddAnotherHeader header="Continue until you have entered all previous schools." />
+          <AddAnotherHeader header="Continue until you have entered all current or prior schools." />
 
           {collection.map(({ id, name }, index) => (
             <Box key={index}>
@@ -113,7 +113,7 @@ export const OtherSchools = () => {
             </Box>
           ))}
 
-          {OtherSchools.length <= 20 && (
+          {collection.length <= 3 && (
             <AddPlaceholder label="Add another school?" onClick={addItem} />
           )}
         </FormizStep>

@@ -67,6 +67,7 @@ export const EnterMyOtherChildren = () => {
               required="Required"
               type="text"
             />
+
             <FieldRadio
               name={`OtherChildren.${index}.housing`}
               label="Who does the child live with most of the time?"
@@ -74,15 +75,18 @@ export const EnterMyOtherChildren = () => {
               index={index}
               forceStack={true}
               updateState={updateState}
+              helper={"footext"}
               options={[
-                { value: "me", label: "Me" },
+                { value: "me", label: "Me", id: "me" },
                 {
                   value: "otherparent",
+                  id: "otherparent",
                   label: "The child's other parent",
                 },
-                { value: "other", label: "Someone else" },
+                { value: "other", id: "other", label: "Someone else" },
               ]}
             />
+
             {state[`OtherChildren.${index}.housing`] === "other" && (
               <FieldInput
                 name={`OtherChildren.${index}.otherHousing`}
