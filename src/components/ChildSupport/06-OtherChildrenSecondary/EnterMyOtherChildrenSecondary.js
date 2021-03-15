@@ -109,7 +109,7 @@ export const EnterMyOtherChildrenSecondary = () => {
           />
           <FieldRadio
             name={`OtherChildrenSecondary.${index}.support`}
-            label="Are you ordered to pay support for this child?"
+            label="Is the other parent ordered to pay support for this child?"
             required="Required"
             index={index}
             updateState={updateState}
@@ -121,14 +121,14 @@ export const EnterMyOtherChildrenSecondary = () => {
           {state[`OtherChildrenSecondary.${index}.support`] === "yes" && (
             <FieldMoneyInput
               name={`OtherChildrenSecondary.${index}.childSupportAmount`}
-              label="Monthly child support you are ordered to pay for this child."
+              label="Monthly child support the other parent is ordered to pay for this child."
               type="text"
               placeholder="Enter amount"
             />
           )}
           <FieldRadio
             name={`OtherChildrenSecondary.${index}.depcare`}
-            label="Do you have any dependent care expense for this child?"
+            label="Does the other parent have any dependent care expense for this child?"
             required="Required"
             index={index}
             updateState={updateState}
@@ -147,7 +147,7 @@ export const EnterMyOtherChildrenSecondary = () => {
           )}
           <FieldRadio
             name={`OtherChildrenSecondary.${index}.medical`}
-            label="Do you have any extraordinary medical expenses for this child which were not reimbursed?"
+            label="Does the other parent have any extraordinary medical expenses for this child which were not reimbursed?"
             required="Required"
             index={index}
             updateState={updateState}

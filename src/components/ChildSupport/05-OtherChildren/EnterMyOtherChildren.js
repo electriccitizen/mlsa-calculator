@@ -75,7 +75,6 @@ export const EnterMyOtherChildren = () => {
               index={index}
               forceStack={true}
               updateState={updateState}
-              helper={"footext"}
               options={[
                 { value: "me", label: "Me", id: "me" },
                 {
