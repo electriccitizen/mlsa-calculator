@@ -133,15 +133,6 @@ export const TaxableIncome = () => {
                   expenseID={id}
                 />
               </Box>
-
-              //     <Box ml={4} fontSize={"md"}>
-              //       {form.values.TaxableIncome &&
-              //       form.values.TaxableIncome[index] &&
-              //       form.values.TaxableIncome[index].type ===
-              //         "capitalgainshouse"
-              //         ? "Total capital gain received"
-              //         : "Gross amount (amount before taxes) received per year"}
-              //     </Box>
             ))}
           </Box>
           {collection.length <= 3 && (

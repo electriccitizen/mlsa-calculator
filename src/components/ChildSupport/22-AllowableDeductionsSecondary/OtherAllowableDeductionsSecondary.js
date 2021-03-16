@@ -62,7 +62,10 @@ export const OtherAllowableDeductionsSecondary = () => {
     <>
       {form.values.AllowableDeductionsSecondary &&
         form.values.AllowableDeductionsSecondary.other === true && (
-          <FormizStep name="OtherAllowableDeductionsSecondary" order={22500}>
+          <FormizStep
+            name="OtherAllowableDeductionsSecondary"
+            label="Other deductions"
+            order={22500}>
             <SectionHeader header={`Enter other allowable deductions`} />
             <AddAnotherHeader
               header={

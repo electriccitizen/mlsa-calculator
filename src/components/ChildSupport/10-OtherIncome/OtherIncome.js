@@ -35,7 +35,7 @@ export const OtherIncome = () => {
           },
           { value: "interest", label: "Interest/Dividends" },
           { value: "unearned", label: "Other unearned income" },
-          { value: "imputed", label: "Imputed income" },
+          { value: "imputedFlag", label: "Imputed income" },
           { value: "eitc", label: "Earned Income Tax Credit (EITC)" },
           {
             value: "prize",

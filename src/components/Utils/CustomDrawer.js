@@ -30,10 +30,11 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
   const form = useForm({ subscribe: true })
+  console.log(form)
   const { colorMode } = useColorMode()
 
   const numChildren = form.values.NumPrimaryChildren
-  //const numOtherChildren = form.values.NumOtherChildren
+  const numOtherChildren = form.values.NumOtherChildren
   const numOtherChildrenSecondary = form.values.NumOtherChildrenSecondary
 
   let stepLabel
@@ -51,10 +52,43 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
             }`
           : `Step ${index + 1}: Number of children`
         break
+      case "EnterChildren0":
+      case "EnterChildren1":
+      case "EnterChildren2":
+      case "EnterChildren3":
+        stepLabel = form.values.PrimaryChildren
+          ? `Step ${index + 1}: ${
+            form.values.PrimaryChildren[x] &&
+            form.values.PrimaryChildren[x].fname
+          } (${parseInt(x) + 1} of ${numChildren})`
+          : `Step ${index + 1}: ${label}`
+        break
+      case "EnterMyOtherChildren0":
+      case "EnterMyOtherChildren1":
+      case "EnterMyOtherChildren2":
+      case "EnterMyOtherChildren3":
+        stepLabel = form.values.OtherChildren
+          ? `Step ${index + 1}: ${
+            form.values.OtherChildren[x] &&
+            form.values.OtherChildren[x].fname
+          } (${parseInt(x) + 1} of ${numOtherChildren})`
+          : `Step ${index + 1}: ${label}`
+        break
       case "OtherChildrenSecondary":
         stepLabel = form.values.OtherParentName
           ? `Step ${index + 1}: ${form.values.OtherParentName}'s other children`
           : `Step ${index + 1}: Additional children (other parent)`
+        break
+      case "EnterMyOtherChildrenSecondary0":
+      case "EnterMyOtherChildrenSecondary1":
+      case "EnterMyOtherChildrenSecondary2":
+      case "EnterMyOtherChildrenSecondary3":
+        stepLabel = form.values.OtherChildrenSecondary
+          ? `Step ${index + 1}: ${
+            form.values.OtherChildrenSecondary[x] &&
+            form.values.OtherChildrenSecondary[x].fname
+          } (${parseInt(x) + 1} of ${numOtherChildrenSecondary})`
+          : `Step ${index + 1}: ${label}`
         break
       case "CurrentJobSecondary":
         stepLabel = form.values.OtherParentName
@@ -86,25 +120,17 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
       case "ChildExpenses1":
       case "ChildExpenses2":
       case "ChildExpenses3":
-      case "ChildExpenses4":
-      case "ChildExpenses5":
-      case "ChildExpenses6":
-      case "ChildExpenses7":
         stepLabel = form.values.PrimaryChildren
           ? `Step ${index + 1}: Expenses for ${
               form.values.PrimaryChildren[x] &&
-              form.values.PrimaryChildren[x].fname
-            } (${parseInt(x) + 1} of ${numChildren})`
+             'Child ' 
+            } ${parseInt(x) + 1} of ${numChildren}`
           : ""
         break
       case `ChildExpensesSecondary0`:
       case "ChildExpensesSecondary1":
       case "ChildExpensesSecondary2":
       case "ChildExpensesSecondary3":
-      case "ChildExpensesSecondary4":
-      case "ChildExpensesSecondary5":
-      case "ChildExpensesSecondary6":
-      case "ChildExpensesSecondary7":
         stepLabel = form.values.OtherChildrenSecondary
           ? `Step ${index + 1}: ${form.values.OtherParentName}'s expenses for ${
               form.values.OtherChildrenSecondary[x] &&
@@ -112,32 +138,6 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
             } (${parseInt(x) + 1} of ${numOtherChildrenSecondary})`
           : ""
         break
-      case "EnterChildren0":
-      case "EnterChildren1":
-        stepLabel = form.values.PrimaryChildren
-          ? `Step ${index + 1}: ${
-              form.values.PrimaryChildren[x] &&
-              form.values.PrimaryChildren[x].fname
-            } (${parseInt(x) + 1} of ${numChildren})`
-          : `Step ${index + 1}: ${label}`
-        break
-      // case "EnterMyOtherChildren0":
-      // case "EnterMyOtherChildren1":
-      //   stepLabel = form.values.OtherChildren
-      //     ? `Step ${index + 1}: ${
-      //         form.values.OtherChildren[x] && form.values.OtherChildren[x].fname
-      //       } (${parseInt(x) + 1} of ${numOtherChildren})`
-      //     : `Step ${index + 1}: ``Step ${index + 1}: Expenses for ${x}`
-      //   break
-      // case "EnterMyOtherChildrenSecondary0":
-      // case "EnterMyOtherChildrenSecondary1":
-      //   stepLabel = form.values.OtherChildrenSecondary
-      //     ? `Step ${index + 1}: ${
-      //         form.values.OtherChildrenSecondary[x] &&
-      //         form.values.OtherChildrenSecondary[x].fname
-      //       } (${parseInt(x) + 1} of ${numOtherChildrenSecondary})`
-      //     : `Step ${index + 1}: ``Step ${index + 1}: Expenses for ${x}`
-      //   break
       default:
         stepLabel = `Step ${index + 1}: ${label}`
     }
@@ -199,12 +199,14 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
                         key={index}
                         isDisabled={step.isValid ? false : true}
                         onClick={() => form.goToStep(step.name)}
+                        // Left padding
                         pl={
                           step.name.startsWith("EnterChildren") ||
                           step.name.startsWith("EnterMyOtherChildren") ||
                           step.name.startsWith("TaxableIncome") ||
                           step.name.startsWith("NonTaxableIncome") ||
                           step.name.startsWith("OtherAllowableDeductions") ||
+                          step.name.startsWith("OtherAllowableDeductionsSecondary") ||
                           step.name.startsWith("OtherJobs") === true ||
                           step.name.startsWith("EnterOtherJobs") === true ||
                           step.name.startsWith("FirstResponderExpenses") === true ||

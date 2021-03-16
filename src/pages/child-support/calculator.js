@@ -79,7 +79,7 @@ export default function Calculator() {
   }
 
   const documents = form.values.Documents ? form.values.Documents : ""
-  
+
   // Set default values from init.json
   const values = init.default
 
@@ -88,7 +88,7 @@ export default function Calculator() {
       <Beforeunload onBeforeunload={event => event.preventDefault()} />
       {/* @TODO Temporarily using onSubmit vs onValidSubmit for testing */}
       <Formiz connect={form} onSubmit={handleSubmit} 
-      // initialValues={ values }
+      initialValues={ values }
       > 
         <MultiStepsLayout
           app="support"
@@ -154,4 +154,5 @@ export default function Calculator() {
       </Formiz>
     </>
   )
+
 }

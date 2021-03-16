@@ -19,7 +19,7 @@ export const OtherJobs = () => {
   
   return (
     <>
-      {form.values.EmploymentPrimaryEver === 'yes' || form.values.EmploymentPrimary && form.values.EmploymentPrimary.initiate === "yes" && (
+      { (form.values.EmploymentPrimaryEver === 'yes' || (form.values.OtherJobs)) && (
         <FormizStep label="Your other jobs" name="OtherJobs" order={9000}>
           <SectionHeader header={`Other jobs`} />
           <Text>
