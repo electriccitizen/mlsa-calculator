@@ -1,9 +1,8 @@
 var moment = require("moment")
-const format = number => {
-  return Number(number).toLocaleString()
-}
+const { convertToNumber } = require('../helpers')
+
 const calcIncome = form => {
-  
+
   // Totals
   let data = []
   let totalPrimary = []
@@ -12,88 +11,88 @@ const calcIncome = form => {
   // 1A Wages 
   // @TODO add "other" jobs for both parents
   const primaryWages = calcWages(form, "EmploymentPrimary")
-  data["income.mother.wages"] = Number(primaryWages).toLocaleString()
+  data["income.mother.wages"] = primaryWages
   totalPrimary.push(primaryWages)
 
   const secondaryWages = calcWages(form, "EmploymentSecondary")
-  data["income.father.wages"] = Number(secondaryWages).toLocaleString()
+  data["income.father.wages"] = secondaryWages
   totalSecondary.push(secondaryWages)
 
   // 1B Self-Employment net earnings
   if (form.OtherIncome.SepEarning) {
     const primarySep =
-    form.OtherIncome.SepEarning.net * form.OtherIncome.SepEarning.schedule
-    data["income.mother.sep"] = format(primarySep)
-    totalPrimary.push(parseInt(primarySep))
+    convertToNumber(form.OtherIncome.SepEarning.net) * convertToNumber(form.OtherIncome.SepEarning.schedule)
+    data["income.mother.sep"] = primarySep
+    totalPrimary.push(primarySep)
   }
 
   if (form.OtherIncomeSecondary.SepEarning) {
-  const secondarySep =
-    form.OtherIncomeSecondary.SepEarning.net *
-      form.OtherIncomeSecondary.SepEarning.schedule
-      data["income.father.sep"] = format(secondarySep)
-      totalSecondary.push(parseInt(secondarySep))
+    const secondarySep =
+    convertToNumber(form.OtherIncomeSecondary.SepEarning.net) *
+    convertToNumber(form.OtherIncomeSecondary.SepEarning.schedule)
+    data["income.father.sep"] = secondarySep
+    totalSecondary.push(secondarySep)
   }
-  
+
   // 1C Pensions, Social Security 
   if (form.OtherIncome.SSN) {
-    const primarySsn = form.OtherIncome.SSN
-    data["income.mother.ssn"] = format(primarySsn)
-    totalPrimary.push(parseInt(primarySsn))
+    const primarySsn = convertToNumber(form.OtherIncome.SSN)
+    data["income.mother.ssn"] = primarySsn
+    totalPrimary.push(primarySsn)
   }
 
   if (form.OtherIncomeSecondary.SSN) {
-  const secondarySsn = form.OtherIncomeSecondary.SSN
-  data["income.father.ssn"] = format(secondarySsn)
-  totalSecondary.push(parseInt(secondarySsn))
+    const secondarySsn = convertToNumber(form.OtherIncomeSecondary.SSN)
+    data["income.father.ssn"] = secondarySsn
+    totalSecondary.push(secondarySsn)
   }
 
   // 1D Unearned Income
   if (form.OtherIncome.unearned) {
-    const primaryUnearned = form.OtherIncome.unearned
-    data["income.mother.unearned"] = format(primaryUnearned)
-    totalPrimary.push(parseInt(primaryUnearned))
+    const primaryUnearned = convertToNumber(form.OtherIncome.unearned)
+    data["income.mother.unearned"] = primaryUnearned
+    totalPrimary.push(primaryUnearned)
   }
 
   if (form.OtherIncomeSecondary.unearned) {
-    const secondaryUnearned = form.OtherIncomeSecondary.unearned
-    data["income.father.unearned"] = format(secondaryUnearned)
-    totalSecondary.push(parseInt(secondaryUnearned))
+    const secondaryUnearned = convertToNumber(form.OtherIncomeSecondary.unearned)
+    data["income.father.unearned"] = secondaryUnearned
+    totalSecondary.push(secondaryUnearned)
   }
-  
+
   // 1E Imputed income
   if (form.OtherIncome.imputed) {
-    const primaryImputed = form.OtherIncome.imputed * form.OtherIncome.imputedSchedule
-    data["income.mother.imputed"] = format(primaryImputed)
-    totalPrimary.push(parseInt(primaryImputed))
+    const primaryImputed = convertToNumber(form.OtherIncome.imputed) * convertToNumber(form.OtherIncome.imputedSchedule)
+    data["income.mother.imputed"] = primaryImputed
+    totalPrimary.push(primaryImputed)
   }
 
   if (form.OtherIncomeSecondary.imputed) {
-    const secondaryImputed = form.OtherIncomeSecondary.imputed *
-      form.OtherIncomeSecondary.imputedSchedule
-      data["income.father.imputed"] = format(secondaryImputed)
-      totalSecondary.push(parseInt(secondaryImputed))
+    const secondaryImputed = convertToNumber(form.OtherIncomeSecondary.imputed) *
+    convertToNumber(form.OtherIncomeSecondary.imputedSchedule)
+    data["income.father.imputed"] = secondaryImputed
+    totalSecondary.push(secondaryImputed)
   }
 
   // 1F Earned Income Tax Credit (EITC) 
   if (form.OtherIncome.eitc) {
-    const primaryEitc = form.OtherIncome.eitc
-    data["income.mother.earned"] = format(primaryEitc)
-    totalPrimary.push(parseInt(primaryEitc))
+    const primaryEitc = convertToNumber(form.OtherIncome.eitc)
+    data["income.mother.earned"] = primaryEitc
+    totalPrimary.push(primaryEitc)
   }
-  
+
   if (form.OtherIncomeSecondary.eitc) {
-    const secondaryEitc = form.OtherIncomeSecondary.eitc
-    data["income.father.earned"] = format(secondaryEitc)
-    totalSecondary.push(parseInt(secondaryEitc))
+    const secondaryEitc = convertToNumber(form.OtherIncomeSecondary.eitc)
+    data["income.father.earned"] = secondaryEitc
+    totalSecondary.push(secondaryEitc)
   }
 
   // 1G Other taxable income (specify): @TODO -- sum, add multiple entries to Attachment A (verify)
   // 1H Other non-taxable income (specify(): @TODO -- sum, add multiple entries to Attachment A
 
   // 1I TOTAL INCOME -- SUM(1A:1H)
-  data["income.mother.total"] = format(totalPrimary.reduce((a, b) => a + b, 0))
-  data["income.father.total"] = format(totalSecondary.reduce((a, b) => a + b, 0))
+  data["income.mother.total"] = totalPrimary.reduce((a, b) => a + b, 0)
+  data["income.father.total"] = totalSecondary.reduce((a, b) => a + b, 0)
 
   data["income.mother.total-callout"] = data["income.mother.total"]
   data["income.father.total-callout"] = data["income.father.total"]

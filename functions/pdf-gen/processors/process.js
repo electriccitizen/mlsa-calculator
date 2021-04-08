@@ -1,105 +1,47 @@
 // Hard-coded data for testing, copied from # Debug - Form values
 const init = require('./init.json')
+const { isNumber } = require("../helpers")
 
 const { calcIncome } = require("./income")
 const { calcAllowableDeductions } = require("./deductions")
 const { calcPercentages } = require("./percentages")
 const { calcSola } = require("./sola")
 
-const format = number => {
-  return Number(number).toLocaleString()
-}
-
-const unFormat = number => {
-  var regex = /[.,\s]/g
-  return parseInt(number.replace(regex, ""))
-}
-
 const processData = form => {
-  let data = []
-  let primary
-  let secondary
-  
+  let initiate = []
+
   // Pass hard-coded data to processors instead of form (init.json)
   form = init
- 
+
   // Case #
-  form.CSED && (data["initiate.csed"] = form.CSED)
+  form.CSED && (initiate["initiate.csed"] = form.CSED)
 
   // Basic info
-  data["initiate.mother.name"] = form.Primary.fname + " " + form.Primary.lname
-  data["initiate.father.name"] =
+  initiate["initiate.mother.name"] =
+    form.Primary.fname + " " + form.Primary.lname
+  initiate["initiate.father.name"] =
     form.OtherParent.fname + " " + form.OtherParent.lname
 
   // Primary children DOB
   Object.entries(form.PrimaryChildren).forEach(
     ([index, value]) =>
-      (data[`child.${parseInt(index) + 1}.bday`] = value.dob.replace(
-        /(\d{4})\-(\d{2})\-(\d{2}).*/,
-        "$2-$3-$1"
-      ))
+    (initiate[`child.${parseInt(index) + 1}.bday`] = value.dob.replace(
+      /(\d{4})\-(\d{2})\-(\d{2}).*/,
+      "$2-$3-$1"
+    ))
   )
 
   // 1 INCOME
-   let income = calcIncome(form)
+  let income = calcIncome(form)
 
   // 2 ALLOWABLE DEDUCTIONS
-   let deductions = calcAllowableDeductions(form)
-
-  // Line 3 INCOME AFTER DEDUCTIONS
-  primary =
-    unFormat(income["income.mother.total"]) -
-    unFormat(deductions["allowable.mother.total"])
-  secondary =
-    unFormat(income["income.father.total"]) -
-    unFormat(deductions["allowable.father.total"])
-  data["allowable.mother.income"] = format(primary)
-  data["allowable.father.income"] = format(secondary)
-  data["allowable.mother.income-callout"] = format(primary)
-  data["allowable.father.income-callout"] = format(secondary)
+  let deductions = calcAllowableDeductions(form, income)
 
   // PARENT PERCENTAGES
-  let percentages = calcPercentages(form, primary, secondary)
+  let percentages = calcPercentages(form, deductions)
 
   // ** SOLA PACS
   let sola = calcSola(form, percentages)
-
-  //14 TODO  -- no data
-  // if line 6 > line 5, skip to line 21 and enter line 6 amount
-
-  // 15 TODO
-  //line 14 * 9
-
-  // 16 TODO
-  // enter lower between line 15 and line 5
-
-  // 17 TODO
-  // line 5 - line 16
-  // if zero, zero and skip to line 21
-
-  //18a TODO
-  // Long distance parenting adj worksheet D (wtf)
-
-  //18b TODO
-  // other SOLA from form
-
-  //19 TODO
-  //Adjusted income for SOLA [line 17 minus (18a + 18b)]
-
-  //20 SOLA Amount (Worksheet E) TODO
-  // numChildren * line 19 * sola factor global
-
-  //21 TODO
-  //add line 16+20
-
-  //22 TODO
-  // compare line 21:6 higher amount for both parents
-
-  //23 TODO
-  //expenses for each parent computed from 12e :(
-
-  // 24 TODO
-  // line 22-23, if < 0 then 0
 
   // ** PARENTING DAYS
   // 25a TODO
@@ -156,15 +98,31 @@ const processData = form => {
   //13 line 10+12
   //14 mother: line 13-14 for each child.
 
-  let final = {
-    ...data,
+  let data = {
     ...income,
     ...deductions,
     ...percentages,
     ...sola,
   }
 
-  return final
+  // return {
+  //   ...initiate,
+  //   ...data
+  // }
+
+  // Format numbers to string
+  return {
+    ...initiate,
+    ...Object.keys(data).reduce((acc, key) => {
+      return {
+        ...acc,
+        [key]:
+          isNumber(data[key]) ?
+            (Number.isInteger(data[key]) ? data[key] : data[key].toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") :
+            data[key]
+      }
+    }, {})
+  }
 }
 
 module.exports = { processData }
