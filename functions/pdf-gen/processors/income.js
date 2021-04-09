@@ -8,42 +8,56 @@ const calcIncome = form => {
   let totalPrimary = []
   let totalSecondary = []
 
-  // 1A Wages 
-  // @TODO add "other" jobs for both parents
-  const primaryWages = calcWages(form, "EmploymentPrimary")
-  data["income.mother.wages"] = primaryWages
-  totalPrimary.push(primaryWages)
+  // 1A Wages, salaries, commissions
+  if (form.EmploymentPrimary) {
+    const primaryWages = calcWages(form, "EmploymentPrimary", "OtherJob")
+    data["income.mother.wages"] = primaryWages
+    totalPrimary.push(primaryWages)
+  }
 
-  const secondaryWages = calcWages(form, "EmploymentSecondary")
-  data["income.father.wages"] = secondaryWages
-  totalSecondary.push(secondaryWages)
+  if (form.EmploymentSecondary) {
+    const secondaryWages = calcWages(form, "EmploymentSecondary", "OtherJobSecondary")
+    data["income.father.wages"] = secondaryWages
+    totalSecondary.push(secondaryWages)
+  }
 
   // 1B Self-Employment net earnings
   if (form.OtherIncome.SepEarning) {
     const primarySep =
-    convertToNumber(form.OtherIncome.SepEarning.net) * convertToNumber(form.OtherIncome.SepEarning.schedule)
+      convertToNumber(form.OtherIncome.SepEarning.net) *
+      convertToNumber(form.OtherIncome.SepEarning.schedule)
     data["income.mother.sep"] = primarySep
     totalPrimary.push(primarySep)
   }
 
   if (form.OtherIncomeSecondary.SepEarning) {
     const secondarySep =
-    convertToNumber(form.OtherIncomeSecondary.SepEarning.net) *
-    convertToNumber(form.OtherIncomeSecondary.SepEarning.schedule)
+      convertToNumber(form.OtherIncomeSecondary.SepEarning.net) *
+      convertToNumber(form.OtherIncomeSecondary.SepEarning.schedule)
     data["income.father.sep"] = secondarySep
     totalSecondary.push(secondarySep)
   }
 
-  // 1C Pensions, Social Security 
+  // 1C Pensions, Social Security
+  if (form.OtherIncome.pension) {
+    const primaryPension = convertToNumber(form.OtherIncome.pension)
+    data["income.mother.ssn"] = primaryPension
+    totalPrimary.push(primaryPension)
+  }
   if (form.OtherIncome.SSN) {
     const primarySsn = convertToNumber(form.OtherIncome.SSN)
-    data["income.mother.ssn"] = primarySsn
+    data["income.mother.ssn"] = data["income.mother.ssn"] ? data["income.mother.ssn"] + primarySsn : primarySsn
     totalPrimary.push(primarySsn)
   }
 
+  if (form.OtherIncomeSecondary.pension) {
+    const secondaryPension = convertToNumber(form.OtherIncomeSecondary.pension)
+    data["income.father.ssn"] = secondaryPension
+    totalSecondary.push(secondaryPension)
+  }
   if (form.OtherIncomeSecondary.SSN) {
     const secondarySsn = convertToNumber(form.OtherIncomeSecondary.SSN)
-    data["income.father.ssn"] = secondarySsn
+    data["income.father.ssn"] = data["income.father.ssn"] ? data["income.father.ssn"] + secondarySsn : secondarySsn
     totalSecondary.push(secondarySsn)
   }
 
@@ -69,7 +83,7 @@ const calcIncome = form => {
 
   if (form.OtherIncomeSecondary.imputed) {
     const secondaryImputed = convertToNumber(form.OtherIncomeSecondary.imputed) *
-    convertToNumber(form.OtherIncomeSecondary.imputedSchedule)
+      convertToNumber(form.OtherIncomeSecondary.imputedSchedule)
     data["income.father.imputed"] = secondaryImputed
     totalSecondary.push(secondaryImputed)
   }
@@ -87,8 +101,39 @@ const calcIncome = form => {
     totalSecondary.push(secondaryEitc)
   }
 
-  // 1G Other taxable income (specify): @TODO -- sum, add multiple entries to Attachment A (verify)
-  // 1H Other non-taxable income (specify(): @TODO -- sum, add multiple entries to Attachment A
+  // 1G Other taxable income (specify): @TODO add multiple entries to Attachment A (verify)
+  if (form.TaxableIncome) {
+    const primaryTaxable = calcOtherIncome(form, "TaxableIncome")
+    data["income.mother.other.taxable"] = primaryTaxable
+    totalPrimary.push(primaryTaxable)
+  }
+
+  if (form.TaxableIncomeSecondary) {
+    const secondaryTaxable = calcOtherIncome(form, "TaxableIncomeSecondary")
+    data["income.father.other.taxable"] = secondaryTaxable
+    totalSecondary.push(secondaryTaxable)
+  }
+
+  if (data["income.mother.other.taxable"] || data["income.father.other.taxable"]) {
+    data["income.mother.other.taxable-specify"] = "See Worksheet A Addendum"
+  }
+
+  // 1H Other non-taxable income (specify(): @TODO add multiple entries to Attachment A
+  if (form.NonTaxableIncome) {
+    const primaryTaxable = calcOtherIncome(form, "NonTaxableIncome")
+    data["income.mother.other.nontax"] = primaryTaxable
+    totalPrimary.push(primaryTaxable)
+  }
+
+  if (form.NonTaxableIncomeSecondary) {
+    const secondaryNonTaxable = calcOtherIncome(form, "NonTaxableIncomeSecondary")
+    data["income.father.other.nontax"] = secondaryNonTaxable
+    totalSecondary.push(secondaryNonTaxable)
+  }
+
+  if (data["income.mother.other.nontax"] || data["income.father.other.nontax"]) {
+    data["income.mother.other.nontax-specify"] = "See Worksheet A Addendum"
+  }
 
   // 1I TOTAL INCOME -- SUM(1A:1H)
   data["income.mother.total"] = totalPrimary.reduce((a, b) => a + b, 0)
@@ -107,17 +152,17 @@ const calcWeeksBetween = (start, end) => {
   return b.diff(a, "week", true)
 }
 
-const calcWages = (form, parent) => {
-  let totalWages
+const calcWage = (job) => {
+  let wage
   let numWeeks
-  let jobType = form[parent].type
-  let jobStart = form[parent].start
-  let jobEnd = form[parent].end
-  let jobWeeksPerYear = form[parent].weeksPerYear
-  let jobHoursPerWeek = form[parent].hoursPerWeek
-  let jobGrossAmount = form[parent].grossAmount
-  let jobSchedule = form[parent].schedule
-  let jobPayment = form[parent].payment
+  let jobType = job.type
+  let jobStart = job.start
+  let jobEnd = job.end
+  let jobWeeksPerYear = job.weeksPerYear
+  let jobHoursPerWeek = job.hoursPerWeek
+  let jobGrossAmount = job.grossAmount
+  let jobSchedule = job.schedule
+  let jobPayment = job.payment
 
   switch (jobType) {
     case "temporary":
@@ -131,35 +176,40 @@ const calcWages = (form, parent) => {
 
   switch (jobPayment) {
     case "hourly":
-      totalWages = jobHoursPerWeek * jobGrossAmount * numWeeks
+      wage = jobHoursPerWeek * jobGrossAmount * numWeeks
       break
     case "salary":
     case "commission":
-      totalWages = jobGrossAmount * jobSchedule
+      wage = jobGrossAmount * jobSchedule
       break
   }
 
-  // let otherJobsWages = []
-  //
-  // form.OtherJob &&
-  //   Object.entries(form.OtherJob).forEach(([index, job]) => {
-  //     switch (form.CurrentJobPayment) {
-  //       case "hourly":
-  //         otherJobsWages.push(
-  //           job.hoursPerWeek * job.grossAmount * job.weeksPerYear
-  //         )
-  //         break
-  //       case "salary":
-  //       case "commission":
-  //         otherJobsWages.push(job.grossAmount * job.paySchedule)
-  //         break
-  //     }
-  //   })
-  // const otherJobsTotal = otherJobsWages.reduce((a, b) => a + b, 0)
+  return wage
+}
 
-  const total = totalWages
+const calcWages = (form, employment, other) => {
+  const wage = calcWage(form[employment])
 
-  return total
+  if (
+    !form[other] ||
+    form[employment]["initiate"] === 'yes' || // If primary person has current job don't calc other wages
+    form[employment]["otherJobs"] === 'no'
+  ) {
+    return wage
+  }
+
+  // Calc other wages
+  const otherWages = Object.values(form[other]).reduce((wages, job) => {
+    return wages + calcWage(job)
+  }, 0)
+
+  return wage + otherWages
+}
+
+const calcOtherIncome = (form, key) => {
+  return Object.values(form[key]).reduce((total, income) => {
+    return total + convertToNumber(income.amt)
+  }, 0)
 }
 
 const calcImputed = form => {

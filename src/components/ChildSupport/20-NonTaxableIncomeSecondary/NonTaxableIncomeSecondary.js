@@ -82,7 +82,7 @@ export const NonTaxableIncomeSecondary = () => {
   )
   const Amount = index => (
     <FieldMoneyInput
-      name={`NonTaxableIncomeSecondary[${index}].amount`}
+      name={`NonTaxableIncomeSecondary[${index}].amt`}
       label={"Enter amount:"}
     />
   )

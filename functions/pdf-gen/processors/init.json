@@ -312,7 +312,7 @@
       "grossAmount": "12",
       "hoursPerWeek": "20",
       "weeksPerYear": "50",
-      "paySchedule": "26",
+      "schedule": "26",
       "address": "123 Easy St"
     },
     "1": {
@@ -323,7 +323,7 @@
       "grossAmount": "200",
       "hoursPerWeek": "2",
       "weeksPerYear": "2",
-      "paySchedule": "52",
+      "schedule": "52",
       "address": "123 Easy St"
     }
   },
@@ -447,18 +447,21 @@
     "0": {
       "current": "current",
       "type": "temporary",
+      "start": "2021-03-01T06:00:00.000Z",
       "end": "2021-12-31T06:00:00.000Z",
       "payment": "salary",
       "grossAmount": "1000",
-      "weeksPerYear": "20"
+      "weeksPerYear": "20",
+      "schedule": "26"
     },
     "1": {
       "current": "current",
       "type": "permanent",
+      "start": "2021-03-01T06:00:00.000Z",
       "payment": "commission",
       "grossAmount": "200",
       "weeksPerYear": "20",
-      "schedule": "weekly"
+      "schedule": "52"
     }
   },
   "TaxableIncomeSecondary": {
@@ -474,11 +477,11 @@
   "NonTaxableIncomeSecondary": [
     {
       "type": "bond",
-      "amount": "100"
+      "amt": "100"
     },
     {
       "type": "ssdi",
-      "amount": "100"
+      "amt": "100"
     }
   ],
   "OtherAllowableDeductionsSecondary": [

@@ -101,6 +101,14 @@ export const EnterOtherJobsSecondary = () => {
                 ]}
               />
             )}
+            {state[`OtherJobSecondary.${index}.type`] && (
+              <FieldDate
+                name={`OtherJobSecondary.${index}.start`}
+                label="When did you start this job? If you are not sure of the exact date, enter an approximate date. (MM/DD/YYYY)"
+                required="Required"
+                type="text"
+              />
+            )}
             {state[`OtherJobSecondary.${index}.type`] === "temporary" && (
               <FieldDate
                 name={`OtherJobSecondary.${index}.end`}
@@ -156,7 +164,7 @@ export const EnterOtherJobsSecondary = () => {
               </>
             )}
             {(state[`OtherJobSecondary.${index}.payment`] === "salary" ||
-              state[`OtherJobSecondary.${index}.payment`]) === "commission" && (
+              state[`OtherJobSecondary.${index}.payment`] === "commission") && (
               <FieldSelect
                 name={`OtherJobSecondary.${index}.schedule`}
                 label="Paid how often?"
@@ -165,11 +173,11 @@ export const EnterOtherJobsSecondary = () => {
                 fieldWidth={"25%"}
                 index={index}
                 options={[
-                  { value: "weekly", label: "Once per week" },
-                  { value: "biweekly", label: "Every two weeks" },
-                  { value: "bimonthly", label: "Twice a month" },
-                  { value: "monthly", label: "Once per month" },
-                  { value: "yearly", label: "Yearly" },
+                  { value: "52", label: "Once per week" },
+                  { value: "26", label: "Every two weeks" },
+                  { value: "24", label: "Twice a month" },
+                  { value: "12", label: "Once per month" },
+                  { value: "1", label: "Yearly" },
                 ]}
               />
             )}

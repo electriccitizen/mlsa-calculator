@@ -172,19 +172,24 @@ export const EnterOtherJobs = () => {
                 updateState={updateState}
                 fieldWidth={"25%"}
               />
-              <FieldSelect
-                name={`OtherJob.${index}.paySchedule`}
-                label="Paid how often?"
-                placeholder="Select option..."
-                required="Required"
-                options={[
-                  { value: "52", label: "Once per week" },
-                  { value: "26", label: "Every two weeks" },
-                  { value: "24", label: "Twice a month" },
-                  { value: "12", label: "Once per month" },
-                  { value: "1", label: "Yearly" },
-                ]}
-              />
+              {
+                (state[`OtherJobSecondary.${index}.payment`] === "salary" ||
+                state[`OtherJobSecondary.${index}.payment`] === "commission") && (
+                <FieldSelect
+                  name={`OtherJob.${index}.schedule`}
+                  label="Paid how often?"
+                  placeholder="Select option..."
+                  required="Required"
+                  options={[
+                    { value: "52", label: "Once per week" },
+                    { value: "26", label: "Every two weeks" },
+                    { value: "24", label: "Twice a month" },
+                    { value: "12", label: "Once per month" },
+                    { value: "1", label: "Yearly" },
+                  ]}
+                />
+                )
+              }
               <SectionHeader header={`Employer Address`} />
               <AddressField
                 label={"Enter the street address for this employer:"}
