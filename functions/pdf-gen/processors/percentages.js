@@ -11,7 +11,7 @@ const calcPercentages = (form, deductions) => {
   data["ppa.mother.allowance.from-table1"] = globalPPA
   data["ppa.father.allowance.from-table1"] = globalPPA
 
-  // 5 Income available for child support (line 3 minus line 4; if less than zero, enter zero) @TODO: test with < 0
+  // 5 Income available for child support (line 3 minus line 4; if less than zero, enter zero)
   let incomeAvailablePrimary = deductions["allowable.mother.income"] - globalPPA
   let incomeAvailableSecondary = deductions["allowable.father.income"] - globalPPA
   incomeAvailablePrimary < 0
@@ -23,13 +23,12 @@ const calcPercentages = (form, deductions) => {
 
   // 6 If line 5 = zero, enter minimum contribution from Worksheet C. 
   // If line 5 > 0, multiply line 3 by 12% (.12) and enter here.  
-  // @TODO logic for Worksheet C if line 5 = 0
   data["ppa.mother.income"] === 0
-    ? (data["ppa.mother.line6"] = 0)
+    ? (data["ppa.mother.line6"] = calcMinimumSupportObligation(deductions["allowable.mother.income"]))
     : (data["ppa.mother.line6"] = deductions["allowable.mother.income"] * 0.12)
 
   data["ppa.father.income"] === 0
-    ? (data["ppa.father.line6"] = 0)
+    ? (data["ppa.father.line6"] = calcMinimumSupportObligation(deductions["allowable.father.income"]))
     : (data["ppa.father.line6"] = deductions["allowable.father.income"] * 0.12)
 
   // 7 Compare each parent’s lines 5 & 6; enter higher number
@@ -179,6 +178,20 @@ const calcPercentages = (form, deductions) => {
   // data["allowable.father.total-callout"] = data["allowable.father.total"]
 
   return data
+}
+
+// WORKSHEET C: MINIMUM SUPPORT OBLIGATION
+const calcMinimumSupportObligation = (income, personalAllowance) => {
+  // Income Ratio: Divide line 3, worksheet A, by line 4, worksheet A
+  const IR = income / personalAllowance
+  if (IR < 0 || IR >= 1) return 0
+
+  // Find index IR from range
+  const range = [0, 0.25, 0.31, 0.38, 0.45, 0.52, 0.59, 0.66, 0.73, 0.80, 0.87, 0.94, 1]
+  const index = range.findIndex((value, index, array) => IR >= value && IR < array[index + 1])
+
+  // Multiply line 3, WS-A, by percent
+  return index > 0 ? income * (index / 100) : 0
 }
 
 module.exports = { calcPercentages }
