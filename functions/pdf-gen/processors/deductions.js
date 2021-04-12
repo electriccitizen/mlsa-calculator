@@ -123,7 +123,18 @@ const calcAllowableDeductions = (form, income) => {
   }
 
   //2J Dependent care expense for other children, less -- @TODO still need to read/decipher instructions for this field
-  //2K Other (specify):___ @TODO Sum, plus add to attachment
+  //2K Other (specify):___ @TODO add to attachment
+  if(form.AllowableDeductions.other) {
+    data["allowable.mother.other"] = calcOther(form, "OtherAllowableDeductions")
+  }
+
+  if(form.AllowableDeductionsSecondary.other) {
+    data["allowable.father.other"] = calcOther(form, "OtherAllowableDeductionsSecondary")
+  }
+  
+  if (data["allowable.mother.other"] || data["allowable.father.other"]) {
+    data["allowable.mother.other-specify"] = "See Worksheet A Addendum"
+  }
 
   //2L TOTAL ALLOWABLE DEDUCTIONS (Add 2a through 2k) 
   data["allowable.mother.total"] = totalPrimary.reduce((a, b) => a + b, 0)
@@ -136,6 +147,12 @@ const calcAllowableDeductions = (form, income) => {
   data["allowable.father.income-callout"] = income["income.father.total"] - data["allowable.father.total"]
 
   return data
+}
+
+const calcOther = (form, key) => {
+  return Object.values(form[key]).reduce((total, income) => {
+    return total + convertToNumber(income.amount)
+  }, 0)
 }
 
 module.exports = { calcAllowableDeductions }
