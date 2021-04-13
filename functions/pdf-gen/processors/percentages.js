@@ -104,7 +104,6 @@ const calcPercentages = (form, deductions) => {
   data["ppa.pcsa"] = globalPSA
 
   // 12A Child care cost less dependent care tax credit
-
   let primaryCCC = []
   let primaryCHIP = []
   let primaryUME = []
@@ -140,7 +139,7 @@ const calcPercentages = (form, deductions) => {
   data["ppa.costLessCredit"] =
     primaryCCC.concat(secondaryCCC).reduce((a, b) => a + b, 0)
 
-  // 12B Child health insurance premium 
+  //12B Child health insurance premium 
   data["ppa.healthPremium"] =
     primaryCHIP.concat(secondaryCHIP).reduce((a, b) => a + b, 0)
 
@@ -152,6 +151,11 @@ const calcPercentages = (form, deductions) => {
   data["ppa.other"] =
     primaryOther.concat(secondaryOther).reduce((a, b) => a + b, 0)
 
+  if (data["ppa.other"]) {
+    data["ppa.other-specify"] = "See Worksheet A Addendum"
+  }
+
+  //12E Total supplement (add lines 12a through 12d)
   let ppaTotal =
     data["ppa.costLessCredit"] +
     data["ppa.healthPremium"] +
@@ -160,22 +164,11 @@ const calcPercentages = (form, deductions) => {
 
   data["ppa.totalSupplement"] = ppaTotal
 
+  //13 Total primary allowance and supplement (add lines 11 and 12e) 
   let ppaPrimary =
     data["ppa.totalSupplement"] + data["ppa.pcsa"]
 
   data["ppa.totalPrimaryAllowance"] = ppaPrimary
-
-  //let expenses = Object.assign(form.ChildExpenses, form.ChildExpensesSecondary)
-
-  //console.log(expenses)
-
-  // let primaryExp = []
-  // Object.entries(form.ChildExpenses).forEach(([index, value]) =>
-  //   primaryExp.push(value.childCareCost)
-  // )
-
-  // data["allowable.mother.total-callout"] = data["allowable.mother.total"]
-  // data["allowable.father.total-callout"] = data["allowable.father.total"]
 
   return data
 }
