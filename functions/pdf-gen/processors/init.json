@@ -267,17 +267,19 @@
     }
   },
   "ParentingDays": {
-    "0": {
-      "name": null,
-      "amount": "200"
-    },
-    "1": {
-      "name": null,
-      "amount": "200"
-    },
-    "2": {
-      "name": null,
-      "amount": "200"
+    "children": {
+      "0": {
+        "name": null,
+        "amount": "300"
+      },
+      "1": {
+        "name": null,
+        "amount": "300"
+      },
+      "2": {
+        "name": null,
+        "amount": "300"
+      }
     },
     "primary": "me"
   },

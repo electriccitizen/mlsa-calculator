@@ -6,6 +6,7 @@ const { calcIncome } = require("./income")
 const { calcAllowableDeductions } = require("./deductions")
 const { calcPercentages } = require("./percentages")
 const { calcSola } = require("./sola")
+const { calcParentingDays } = require("./parenting")
 
 const processData = form => {
   let initiate = []
@@ -44,34 +45,7 @@ const processData = form => {
   let sola = calcSola(form, percentages)
 
   // ** PARENTING DAYS
-  // 25a TODO
-  // calculate number of each days for both parents * numChildren
-
-  // 25b TODO
-  // divide mothers line 24 by line 10 (numChild) and enter same amount for each child
-  // same for father column
-
-  // 25b Total TODO
-  // total parents columns in 25b above
-
-  // See notes on rounding .49 down/.50 up
-
-  // 26 TODO
-  //Do ALL primary children live with same primary and > 110 with other parent?
-  // if yes:
-
-  //26a/b TODO
-  // divide each child's ANNUAL support from Table 25-b, by 12,
-  // round per instructions and enter each child's amt for each parent into
-  // table 26b
-  // Total columns and
-  // enter total for non-residential parent at line 27.
-
-  //if no: TODO
-  // Complete Worksheet B parts 1 and 2
-  // follow instructs for adding results to 26a
-  // then divide each amount in 26a by 12, round according to instr
-  // and endter in MONTHLUY column of Table 26b.
+  let parenting = calcParentingDays(form, sola)
 
   // Worksheet B TODO
   // mother/father name
@@ -103,6 +77,7 @@ const processData = form => {
     ...deductions,
     ...percentages,
     ...sola,
+    ...parenting
   }
 
   // return {

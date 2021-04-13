@@ -6,4 +6,8 @@ function convertToNumber(value) {
     return Number(value)
 }
 
-module.exports = { isNumber, convertToNumber }
+function convertToString(value) {
+    return String(value)
+}
+
+module.exports = { isNumber, convertToNumber, convertToString }
