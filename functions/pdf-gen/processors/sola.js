@@ -1,137 +1,188 @@
+const { convertToNumber } = require('../helpers')
+
 const calcSola = (form, percentages) => {
 
   // Total
   let data = []
-  let primary
-  let secondary
-  let totalPrimary = []
-  let totalSecondary = []
 
   // 14 For each parent, if line 6 > line 5, skip to line 21 and enter line 6 amount. If line 6 < line 5, go to line 15
-  // skip to line 21 and enter amount from line 6
-  // @TODO verify this logic, and jump to line 21 per rules in line 14
   if (percentages["ppa.mother.line6"] < percentages["ppa.mother.income"]) {
 
     // 15 Parent’s share of total (for each column, line 13 x line 9)
-    data["mother.share"] =
+    data["sola.mother.share"] =
       percentages["ppa.totalPrimaryAllowance"] *
       (percentages["ppa.mother.share"] / 100)
 
 
     //16 Compare line 15 to line 5; enter lower amount here
-    data["mother.shareLower"] = Math.min(
+    data["sola.mother.shareLower"] = Math.min(
       percentages["ppa.mother.income"],
-      data["mother.share"]
+      data["sola.mother.share"]
     )
 
-    //17 Income available for SOLA (line 5 minus line 16; if zero, enter zero and skip to line 21)
-    // @TODO add logic for jumping to line 21 if zero
-    data["mother.Sola"] =
-      percentages["ppa.mother.income"] - data["mother.shareLower"]
-    if (data["mother.Sola"] !== 0) {
-      //@TODO add calc from line 18 to line 21
-      //21 Add line 16 and line 20
-      data["sola.mother.line21"] = data["mother.shareLower"]
+    // 17 Income available for SOLA (line 5 minus line 16; if zero, enter zero and skip to line 21)
+    data["sola.mother.income"] =
+      percentages["ppa.mother.income"] - data["sola.mother.shareLower"]
+    if (data["sola.mother.income"] > 0) {
+      // 18A Long distance parenting adjustment (Worksheet D)
+      data["sola.mother.distanceAdjustment"] = calcLongDistanceParentingAdjustment(form.StandardOfLiving)
+
+      // 18B Other (specify) @TODO add to attachment as needed
+      data["sola.mother.other"] = calcOther(form.StandardOfLiving, "other")
+
+      // 19 Adjusted income for SOLA [line 17 minus (18a + 18b)]
+      data["sola.mother.adjusted"] =
+        data["sola.mother.income"] - (data["sola.mother.distanceAdjustment"] + data["sola.mother.other"])
+
+      // 20 SOLA amount (Worksheet E)
+      data["sola.mother.amount"] = calcStandardOfLivingAdjustment(
+        convertToNumber(form.NumPrimaryChildren),
+        data["sola.mother.adjusted"]
+      )
+
+      // 21 Add line 16 and line 20
+      data["sola.mother.line21"] =
+        data["sola.mother.shareLower"] +
+        data["sola.mother.amount"]
     } else {
-      //21 Add line 16 and line 20
-      data["sola.mother.line21"] = data["mother.shareLower"]
+      // 21 Add line 16 and line 20
+      data["sola.mother.line21"] = data["sola.mother.shareLower"]
     }
   } else {
     data["sola.mother.line21"] = percentages["ppa.mother.line6"]
   }
 
-  //22 Gross Annual Child Support (for each parent, compare line 21 to line 6; enter the higher amount)
-  data["sola.mother.gross"] = Math.max(
-    percentages["ppa.mother.line6"],
-    data["sola.mother.line21"]
-  )
-
+  // 14 For each parent, if line 6 > line 5, skip to line 21 and enter line 6 amount. If line 6 < line 5, go to line 15
   if (percentages["ppa.father.line6"] < percentages["ppa.father.income"]) {
 
     // 15 Parent’s share of total (for each column, line 13 x line 9)
-    data["father.share"] =
+    data["sola.father.share"] =
       percentages["ppa.totalPrimaryAllowance"] *
       (percentages["ppa.father.share"] / 100)
 
-
-    //16 Compare line 15 to line 5; enter lower amount here
-    data["father.shareLower"] = Math.min(
+    // 16 Compare line 15 to line 5; enter lower amount here
+    data["sola.father.shareLower"] = Math.min(
       percentages["ppa.father.income"],
-      data["father.share"]
+      data["sola.father.share"]
     )
 
-    //17 Income available for SOLA (line 5 minus line 16; if zero, enter zero and skip to line 21)
-    // @TODO add logic for jumping to line 21 if zero
-    data["father.Sola"] =
-      percentages["ppa.father.income"] - data["father.shareLower"]
+    // 17 Income available for SOLA (line 5 minus line 16; if zero, enter zero and skip to line 21)
+    data["sola.father.income"] =
+      percentages["ppa.father.income"] - data["sola.father.shareLower"]
 
-    if (data["father.Sola"] !== 0) {
-      //@TODO add calc from line 18 to line 21
-      //21 Add line 16 and line 20
-      data["sola.father.line21"] = data["father.shareLower"]
+    if (data["sola.father.income"] > 0) {
+      // 18A Long distance parenting adjustment (Worksheet D)
+      data["sola.father.distanceAdjustment"] = calcLongDistanceParentingAdjustment(form.StandardOfLivingSecondary)
+
+      // 18B Other (specify) @TODO add to attachment as needed
+      data["sola.father.other"] = calcOther(form.StandardOfLivingSecondary, "other")
+
+      // 19 Adjusted income for SOLA [line 17 minus (18a + 18b)]
+      data["sola.father.adjusted"] =
+        data["sola.father.income"] - (data["sola.father.distanceAdjustment"] + data["sola.father.other"])
+
+      // 20 SOLA amount (Worksheet E)
+      data["sola.father.amount"] = calcStandardOfLivingAdjustment(
+        convertToNumber(form.NumPrimaryChildren),
+        data["sola.father.adjusted"]
+      )
+
+      // 21 Add line 16 and line 20
+      data["sola.father.line21"] =
+        data["sola.father.shareLower"] +
+        data["sola.father.amount"]
     } else {
-      //21 Add line 16 and line 20
-      data["sola.father.line21"] = data["father.shareLower"]
+      // 21 Add line 16 and line 20
+      data["sola.father.line21"] = data["sola.father.shareLower"]
     }
   } else {
     data["sola.father.line21"] = percentages["ppa.father.line6"]
   }
 
-  //22 Gross Annual Child Support (for each parent, compare line 21 to line 6; enter the higher amount)
+  // 18b Other (specify)
+  if (data["sola.mother.other"] || data["sola.father.other"]) {
+    data["sola.other-specify"] = "See Worksheet A Addendum"
+  }
+
+  // 22 Gross Annual Child Support (for each parent, compare line 21 to line 6; enter the higher amount)
+  data["sola.mother.gross"] = Math.max(
+    percentages["ppa.mother.line6"],
+    data["sola.mother.line21"]
+  )
+
   data["sola.father.gross"] = Math.max(
     percentages["ppa.father.line6"],
     data["sola.father.line21"]
   )
 
-  //18A @TODO Long distance parenting adjustment (Worksheet D)
+  // @TODO verify this field
+  // 23 Credit for payment of expenses (enter amount of line 12 expenses paid by each parent)
+  data["sola.mother.credit"] = percentages["ppa.totalSupplement"]
+  data["sola.father.credit"] = percentages["ppa.totalSupplement"]
 
-  // WORKSHEET D: LONG DISTANCE PARENTING ADJUSTMENT
-  //1. Annual mileage actually driven by the parent to exercise long-distance parenting
-  let primaryDist = form.StandardOfLiving.mileage.distance
-  let secondaryDist = form.StandardOfLivingSecondary.mileage.distance
+  // 24 Total Annual Child Support (line 22 minus line 23; if less than zero, enter zero) 24 PA
+  let totalPrimary = data["sola.mother.gross"] - data["sola.mother.credit"]
+  let totalSecondary = data["sola.father.gross"] - data["sola.father.credit"]
+  data["sola.mother.total"] = totalPrimary < 0 ? 0 : totalPrimary
+  data["sola.father.total"] = totalSecondary < 0 ? 0 : totalSecondary
+  data["sola.mother.total-callout"] = data["sola.mother.total"]
+  data["sola.father.total-callout"] = data["sola.father.total"]
+
+  return data
+}
+
+// WORKSHEET D: LONG DISTANCE PARENTING ADJUSTMENT
+const calcLongDistanceParentingAdjustment = (standardOfLiving) => {
+  if (!standardOfLiving) return 0
+
+  // 1. Annual mileage actually driven by the parent to exercise long-distance parenting
+  let distance = 0
+  if (standardOfLiving.mileage.distance) {
+    distance = convertToNumber(standardOfLiving.mileage.distance)
+  }
 
   // From Table3 @TODO need to go into json config, changes yearly
   // 2. Current IRS business mileage rate (from Table 3)
   const globalMileageRate = 0.575
+
+  // 3. Parent’s mileage cost (line 1 times line 2
+  const mileageCost = distance * globalMileageRate
+
+  // 4. Parent’s annual cost of transportation by means other than automobile
+  let annualCost = 0
+  if (standardOfLiving.transportation.othercost) {
+    annualCost = convertToNumber(standardOfLiving.transportation.othercost)
+  }
+
+  // 5. Parent’s total cost (line 3 plus line 4)
+  const totalCost = mileageCost + annualCost
+
+  // From Table3 @TODO need to go into json config, changes yearly
+  // 6. Standard expense (from Table 3)
   const globalStandardExpense = 1150
 
-  let primaryCost = primaryDist * globalMileageRate
-  let secondaryCost = secondaryDist * globalMileageRate
+  // 7. LONG DISTANCE PARENTING ADJUSTMENT (Line 5 minus line 6; if less than zero, enter zero. Enter this amount on line 18a, worksheet A)
+  const longDistanceParentingAdjustment = totalCost - globalStandardExpense
+  return longDistanceParentingAdjustment < 0 ? 0 : longDistanceParentingAdjustment
+}
 
-  // @TODO 18B Other (specify) -- add to attachment as needed 
-  let primaryCostOther = form.StandardOfLiving.other
-  let secondaryCostOther = form.StandardOfLivingSecondary.other
+// WORKSHEET E: STANDARD OF LIVING ADJUSTMENT (SOLA)
+const calcStandardOfLivingAdjustment = (numChildren, adjustedIncome) => {
+  const solaFactors = [0.14, 0.21, 0.27, 0.31, 0.35, 0.39, 0.43, 0.47]
+  if (numChildren > 0 && numChildren <= solaFactors.length) {
+    return solaFactors[numChildren - 1] * adjustedIncome
+  } else if (numChildren > solaFactors.length) {
+    return solaFactors[solaFactors.length - 1] * adjustedIncome
+  } else {
+    return 0
+  }
+}
 
-  let primaryCostOtherTotal = []
-  Object.entries(primaryCostOther).forEach(([index, value]) => {
-    primaryCostOtherTotal.push(parseInt(value.amt))
-  })
-  let secondaryCostOtherTotal = []
-  Object.entries(secondaryCostOther).forEach(([index, value]) => {
-    secondaryCostOtherTotal.push(parseInt(value.amt))
-  })
-
-  let totalPrimaryOther = primaryCostOtherTotal.reduce((a, b) => a + b, 0)
-  let totalSecondaryOther = primaryCostOtherTotal.reduce((a, b) => a + b, 0)
-
-  let a = primaryCost + totalPrimaryOther
-  let b = secondaryCost + totalSecondaryOther
-  // console.log(a - globalStandardExpense)
-  // console.log(b - globalStandardExpense)
-
-  // @TODO 19 Adjusted income TODO line17-(18a+18b)
-
-  // @TODO 20 SOLA amount (Worksheet E)
-  // numChildren * line 19 * sola factor global
-
-  // @TODO 21 Add line 16 and line 20
-
-  // @TODO 23 Credit for payment of expenses (enter amount of line 12 expenses paid by each parent)
-  //expenses for each parent computed from 12e :(  
-
-  // @TODO 24 Total Annual Child Support (line 22 minus line 23; if less than zero, enter zero) 24 PA
-
-  return data
+const calcOther = (form, key) => {
+  if (!form[key]) return 0
+  return Object.values(form[key]).reduce((total, income) => {
+    return total + convertToNumber(income.amt)
+  }, 0)
 }
 
 module.exports = { calcSola }
