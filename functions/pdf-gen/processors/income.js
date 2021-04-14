@@ -62,15 +62,27 @@ const calcIncome = form => {
   }
 
   // 1D Unearned Income
+  if (form.OtherIncome.interest) {
+    const primaryInterest = convertToNumber(form.OtherIncome.interest)
+    data["income.mother.unearned"] = primaryInterest
+    totalPrimary.push(primaryInterest)
+  }
+
   if (form.OtherIncome.unearned) {
     const primaryUnearned = convertToNumber(form.OtherIncome.unearned)
-    data["income.mother.unearned"] = primaryUnearned
+    data["income.mother.unearned"] = data["income.mother.unearned"] ? data["income.mother.unearned"] + primaryUnearned : primaryUnearned
     totalPrimary.push(primaryUnearned)
+  }
+
+  if (form.OtherIncomeSecondary.interest) {
+    const secondaryInterest = convertToNumber(form.OtherIncomeSecondary.interest)
+    data["income.father.unearned"] = secondaryInterest
+    totalSecondary.push(secondaryInterest)
   }
 
   if (form.OtherIncomeSecondary.unearned) {
     const secondaryUnearned = convertToNumber(form.OtherIncomeSecondary.unearned)
-    data["income.father.unearned"] = secondaryUnearned
+    data["income.father.unearned"] = data["income.father.unearned"] ? data["income.father.unearned"] + secondaryUnearned : secondaryUnearned
     totalSecondary.push(secondaryUnearned)
   }
 
@@ -102,15 +114,27 @@ const calcIncome = form => {
   }
 
   // 1G Other taxable income (specify): @TODO add multiple entries to Attachment A (verify)
+  if(form.OtherIncome.prize) {
+    const primaryPrize = convertToNumber(form.OtherIncome.prize)
+    data["income.mother.other.taxable"] = primaryPrize
+    totalPrimary.push(primaryPrize)
+  }
+
   if (form.TaxableIncome) {
     const primaryTaxable = calcOtherIncome(form, "TaxableIncome")
-    data["income.mother.other.taxable"] = primaryTaxable
+    data["income.mother.other.taxable"] = data["income.mother.other.taxable"] ? data["income.mother.other.taxable"] + primaryTaxable : primaryTaxable
     totalPrimary.push(primaryTaxable)
+  }
+
+  if(form.OtherIncomeSecondary.prize) {
+    const secondaryPrize = convertToNumber(form.OtherIncomeSecondary.prize)
+    data["income.father.other.taxable"] = secondaryPrize
+    totalSecondary.push(secondaryPrize)
   }
 
   if (form.TaxableIncomeSecondary) {
     const secondaryTaxable = calcOtherIncome(form, "TaxableIncomeSecondary")
-    data["income.father.other.taxable"] = secondaryTaxable
+    data["income.father.other.taxable"] = data["income.father.other.taxable"] ? data["income.father.other.taxable"] + secondaryTaxable : secondaryTaxable
     totalSecondary.push(secondaryTaxable)
   }
 
