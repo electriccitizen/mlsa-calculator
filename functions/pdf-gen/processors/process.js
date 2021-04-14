@@ -1,3 +1,4 @@
+var moment = require("moment")
 // Hard-coded data for testing, copied from # Debug - Form values
 const init = require('./init.json')
 const { isNumber } = require("../helpers")
@@ -9,24 +10,24 @@ const { calcSola } = require("./sola")
 const { calcParentingDays } = require("./parenting")
 
 const processData = form => {
-  let initiate = []
+  let data = []
 
   // Pass hard-coded data to processors instead of form (init.json)
   form = init
 
   // Case #
-  form.CSED && (initiate["initiate.csed"] = form.CSED)
+  form.CSED && (data["initiate.csed"] = form.CSED)
 
   // Basic info
-  initiate["initiate.mother.name"] =
-    form.Primary.fname + " " + form.Primary.lname
-  initiate["initiate.father.name"] =
-    form.OtherParent.fname + " " + form.OtherParent.lname
+  let primaryName = form.Primary.fname + " " + form.Primary.lname
+  let secondaryName = form.OtherParent.fname + " " + form.OtherParent.lname
+  data["initiate.mother.name"] = primaryName
+  data["initiate.father.name"] = secondaryName
 
   // Primary children DOB
   Object.entries(form.PrimaryChildren).forEach(
     ([index, value]) =>
-    (initiate[`child.${parseInt(index) + 1}.bday`] = value.dob.replace(
+    (data[`child.${parseInt(index) + 1}.bday`] = value.dob.replace(
       /(\d{4})\-(\d{2})\-(\d{2}).*/,
       "$2-$3-$1"
     ))
@@ -47,32 +48,38 @@ const processData = form => {
   // ** PARENTING DAYS
   let parenting = calcParentingDays(form, sola)
 
-  // Worksheet B TODO
-  // mother/father name
+  // WORKSHEET PREPARED BY
+  data["worksheet.prepared"] = primaryName
+  data["worksheet.date"] = moment().format('MMMM D, YYYY')
 
-  //1 X for each child (limit 4 on one form)
+  if (parenting["initiate.documents.ab"] === "true") {
+    // Worksheet B TODO
+    // mother/father name
 
-  //2 divide line 11 wsA by numChildren and enter same amount for each child
+    //1 X for each child (limit 4 on one form)
 
-  //3 enter wsA 12a-12d by child -- total should equal line 12e wsA
+    //2 divide line 11 wsA by numChildren and enter same amount for each child
 
-  //4 add line 2+3
+    //3 enter wsA 12a-12d by child -- total should equal line 12e wsA
 
-  //5 add all from line 4 and enter in totals
+    //4 add line 2+3
 
-  //6 divide line 4/5 for each child
+    //5 add all from line 4 and enter in totals
 
-  // MOTHER
-  //7 line 22 Wsa in totals
-  //8 line 20 Wsa
-  //9  line8-line7
-  //10 line 6*8 for each child
-  //11 line 20 Wsa
-  //12 line 11/numChildren
-  //13 line 10+12
-  //14 mother: line 13-14 for each child.
+    //6 divide line 4/5 for each child
 
-  let data = {
+    // MOTHER
+    //7 line 22 Wsa in totals
+    //8 line 20 Wsa
+    //9  line8-line7
+    //10 line 6*8 for each child
+    //11 line 20 Wsa
+    //12 line 11/numChildren
+    //13 line 10+12
+    //14 mother: line 13-14 for each child.
+  }
+
+  let results = {
     ...income,
     ...deductions,
     ...percentages,
@@ -87,14 +94,14 @@ const processData = form => {
 
   // Format numbers to string
   return {
-    ...initiate,
-    ...Object.keys(data).reduce((acc, key) => {
+    ...data,
+    ...Object.keys(results).reduce((acc, key) => {
       return {
         ...acc,
         [key]:
-          isNumber(data[key]) ?
-            (Number.isInteger(data[key]) ? data[key] : data[key].toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") :
-            data[key]
+          isNumber(results[key]) ?
+            (Number.isInteger(results[key]) ? results[key] : results[key].toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") :
+            results[key]
       }
     }, {})
   }
