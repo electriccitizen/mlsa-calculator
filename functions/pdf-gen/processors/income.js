@@ -15,10 +15,22 @@ const calcIncome = form => {
     totalPrimary.push(primaryWages)
   }
 
+  if (form.OtherIncome.bonus) {
+    const primaryBonus = convertToNumber(form.OtherIncome.bonus)
+    data["income.mother.wages"] = data["income.mother.wages"] ? data["income.mother.wages"] + primaryBonus : primaryBonus
+    totalPrimary.push(primaryBonus)
+  }
+
   if (form.EmploymentSecondary) {
     const secondaryWages = calcWages(form, "EmploymentSecondary", "OtherJobSecondary")
     data["income.father.wages"] = secondaryWages
     totalSecondary.push(secondaryWages)
+  }
+
+  if (form.OtherIncomeSecondary.bonus) {
+    const secondaryBonus = convertToNumber(form.OtherIncomeSecondary.bonus)
+    data["income.father.wages"] = data["income.father.wages"] ? data["income.father.wages"] + secondaryBonus : secondaryBonus
+    totalSecondary.push(secondaryBonus)
   }
 
   // 1B Self-Employment net earnings
@@ -114,7 +126,7 @@ const calcIncome = form => {
   }
 
   // 1G Other taxable income (specify): @TODO add multiple entries to Attachment A (verify)
-  if(form.OtherIncome.prize) {
+  if (form.OtherIncome.prize) {
     const primaryPrize = convertToNumber(form.OtherIncome.prize)
     data["income.mother.other.taxable"] = primaryPrize
     totalPrimary.push(primaryPrize)
@@ -126,7 +138,7 @@ const calcIncome = form => {
     totalPrimary.push(primaryTaxable)
   }
 
-  if(form.OtherIncomeSecondary.prize) {
+  if (form.OtherIncomeSecondary.prize) {
     const secondaryPrize = convertToNumber(form.OtherIncomeSecondary.prize)
     data["income.father.other.taxable"] = secondaryPrize
     totalSecondary.push(secondaryPrize)
