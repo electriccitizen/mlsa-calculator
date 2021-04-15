@@ -8,7 +8,27 @@ const calcAllowableDeductions = (form, income) => {
   let totalPrimary = []
   let totalSecondary = []
 
-  // 2A Ordered child support for other children -- @TODO this applies to "other" children of the primary applicant
+  // 2A Ordered child support for other children
+  let primaryOtherChildrenSupport = []
+  if (form.OtherChildren) {
+    Object.values(form.OtherChildren).forEach((child) => {
+      if (child.support === "yes" && child.childSupportAmount) {
+        primaryOtherChildrenSupport.push(parseInt(child.childSupportAmount) * 12)
+      }
+    })
+  }
+
+  let secondaryOtherChildrenSupport = []
+  if (form.OtherChildrenSecondary) {
+    Object.values(form.OtherChildrenSecondary).forEach((child) => {
+      if (child.support === "yes" && child.childSupportAmount) {
+        secondaryOtherChildrenSupport.push(parseInt(child.childSupportAmount) * 12)
+      }
+    })
+  }
+  data["allowable.mother.childsupport"] = primaryOtherChildrenSupport.reduce((a, b) => a + b, 0)
+  data["allowable.father.childsupport"] = secondaryOtherChildrenSupport.reduce((a, b) => a + b, 0)
+
   // 2B  Allowance for other children from Table 2 -- @TODO need to write logic based on TABLE 2 (see doc link on project site)
 
   // 2C Ordered alimony/spousal support
@@ -122,16 +142,36 @@ const calcAllowableDeductions = (form, income) => {
     totalSecondary.push(secondary)
   }
 
-  //2J Dependent care expense for other children, less -- @TODO still need to read/decipher instructions for this field
+  //2J Dependent care expense for other children, less dependent care tax credit
+  let primaryOtherChildrenDependent = []
+  if (form.OtherChildren) {
+    Object.values(form.OtherChildren).forEach((child) => {
+      if (child.depcare === "yes") {
+        primaryOtherChildrenDependent.push(parseInt(child.depcareAmount))
+      }
+    })
+  }
+
+  let secondaryOtherChildrenDependent = []
+  if (form.OtherChildrenSecondary) {
+    Object.values(form.OtherChildrenSecondary).forEach((child) => {
+      if (child.depcare === "yes") {
+        secondaryOtherChildrenDependent.push(parseInt(child.depcareAmount))
+      }
+    })
+  }
+  data["allowable.mother.dependentcare"] = primaryOtherChildrenDependent.reduce((a, b) => a + b, 0)
+  data["allowable.father.dependent"] = secondaryOtherChildrenDependent.reduce((a, b) => a + b, 0)
+
   //2K Other (specify):___ @TODO add to attachment
-  if(form.AllowableDeductions.other) {
+  if (form.AllowableDeductions.other) {
     data["allowable.mother.other"] = calcOther(form, "OtherAllowableDeductions")
   }
 
-  if(form.AllowableDeductionsSecondary.other) {
+  if (form.AllowableDeductionsSecondary.other) {
     data["allowable.father.other"] = calcOther(form, "OtherAllowableDeductionsSecondary")
   }
-  
+
   if (data["allowable.mother.other"] || data["allowable.father.other"]) {
     data["allowable.mother.other-specify"] = "See Worksheet A Addendum"
   }
