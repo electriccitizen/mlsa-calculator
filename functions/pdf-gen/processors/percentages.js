@@ -1,3 +1,5 @@
+const { convertToNumber } = require("../helpers")
+
 const calcPercentages = (form, deductions) => {
   // See https://dphhs.mt.gov/Portals/85/csed/documents/cs404-2CSGuidelinesTables.pdf
 
@@ -49,17 +51,17 @@ const calcPercentages = (form, deductions) => {
 
   // 9 Parental share of combined income (line 7 ÷ line 8) 
   primary =
-    data["ppa.mother.compare"] /
+    (data["ppa.mother.compare"] /
     data["ppa.combined"] *
-    100
+    100).toFixed(2)
 
   secondary =
-    data["ppa.father.compare"] /
+    (data["ppa.father.compare"] /
     data["ppa.combined"] *
-    100
+    100).toFixed(2)
 
-  data["ppa.mother.share"] = primary
-  data["ppa.father.share"] = secondary
+  data["ppa.mother.share"] = convertToNumber(primary)
+  data["ppa.father.share"] = convertToNumber(secondary)
 
   // Callout
   data["ppa.mother.percentage"] = data["ppa.mother.share"]
