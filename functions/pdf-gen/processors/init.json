@@ -91,9 +91,8 @@
     "unearned": "50",
     "imputed": "50",
     "eitc": "50",
-    "prize": {
-      "desc": "Foo trophy"
-    },
+    "prize": "50",
+    "prizeDesc": "desc",
     "bonus": "1000",
     "taxable": true,
     "nontaxable": true,
@@ -201,15 +200,14 @@
       "mname": null,
       "lname": "Poppins",
       "dob": "2021-03-01T06:00:00.000Z",
-      "housing": "other",
+      "housing": "me",
       "otherHousing": "My mother",
       "benefits": "100",
-      "support": "yes",
-      "childSupportAmount": "100",
+      "support": "no",
       "depcare": "yes",
-      "depcareAmount": "100",
+      "depcareAmount": "1000",
       "medical": "yes",
-      "medicalAmount": "100",
+      "medicalAmount": "1000",
       "status": "none",
       "disabled": "no"
     },
@@ -222,10 +220,8 @@
       "benefits": "100",
       "support": "yes",
       "childSupportAmount": "100",
-      "depcare": "yes",
-      "depcareAmount": "100",
-      "medical": "yes",
-      "medicalAmount": "100",
+      "depcare": "no",
+      "medical": "no",
       "status": "none",
       "disabled": "no"
     }
@@ -241,9 +237,9 @@
       "support": "yes",
       "childSupportAmount": "100",
       "depcare": "yes",
-      "depcareAmount": "100",
+      "depcareAmount": "2000",
       "medical": "yes",
-      "medicalAmount": "100",
+      "medicalAmount": "2000",
       "otherParent": "yes",
       "status": "none",
       "disabled": "no"
@@ -257,10 +253,8 @@
       "benefits": "100",
       "support": "yes",
       "childSupportAmount": "100",
-      "depcare": "yes",
-      "depcareAmount": "100",
-      "medical": "yes",
-      "medicalAmount": null,
+      "depcare": "no",
+      "medical": "no",
       "otherParent": null,
       "status": "none",
       "disabled": "no"
@@ -270,15 +264,15 @@
     "children": {
       "0": {
         "name": null,
-        "amount": "300"
+        "amount": "200"
       },
       "1": {
         "name": null,
-        "amount": "300"
+        "amount": "200"
       },
       "2": {
         "name": null,
-        "amount": "300"
+        "amount": "200"
       }
     },
     "primary": "me"

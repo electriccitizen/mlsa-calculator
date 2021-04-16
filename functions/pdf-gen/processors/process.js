@@ -26,11 +26,11 @@ const processData = form => {
 
   // Primary children DOB
   Object.entries(form.PrimaryChildren).forEach(
-    ([index, value]) =>
-    (data[`child.${parseInt(index) + 1}.bday`] = value.dob.replace(
-      /(\d{4})\-(\d{2})\-(\d{2}).*/,
-      "$2-$3-$1"
-    ))
+    ([index, value]) => {
+      if (value.dob) {
+        data[`child.${parseInt(index) + 1}.bday`] = moment(value.dob).format('YYYY')
+      }
+    }
   )
 
   // 1 INCOME
@@ -88,8 +88,8 @@ const processData = form => {
   }
 
   // return {
-  //   ...initiate,
-  //   ...data
+  //   ...data,
+  //   ...results
   // }
 
   // Format numbers to string

@@ -9,7 +9,7 @@ const calcIncome = form => {
   let totalSecondary = []
 
   // 1A Wages, salaries, commissions
-  if (form.EmploymentPrimary) {
+  if (form.EmploymentPrimary && form.EmploymentPrimary.status !== "no") {
     const primaryWages = calcWages(form, "EmploymentPrimary", "OtherJob")
     data["income.mother.wages"] = primaryWages
     totalPrimary.push(primaryWages)
@@ -17,11 +17,14 @@ const calcIncome = form => {
 
   if (form.OtherIncome.bonus) {
     const primaryBonus = convertToNumber(form.OtherIncome.bonus)
-    data["income.mother.wages"] = data["income.mother.wages"] ? data["income.mother.wages"] + primaryBonus : primaryBonus
+    data["income.mother.wages"] =
+      data["income.mother.wages"] ?
+        data["income.mother.wages"] + primaryBonus :
+        primaryBonus
     totalPrimary.push(primaryBonus)
   }
 
-  if (form.EmploymentSecondary) {
+  if (form.EmploymentSecondary && form.EmploymentSecondary.status !== "no") {
     const secondaryWages = calcWages(form, "EmploymentSecondary", "OtherJobSecondary")
     data["income.father.wages"] = secondaryWages
     totalSecondary.push(secondaryWages)
@@ -29,7 +32,10 @@ const calcIncome = form => {
 
   if (form.OtherIncomeSecondary.bonus) {
     const secondaryBonus = convertToNumber(form.OtherIncomeSecondary.bonus)
-    data["income.father.wages"] = data["income.father.wages"] ? data["income.father.wages"] + secondaryBonus : secondaryBonus
+    data["income.father.wages"] =
+      data["income.father.wages"] ?
+        data["income.father.wages"] + secondaryBonus :
+        secondaryBonus
     totalSecondary.push(secondaryBonus)
   }
 
@@ -58,7 +64,10 @@ const calcIncome = form => {
   }
   if (form.OtherIncome.SSN) {
     const primarySsn = convertToNumber(form.OtherIncome.SSN)
-    data["income.mother.ssn"] = data["income.mother.ssn"] ? data["income.mother.ssn"] + primarySsn : primarySsn
+    data["income.mother.ssn"] =
+      data["income.mother.ssn"] ?
+        data["income.mother.ssn"] + primarySsn :
+        primarySsn
     totalPrimary.push(primarySsn)
   }
 
@@ -69,7 +78,10 @@ const calcIncome = form => {
   }
   if (form.OtherIncomeSecondary.SSN) {
     const secondarySsn = convertToNumber(form.OtherIncomeSecondary.SSN)
-    data["income.father.ssn"] = data["income.father.ssn"] ? data["income.father.ssn"] + secondarySsn : secondarySsn
+    data["income.father.ssn"] =
+      data["income.father.ssn"] ?
+        data["income.father.ssn"] + secondarySsn :
+        secondarySsn
     totalSecondary.push(secondarySsn)
   }
 
@@ -82,7 +94,10 @@ const calcIncome = form => {
 
   if (form.OtherIncome.unearned) {
     const primaryUnearned = convertToNumber(form.OtherIncome.unearned)
-    data["income.mother.unearned"] = data["income.mother.unearned"] ? data["income.mother.unearned"] + primaryUnearned : primaryUnearned
+    data["income.mother.unearned"] =
+      data["income.mother.unearned"] ?
+        data["income.mother.unearned"] + primaryUnearned :
+        primaryUnearned
     totalPrimary.push(primaryUnearned)
   }
 
@@ -94,19 +109,25 @@ const calcIncome = form => {
 
   if (form.OtherIncomeSecondary.unearned) {
     const secondaryUnearned = convertToNumber(form.OtherIncomeSecondary.unearned)
-    data["income.father.unearned"] = data["income.father.unearned"] ? data["income.father.unearned"] + secondaryUnearned : secondaryUnearned
+    data["income.father.unearned"] =
+      data["income.father.unearned"] ?
+        data["income.father.unearned"] + secondaryUnearned :
+        secondaryUnearned
     totalSecondary.push(secondaryUnearned)
   }
 
   // 1E Imputed income
   if (form.OtherIncome.imputed) {
-    const primaryImputed = convertToNumber(form.OtherIncome.imputed) * convertToNumber(form.OtherIncome.imputedSchedule)
+    const primaryImputed =
+      convertToNumber(form.OtherIncome.imputed) *
+      convertToNumber(form.OtherIncome.imputedSchedule)
     data["income.mother.imputed"] = primaryImputed
     totalPrimary.push(primaryImputed)
   }
 
   if (form.OtherIncomeSecondary.imputed) {
-    const secondaryImputed = convertToNumber(form.OtherIncomeSecondary.imputed) *
+    const secondaryImputed =
+      convertToNumber(form.OtherIncomeSecondary.imputed) *
       convertToNumber(form.OtherIncomeSecondary.imputedSchedule)
     data["income.father.imputed"] = secondaryImputed
     totalSecondary.push(secondaryImputed)
@@ -134,7 +155,10 @@ const calcIncome = form => {
 
   if (form.TaxableIncome) {
     const primaryTaxable = calcOtherIncome(form, "TaxableIncome")
-    data["income.mother.other.taxable"] = data["income.mother.other.taxable"] ? data["income.mother.other.taxable"] + primaryTaxable : primaryTaxable
+    data["income.mother.other.taxable"] =
+      data["income.mother.other.taxable"] ?
+        data["income.mother.other.taxable"] + primaryTaxable :
+        primaryTaxable
     totalPrimary.push(primaryTaxable)
   }
 
@@ -146,7 +170,10 @@ const calcIncome = form => {
 
   if (form.TaxableIncomeSecondary) {
     const secondaryTaxable = calcOtherIncome(form, "TaxableIncomeSecondary")
-    data["income.father.other.taxable"] = data["income.father.other.taxable"] ? data["income.father.other.taxable"] + secondaryTaxable : secondaryTaxable
+    data["income.father.other.taxable"] =
+      data["income.father.other.taxable"] ?
+        data["income.father.other.taxable"] + secondaryTaxable :
+        secondaryTaxable
     totalSecondary.push(secondaryTaxable)
   }
 
@@ -189,7 +216,7 @@ const calcWeeksBetween = (start, end) => {
 }
 
 const calcWage = (job) => {
-  let wage
+  let wage = 0
   let numWeeks
   let jobType = job.type
   let jobStart = job.start
@@ -248,24 +275,4 @@ const calcOtherIncome = (form, key) => {
   }, 0)
 }
 
-const calcImputed = form => {
-  switch (form.OtherIncome.ImputedSchedule) {
-    case "weekly":
-      form.OtherIncome.Imputed * 52
-      break
-    case "biweekly":
-      form.OtherIncome.Imputed * 26
-      break
-    case "bimonthly":
-      form.OtherIncome.Imputed * 24
-      break
-    case "monthly":
-      form.OtherIncome.Imputed * 12
-      break
-    case "yearly":
-      form.OtherIncome.Imputed
-      break
-  }
-}
-
-module.exports = { calcIncome, calcWages, calcImputed }
+module.exports = { calcIncome, calcWages }

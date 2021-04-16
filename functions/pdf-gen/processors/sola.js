@@ -1,4 +1,5 @@
 const { convertToNumber } = require('../helpers')
+const { calcChildExpenses } = require('./percentages')
 
 const calcSola = (form, percentages) => {
 
@@ -115,10 +116,11 @@ const calcSola = (form, percentages) => {
     data["sola.father.line21"]
   )
 
-  // @TODO verify this field
   // 23 Credit for payment of expenses (enter amount of line 12 expenses paid by each parent)
-  data["sola.mother.credit"] = percentages["ppa.totalSupplement"]
-  data["sola.father.credit"] = percentages["ppa.totalSupplement"]
+  let primaryChildExpenses = calcChildExpenses(form.ChildExpenses)
+  let secondaryChildExpenses = calcChildExpenses(form.ChildExpensesSecondary)
+  data["sola.mother.credit"] =  primaryChildExpenses.total 
+  data["sola.father.credit"] = secondaryChildExpenses.total
 
   // 24 Total Annual Child Support (line 22 minus line 23; if less than zero, enter zero) 24 PA
   let totalPrimary = data["sola.mother.gross"] - data["sola.mother.credit"]
@@ -179,7 +181,7 @@ const calcStandardOfLivingAdjustment = (numChildren, adjustedIncome) => {
 }
 
 const calcOther = (form, key) => {
-  if (!form[key]) return 0
+  if (!form[key] || form[key] === "no") return 0
   return Object.values(form[key]).reduce((total, income) => {
     return total + convertToNumber(income.amt)
   }, 0)
