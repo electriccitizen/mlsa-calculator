@@ -1,16 +1,16 @@
 const { convertToNumber } = require("../helpers")
+const { getAllowanceChildren, getPersonalAllowance } = require('../utils/support-tables')
 
 const calcPercentages = (form, deductions) => {
   // See https://dphhs.mt.gov/Portals/85/csed/documents/cs404-2CSGuidelinesTables.pdf
 
   // Totals
   let data = []
-  let secondary
 
-  // 4 Personal allowance from Table 1 -- @TODO We need to store this in a JSON config because it changes from year-to-year
-  const globalPPA = 16588
-  data["ppa.mother.allowance.from-table1"] = globalPPA
-  data["ppa.father.allowance.from-table1"] = globalPPA
+  // 4 Personal allowance from Table 1
+  const globalPPA = getPersonalAllowance()
+  data["ppa.mother.personalAllowance"] = globalPPA
+  data["ppa.father.personalAllowance"] = globalPPA
 
   // 5 Income available for child support (line 3 minus line 4; if less than zero, enter zero)
   let incomeAvailablePrimary = deductions["allowable.mother.income"] - globalPPA
@@ -66,46 +66,14 @@ const calcPercentages = (form, deductions) => {
   }
 
   // Callout
-  data["ppa.mother.percentage"] = data["ppa.mother.share"]
-  data["ppa.father.percentage"] = data["ppa.father.share"]
+  data["ppa.mother.percentageCallout"] = data["ppa.mother.share"]
+  data["ppa.father.percentageCallout"] = data["ppa.father.share"]
 
   // 10 Number of children listed above due support
   data["ppa.numChildren"] = form.NumPrimaryChildren
 
   // 11 Primary child support allowance from Table 2 
-  // @TODO these also need to go into a JSON config, they change yearly
-
-  let globalPSA
-  switch (form.NumPrimaryChildren) {
-    case "1":
-      globalPSA = 4967
-      break
-    case "2":
-      globalPSA = 8294
-      break
-    case "3":
-      globalPSA = 11612
-      break
-    case "4":
-      globalPSA = 13270
-      break
-    case "5":
-      globalPSA = 14929
-      break
-    case "6":
-      globalPSA = 16588
-      break
-    case "7":
-      globalPSA = 18247
-      break
-    case "8":
-      globalPSA = 19906
-      break
-    default:
-      globalPSA = 100
-  }
-
-  data["ppa.pcsa"] = globalPSA
+  data["ppa.pcsa"] = getAllowanceChildren(Number(form.NumPrimaryChildren))
 
   let primaryChildExpenses = calcChildExpenses(form.ChildExpenses)
   let secondaryChildExpenses = calcChildExpenses(form.ChildExpensesSecondary)
@@ -131,7 +99,7 @@ const calcPercentages = (form, deductions) => {
     secondaryChildExpenses.other
 
   if (data["ppa.other"]) {
-    data["ppa.other-specify"] = "See Worksheet A Addendum"
+    data["ppa.otherSpecify"] = "See Worksheet A Addendum"
   }
 
   //12E Total supplement (add lines 12a through 12d)

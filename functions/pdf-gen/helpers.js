@@ -10,4 +10,13 @@ function convertToString(value) {
     return String(value)
 }
 
-module.exports = { isNumber, convertToNumber, convertToString }
+const getValue = (nestedObj, pathArr, defaultTo = 0) => {
+    return pathArr.reduce((obj, key) =>
+        (obj && obj[key] !== undefined) ? obj[key] : defaultTo, nestedObj)
+}
+
+const getValueAsNumber = (...args) => {
+    return Number(getValue(...args))
+}
+
+module.exports = { isNumber, convertToNumber, convertToString, getValue, getValueAsNumber }

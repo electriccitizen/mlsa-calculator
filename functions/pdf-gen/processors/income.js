@@ -149,61 +149,61 @@ const calcIncome = form => {
   // 1G Other taxable income (specify): @TODO add multiple entries to Attachment A (verify)
   if (form.OtherIncome.prize) {
     const primaryPrize = convertToNumber(form.OtherIncome.prize)
-    data["income.mother.other.taxable"] = primaryPrize
+    data["income.mother.otherTaxable"] = primaryPrize
     totalPrimary.push(primaryPrize)
   }
 
   if (form.TaxableIncome) {
     const primaryTaxable = calcOtherIncome(form, "TaxableIncome")
-    data["income.mother.other.taxable"] =
-      data["income.mother.other.taxable"] ?
-        data["income.mother.other.taxable"] + primaryTaxable :
+    data["income.mother.otherTaxable"] =
+      data["income.mother.otherTaxable"] ?
+        data["income.mother.otherTaxable"] + primaryTaxable :
         primaryTaxable
     totalPrimary.push(primaryTaxable)
   }
 
   if (form.OtherIncomeSecondary.prize) {
     const secondaryPrize = convertToNumber(form.OtherIncomeSecondary.prize)
-    data["income.father.other.taxable"] = secondaryPrize
+    data["income.father.otherTaxable"] = secondaryPrize
     totalSecondary.push(secondaryPrize)
   }
 
   if (form.TaxableIncomeSecondary) {
     const secondaryTaxable = calcOtherIncome(form, "TaxableIncomeSecondary")
-    data["income.father.other.taxable"] =
-      data["income.father.other.taxable"] ?
-        data["income.father.other.taxable"] + secondaryTaxable :
+    data["income.father.otherTaxable"] =
+      data["income.father.otherTaxable"] ?
+        data["income.father.otherTaxable"] + secondaryTaxable :
         secondaryTaxable
     totalSecondary.push(secondaryTaxable)
   }
 
-  if (data["income.mother.other.taxable"] || data["income.father.other.taxable"]) {
-    data["income.mother.other.taxable-specify"] = "See Worksheet A Addendum"
+  if (data["income.mother.otherTaxable"] || data["income.father.otherTaxable"]) {
+    data["income.otherTaxableSpecify"] = "See Worksheet A Addendum"
   }
 
   // 1H Other non-taxable income (specify(): @TODO add multiple entries to Attachment A
   if (form.NonTaxableIncome) {
     const primaryTaxable = calcOtherIncome(form, "NonTaxableIncome")
-    data["income.mother.other.nontax"] = primaryTaxable
+    data["income.mother.otherNonTaxable"] = primaryTaxable
     totalPrimary.push(primaryTaxable)
   }
 
   if (form.NonTaxableIncomeSecondary) {
     const secondaryNonTaxable = calcOtherIncome(form, "NonTaxableIncomeSecondary")
-    data["income.father.other.nontax"] = secondaryNonTaxable
+    data["income.father.otherNonTaxable"] = secondaryNonTaxable
     totalSecondary.push(secondaryNonTaxable)
   }
 
-  if (data["income.mother.other.nontax"] || data["income.father.other.nontax"]) {
-    data["income.mother.other.nontax-specify"] = "See Worksheet A Addendum"
+  if (data["income.mother.otherNonTaxable"] || data["income.father.otherNonTaxable"]) {
+    data["income.otherNontaxSpecify"] = "See Worksheet A Addendum"
   }
 
   // 1I TOTAL INCOME -- SUM(1A:1H)
   data["income.mother.total"] = totalPrimary.reduce((a, b) => a + b, 0)
   data["income.father.total"] = totalSecondary.reduce((a, b) => a + b, 0)
 
-  data["income.mother.total-callout"] = data["income.mother.total"]
-  data["income.father.total-callout"] = data["income.father.total"]
+  data["income.mother.totalCallout"] = data["income.mother.total"]
+  data["income.father.totalCallout"] = data["income.father.total"]
 
   return data
 }

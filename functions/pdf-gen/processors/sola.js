@@ -1,5 +1,6 @@
 const { convertToNumber } = require('../helpers')
 const { calcChildExpenses } = require('./percentages')
+const { getIRSBusinessMileageRate, getStandardExpense } = require('../utils/support-tables')
 
 const calcSola = (form, percentages) => {
 
@@ -102,7 +103,7 @@ const calcSola = (form, percentages) => {
 
   // 18b Other (specify)
   if (data["sola.mother.other"] || data["sola.father.other"]) {
-    data["sola.other-specify"] = "See Worksheet A Addendum"
+    data["sola.otherSpecify"] = "See Worksheet A Addendum"
   }
 
   // 22 Gross Annual Child Support (for each parent, compare line 21 to line 6; enter the higher amount)
@@ -127,8 +128,8 @@ const calcSola = (form, percentages) => {
   let totalSecondary = data["sola.father.gross"] - data["sola.father.credit"]
   data["sola.mother.total"] = totalPrimary < 0 ? 0 : totalPrimary
   data["sola.father.total"] = totalSecondary < 0 ? 0 : totalSecondary
-  data["sola.mother.total-callout"] = data["sola.mother.total"]
-  data["sola.father.total-callout"] = data["sola.father.total"]
+  data["sola.mother.totalCallout"] = data["sola.mother.total"]
+  data["sola.father.totalCallout"] = data["sola.father.total"]
 
   return data
 }
@@ -143,9 +144,8 @@ const calcLongDistanceParentingAdjustment = (standardOfLiving) => {
     distance = convertToNumber(standardOfLiving.mileage.distance)
   }
 
-  // From Table3 @TODO need to go into json config, changes yearly
   // 2. Current IRS business mileage rate (from Table 3)
-  const globalMileageRate = 0.575
+  const globalMileageRate = getIRSBusinessMileageRate()
 
   // 3. Parent’s mileage cost (line 1 times line 2
   const mileageCost = distance * globalMileageRate
@@ -159,9 +159,8 @@ const calcLongDistanceParentingAdjustment = (standardOfLiving) => {
   // 5. Parent’s total cost (line 3 plus line 4)
   const totalCost = mileageCost + annualCost
 
-  // From Table3 @TODO need to go into json config, changes yearly
   // 6. Standard expense (from Table 3)
-  const globalStandardExpense = 1150
+  const globalStandardExpense = getStandardExpense()
 
   // 7. LONG DISTANCE PARENTING ADJUSTMENT (Line 5 minus line 6; if less than zero, enter zero. Enter this amount on line 18a, worksheet A)
   const longDistanceParentingAdjustment = totalCost - globalStandardExpense
