@@ -9,7 +9,10 @@ const { calcPercentages } = require("./percentages")
 const { calcSola } = require("./sola")
 const { calcParentingDays } = require("./parenting")
 
-const processData = form => {
+const processData = (form, pdfs) => {
+  // Override pdfs array to object with names
+  pdfs = pdfs && pdfs.reduce((names, pdf) => ({ ...names, [pdf.name]: pdf.name }), {})
+
   let data = []
 
   // Pass hard-coded data to processors instead of form (init.json)
@@ -93,17 +96,31 @@ const processData = form => {
   // }
 
   // Format numbers to string
+  // return {
+  //   ...data,
+  //   ...Object.keys(results).reduce((acc, key) => {
+  //     return {
+  //       ...acc,
+  //       [key]:
+  //         isNumber(results[key]) ?
+  //           (Number.isInteger(results[key]) ? results[key] : results[key].toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") :
+  //           results[key]
+  //     }
+  //   }, {})
+  // }
   return {
-    ...data,
-    ...Object.keys(results).reduce((acc, key) => {
-      return {
-        ...acc,
-        [key]:
-          isNumber(results[key]) ?
-            (Number.isInteger(results[key]) ? results[key] : results[key].toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") :
-            results[key]
-      }
-    }, {})
+    [pdfs.wsa]: {
+      ...data,
+      ...Object.keys(results).reduce((acc, key) => {
+        return {
+          ...acc,
+          [key]:
+            isNumber(results[key]) ?
+              (Number.isInteger(results[key]) ? results[key] : results[key].toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") :
+              results[key]
+        }
+      }, {})
+    }
   }
 }
 
