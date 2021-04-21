@@ -1,3 +1,4 @@
+var moment = require("moment")
 // Hard-coded data for testing, copied from # Debug - Form values
 const init = require('./init.json')
 const { isNumber } = require("../helpers")
@@ -6,29 +7,33 @@ const { calcIncome } = require("./income")
 const { calcAllowableDeductions } = require("./deductions")
 const { calcPercentages } = require("./percentages")
 const { calcSola } = require("./sola")
+const { calcParentingDays } = require("./parenting")
 
-const processData = form => {
-  let initiate = []
+const processData = (form, pdfs) => {
+  // Override pdfs array to object with names
+  pdfs = pdfs && pdfs.reduce((names, pdf) => ({ ...names, [pdf.name]: pdf.name }), {})
+
+  let data = []
 
   // Pass hard-coded data to processors instead of form (init.json)
   form = init
 
   // Case #
-  form.CSED && (initiate["initiate.csed"] = form.CSED)
+  form.CSED && (data["initiate.csed"] = form.CSED)
 
   // Basic info
-  initiate["initiate.mother.name"] =
-    form.Primary.fname + " " + form.Primary.lname
-  initiate["initiate.father.name"] =
-    form.OtherParent.fname + " " + form.OtherParent.lname
+  let primaryName = form.Primary.fname + " " + form.Primary.lname
+  let secondaryName = form.OtherParent.fname + " " + form.OtherParent.lname
+  data["initiate.mother.name"] = primaryName
+  data["initiate.father.name"] = secondaryName
 
   // Primary children DOB
   Object.entries(form.PrimaryChildren).forEach(
-    ([index, value]) =>
-    (initiate[`child.${parseInt(index) + 1}.bday`] = value.dob.replace(
-      /(\d{4})\-(\d{2})\-(\d{2}).*/,
-      "$2-$3-$1"
-    ))
+    ([index, value]) => {
+      if (value.dob) {
+        data[`child.${parseInt(index) + 1}.bday`] = moment(value.dob).format('YYYY')
+      }
+    }
   )
 
   // 1 INCOME
@@ -44,84 +49,78 @@ const processData = form => {
   let sola = calcSola(form, percentages)
 
   // ** PARENTING DAYS
-  // 25a TODO
-  // calculate number of each days for both parents * numChildren
+  let parenting = calcParentingDays(form, sola)
 
-  // 25b TODO
-  // divide mothers line 24 by line 10 (numChild) and enter same amount for each child
-  // same for father column
+  // WORKSHEET PREPARED BY
+  data["worksheet.prepared"] = primaryName
+  data["worksheet.date"] = moment().format('MMMM D, YYYY')
 
-  // 25b Total TODO
-  // total parents columns in 25b above
+  if (parenting["initiate.documents.ab"] === "true") {
+    // Worksheet B TODO
+    // mother/father name
 
-  // See notes on rounding .49 down/.50 up
+    //1 X for each child (limit 4 on one form)
 
-  // 26 TODO
-  //Do ALL primary children live with same primary and > 110 with other parent?
-  // if yes:
+    //2 divide line 11 wsA by numChildren and enter same amount for each child
 
-  //26a/b TODO
-  // divide each child's ANNUAL support from Table 25-b, by 12,
-  // round per instructions and enter each child's amt for each parent into
-  // table 26b
-  // Total columns and
-  // enter total for non-residential parent at line 27.
+    //3 enter wsA 12a-12d by child -- total should equal line 12e wsA
 
-  //if no: TODO
-  // Complete Worksheet B parts 1 and 2
-  // follow instructs for adding results to 26a
-  // then divide each amount in 26a by 12, round according to instr
-  // and endter in MONTHLUY column of Table 26b.
+    //4 add line 2+3
 
-  // Worksheet B TODO
-  // mother/father name
+    //5 add all from line 4 and enter in totals
 
-  //1 X for each child (limit 4 on one form)
+    //6 divide line 4/5 for each child
 
-  //2 divide line 11 wsA by numChildren and enter same amount for each child
+    // MOTHER
+    //7 line 22 Wsa in totals
+    //8 line 20 Wsa
+    //9  line8-line7
+    //10 line 6*8 for each child
+    //11 line 20 Wsa
+    //12 line 11/numChildren
+    //13 line 10+12
+    //14 mother: line 13-14 for each child.
+  }
 
-  //3 enter wsA 12a-12d by child -- total should equal line 12e wsA
-
-  //4 add line 2+3
-
-  //5 add all from line 4 and enter in totals
-
-  //6 divide line 4/5 for each child
-
-  // MOTHER
-  //7 line 22 Wsa in totals
-  //8 line 20 Wsa
-  //9  line8-line7
-  //10 line 6*8 for each child
-  //11 line 20 Wsa
-  //12 line 11/numChildren
-  //13 line 10+12
-  //14 mother: line 13-14 for each child.
-
-  let data = {
+  let results = {
     ...income,
     ...deductions,
     ...percentages,
     ...sola,
+    ...parenting
   }
 
   // return {
-  //   ...initiate,
-  //   ...data
+  //   ...data,
+  //   ...results
   // }
 
   // Format numbers to string
+  // return {
+  //   ...data,
+  //   ...Object.keys(results).reduce((acc, key) => {
+  //     return {
+  //       ...acc,
+  //       [key]:
+  //         isNumber(results[key]) ?
+  //           (Number.isInteger(results[key]) ? results[key] : results[key].toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") :
+  //           results[key]
+  //     }
+  //   }, {})
+  // }
   return {
-    ...initiate,
-    ...Object.keys(data).reduce((acc, key) => {
-      return {
-        ...acc,
-        [key]:
-          isNumber(data[key]) ?
-            (Number.isInteger(data[key]) ? data[key] : data[key].toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") :
-            data[key]
-      }
-    }, {})
+    [pdfs.wsa]: {
+      ...data,
+      ...Object.keys(results).reduce((acc, key) => {
+        return {
+          ...acc,
+          [key]:
+            isNumber(results[key]) ?
+              (Number.isInteger(results[key]) ? results[key] : results[key].toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") :
+              results[key]
+        }
+      }, {})
+    }
   }
 }
 

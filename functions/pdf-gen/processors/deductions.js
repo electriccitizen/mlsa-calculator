@@ -1,4 +1,5 @@
 const { convertToNumber } = require('../helpers')
+const { getAllowanceOtherChildren } = require('../utils/support-tables')
 
 const calcAllowableDeductions = (form, income) => {
   // Totals
@@ -8,8 +9,43 @@ const calcAllowableDeductions = (form, income) => {
   let totalPrimary = []
   let totalSecondary = []
 
-  // 2A Ordered child support for other children -- @TODO this applies to "other" children of the primary applicant
-  // 2B  Allowance for other children from Table 2 -- @TODO need to write logic based on TABLE 2 (see doc link on project site)
+  // 2A Ordered child support for other children
+  let primaryOtherChildrenSupport = []
+  if (form.OtherChildren) {
+    Object.values(form.OtherChildren).forEach((child) => {
+      if (child.support === "yes" && child.childSupportAmount) {
+        primaryOtherChildrenSupport.push(parseInt(child.childSupportAmount) * 12)
+      }
+    })
+  }
+
+  let secondaryOtherChildrenSupport = []
+  if (form.OtherChildrenSecondary) {
+    Object.values(form.OtherChildrenSecondary).forEach((child) => {
+      if (child.support === "yes" && child.childSupportAmount) {
+        secondaryOtherChildrenSupport.push(parseInt(child.childSupportAmount) * 12)
+      }
+    })
+  }
+  data["allowable.mother.childsupport"] = primaryOtherChildrenSupport.reduce((a, b) => a + b, 0)
+  data["allowable.father.childsupport"] = secondaryOtherChildrenSupport.reduce((a, b) => a + b, 0)
+
+  // 2B  Allowance for other children from Table 2
+  if (form.OtherChildren) {
+    let primaryNumOtherChildrenAllowance = Object.values(form.OtherChildren).filter((child) => {
+      return child.housing === "me" && child.support === "no"
+    }).length
+
+    data["allowable.mother.allowanceOtherChildren"] = getAllowanceOtherChildren(primaryNumOtherChildrenAllowance)
+  }
+
+  if (form.OtherChildrenSecondary) {
+    let secondaryNumOtherChildrenSecondaryAllowance = Object.values(form.OtherChildrenSecondary).filter((child) => {
+      return child.housing === "me" && child.support === "no"
+    }).length
+
+    data["allowable.father.allowanceOtherChildren"] = getAllowanceOtherChildren(secondaryNumOtherChildrenSecondaryAllowance)
+  }
 
   // 2C Ordered alimony/spousal support
   if (form.AllowableDeductions.alimony) {
@@ -122,8 +158,39 @@ const calcAllowableDeductions = (form, income) => {
     totalSecondary.push(secondary)
   }
 
-  //2J Dependent care expense for other children, less -- @TODO still need to read/decipher instructions for this field
-  //2K Other (specify):___ @TODO Sum, plus add to attachment
+  //2J Dependent care expense for other children, less dependent care tax credit
+  let primaryOtherChildrenDependent = []
+  if (form.OtherChildren) {
+    Object.values(form.OtherChildren).forEach((child) => {
+      if (child.depcare === "yes" && child.depcareAmount) {
+        primaryOtherChildrenDependent.push(parseInt(child.depcareAmount))
+      }
+    })
+  }
+
+  let secondaryOtherChildrenDependent = []
+  if (form.OtherChildrenSecondary) {
+    Object.values(form.OtherChildrenSecondary).forEach((child) => {
+      if (child.depcare === "yes" && child.depcareAmount) {
+        secondaryOtherChildrenDependent.push(parseInt(child.depcareAmount))
+      }
+    })
+  }
+  data["allowable.mother.dependentcare"] = primaryOtherChildrenDependent.reduce((a, b) => a + b, 0)
+  data["allowable.father.dependentcare"] = secondaryOtherChildrenDependent.reduce((a, b) => a + b, 0)
+
+  //2K Other (specify):___ @TODO add to attachment
+  if (form.AllowableDeductions.other) {
+    data["allowable.mother.other"] = calcOther(form, "OtherAllowableDeductions")
+  }
+
+  if (form.AllowableDeductionsSecondary.other) {
+    data["allowable.father.other"] = calcOther(form, "OtherAllowableDeductionsSecondary")
+  }
+
+  if (data["allowable.mother.other"] || data["allowable.father.other"]) {
+    data["allowable.otherSpecify"] = "See Worksheet A Addendum"
+  }
 
   //2L TOTAL ALLOWABLE DEDUCTIONS (Add 2a through 2k) 
   data["allowable.mother.total"] = totalPrimary.reduce((a, b) => a + b, 0)
@@ -132,10 +199,16 @@ const calcAllowableDeductions = (form, income) => {
   // Line 3 INCOME AFTER DEDUCTIONS
   data["allowable.mother.income"] = income["income.mother.total"] - data["allowable.mother.total"]
   data["allowable.father.income"] = income["income.father.total"] - data["allowable.father.total"]
-  data["allowable.mother.income-callout"] = income["income.mother.total"] - data["allowable.mother.total"]
-  data["allowable.father.income-callout"] = income["income.father.total"] - data["allowable.father.total"]
+  data["allowable.mother.incomeCallout"] = income["income.mother.total"] - data["allowable.mother.total"]
+  data["allowable.father.incomeCallout"] = income["income.father.total"] - data["allowable.father.total"]
 
   return data
+}
+
+const calcOther = (form, key) => {
+  return Object.values(form[key]).reduce((total, income) => {
+    return total + convertToNumber(income.amount)
+  }, 0)
 }
 
 module.exports = { calcAllowableDeductions }

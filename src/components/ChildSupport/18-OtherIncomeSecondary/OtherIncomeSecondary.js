@@ -247,7 +247,7 @@ export const OtherIncomeSecondary = () => {
               type="text"
             />
             <FieldInput
-              name={`OtherIncomeSecondary.prize.desc`}
+              name={`OtherIncomeSecondary.prizeDesc`}
               label="Describe the prize, including its present location."
               required="Required"
               type="text"

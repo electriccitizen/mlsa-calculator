@@ -9,16 +9,34 @@ const calcIncome = form => {
   let totalSecondary = []
 
   // 1A Wages, salaries, commissions
-  if (form.EmploymentPrimary) {
+  if (form.EmploymentPrimary && form.EmploymentPrimary.status !== "no") {
     const primaryWages = calcWages(form, "EmploymentPrimary", "OtherJob")
     data["income.mother.wages"] = primaryWages
     totalPrimary.push(primaryWages)
   }
 
-  if (form.EmploymentSecondary) {
+  if (form.OtherIncome.bonus) {
+    const primaryBonus = convertToNumber(form.OtherIncome.bonus)
+    data["income.mother.wages"] =
+      data["income.mother.wages"] ?
+        data["income.mother.wages"] + primaryBonus :
+        primaryBonus
+    totalPrimary.push(primaryBonus)
+  }
+
+  if (form.EmploymentSecondary && form.EmploymentSecondary.status !== "no") {
     const secondaryWages = calcWages(form, "EmploymentSecondary", "OtherJobSecondary")
     data["income.father.wages"] = secondaryWages
     totalSecondary.push(secondaryWages)
+  }
+
+  if (form.OtherIncomeSecondary.bonus) {
+    const secondaryBonus = convertToNumber(form.OtherIncomeSecondary.bonus)
+    data["income.father.wages"] =
+      data["income.father.wages"] ?
+        data["income.father.wages"] + secondaryBonus :
+        secondaryBonus
+    totalSecondary.push(secondaryBonus)
   }
 
   // 1B Self-Employment net earnings
@@ -46,7 +64,10 @@ const calcIncome = form => {
   }
   if (form.OtherIncome.SSN) {
     const primarySsn = convertToNumber(form.OtherIncome.SSN)
-    data["income.mother.ssn"] = data["income.mother.ssn"] ? data["income.mother.ssn"] + primarySsn : primarySsn
+    data["income.mother.ssn"] =
+      data["income.mother.ssn"] ?
+        data["income.mother.ssn"] + primarySsn :
+        primarySsn
     totalPrimary.push(primarySsn)
   }
 
@@ -57,32 +78,56 @@ const calcIncome = form => {
   }
   if (form.OtherIncomeSecondary.SSN) {
     const secondarySsn = convertToNumber(form.OtherIncomeSecondary.SSN)
-    data["income.father.ssn"] = data["income.father.ssn"] ? data["income.father.ssn"] + secondarySsn : secondarySsn
+    data["income.father.ssn"] =
+      data["income.father.ssn"] ?
+        data["income.father.ssn"] + secondarySsn :
+        secondarySsn
     totalSecondary.push(secondarySsn)
   }
 
   // 1D Unearned Income
+  if (form.OtherIncome.interest) {
+    const primaryInterest = convertToNumber(form.OtherIncome.interest)
+    data["income.mother.unearned"] = primaryInterest
+    totalPrimary.push(primaryInterest)
+  }
+
   if (form.OtherIncome.unearned) {
     const primaryUnearned = convertToNumber(form.OtherIncome.unearned)
-    data["income.mother.unearned"] = primaryUnearned
+    data["income.mother.unearned"] =
+      data["income.mother.unearned"] ?
+        data["income.mother.unearned"] + primaryUnearned :
+        primaryUnearned
     totalPrimary.push(primaryUnearned)
+  }
+
+  if (form.OtherIncomeSecondary.interest) {
+    const secondaryInterest = convertToNumber(form.OtherIncomeSecondary.interest)
+    data["income.father.unearned"] = secondaryInterest
+    totalSecondary.push(secondaryInterest)
   }
 
   if (form.OtherIncomeSecondary.unearned) {
     const secondaryUnearned = convertToNumber(form.OtherIncomeSecondary.unearned)
-    data["income.father.unearned"] = secondaryUnearned
+    data["income.father.unearned"] =
+      data["income.father.unearned"] ?
+        data["income.father.unearned"] + secondaryUnearned :
+        secondaryUnearned
     totalSecondary.push(secondaryUnearned)
   }
 
   // 1E Imputed income
   if (form.OtherIncome.imputed) {
-    const primaryImputed = convertToNumber(form.OtherIncome.imputed) * convertToNumber(form.OtherIncome.imputedSchedule)
+    const primaryImputed =
+      convertToNumber(form.OtherIncome.imputed) *
+      convertToNumber(form.OtherIncome.imputedSchedule)
     data["income.mother.imputed"] = primaryImputed
     totalPrimary.push(primaryImputed)
   }
 
   if (form.OtherIncomeSecondary.imputed) {
-    const secondaryImputed = convertToNumber(form.OtherIncomeSecondary.imputed) *
+    const secondaryImputed =
+      convertToNumber(form.OtherIncomeSecondary.imputed) *
       convertToNumber(form.OtherIncomeSecondary.imputedSchedule)
     data["income.father.imputed"] = secondaryImputed
     totalSecondary.push(secondaryImputed)
@@ -102,45 +147,63 @@ const calcIncome = form => {
   }
 
   // 1G Other taxable income (specify): @TODO add multiple entries to Attachment A (verify)
+  if (form.OtherIncome.prize) {
+    const primaryPrize = convertToNumber(form.OtherIncome.prize)
+    data["income.mother.otherTaxable"] = primaryPrize
+    totalPrimary.push(primaryPrize)
+  }
+
   if (form.TaxableIncome) {
     const primaryTaxable = calcOtherIncome(form, "TaxableIncome")
-    data["income.mother.other.taxable"] = primaryTaxable
+    data["income.mother.otherTaxable"] =
+      data["income.mother.otherTaxable"] ?
+        data["income.mother.otherTaxable"] + primaryTaxable :
+        primaryTaxable
     totalPrimary.push(primaryTaxable)
+  }
+
+  if (form.OtherIncomeSecondary.prize) {
+    const secondaryPrize = convertToNumber(form.OtherIncomeSecondary.prize)
+    data["income.father.otherTaxable"] = secondaryPrize
+    totalSecondary.push(secondaryPrize)
   }
 
   if (form.TaxableIncomeSecondary) {
     const secondaryTaxable = calcOtherIncome(form, "TaxableIncomeSecondary")
-    data["income.father.other.taxable"] = secondaryTaxable
+    data["income.father.otherTaxable"] =
+      data["income.father.otherTaxable"] ?
+        data["income.father.otherTaxable"] + secondaryTaxable :
+        secondaryTaxable
     totalSecondary.push(secondaryTaxable)
   }
 
-  if (data["income.mother.other.taxable"] || data["income.father.other.taxable"]) {
-    data["income.mother.other.taxable-specify"] = "See Worksheet A Addendum"
+  if (data["income.mother.otherTaxable"] || data["income.father.otherTaxable"]) {
+    data["income.otherTaxableSpecify"] = "See Worksheet A Addendum"
   }
 
   // 1H Other non-taxable income (specify(): @TODO add multiple entries to Attachment A
   if (form.NonTaxableIncome) {
     const primaryTaxable = calcOtherIncome(form, "NonTaxableIncome")
-    data["income.mother.other.nontax"] = primaryTaxable
+    data["income.mother.otherNonTaxable"] = primaryTaxable
     totalPrimary.push(primaryTaxable)
   }
 
   if (form.NonTaxableIncomeSecondary) {
     const secondaryNonTaxable = calcOtherIncome(form, "NonTaxableIncomeSecondary")
-    data["income.father.other.nontax"] = secondaryNonTaxable
+    data["income.father.otherNonTaxable"] = secondaryNonTaxable
     totalSecondary.push(secondaryNonTaxable)
   }
 
-  if (data["income.mother.other.nontax"] || data["income.father.other.nontax"]) {
-    data["income.mother.other.nontax-specify"] = "See Worksheet A Addendum"
+  if (data["income.mother.otherNonTaxable"] || data["income.father.otherNonTaxable"]) {
+    data["income.otherNontaxSpecify"] = "See Worksheet A Addendum"
   }
 
   // 1I TOTAL INCOME -- SUM(1A:1H)
   data["income.mother.total"] = totalPrimary.reduce((a, b) => a + b, 0)
   data["income.father.total"] = totalSecondary.reduce((a, b) => a + b, 0)
 
-  data["income.mother.total-callout"] = data["income.mother.total"]
-  data["income.father.total-callout"] = data["income.father.total"]
+  data["income.mother.totalCallout"] = data["income.mother.total"]
+  data["income.father.totalCallout"] = data["income.father.total"]
 
   return data
 }
@@ -153,7 +216,7 @@ const calcWeeksBetween = (start, end) => {
 }
 
 const calcWage = (job) => {
-  let wage
+  let wage = 0
   let numWeeks
   let jobType = job.type
   let jobStart = job.start
@@ -212,24 +275,4 @@ const calcOtherIncome = (form, key) => {
   }, 0)
 }
 
-const calcImputed = form => {
-  switch (form.OtherIncome.ImputedSchedule) {
-    case "weekly":
-      form.OtherIncome.Imputed * 52
-      break
-    case "biweekly":
-      form.OtherIncome.Imputed * 26
-      break
-    case "bimonthly":
-      form.OtherIncome.Imputed * 24
-      break
-    case "monthly":
-      form.OtherIncome.Imputed * 12
-      break
-    case "yearly":
-      form.OtherIncome.Imputed
-      break
-  }
-}
-
-module.exports = { calcIncome, calcWages, calcImputed }
+module.exports = { calcIncome, calcWages }

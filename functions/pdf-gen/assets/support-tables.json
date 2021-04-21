@@ -1,0 +1,31 @@
+{
+    "table-1": {
+        "personal-allowance": "16744"
+    },
+    "table-2": {
+        "allowance-children": [
+            "5023",
+            "8372",
+            "11721",
+            "13395",
+            "15070",
+            "16744",
+            "18418",
+            "20093"
+        ],
+        "allowance-other-children": [
+            "2512",
+            "4186",
+            "5861",
+            "6698",
+            "7535",
+            "8372",
+            "9209",
+            "10047"
+        ]
+    },
+    "table-3": {
+        "irs-business-mileage-rate": "0.575",
+        "standard-expense": "1150"
+    }
+}

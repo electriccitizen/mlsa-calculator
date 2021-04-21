@@ -42,7 +42,7 @@ export const ParentingDays = number => {
         >
 
           <FieldChild
-            name={`ParentingDays.${index}.name`}
+            name={`ParentingDays.children.${index}.name`}
             label={"Child's name"}
             child={
               form.values.PrimaryChildren &&
@@ -60,7 +60,7 @@ export const ParentingDays = number => {
 
 
           <FieldInput
-            name={`ParentingDays.${index}.amount`}
+            name={`ParentingDays.children.${index}.amount`}
             label="Days spent per year with you"
             defaultValue=""
             type="text"
