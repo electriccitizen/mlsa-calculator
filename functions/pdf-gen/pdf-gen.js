@@ -1,7 +1,6 @@
 "use strict"
 
 const pdftk = require('node-pdftk')
-const path = require('path');
 const { processData } = require('./processors/process')
 
 // Set the root path
@@ -17,8 +16,8 @@ process.env.LD_LIBRARY_PATH = `${ROOT}/src/bin`
 
 // Set the directory where temporary files are stored
 pdftk.configure({
-  // tempDir: `${ROOT}/node-pdftk-tmp`
-  tempDir: path.join(__dirname, './node-pdftk-tmp')
+  bin: `${ROOT}/src/bin`,
+  tempDir: `${ROOT}/node-pdftk-tmp`
 })
 
 // Sources pdf files
