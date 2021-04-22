@@ -68,6 +68,11 @@ exports.handler = function (event, context, callback) {
     const formData = JSON.parse(event.body)
     const data = processData(formData, pdfs)
 
+    callback(null, {
+      statusCode: 200,
+      body: JSON.stringify({ pdftk: pdftk.input(), env: process.env }),
+    })
+
     generatePdf(data)
       .then(buffer => {
         callback(null, {
