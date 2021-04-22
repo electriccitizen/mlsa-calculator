@@ -65,31 +65,26 @@ const generatePdf = values => {
 
 exports.handler = function (event, context, callback) {
   if (event.body !== null && event.body !== undefined) {
-    // const formData = JSON.parse(event.body)
-    // const data = processData(formData, pdfs)
+    const formData = JSON.parse(event.body)
+    const data = processData(formData, pdfs)
 
+    generatePdf(data)
+      .then(buffer => {
+        callback(null, {
+          statusCode: 200,
+          body: JSON.stringify(buffer.toString('base64')),
+        })
+      })
+      .catch(error => {
+        callback(null, {
+          statusCode: 500,
+          body: JSON.stringify(error),
+        })
+      })
+  } else {
     callback(null, {
-      statusCode: 200,
-      body: JSON.stringify({ pdftk: pdftk.input(), env: process.env }),
+      statusCode: 400,
+      body: JSON.stringify("No data body."),
     })
-
-  //   generatePdf(data)
-  //     .then(buffer => {
-  //       callback(null, {
-  //         statusCode: 200,
-  //         body: JSON.stringify(buffer.toString('base64')),
-  //       })
-  //     })
-  //     .catch(error => {
-  //       callback(null, {
-  //         statusCode: 500,
-  //         body: JSON.stringify(error),
-  //       })
-  //     })
-  // } else {
-  //   callback(null, {
-  //     statusCode: 400,
-  //     body: JSON.stringify("No data body."),
-  //   })
   }
 }
