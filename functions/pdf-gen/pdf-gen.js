@@ -3,17 +3,15 @@
 const pdftk = require('node-pdftk')
 const { processData } = require('./processors/process')
 
-if (process.env.LOCAL_ENV !== "true") {
-  // AWS Lambda + PDFtk
-  // Set the PATH and LD_LIBRARY_PATH environment variables.
-  process.env.PATH = `${process.env.PATH}:${process.env.LAMBDA_TASK_ROOT}/src/functions/pdf-gen/src/bin`
-  process.env.LD_LIBRARY_PATH = `${process.env.LAMBDA_TASK_ROOT}/src/functions/pdf-gen/src/bin`
+// AWS Lambda + PDFtk
+// Set the PATH and LD_LIBRARY_PATH environment variables.
+process.env.PATH = `${process.env.PATH}:${process.env.LAMBDA_TASK_ROOT}/src/functions/pdf-gen/src/bin`
+process.env.LD_LIBRARY_PATH = `${process.env.LAMBDA_TASK_ROOT}/src/functions/pdf-gen/src/bin`
 
-  // Set the directory where temporary files are stored
-  pdftk.configure({
-    tempDir: `${process.env.LAMBDA_TASK_ROOT}/src/functions/pdf-gen//node-pdftk-tmp`
-  })
-}
+// Set the directory where temporary files are stored
+pdftk.configure({
+  tempDir: `${process.env.LAMBDA_TASK_ROOT}/src/functions/pdf-gen//node-pdftk-tmp`
+})
 
 // Set source to root directory with pdf files
 const sourcePdfs =
