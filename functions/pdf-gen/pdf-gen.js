@@ -3,26 +3,26 @@
 const pdftk = require('node-pdftk')
 const { processData } = require('./processors/process')
 
+// Set the root path
+const ROOT =
+  process.env.LOCAL_ENV === "true" ?
+    `${process.env.LAMBDA_TASK_ROOT}/functions/pdf-gen` :
+    `${process.env.LAMBDA_TASK_ROOT}/src/functions/pdf-gen`
+
 // AWS Lambda + PDFtk
 // Set the PATH and LD_LIBRARY_PATH environment variables.
-process.env.PATH = `${process.env.PATH}:${process.env.LAMBDA_TASK_ROOT}/src/functions/pdf-gen/src/bin`
-process.env.LD_LIBRARY_PATH = `${process.env.LAMBDA_TASK_ROOT}/src/functions/pdf-gen/src/bin`
+process.env.PATH = `${process.env.PATH}:${ROOT}/src/bin`
+process.env.LD_LIBRARY_PATH = `${ROOT}/src/bin`
 
 // Set the directory where temporary files are stored
 pdftk.configure({
-  tempDir: `${process.env.LAMBDA_TASK_ROOT}/src/functions/pdf-gen//node-pdftk-tmp`
+  tempDir: `${ROOT}/node-pdftk-tmp`
 })
-
-// Set source to root directory with pdf files
-const sourcePdfs =
-  process.env.LOCAL_ENV === "true"
-    ? `${process.env.LAMBDA_TASK_ROOT}/functions/pdf-gen/pdfs`
-    : `${process.env.LAMBDA_TASK_ROOT}/src/functions/pdf-gen/pdfs`
 
 // Sources pdf files
 const pdfs = [{
   name: "wsa",
-  src: `${sourcePdfs}/wsa-fillable.pdf`
+  src: `${ROOT}/pdfs/wsa-fillable.pdf`
 }]
 
 const fillPdf = (pdf, data) => {
@@ -65,11 +65,6 @@ exports.handler = function (event, context, callback) {
   if (event.body !== null && event.body !== undefined) {
     const formData = JSON.parse(event.body)
     const data = processData(formData, pdfs)
-
-    callback(null, {
-      statusCode: 200,
-      body: JSON.stringify({ pdftk: pdftk.input(), env: process.env }),
-    })
 
     generatePdf(data)
       .then(buffer => {
