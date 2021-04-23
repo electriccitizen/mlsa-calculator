@@ -25,6 +25,9 @@ pdftk.configure({
 const pdfs = [{
   name: "wsa",
   src: `${ROOT}/pdfs/wsa-fillable.pdf`
+}, {
+  name: "addendum",
+  src: `${ROOT}/pdfs/addendum-fillable.pdf`
 }]
 
 const fillPdf = (pdf, data) => {

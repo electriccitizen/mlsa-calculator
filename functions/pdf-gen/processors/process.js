@@ -1,59 +1,55 @@
 var moment = require("moment")
 // Hard-coded data for testing, copied from # Debug - Form values
 const init = require('./init.json')
-const { isNumber } = require("../helpers")
+const { numberFormatToMoney } = require("../utils/helpers")
 
+const { getInitiate } = require("./initiate")
 const { calcIncome } = require("./income")
 const { calcAllowableDeductions } = require("./deductions")
 const { calcPercentages } = require("./percentages")
 const { calcSola } = require("./sola")
 const { calcParentingDays } = require("./parenting")
+const { getAddendum } = require("./addendum")
 
 const processData = (form, pdfs) => {
   // Override pdfs array to object with names
   pdfs = pdfs && pdfs.reduce((names, pdf) => ({ ...names, [pdf.name]: pdf.name }), {})
 
-  let data = []
-
   // Pass hard-coded data to processors instead of form (init.json)
   form = init
 
-  // Case #
-  form.CSED && (data["initiate.csed"] = form.CSED)
+  // Main
+  let data = {}
 
-  // Basic info
-  let primaryName = form.Primary.fname + " " + form.Primary.lname
-  let secondaryName = form.OtherParent.fname + " " + form.OtherParent.lname
-  data["initiate.mother.name"] = primaryName
-  data["initiate.father.name"] = secondaryName
-
-  // Primary children DOB
-  Object.entries(form.PrimaryChildren).forEach(
-    ([index, value]) => {
-      if (value.dob) {
-        data[`child.${parseInt(index) + 1}.bday`] = moment(value.dob).format('YYYY')
-      }
-    }
-  )
+  // Initiate
+  let initiate = getInitiate(form)
 
   // 1 INCOME
-  let income = calcIncome(form)
+  let income = calcIncome(form, initiate.data)
 
   // 2 ALLOWABLE DEDUCTIONS
-  let deductions = calcAllowableDeductions(form, income)
+  let deductions = calcAllowableDeductions(form, initiate.data, income.data)
 
   // PARENT PERCENTAGES
-  let percentages = calcPercentages(form, deductions)
+  let percentages = calcPercentages(form, initiate.data, deductions.data)
 
   // ** SOLA PACS
-  let sola = calcSola(form, percentages)
+  let sola = calcSola(form, initiate.data, percentages.data)
 
   // ** PARENTING DAYS
-  let parenting = calcParentingDays(form, sola)
+  let parenting = calcParentingDays(form, sola.data)
 
   // WORKSHEET PREPARED BY
-  data["worksheet.prepared"] = primaryName
+  data["worksheet.prepared"] = initiate["initiate.mother.name"]
   data["worksheet.date"] = moment().format('MMMM D, YYYY')
+
+  // WORKSHEET A ADDENDUM
+  let addendum = getAddendum(initiate.data, [
+    ...income.addendum,
+    ...deductions.addendum,
+    ...percentages.addendum,
+    ...sola.addendum
+  ])
 
   if (parenting["initiate.documents.ab"] === "true") {
     // Worksheet B TODO
@@ -83,44 +79,26 @@ const processData = (form, pdfs) => {
   }
 
   let results = {
-    ...income,
-    ...deductions,
-    ...percentages,
-    ...sola,
+    ...data,
+    ...initiate.data,
+    ...income.data,
+    ...deductions.data,
+    ...percentages.data,
+    ...sola.data,
     ...parenting
   }
 
-  // return {
-  //   ...data,
-  //   ...results
-  // }
-
-  // Format numbers to string
-  // return {
-  //   ...data,
-  //   ...Object.keys(results).reduce((acc, key) => {
-  //     return {
-  //       ...acc,
-  //       [key]:
-  //         isNumber(results[key]) ?
-  //           (Number.isInteger(results[key]) ? results[key] : results[key].toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") :
-  //           results[key]
-  //     }
-  //   }, {})
-  // }
   return {
     [pdfs.wsa]: {
-      ...data,
+      // Format numbers to money
       ...Object.keys(results).reduce((acc, key) => {
         return {
           ...acc,
-          [key]:
-            isNumber(results[key]) ?
-              (Number.isInteger(results[key]) ? results[key] : results[key].toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") :
-              results[key]
+          [key]: numberFormatToMoney(results[key])
         }
       }, {})
-    }
+    },
+    [pdfs.addendum]: addendum
   }
 }
 

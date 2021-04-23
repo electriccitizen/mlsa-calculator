@@ -1,214 +1,173 @@
-const { convertToNumber } = require('../helpers')
+const { getValueAsNumber, getValue, getValueAsMoney, getValueAsArray, numberFormatToMoney, calcTotal } = require('../utils/helpers')
 const { getAllowanceOtherChildren } = require('../utils/support-tables')
 
-const calcAllowableDeductions = (form, income) => {
+const calcAllowableDeductions = (form, initiate, income) => {
+
+  // Main
+  let data = {}
   // Totals
-  let data = []
-  let primary
-  let secondary
-  let totalPrimary = []
-  let totalSecondary = []
+  let primary = {}
+  let secondary = {}
+  // Addendum
+  let addendum = []
 
   // 2A Ordered child support for other children
-  let primaryOtherChildrenSupport = []
-  if (form.OtherChildren) {
-    Object.values(form.OtherChildren).forEach((child) => {
-      if (child.support === "yes" && child.childSupportAmount) {
-        primaryOtherChildrenSupport.push(parseInt(child.childSupportAmount) * 12)
-      }
-    })
-  }
-
-  let secondaryOtherChildrenSupport = []
-  if (form.OtherChildrenSecondary) {
-    Object.values(form.OtherChildrenSecondary).forEach((child) => {
-      if (child.support === "yes" && child.childSupportAmount) {
-        secondaryOtherChildrenSupport.push(parseInt(child.childSupportAmount) * 12)
-      }
-    })
-  }
-  data["allowable.mother.childsupport"] = primaryOtherChildrenSupport.reduce((a, b) => a + b, 0)
-  data["allowable.father.childsupport"] = secondaryOtherChildrenSupport.reduce((a, b) => a + b, 0)
+  primary["allowable.mother.childsupport"] =
+    calcOrderedChildSupport(form, "OtherChildren")
+  secondary["allowable.father.childsupport"] =
+    calcOrderedChildSupport(form, "OtherChildrenSecondary")
 
   // 2B  Allowance for other children from Table 2
-  if (form.OtherChildren) {
-    let primaryNumOtherChildrenAllowance = Object.values(form.OtherChildren).filter((child) => {
-      return child.housing === "me" && child.support === "no"
-    }).length
-
-    data["allowable.mother.allowanceOtherChildren"] = getAllowanceOtherChildren(primaryNumOtherChildrenAllowance)
-  }
-
-  if (form.OtherChildrenSecondary) {
-    let secondaryNumOtherChildrenSecondaryAllowance = Object.values(form.OtherChildrenSecondary).filter((child) => {
-      return child.housing === "me" && child.support === "no"
-    }).length
-
-    data["allowable.father.allowanceOtherChildren"] = getAllowanceOtherChildren(secondaryNumOtherChildrenSecondaryAllowance)
-  }
+  primary["allowable.mother.allowanceOtherChildren"] =
+    getAllowanceOtherChildren(countChildren(form, "OtherChildren"))
+  secondary["allowable.father.allowanceOtherChildren"] =
+    getAllowanceOtherChildren(countChildren(form, "OtherChildrenSecondary"))
 
   // 2C Ordered alimony/spousal support
-  if (form.AllowableDeductions.alimony) {
-    const alimonyPrimary = convertToNumber(form.AllowableDeductions.alimony.amount) *
-      convertToNumber(form.AllowableDeductions.alimony.schedule)
-    data["allowable.mother.alimony"] = alimonyPrimary
-    totalPrimary.push(alimonyPrimary)
-  }
+  primary["allowable.mother.alimony"] =
+    getValueAsNumber(form, ["AllowableDeductions", "alimony", "amount"]) *
+    getValueAsNumber(form, ["AllowableDeductions", "alimony", "schedule"])
 
-  if (form.AllowableDeductionsSecondary.alimony) {
-    const alimonySecondary = convertToNumber(form.AllowableDeductionsSecondary.alimony.amount) *
-      convertToNumber(form.AllowableDeductionsSecondary.alimony.schedule)
-    data["allowable.father.alimony"] = alimonySecondary
-    totalSecondary.push(alimonySecondary)
-  }
+  secondary["allowable.father.alimony"] =
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "alimony", "amount"]) *
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "alimony", "schedule"])
 
   // 2D Ordered health ins other children
-  if (form.AllowableDeductions.healthchildren) {
-    primary =
-      convertToNumber(form.AllowableDeductions.healthchildren.amount) *
-      convertToNumber(form.AllowableDeductions.healthchildren.schedule)
-    data["allowable.mother.insurance"] = primary
-    totalPrimary.push(primary)
-  }
-  if (form.AllowableDeductionsSecondary.healthchildren) {
-    secondary =
-      convertToNumber(form.AllowableDeductionsSecondary.healthchildren.amount) *
-      convertToNumber(form.AllowableDeductionsSecondary.healthchildren.schedule)
-    data["allowable.father.insurance"] = secondary
-    totalSecondary.push(secondary)
-  }
+  primary["allowable.mother.insurance"] =
+    getValueAsNumber(form, ["AllowableDeductions", "healthchildren", "amount"]) *
+    getValueAsNumber(form, ["AllowableDeductions", "healthchildren", "schedule"])
+
+  secondary["allowable.father.insurance"] =
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "healthchildren", "amount"]) *
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "healthchildren", "schedule"])
 
   //2E Federal income tax
-  if (form.AllowableDeductions.federal) {
-    primary =
-      convertToNumber(form.AllowableDeductions.federal.amount) *
-      convertToNumber(form.AllowableDeductions.federal.schedule)
-    data["allowable.mother.federal"] = primary
-    totalPrimary.push(primary)
-  }
-  if (form.AllowableDeductionsSecondary.federal) {
-    secondary =
-      convertToNumber(form.AllowableDeductionsSecondary.federal.amount) *
-      convertToNumber(form.AllowableDeductionsSecondary.federal.schedule)
-    data["allowable.father.federal"] = secondary
-    totalSecondary.push(secondary)
-  }
+  primary["allowable.mother.federal"] =
+    getValueAsNumber(form, ["AllowableDeductions", "federal", "amount"]) *
+    getValueAsNumber(form, ["AllowableDeductions", "federal", "schedule"])
+
+  secondary["allowable.father.federal"] =
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "federal", "amount"]) *
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "federal", "schedule"])
 
   //2F State income tax
-  if (form.AllowableDeductions.state) {
-    primary =
-      convertToNumber(form.AllowableDeductions.state.amount) *
-      convertToNumber(form.AllowableDeductions.state.schedule)
-    data["allowable.mother.state"] = primary
-    totalPrimary.push(primary)
-  }
-  if (form.AllowableDeductionsSecondary.state) {
-    secondary =
-      convertToNumber(form.AllowableDeductionsSecondary.state.amount) *
-      convertToNumber(form.AllowableDeductionsSecondary.state.schedule)
-    data["allowable.father.state"] = secondary
-    totalSecondary.push(secondary)
-  }
+  primary["allowable.mother.state"] =
+    getValueAsNumber(form, ["AllowableDeductions", "state", "amount"]) *
+    getValueAsNumber(form, ["AllowableDeductions", "state", "schedule"])
+
+  secondary["allowable.father.state"] =
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "state", "amount"]) *
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "state", "schedule"])
 
   //2G Social Security (FICA plus Medicare)
-  if (form.AllowableDeductions.ssn) {
-    primary =
-      convertToNumber(form.AllowableDeductions.ssn.amount) *
-      convertToNumber(form.AllowableDeductions.ssn.schedule)
-    data["allowable.mother.social"] = primary
-    totalPrimary.push(primary)
-  }
-  if (form.AllowableDeductionsSecondary.ssn) {
-    secondary =
-      convertToNumber(form.AllowableDeductionsSecondary.ssn.amount) *
-      convertToNumber(form.AllowableDeductionsSecondary.ssn.schedule)
-    data["allowable.father.social"] = secondary
-    totalSecondary.push(secondary)
-  }
+  primary["allowable.mother.social"] =
+    getValueAsNumber(form, ["AllowableDeductions", "ssn", "amount"]) *
+    getValueAsNumber(form, ["AllowableDeductions", "ssn", "schedule"])
+
+  secondary["allowable.father.social"] =
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "ssn", "amount"]) *
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "ssn", "schedule"])
 
   //2H Mandatory retirement contributions
-  if (form.AllowableDeductions.retirement) {
-    primary =
-      convertToNumber(form.AllowableDeductions.retirement.amount) *
-      convertToNumber(form.AllowableDeductions.retirement.schedule)
-    data["allowable.mother.mandatory"] = primary
-    totalPrimary.push(primary)
-  }
-  if (form.AllowableDeductionsSecondary.retirement) {
-    secondary =
-      convertToNumber(form.AllowableDeductionsSecondary.retirement.amount) *
-      convertToNumber(form.AllowableDeductionsSecondary.retirement.schedule)
-    data["allowable.father.mandatory"] = secondary
-    totalSecondary.push(secondary)
-  }
+  primary["allowable.mother.mandatory"] =
+    getValueAsNumber(form, ["AllowableDeductions", "retirement", "amount"]) *
+    getValueAsNumber(form, ["AllowableDeductions", "retirement", "schedule"])
+
+  secondary["allowable.father.mandatory"] =
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "retirement", "amount"]) *
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "retirement", "schedule"])
 
   //2I Required employment expense 
-  if (form.AllowableDeductions.reqemp) {
-    primary =
-      convertToNumber(form.AllowableDeductions.reqemp.amount) *
-      convertToNumber(form.AllowableDeductions.reqemp.schedule)
-    data["allowable.mother.required"] = primary
-    totalPrimary.push(primary)
-  }
-  if (form.AllowableDeductionsSecondary.reqemp) {
-    secondary =
-      convertToNumber(form.AllowableDeductionsSecondary.reqemp.amount) *
-      convertToNumber(form.AllowableDeductionsSecondary.reqemp.schedule)
-    data["allowable.father.required"] = secondary
-    totalSecondary.push(secondary)
-  }
+  primary["allowable.mother.required"] =
+    getValueAsNumber(form, ["AllowableDeductions", "reqemp", "amount"]) *
+    getValueAsNumber(form, ["AllowableDeductions", "reqemp", "schedule"])
+
+  secondary["allowable.father.required"] =
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "reqemp", "amount"]) *
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "reqemp", "schedule"])
 
   //2J Dependent care expense for other children, less dependent care tax credit
-  let primaryOtherChildrenDependent = []
-  if (form.OtherChildren) {
-    Object.values(form.OtherChildren).forEach((child) => {
-      if (child.depcare === "yes" && child.depcareAmount) {
-        primaryOtherChildrenDependent.push(parseInt(child.depcareAmount))
-      }
-    })
-  }
+  primary["allowable.mother.dependentcare"] =
+    calcDependentCareExpense(form, "OtherChildren")
+  secondary["allowable.father.dependentcare"] =
+    calcDependentCareExpense(form, "OtherChildrenSecondary")
 
-  let secondaryOtherChildrenDependent = []
-  if (form.OtherChildrenSecondary) {
-    Object.values(form.OtherChildrenSecondary).forEach((child) => {
-      if (child.depcare === "yes" && child.depcareAmount) {
-        secondaryOtherChildrenDependent.push(parseInt(child.depcareAmount))
-      }
-    })
-  }
-  data["allowable.mother.dependentcare"] = primaryOtherChildrenDependent.reduce((a, b) => a + b, 0)
-  data["allowable.father.dependentcare"] = secondaryOtherChildrenDependent.reduce((a, b) => a + b, 0)
+  //2K Other (specify):___
+  primary["allowable.mother.other"] =
+    calcOther(form, "OtherAllowableDeductions")
+  secondary["allowable.father.other"] =
+    calcOther(form, "OtherAllowableDeductionsSecondary")
 
-  //2K Other (specify):___ @TODO add to attachment
-  if (form.AllowableDeductions.other) {
-    data["allowable.mother.other"] = calcOther(form, "OtherAllowableDeductions")
-  }
+  addendum.push([
+    `${initiate["initiate.mother.name"]}, Other allowable deductions, continued from 2k`,
+    ...mapToAddendumOther(form, "OtherAllowableDeductions"),
+    `Total -- ${numberFormatToMoney(primary["allowable.mother.other"])}`
+  ], [
+    `${initiate["initiate.father.name"]}, Other allowable deductions, continued from 2k`,
+    ...mapToAddendumOther(form, "OtherAllowableDeductionsSecondary"),
+    `Total -- ${numberFormatToMoney(secondary["allowable.father.other"])}`
+  ])
 
-  if (form.AllowableDeductionsSecondary.other) {
-    data["allowable.father.other"] = calcOther(form, "OtherAllowableDeductionsSecondary")
-  }
-
-  if (data["allowable.mother.other"] || data["allowable.father.other"]) {
+  if (primary["allowable.mother.other"] || secondary["allowable.father.other"]) {
     data["allowable.otherSpecify"] = "See Worksheet A Addendum"
   }
 
   //2L TOTAL ALLOWABLE DEDUCTIONS (Add 2a through 2k) 
-  data["allowable.mother.total"] = totalPrimary.reduce((a, b) => a + b, 0)
-  data["allowable.father.total"] = totalSecondary.reduce((a, b) => a + b, 0)
+  primary["allowable.mother.total"] = calcTotal(Object.values(primary))
+  secondary["allowable.father.total"] = calcTotal(Object.values(secondary))
 
   // Line 3 INCOME AFTER DEDUCTIONS
-  data["allowable.mother.income"] = income["income.mother.total"] - data["allowable.mother.total"]
-  data["allowable.father.income"] = income["income.father.total"] - data["allowable.father.total"]
-  data["allowable.mother.incomeCallout"] = income["income.mother.total"] - data["allowable.mother.total"]
-  data["allowable.father.incomeCallout"] = income["income.father.total"] - data["allowable.father.total"]
+  primary["allowable.mother.income"] = income["income.mother.total"] - primary["allowable.mother.total"]
+  secondary["allowable.father.income"] = income["income.father.total"] - secondary["allowable.father.total"]
 
-  return data
+  // Callout
+  data["allowable.mother.incomeCallout"] = income["income.mother.total"] - primary["allowable.mother.total"]
+  data["allowable.father.incomeCallout"] = income["income.father.total"] - secondary["allowable.father.total"]
+
+  return {
+    data: {
+      ...data,
+      ...primary,
+      ...secondary
+    },
+    addendum
+  }
+}
+
+// Helpers
+const calcOrderedChildSupport = (form, key) => {
+  return getValueAsArray(form, key).reduce((total, child) => {
+    if (child.support === "yes" && child.childSupportAmount) {
+      return total + (getValueAsNumber(child, ["childSupportAmount"]) * 12)
+    }
+    return total
+  }, 0)
+}
+
+const countChildren = (form, key) => {
+  return getValueAsArray(form, key).filter((child) => {
+    return child.housing === "me" && child.support === "no"
+  }).length
+}
+
+const calcDependentCareExpense = (form, key) => {
+  return getValueAsArray(form, key).reduce((total, child) => {
+    if (child.depcare === "yes" && child.depcareAmount) {
+      return total + getValueAsNumber(child, ["depcareAmount"])
+    }
+    return total
+  }, 0)
 }
 
 const calcOther = (form, key) => {
-  return Object.values(form[key]).reduce((total, income) => {
-    return total + convertToNumber(income.amount)
+  return getValueAsArray(form, key).reduce((total, other) => {
+    return total + getValueAsNumber(other, ["amount"])
   }, 0)
+}
+
+const mapToAddendumOther = (form, key) => {
+  return getValueAsArray(form, key)
+    .map(other => `${getValue(other, ["description"], "")} -- ${getValueAsMoney(other, ["amount"])}`)
 }
 
 module.exports = { calcAllowableDeductions }

@@ -1,11 +1,13 @@
-const { convertToNumber } = require('../helpers')
+const { getValue, getValueAsNumber, getValueAsMoney, getValueAsArray, numberFormatToMoney } = require('../utils/helpers')
 const { calcChildExpenses } = require('./percentages')
 const { getIRSBusinessMileageRate, getStandardExpense } = require('../utils/support-tables')
 
-const calcSola = (form, percentages) => {
+const calcSola = (form, initiate, percentages) => {
 
-  // Total
-  let data = []
+  // Main
+  let data = {}
+  // Addendum
+  let addendum = []
 
   // 14 For each parent, if line 6 > line 5, skip to line 21 and enter line 6 amount. If line 6 < line 5, go to line 15
   if (percentages["ppa.mother.line6"] < percentages["ppa.mother.income"]) {
@@ -13,8 +15,7 @@ const calcSola = (form, percentages) => {
     // 15 Parent’s share of total (for each column, line 13 x line 9)
     data["sola.mother.share"] =
       percentages["ppa.totalPrimaryAllowance"] *
-      (percentages["ppa.mother.share"] / 100)
-
+      (Number(percentages["ppa.mother.share"]) / 100)
 
     //16 Compare line 15 to line 5; enter lower amount here
     data["sola.mother.shareLower"] = Math.min(
@@ -27,10 +28,18 @@ const calcSola = (form, percentages) => {
       percentages["ppa.mother.income"] - data["sola.mother.shareLower"]
     if (data["sola.mother.income"] > 0) {
       // 18A Long distance parenting adjustment (Worksheet D)
-      data["sola.mother.distanceAdjustment"] = calcLongDistanceParentingAdjustment(form.StandardOfLiving)
+      data["sola.mother.distanceAdjustment"] =
+        calcLongDistanceParentingAdjustment(form, "StandardOfLiving")
 
-      // 18B Other (specify) @TODO add to attachment as needed
-      data["sola.mother.other"] = calcOther(form.StandardOfLiving, "other")
+      // 18B Other (specify)
+      data["sola.mother.other"] =
+        calcOther(form, ["StandardOfLiving", "other"])
+
+      addendum.push([
+        `${initiate["initiate.mother.name"]}, Other sola and parent's annual child support, continued from 18b`,
+        ...mapToAddendumOther(form, ["StandardOfLiving", "other"]),
+        `Total -- ${numberFormatToMoney(data["sola.mother.other"])}`
+      ])
 
       // 19 Adjusted income for SOLA [line 17 minus (18a + 18b)]
       data["sola.mother.adjusted"] =
@@ -38,7 +47,7 @@ const calcSola = (form, percentages) => {
 
       // 20 SOLA amount (Worksheet E)
       data["sola.mother.amount"] = calcStandardOfLivingAdjustment(
-        convertToNumber(form.NumPrimaryChildren),
+        getValueAsNumber(form, ["NumPrimaryChildren"]),
         data["sola.mother.adjusted"]
       )
 
@@ -60,7 +69,7 @@ const calcSola = (form, percentages) => {
     // 15 Parent’s share of total (for each column, line 13 x line 9)
     data["sola.father.share"] =
       percentages["ppa.totalPrimaryAllowance"] *
-      (percentages["ppa.father.share"] / 100)
+      (Number(percentages["ppa.father.share"]) / 100)
 
     // 16 Compare line 15 to line 5; enter lower amount here
     data["sola.father.shareLower"] = Math.min(
@@ -74,10 +83,18 @@ const calcSola = (form, percentages) => {
 
     if (data["sola.father.income"] > 0) {
       // 18A Long distance parenting adjustment (Worksheet D)
-      data["sola.father.distanceAdjustment"] = calcLongDistanceParentingAdjustment(form.StandardOfLivingSecondary)
+      data["sola.father.distanceAdjustment"] =
+        calcLongDistanceParentingAdjustment(form, "StandardOfLivingSecondary")
 
-      // 18B Other (specify) @TODO add to attachment as needed
-      data["sola.father.other"] = calcOther(form.StandardOfLivingSecondary, "other")
+      // 18B Other (specify)
+      data["sola.father.other"] =
+        calcOther(form, ["StandardOfLivingSecondary", "other"])
+
+      addendum.push([
+        `${initiate["initiate.father.name"]}, Other sola and parent's annual child support, continued from 18b`,
+        ...mapToAddendumOther(form, ["StandardOfLivingSecondary", "other"]),
+        `Total -- ${numberFormatToMoney(data["sola.father.other"])}`
+      ])
 
       // 19 Adjusted income for SOLA [line 17 minus (18a + 18b)]
       data["sola.father.adjusted"] =
@@ -85,7 +102,7 @@ const calcSola = (form, percentages) => {
 
       // 20 SOLA amount (Worksheet E)
       data["sola.father.amount"] = calcStandardOfLivingAdjustment(
-        convertToNumber(form.NumPrimaryChildren),
+        getValueAsNumber(form, ["NumPrimaryChildren"]),
         data["sola.father.adjusted"]
       )
 
@@ -118,31 +135,35 @@ const calcSola = (form, percentages) => {
   )
 
   // 23 Credit for payment of expenses (enter amount of line 12 expenses paid by each parent)
-  let primaryChildExpenses = calcChildExpenses(form.ChildExpenses)
-  let secondaryChildExpenses = calcChildExpenses(form.ChildExpensesSecondary)
-  data["sola.mother.credit"] =  primaryChildExpenses.total 
+  const primaryChildExpenses = calcChildExpenses(form, "ChildExpenses")
+  const secondaryChildExpenses = calcChildExpenses(form, "ChildExpensesSecondary")
+  data["sola.mother.credit"] = primaryChildExpenses.total
   data["sola.father.credit"] = secondaryChildExpenses.total
 
   // 24 Total Annual Child Support (line 22 minus line 23; if less than zero, enter zero) 24 PA
-  let totalPrimary = data["sola.mother.gross"] - data["sola.mother.credit"]
-  let totalSecondary = data["sola.father.gross"] - data["sola.father.credit"]
+  const totalPrimary = data["sola.mother.gross"] - data["sola.mother.credit"]
+  const totalSecondary = data["sola.father.gross"] - data["sola.father.credit"]
   data["sola.mother.total"] = totalPrimary < 0 ? 0 : totalPrimary
   data["sola.father.total"] = totalSecondary < 0 ? 0 : totalSecondary
+
+  // Callout
   data["sola.mother.totalCallout"] = data["sola.mother.total"]
   data["sola.father.totalCallout"] = data["sola.father.total"]
 
-  return data
+  return {
+    data,
+    addendum
+  }
 }
 
+// Helpers
+
 // WORKSHEET D: LONG DISTANCE PARENTING ADJUSTMENT
-const calcLongDistanceParentingAdjustment = (standardOfLiving) => {
-  if (!standardOfLiving) return 0
+const calcLongDistanceParentingAdjustment = (form, key) => {
+  const standardOfLiving = getValue(form, key, {})
 
   // 1. Annual mileage actually driven by the parent to exercise long-distance parenting
-  let distance = 0
-  if (standardOfLiving.mileage.distance) {
-    distance = convertToNumber(standardOfLiving.mileage.distance)
-  }
+  const distance = getValueAsNumber(standardOfLiving, ["mileage", "distance"])
 
   // 2. Current IRS business mileage rate (from Table 3)
   const globalMileageRate = getIRSBusinessMileageRate()
@@ -151,10 +172,7 @@ const calcLongDistanceParentingAdjustment = (standardOfLiving) => {
   const mileageCost = distance * globalMileageRate
 
   // 4. Parent’s annual cost of transportation by means other than automobile
-  let annualCost = 0
-  if (standardOfLiving.transportation.othercost) {
-    annualCost = convertToNumber(standardOfLiving.transportation.othercost)
-  }
+  const annualCost = getValueAsNumber(standardOfLiving, ["transportation", "othercost"])
 
   // 5. Parent’s total cost (line 3 plus line 4)
   const totalCost = mileageCost + annualCost
@@ -180,10 +198,16 @@ const calcStandardOfLivingAdjustment = (numChildren, adjustedIncome) => {
 }
 
 const calcOther = (form, key) => {
-  if (!form[key] || form[key] === "no") return 0
-  return Object.values(form[key]).reduce((total, income) => {
-    return total + convertToNumber(income.amt)
+  const others = getValue(form, key, {})
+  if (others === "no") return 0
+  return Object.values(others).reduce((total, other) => {
+    return total + getValueAsNumber(other, ["amt"])
   }, 0)
+}
+
+const mapToAddendumOther = (form, key) => {
+  return getValueAsArray(form, key)
+    .map(other => `${getValue(other, ["desc"], "")} -- ${getValueAsMoney(other, ["amt"])}`)
 }
 
 module.exports = { calcSola }

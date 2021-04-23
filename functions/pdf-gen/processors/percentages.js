@@ -1,11 +1,13 @@
-const { convertToNumber } = require("../helpers")
+const { getValue, getValueAsNumber, getValueAsMoney, getValueAsArray, numberFormatToMoney, calcTotal } = require("../utils/helpers")
 const { getAllowanceChildren, getPersonalAllowance } = require('../utils/support-tables')
 
-const calcPercentages = (form, deductions) => {
+const calcPercentages = (form, initiate, deductions) => {
   // See https://dphhs.mt.gov/Portals/85/csed/documents/cs404-2CSGuidelinesTables.pdf
 
-  // Totals
-  let data = []
+  // Main
+  let data = {}
+  // Addendum
+  let addendum = []
 
   // 4 Personal allowance from Table 1
   const globalPPA = getPersonalAllowance()
@@ -13,8 +15,8 @@ const calcPercentages = (form, deductions) => {
   data["ppa.father.personalAllowance"] = globalPPA
 
   // 5 Income available for child support (line 3 minus line 4; if less than zero, enter zero)
-  let incomeAvailablePrimary = deductions["allowable.mother.income"] - globalPPA
-  let incomeAvailableSecondary = deductions["allowable.father.income"] - globalPPA
+  const incomeAvailablePrimary = deductions["allowable.mother.income"] - globalPPA
+  const incomeAvailableSecondary = deductions["allowable.father.income"] - globalPPA
   incomeAvailablePrimary < 0
     ? (data["ppa.mother.income"] = 0)
     : (data["ppa.mother.income"] = incomeAvailablePrimary)
@@ -50,16 +52,14 @@ const calcPercentages = (form, deductions) => {
 
   // 9 Parental share of combined income (line 7 ÷ line 8) 
   if (data["ppa.combined"] > 0) {
-    data["ppa.mother.share"] = convertToNumber(
+    data["ppa.mother.share"] =
       (data["ppa.mother.compare"] /
         data["ppa.combined"] *
         100).toFixed(2)
-    )
-    data["ppa.father.share"] = convertToNumber(
+    data["ppa.father.share"] =
       (data["ppa.father.compare"] /
         data["ppa.combined"] *
         100).toFixed(2)
-    )
   } else {
     data["ppa.mother.share"] = 0
     data["ppa.father.share"] = 0
@@ -70,49 +70,64 @@ const calcPercentages = (form, deductions) => {
   data["ppa.father.percentageCallout"] = data["ppa.father.share"]
 
   // 10 Number of children listed above due support
-  data["ppa.numChildren"] = form.NumPrimaryChildren
+  data["ppa.numChildren"] = getValue(form, ["NumPrimaryChildren"], "")
 
   // 11 Primary child support allowance from Table 2 
-  data["ppa.pcsa"] = getAllowanceChildren(Number(form.NumPrimaryChildren))
+  data["ppa.pcsa"] = getAllowanceChildren(getValueAsNumber(form, ["NumPrimaryChildren"]))
 
-  let primaryChildExpenses = calcChildExpenses(form.ChildExpenses)
-  let secondaryChildExpenses = calcChildExpenses(form.ChildExpensesSecondary)
+  const primaryChildExpenses = calcChildExpenses(form, "ChildExpenses")
+  const secondaryChildExpenses = calcChildExpenses(form, "ChildExpensesSecondary")
 
   // 12A Child care cost less dependent care tax credit
   data["ppa.costLessCredit"] =
     primaryChildExpenses.childCareCost +
     secondaryChildExpenses.childCareCost
 
-  //12B Child health insurance premium 
+  // 12B Child health insurance premium 
   data["ppa.healthPremium"] =
     primaryChildExpenses.healthInsurance +
     secondaryChildExpenses.healthInsurance
 
-  //12C Unreimbursed medical expense (> $250/child)
+  // 12C Unreimbursed medical expense (> $250/child)
   data["ppa.unreimbursedMed"] =
     primaryChildExpenses.medicalExpense +
     secondaryChildExpenses.medicalExpense
 
-  //12D Other (specify) @TODO desc gets added to Attachment 
+  // 12D Other (specify)
   data["ppa.other"] =
     primaryChildExpenses.other +
     secondaryChildExpenses.other
+
+  addendum.push([
+    `${initiate["initiate.mother.name"]}, Other primary child support allowance, continued from 12d`,
+    ...mapToAddendumOtherExpenses(form, "ChildExpenses"),
+    `Total -- ${numberFormatToMoney(primaryChildExpenses.other)}`
+  ], [
+    `${initiate["initiate.father.name"]}, Other primary child support allowance, continued from 12d`,
+    ...mapToAddendumOtherExpenses(form, "ChildExpensesSecondary"),
+    `Total -- ${numberFormatToMoney(secondaryChildExpenses.other)}`
+  ])
 
   if (data["ppa.other"]) {
     data["ppa.otherSpecify"] = "See Worksheet A Addendum"
   }
 
-  //12E Total supplement (add lines 12a through 12d)
+  // 12E Total supplement (add lines 12a through 12d)
   data["ppa.totalSupplement"] =
     primaryChildExpenses.total +
     secondaryChildExpenses.total
 
-  //13 Total primary allowance and supplement (add lines 11 and 12e) 
+  // 13 Total primary allowance and supplement (add lines 11 and 12e) 
   data["ppa.totalPrimaryAllowance"] =
     data["ppa.totalSupplement"] + data["ppa.pcsa"]
 
-  return data
+  return {
+    data,
+    addendum
+  }
 }
+
+// Helpers
 
 // WORKSHEET C: MINIMUM SUPPORT OBLIGATION
 const calcMinimumSupportObligation = (income, personalAllowance) => {
@@ -128,46 +143,46 @@ const calcMinimumSupportObligation = (income, personalAllowance) => {
   return index > 0 ? income * (index / 100) : 0
 }
 
-const calcChildExpenses = (data) => {
-  const initExpenses = {
-    childCareCost: 0,
-    healthInsurance: 0,
-    medicalExpense: 0,
-    other: 0,
-    total: 0
-  }
-
-  if (!data) return initExpenses
-
-  const calcOtherExpenses = (otherExpenses) => {
-    return Object.values(otherExpenses).reduce((accOther, otherExpense) => {
-      return otherExpense.amt ? accOther + convertToNumber(otherExpense.amt) : accOther
+const calcChildExpenses = (form, key) => {
+  const calcOtherExpenses = (expense) => {
+    const otherExpenses = getValue(expense, ["otherExpenses"])
+    if (!otherExpenses || otherExpenses === "no") {
+      return 0
+    }
+    return getValueAsArray(expense, ["otherExpenses"]).reduce((accOther, otherExpense) => {
+      return accOther + getValueAsNumber(otherExpense, ["amt"])
     }, 0)
   }
 
-  const expenses = Object.values(data).reduce((acc, expense) => ({
-    childCareCost:
-      expense.childCareCost ?
-        acc.childCareCost + convertToNumber(expense.childCareCost) :
-        acc.childCareCost,
-    healthInsurance:
-      expense.healthInsurance ?
-        acc.healthInsurance + convertToNumber(expense.healthInsurance) :
-        acc.healthInsurance,
-    medicalExpense:
-      expense.medicalExpense ?
-        acc.medicalExpense + convertToNumber(expense.medicalExpense) :
-        acc.medicalExpense,
-    other:
-      (expense.otherExpenses && expense.otherExpenses !== "no") ?
-        acc.other + calcOtherExpenses(expense.otherExpenses) :
-        acc.other
-  }), initExpenses)
+  const expenses = getValueAsArray(form, key).reduce((acc, expense) => ({
+    childCareCost: acc.childCareCost + getValueAsNumber(expense, ["childCareCost"]),
+    healthInsurance: acc.healthInsurance + getValueAsNumber(expense, ["healthInsurance"]),
+    medicalExpense: acc.medicalExpense + getValueAsNumber(expense, ["medicalExpense"]),
+    other: acc.other + calcOtherExpenses(expense)
+  }), {
+    childCareCost: 0,
+    healthInsurance: 0,
+    medicalExpense: 0,
+    other: 0
+  })
 
   return {
     ...expenses,
-    total: Object.values(expenses).reduce((total, value) => total + value, 0)
+    total: calcTotal(Object.values(expenses))
   }
+}
+
+const mapToAddendumOtherExpenses = (form, key) => {
+  return getValueAsArray(form, key).reduce((data, expense) => {
+    const otherExpenses = getValue(expense, ["otherExpenses"])
+    if (otherExpenses && otherExpenses !== "no") {
+      return [
+        ...data,
+        ...getValueAsArray(expense, ["otherExpenses"]).map(other => `${getValue(other, ["desc"], "")} -- ${getValueAsMoney(other, ["amt"])}`),
+      ]
+    }
+    return data
+  }, [])
 }
 
 module.exports = { calcPercentages, calcChildExpenses }
