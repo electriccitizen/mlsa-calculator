@@ -14,8 +14,7 @@ const getValueAsNumber = (nestedObj, pathArr, defaultTo = 0) => {
 }
 
 const getValueAsArray = (nestedObj, pathArr, defaultTo = []) => {
-    const value = getValue(nestedObj, pathArr, defaultTo)
-    return typeof value === 'object' ? Object.values(value) : value
+    return Object.values(getValue(nestedObj, pathArr, defaultTo))
 }
 
 const getValueAsMoney = (nestedObj, pathArr, defaultTo) => {
