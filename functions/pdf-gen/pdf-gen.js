@@ -16,10 +16,11 @@ process.env.PATH = `${process.env.PATH}:${ROOT}/src/bin`
 process.env.LD_LIBRARY_PATH = `${ROOT}/src/bin`
 
 // Set the directory where temporary files are stored
-pdftk.configure({
-  // tempDir: `${ROOT}/node-pdftk-tmp`
-  tempDir: path.join(__dirname, './node-pdftk-tmp')
-})
+if (process.env.LOCAL_ENV !== "true") {
+  pdftk.configure({
+    tempDir: path.join('/tmp')
+  })
+}
 
 // Sources pdf files
 const pdfs = [{
