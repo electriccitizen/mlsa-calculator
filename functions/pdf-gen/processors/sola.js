@@ -9,6 +9,35 @@ const calcSola = (form, initiate, percentages) => {
   // Addendum
   let addendum = []
 
+  // Set defualt values
+  // 15 Parent’s share of total (for each column, line 13 x line 9)
+  data["sola.mother.share"] = 0
+  data["sola.father.share"] = 0
+
+  //16 Compare line 15 to line 5; enter lower amount here
+  data["sola.mother.shareLower"] = 0
+  data["sola.father.shareLower"] = 0
+
+  // 17 Income available for SOLA (line 5 minus line 16; if zero, enter zero and skip to line 21)
+  data["sola.mother.income"] = 0
+  data["sola.father.income"] = 0
+
+  // 18A Long distance parenting adjustment (Worksheet D)
+  data["sola.mother.distanceAdjustment"] = 0
+  data["sola.father.distanceAdjustment"] = 0
+
+  // 18B Other (specify)
+  data["sola.mother.other"] = 0
+  data["sola.father.other"] = 0
+
+  // 19 Adjusted income for SOLA [line 17 minus (18a + 18b)]
+  data["sola.mother.adjusted"] = 0
+  data["sola.father.adjusted"] = 0
+
+  // 20 SOLA amount (Worksheet E)
+  data["sola.mother.amount"] = 0
+  data["sola.father.amount"] = 0
+
   // 14 For each parent, if line 6 > line 5, skip to line 21 and enter line 6 amount. If line 6 < line 5, go to line 15
   if (percentages["ppa.mother.line6"] < percentages["ppa.mother.income"]) {
 
@@ -60,6 +89,7 @@ const calcSola = (form, initiate, percentages) => {
       data["sola.mother.line21"] = data["sola.mother.shareLower"]
     }
   } else {
+    // 21 Enter line 6 amount
     data["sola.mother.line21"] = percentages["ppa.mother.line6"]
   }
 
@@ -115,6 +145,7 @@ const calcSola = (form, initiate, percentages) => {
       data["sola.father.line21"] = data["sola.father.shareLower"]
     }
   } else {
+    // 21 Enter line 6 amount
     data["sola.father.line21"] = percentages["ppa.father.line6"]
   }
 

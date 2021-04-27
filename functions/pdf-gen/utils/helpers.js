@@ -32,4 +32,16 @@ const numberFormatToMoney = (number) => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(number)
 }
 
-module.exports = { isNumber, getValue, getValueAsNumber, getValueAsArray, getValueAsMoney, calcTotal, numberFormatToMoney }
+const parseDataToMoney = (data) => {
+    if (!data) return {}
+    return (Array.isArray(data) ? data : Array(data)).map(nested => {
+        return Object.keys(nested).reduce((acc, key) => {
+            return {
+                ...acc,
+                [key]: numberFormatToMoney(nested[key])
+            }
+        }, {})
+    })
+}
+
+module.exports = { isNumber, getValue, getValueAsNumber, getValueAsArray, getValueAsMoney, calcTotal, numberFormatToMoney, parseDataToMoney }

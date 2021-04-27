@@ -29,6 +29,12 @@ const pdfs = [{
 }, {
   name: "addendum",
   src: `${ROOT}/pdfs/addendum-fillable.pdf`
+}, {
+  name: "wsbPartOne",
+  src: `${ROOT}/pdfs/wsb-part-1-fillable.pdf`
+}, {
+  name: "wsbPartTwo",
+  src: `${ROOT}/pdfs/wsb-part-2-fillable.pdf`
 }]
 
 const fillPdf = (pdf, data) => {
