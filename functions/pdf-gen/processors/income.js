@@ -1,6 +1,7 @@
 var moment = require("moment")
-const { getValueAsNumber, getValue, getValueAsMoney, calcTotal, numberFormatToMoney, getValueAsArray } = require('../utils/helpers')
+const { getValueAsNumber, getValue, getValueAsArray } = require('../utils/helpers')
 const { getLabel } = require('../utils/labels')
+const { currency, format, add, multiply, sum } = require('../utils/currency')
 
 const calcIncome = (form, initiate) => {
 
@@ -13,74 +14,86 @@ const calcIncome = (form, initiate) => {
   let addendum = []
 
   // 1A Wages, salaries, commissions
-  primary["income.mother.wages"] =
-    calcWages(form, "EmploymentPrimary", "OtherJob") +
+  primary["income.mother.wages"] = add(
+    calcWages(form, "EmploymentPrimary", "OtherJob"),
     getValueAsNumber(form, ["OtherIncome", "bonus"])
+  )
 
-  secondary["income.father.wages"] =
-    calcWages(form, "EmploymentSecondary", "OtherJobSecondary") +
+  secondary["income.father.wages"] = add(
+    calcWages(form, "EmploymentSecondary", "OtherJobSecondary"),
     getValueAsNumber(form, ["OtherIncomeSecondary", "bonus"])
+  )
 
   // 1B Self-Employment net earnings
-  primary["income.mother.sep"] =
-    getValueAsNumber(form, ["OtherIncome", "SepEarning", "net"]) *
+  primary["income.mother.sep"] = multiply(
+    getValueAsNumber(form, ["OtherIncome", "SepEarning", "net"]),
     getValueAsNumber(form, ["OtherIncome", "SepEarning", "schedule"])
+  )
 
-  secondary["income.father.sep"] =
-    getValueAsNumber(form, ["OtherIncomeSecondary", "SepEarning", "net"]) *
+  secondary["income.father.sep"] = multiply(
+    getValueAsNumber(form, ["OtherIncomeSecondary", "SepEarning", "net"]),
     getValueAsNumber(form, ["OtherIncomeSecondary", "SepEarning", "schedule"])
+  )
 
   // 1C Pensions, Social Security
-  primary["income.mother.ssn"] =
-    getValueAsNumber(form, ["OtherIncome", "pension"]) +
+  primary["income.mother.ssn"] = add(
+    getValueAsNumber(form, ["OtherIncome", "pension"]),
     getValueAsNumber(form, ["OtherIncome", "SSN"])
+  )
 
-  secondary["income.father.ssn"] =
-    getValueAsNumber(form, ["OtherIncomeSecondary", "pension"]) +
+  secondary["income.father.ssn"] = add(
+    getValueAsNumber(form, ["OtherIncomeSecondary", "pension"]),
     getValueAsNumber(form, ["OtherIncomeSecondary", "SSN"])
+  )
 
   // 1D Unearned Income
-  primary["income.mother.unearned"] =
-    getValueAsNumber(form, ["OtherIncome", "interest"]) +
+  primary["income.mother.unearned"] = add(
+    getValueAsNumber(form, ["OtherIncome", "interest"]),
     getValueAsNumber(form, ["OtherIncome", "unearned"])
+  )
 
-  secondary["income.father.unearned"] =
-    getValueAsNumber(form, ["OtherIncomeSecondary", "interest"]) +
+  secondary["income.father.unearned"] = add(
+    getValueAsNumber(form, ["OtherIncomeSecondary", "interest"]),
     getValueAsNumber(form, ["OtherIncomeSecondary", "unearned"])
+  )
 
   // 1E Imputed income
-  primary["income.mother.imputed"] =
-    getValueAsNumber(form, ["OtherIncome", "imputed"]) *
+  primary["income.mother.imputed"] = multiply(
+    getValueAsNumber(form, ["OtherIncome", "imputed"]),
     getValueAsNumber(form, ["OtherIncome", "imputedSchedule"])
+  )
 
-  secondary["income.father.imputed"] =
-    getValueAsNumber(form, ["OtherIncomeSecondary", "imputed"]) *
+  secondary["income.father.imputed"] = multiply(
+    getValueAsNumber(form, ["OtherIncomeSecondary", "imputed"]),
     getValueAsNumber(form, ["OtherIncomeSecondary", "imputedSchedule"])
+  )
 
   // 1F Earned Income Tax Credit (EITC)
   primary["income.mother.earned"] =
-    getValueAsNumber(form, ["OtherIncome", "eitc"])
+    currency(getValueAsNumber(form, ["OtherIncome", "eitc"]))
   secondary["income.father.earned"] =
-    getValueAsNumber(form, ["OtherIncomeSecondary", "eitc"])
+    currency(getValueAsNumber(form, ["OtherIncomeSecondary", "eitc"]))
 
   // 1G Other taxable income (specify):
-  primary["income.mother.otherTaxable"] =
-    getValueAsNumber(form, ["OtherIncome", "prize"]) +
+  primary["income.mother.otherTaxable"] = add(
+    getValueAsNumber(form, ["OtherIncome", "prize"]),
     calcOtherIncome(form, "TaxableIncome")
-  secondary["income.father.otherTaxable"] =
-    getValueAsNumber(form, ["OtherIncomeSecondary", "prize"]) +
+  )
+  secondary["income.father.otherTaxable"] = add(
+    getValueAsNumber(form, ["OtherIncomeSecondary", "prize"]),
     calcOtherIncome(form, "TaxableIncomeSecondary")
+  )
 
   addendum.push([
     `${initiate["initiate.mother.name"]}, Other taxable income, continued from 1g`,
-    `${getLabel('prize')} -- ${getValueAsMoney(form, ["OtherIncome", "prize"])}`,
+    `${getLabel('prize')} -- ${format(getValueAsNumber(form, ["OtherIncome", "prize"]))}`,
     ...mapOtherIncomeToAddendum(form, "TaxableIncome"),
-    `Total -- ${numberFormatToMoney(primary["income.mother.otherTaxable"])}`
+    `Total -- ${format(primary["income.mother.otherTaxable"])}`
   ], [
     `${initiate["initiate.father.name"]}, Other taxable income, continued from 1g`,
-    `${getLabel('prize')} -- ${getValueAsMoney(form, ["OtherIncomeSecondary", "prize"])}`,
+    `${getLabel('prize')} -- ${format(getValueAsNumber(form, ["OtherIncomeSecondary", "prize"]))}`,
     ...mapOtherIncomeToAddendum(form, "TaxableIncomeSecondary"),
-    `Total -- ${numberFormatToMoney(secondary["income.father.otherTaxable"])}`
+    `Total -- ${format(secondary["income.father.otherTaxable"])}`
   ])
 
   if (primary["income.mother.otherTaxable"] || secondary["income.father.otherTaxable"]) {
@@ -96,11 +109,11 @@ const calcIncome = (form, initiate) => {
   addendum.push([
     `${initiate["initiate.mother.name"]}, Other non-taxable income, continued from 1h`,
     ...mapOtherIncomeToAddendum(form, "NonTaxableIncome"),
-    `Total -- ${numberFormatToMoney(primary["income.mother.otherNonTaxable"])}`
+    `Total -- ${format(primary["income.mother.otherNonTaxable"])}`
   ], [
     `${initiate["initiate.mother.name"]}, Other non-taxable income, continued from 1h`,
     ...mapOtherIncomeToAddendum(form, "NonTaxableIncomeSecondary"),
-    `Total -- ${numberFormatToMoney(secondary["income.father.otherNonTaxable"])}`
+    `Total -- ${format(secondary["income.father.otherNonTaxable"])}`
   ])
 
   if (primary["income.mother.otherNonTaxable"] || secondary["income.father.otherNonTaxable"]) {
@@ -108,8 +121,8 @@ const calcIncome = (form, initiate) => {
   }
 
   // 1I TOTAL INCOME -- SUM(1A:1H) 
-  primary["income.mother.total"] = calcTotal(Object.values(primary))
-  secondary["income.father.total"] = calcTotal(Object.values(secondary))
+  primary["income.mother.total"] = sum(Object.values(primary))
+  secondary["income.father.total"] = sum(Object.values(secondary))
 
   // Callout
   data["income.mother.totalCallout"] = primary["income.mother.total"]
@@ -130,7 +143,7 @@ const calcWeeksBetween = (start, end) => {
   if (!start || !end) return 0
   let a = moment(start)
   let b = moment(end)
-  return b.diff(a, "week", true)
+  return b.diff(a, "week")
 }
 
 const calcWage = (job) => {
@@ -157,11 +170,11 @@ const calcWage = (job) => {
 
   switch (jobPayment) {
     case "hourly":
-      wage = jobHoursPerWeek * jobGrossAmount * numWeeks
+      wage = multiply(jobGrossAmount, jobHoursPerWeek, numWeeks)
       break
     case "salary":
     case "commission":
-      wage = jobGrossAmount * jobSchedule
+      wage = multiply(jobGrossAmount, jobSchedule)
       break
   }
 
@@ -187,21 +200,21 @@ const calcWages = (form, keyEmployment, keyOther) => {
 
   // Calc other wages
   const otherWages = getValueAsArray(form, [keyOther]).reduce((wages, job) => {
-    return wages + calcWage(job)
-  }, 0)
+    return add(wages, calcWage(job))
+  }, currency())
 
-  return wage + otherWages
+  return add(wage, otherWages)
 }
 
 const calcOtherIncome = (form, key) => {
   return getValueAsArray(form, key).reduce((total, other) => {
-    return total + getValueAsNumber(other, ["amt"])
-  }, 0)
+    return add(total, getValueAsNumber(other, ["amt"]))
+  }, currency())
 }
 
 const mapOtherIncomeToAddendum = (form, key) => {
   return getValueAsArray(form, key)
-    .map(other => `${getLabel(getValue(other, ["type"]))} -- ${getValueAsMoney(other, ["amt"])}`)
+    .map(other => `${getLabel(getValue(other, ["type"]))} -- ${format(getValueAsNumber(other, ["amt"]))}`)
 }
 
 module.exports = { calcIncome }

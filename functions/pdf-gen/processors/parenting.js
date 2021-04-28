@@ -1,4 +1,5 @@
 const { getValueAsNumber, getValue, getValueAsArray } = require('../utils/helpers')
+const { convertPrecision, add, divide } = require('../utils/currency')
 
 const calcParentingDays = (form, sola) => {
 
@@ -20,9 +21,9 @@ const calcParentingDays = (form, sola) => {
         getValue(form, ["ParentingDays", "primary"]) === "me" ? childDays : days - childDays
       const secondaryParentingDays =
         getValue(form, ["ParentingDays", "primary"]) !== "me" ? childDays : days - childDays
-      data[`parenting.table25a.mother.child.${childIndex}`] = String(primaryParentingDays)
-      data[`parenting.table25a.father.child.${childIndex}`] = String(secondaryParentingDays)
-      data[`parenting.table25a.days.child.${childIndex}`] = String(days)
+      data[`parenting.table25a.mother.child.${childIndex}`] = primaryParentingDays
+      data[`parenting.table25a.father.child.${childIndex}`] = secondaryParentingDays
+      data[`parenting.table25a.days.child.${childIndex}`] = days
 
       // Table 25-B: CHILD SUPPORT/YEAR
       // Mother’s line 24 by line 10 and enter the same amount for each child in Mother’s column of Table 25-B. 
@@ -30,17 +31,19 @@ const calcParentingDays = (form, sola) => {
       const numPrimaryChildren = getValueAsNumber(form, ["NumPrimaryChildren"])
       if (numPrimaryChildren > 0) {
         data[`parenting.table25b.mother.child.${childIndex}`] =
-          Math.round(sola["sola.mother.total"] / numPrimaryChildren)
+          convertPrecision(divide(sola["sola.mother.total"], numPrimaryChildren), 0)
         data[`parenting.table25b.father.child.${childIndex}`] =
-          Math.round(sola["sola.father.total"] / numPrimaryChildren)
+          convertPrecision(divide(sola["sola.father.total"], numPrimaryChildren), 0)
 
         // Calc total
-        data["parenting.table25b.mother.total"] =
-          (data["parenting.table25b.mother.total"] || 0) +
+        data["parenting.table25b.mother.total"] = add(
+          (data["parenting.table25b.mother.total"] || 0),
           data[`parenting.table25b.mother.child.${childIndex}`]
-        data["parenting.table25b.father.total"] =
-          (data["parenting.table25b.father.total"] || 0) +
+        )
+        data["parenting.table25b.father.total"] = add(
+          (data["parenting.table25b.father.total"] || 0),
           data[`parenting.table25b.father.child.${childIndex}`]
+        )
       }
 
       // QUESTION: Do all children on line 10 reside primarily
@@ -62,20 +65,22 @@ const calcParentingDays = (form, sola) => {
   //  MONTHLY Table 26 - B at far right.Total columns and
   //  enter total for non - residential parent at line 27.
   if (isSpendTimeWithPrimary || isSpendTimeWithSecondary) {
-    data["parenting.table26b.mother.total"] = 0
-    data["parenting.table26b.father.total"] = 0
     children.forEach(
       (child, index) => {
         const childIndex = index + 1
 
-        data[`parenting.table26b.mother.child.${childIndex}`] = Math.round(data[`parenting.table25b.mother.child.${childIndex}`] / 12)
-        data[`parenting.table26b.father.child.${childIndex}`] = Math.round(data[`parenting.table25b.father.child.${childIndex}`] / 12)
-        data["parenting.table26b.mother.total"] =
-          data["parenting.table26b.mother.total"] +
+        data[`parenting.table26b.mother.child.${childIndex}`] =
+          convertPrecision(divide(data[`parenting.table25b.mother.child.${childIndex}`], 12), 0)
+        data[`parenting.table26b.father.child.${childIndex}`] =
+          convertPrecision(divide(data[`parenting.table25b.father.child.${childIndex}`], 12), 0)
+        data["parenting.table26b.mother.total"] = add(
+          (data["parenting.table26b.mother.total"] || 0),
           data[`parenting.table26b.mother.child.${childIndex}`]
-        data["parenting.table26b.father.total"] =
-          data["parenting.table26b.father.total"] +
+        )
+        data["parenting.table26b.father.total"] = add(
+          (data["parenting.table26b.father.total"] || 0),
           data[`parenting.table26b.father.child.${childIndex}`]
+        )
       }
     )
 

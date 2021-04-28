@@ -1,7 +1,7 @@
 var moment = require("moment")
 // Hard-coded data for testing, copied from # Debug - Form values
 const init = require('./init.json')
-const { parseDataToMoney } = require("../utils/helpers")
+const { formatData } = require("../utils/currency")
 
 const { getInitiate } = require("./initiate")
 const { calcIncome } = require("./income")
@@ -69,10 +69,10 @@ const processData = (form, pdfs) => {
   let wsb = calcWSB(form, wsa)
 
   return {
-    [pdfs.wsa]: parseDataToMoney({ ...wsa, ...wsb.wsaData }),
+    [pdfs.wsa]: formatData({ ...wsa, ...wsb.wsaData }),
     [pdfs.addendum]: addendum,
-    [pdfs.wsbPartOne]: parseDataToMoney(wsb.partOneData),
-    [pdfs.wsbPartTwo]: parseDataToMoney(wsb.partTwoData)
+    [pdfs.wsbPartOne]: formatData(wsb.partOneData),
+    [pdfs.wsbPartTwo]: formatData(wsb.partTwoData)
   }
 }
 
