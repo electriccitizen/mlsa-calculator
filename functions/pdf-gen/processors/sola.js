@@ -1,7 +1,7 @@
 const { getValue, getValueAsNumber, getValueAsArray } = require('../utils/helpers')
 const { calcChildExpenses } = require('./percentages')
 const { getIRSBusinessMileageRate, getStandardExpense } = require('../utils/support-tables')
-const { currency, format, add, subtract, multiply, percentage, lt, isPositive, isNegative, minimum, maximum } = require('../utils/currency')
+const { currency, format, add, subtract, multiply, percentage, lt, gt, isNegative, minimum, maximum } = require('../utils/currency')
 
 const calcSola = (form, initiate, percentages) => {
 
@@ -43,8 +43,10 @@ const calcSola = (form, initiate, percentages) => {
   if (lt(percentages["ppa.mother.line6"], percentages["ppa.mother.income"])) {
 
     // 15 Parent’s share of total (for each column, line 13 x line 9)
-    data["sola.mother.share"] =
-      percentage(percentages["ppa.totalPrimaryAllowance"], percentages["ppa.mother.share"])
+    data["sola.mother.share"] = percentage(
+      percentages["ppa.totalPrimaryAllowance"],
+      percentages["ppa.mother.share"]
+    )
 
     //16 Compare line 15 to line 5; enter lower amount here
     data["sola.mother.shareLower"] = minimum(
@@ -53,9 +55,11 @@ const calcSola = (form, initiate, percentages) => {
     )
 
     // 17 Income available for SOLA (line 5 minus line 16; if zero, enter zero and skip to line 21)
-    data["sola.mother.income"] =
-      subtract(percentages["ppa.mother.income"], data["sola.mother.shareLower"])
-    if (isPositive(data["sola.mother.income"])) {
+    data["sola.mother.income"] = subtract(
+      percentages["ppa.mother.income"],
+      data["sola.mother.shareLower"]
+    )
+    if (gt(data["sola.mother.income"]), 0) {
       // 18A Long distance parenting adjustment (Worksheet D)
       data["sola.mother.distanceAdjustment"] =
         calcLongDistanceParentingAdjustment(form, "StandardOfLiving")
@@ -67,12 +71,17 @@ const calcSola = (form, initiate, percentages) => {
       addendum.push([
         `${initiate["initiate.mother.name"]}, Other sola and parent's annual child support, continued from 18b`,
         ...mapToAddendumOther(form, ["StandardOfLiving", "other"]),
-        `Total -- ${format(data["sola.mother.other"])}`
+        `Total -- ${format(data["sola.mother.other"], 'currency')}`
       ])
 
       // 19 Adjusted income for SOLA [line 17 minus (18a + 18b)]
-      data["sola.mother.adjusted"] =
-        subtract(data["sola.mother.income"], add(data["sola.mother.distanceAdjustment"], data["sola.mother.other"]))
+      data["sola.mother.adjusted"] = subtract(
+        data["sola.mother.income"],
+        add(
+          data["sola.mother.distanceAdjustment"],
+          data["sola.mother.other"]
+        )
+      )
 
       // 20 SOLA amount (Worksheet E)
       data["sola.mother.amount"] = calcStandardOfLivingAdjustment(
@@ -98,8 +107,10 @@ const calcSola = (form, initiate, percentages) => {
   if (lt(percentages["ppa.father.line6"], percentages["ppa.father.income"])) {
 
     // 15 Parent’s share of total (for each column, line 13 x line 9)
-    data["sola.father.share"] =
-      percentage(percentages["ppa.totalPrimaryAllowance"], percentages["ppa.father.share"])
+    data["sola.father.share"] = percentage(
+      percentages["ppa.totalPrimaryAllowance"],
+      percentages["ppa.father.share"]
+    )
 
     // 16 Compare line 15 to line 5; enter lower amount here
     data["sola.father.shareLower"] = minimum(
@@ -108,10 +119,12 @@ const calcSola = (form, initiate, percentages) => {
     )
 
     // 17 Income available for SOLA (line 5 minus line 16; if zero, enter zero and skip to line 21)
-    data["sola.father.income"] =
-      subtract(percentages["ppa.father.income"], data["sola.father.shareLower"])
+    data["sola.father.income"] = subtract(
+      percentages["ppa.father.income"],
+      data["sola.father.shareLower"]
+    )
 
-    if (isPositive(data["sola.father.income"])) {
+    if (gt(data["sola.father.income"], 0)) {
       // 18A Long distance parenting adjustment (Worksheet D)
       data["sola.father.distanceAdjustment"] =
         calcLongDistanceParentingAdjustment(form, "StandardOfLivingSecondary")
@@ -123,12 +136,17 @@ const calcSola = (form, initiate, percentages) => {
       addendum.push([
         `${initiate["initiate.father.name"]}, Other sola and parent's annual child support, continued from 18b`,
         ...mapToAddendumOther(form, ["StandardOfLivingSecondary", "other"]),
-        `Total -- ${format(data["sola.father.other"])}`
+        `Total -- ${format(data["sola.father.other"], 'currency')}`
       ])
 
       // 19 Adjusted income for SOLA [line 17 minus (18a + 18b)]
-      data["sola.father.adjusted"] =
-       subtract(data["sola.father.income"], add(data["sola.father.distanceAdjustment"], data["sola.father.other"]))
+      data["sola.father.adjusted"] = subtract(
+        data["sola.father.income"],
+        add(
+          data["sola.father.distanceAdjustment"],
+          data["sola.father.other"]
+        )
+      )
 
       // 20 SOLA amount (Worksheet E)
       data["sola.father.amount"] = calcStandardOfLivingAdjustment(
@@ -172,7 +190,7 @@ const calcSola = (form, initiate, percentages) => {
   data["sola.mother.credit"] = primaryChildExpenses.total
   data["sola.father.credit"] = secondaryChildExpenses.total
 
-  // 24 Total Annual Child Support (line 22 minus line 23; if less than zero, enter zero) 24 PA
+  // 24 Total Annual Child Support (line 22 minus line 23; if less than zero, enter zero) 
   const totalPrimary = subtract(data["sola.mother.gross"], data["sola.mother.credit"])
   const totalSecondary = subtract(data["sola.father.gross"], data["sola.father.credit"])
   data["sola.mother.total"] = isNegative(totalPrimary) ? currency(0) : totalPrimary
@@ -239,7 +257,7 @@ const calcOther = (form, key) => {
 
 const mapToAddendumOther = (form, key) => {
   return getValueAsArray(form, key)
-    .map(other => `${getValue(other, ["desc"], "")} -- ${format(getValueAsNumber(other, ["amt"]))}`)
+    .map(other => `${getValue(other, ["desc"], "")} -- ${format(getValueAsNumber(other, ["amt"]), 'currency')}`)
 }
 
 module.exports = { calcSola }

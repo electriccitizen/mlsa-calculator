@@ -69,6 +69,7 @@ const calcParentingDays = (form, sola) => {
       (child, index) => {
         const childIndex = index + 1
 
+        // Table 26-B: MONTHLY SUPPORT PER CHILD
         data[`parenting.table26b.mother.child.${childIndex}`] =
           convertPrecision(divide(data[`parenting.table25b.mother.child.${childIndex}`], 12), 0)
         data[`parenting.table26b.father.child.${childIndex}`] =
@@ -93,10 +94,14 @@ const calcParentingDays = (form, sola) => {
 
     data["initiate.documents.a"] = "true"
   } else {
-    // Complete Worksheet B parts 1 and 2
-    // follow instructs for adding results to 26a
-    // then divide each amount in 26a by 12, round according to instr
-    // and endter in MONTHLUY column of Table 26b.
+    // IF THE ANSWER IS “NO”: Complete Worksheet B, Parts
+    // 1 and 2; follow instructions for entering results into
+    // ANNUAL Table 26-A, at right. Divide each amount in
+    // Table 26-A by 12, round according to instructions, and
+    // enter in MONTHLY column of Table 26-B, at far right.
+    // Total all columns. From Table 26-B, subtract the lower
+    // total from the higher total and enter the difference at
+    // line 27 in the column of the parent with the higher total.
     data["initiate.documents.ab"] = "true"
   }
 

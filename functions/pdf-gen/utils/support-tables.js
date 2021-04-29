@@ -1,6 +1,6 @@
 const supportTables = require('../assets/support-tables.json')
 const { getValueAsNumber } = require('./helpers')
-const { currency, format, add, multiply } = require('./currency')
+const { currency } = require('./currency')
 
 // See https://dphhs.mt.gov/Portals/85/csed/documents/website2021cs4042CSGuidelinesTables.pdf
 

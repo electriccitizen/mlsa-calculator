@@ -1,6 +1,6 @@
 const { getValue, getValueAsNumber, getValueAsArray } = require("../utils/helpers")
 const { getAllowanceChildren, getPersonalAllowance } = require('../utils/support-tables')
-const { currency, format, getAmount, add, subtract, sum, percentage, isZero, isPositive, isNegative, maximum } = require('../utils/currency')
+const { currency, format, getAmount, add, subtract, sum, percentage, isZero, isNegative, maximum, gt } = require('../utils/currency')
 
 const calcPercentages = (form, initiate, deductions) => {
   // See https://dphhs.mt.gov/Portals/85/csed/documents/cs404-2CSGuidelinesTables.pdf
@@ -19,10 +19,10 @@ const calcPercentages = (form, initiate, deductions) => {
   const incomeAvailablePrimary = subtract(deductions["allowable.mother.income"], globalPPA)
   const incomeAvailableSecondary = subtract(deductions["allowable.father.income"], globalPPA)
   isNegative(incomeAvailablePrimary)
-    ? (data["ppa.mother.income"] = 0)
+    ? (data["ppa.mother.income"] = currency(0))
     : (data["ppa.mother.income"] = incomeAvailablePrimary)
   isNegative(incomeAvailableSecondary)
-    ? (data["ppa.father.income"] = 0)
+    ? (data["ppa.father.income"] = currency(0))
     : (data["ppa.father.income"] = incomeAvailableSecondary)
 
   // 6 If line 5 = zero, enter minimum contribution from Worksheet C. 
@@ -52,8 +52,8 @@ const calcPercentages = (form, initiate, deductions) => {
     data["ppa.father.compare"]
   )
 
-  // 9 Parental share of combined income (line 7 ÷ line 8) 
-  if (isPositive(data["ppa.combined"])) {
+  // 9 Parental share of combined income (line 7 ÷ line 8)
+  if (gt(data["ppa.combined"], 0)) {
     data["ppa.mother.share"] =
       Number((getAmount(data["ppa.mother.compare"]) /
         getAmount(data["ppa.combined"]) *
@@ -63,8 +63,8 @@ const calcPercentages = (form, initiate, deductions) => {
         getAmount(data["ppa.combined"]) *
         100).toFixed(2))
   } else {
-    data["ppa.mother.share"] = 0
-    data["ppa.father.share"] = 0
+    data["ppa.mother.share"] = currency(0)
+    data["ppa.father.share"] = currency(0)
   }
 
   // Callout
@@ -107,11 +107,11 @@ const calcPercentages = (form, initiate, deductions) => {
   addendum.push([
     `${initiate["initiate.mother.name"]}, Other primary child support allowance, continued from 12d`,
     ...mapToAddendumOtherExpenses(form, "ChildExpenses"),
-    `Total -- ${format(primaryChildExpenses.other)}`
+    `Total -- ${format(primaryChildExpenses.other, 'currency')}`
   ], [
     `${initiate["initiate.father.name"]}, Other primary child support allowance, continued from 12d`,
     ...mapToAddendumOtherExpenses(form, "ChildExpensesSecondary"),
-    `Total -- ${format(secondaryChildExpenses.other)}`
+    `Total -- ${format(secondaryChildExpenses.other, 'currency')}`
   ])
 
   if (data["ppa.other"]) {
@@ -152,7 +152,7 @@ const calcMinimumSupportObligation = (income, personalAllowance) => {
   return index > 0 ? percentage(income, index) : 0
 }
 
-const calcChildExpenses = (form, key) => {
+const calcChildExpenses = (form, key, index) => {
   const calcOtherExpenses = (expense) => {
     const otherExpenses = getValue(expense, ["otherExpenses"])
     if (!otherExpenses || otherExpenses === "no") {
@@ -163,7 +163,10 @@ const calcChildExpenses = (form, key) => {
     }, currency(0))
   }
 
-  const expenses = getValueAsArray(form, key).reduce((acc, expense) => ({
+  const children = getValueAsArray(form, key)
+  const expenses = (
+    (index !== undefined && children[index]) ? [children[index]] : children
+  ).reduce((acc, expense) => ({
     childCareCost: add(acc.childCareCost, getValueAsNumber(expense, ["childCareCost"])),
     healthInsurance: add(acc.healthInsurance, getValueAsNumber(expense, ["healthInsurance"])),
     medicalExpense: add(acc.medicalExpense, getValueAsNumber(expense, ["medicalExpense"])),
@@ -187,7 +190,7 @@ const mapToAddendumOtherExpenses = (form, key) => {
     if (otherExpenses && otherExpenses !== "no") {
       return [
         ...data,
-        ...getValueAsArray(expense, ["otherExpenses"]).map(other => `${getValue(other, ["desc"], "")} -- ${format(getValueAsNumber(other, ["amt"]))}`),
+        ...getValueAsArray(expense, ["otherExpenses"]).map(other => `${getValue(other, ["desc"], "")} -- ${format(getValueAsNumber(other, ["amt"]), 'currency')}`),
       ]
     }
     return data

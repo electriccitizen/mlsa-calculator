@@ -64,89 +64,89 @@ const calcAllowableDeductions = (form, initiate, income) => {
   )
 
   secondary["allowable.father.state"] = multiply(
-  getValueAsNumber(form, ["AllowableDeductionsSecondary", "state", "amount"]),
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "state", "amount"]),
     getValueAsNumber(form, ["AllowableDeductionsSecondary", "state", "schedule"])
-    )
+  )
 
-//2G Social Security (FICA plus Medicare)
-primary["allowable.mother.social"] = multiply(
-  getValueAsNumber(form, ["AllowableDeductions", "ssn", "amount"]),
-  getValueAsNumber(form, ["AllowableDeductions", "ssn", "schedule"])
-)
+  //2G Social Security (FICA plus Medicare)
+  primary["allowable.mother.social"] = multiply(
+    getValueAsNumber(form, ["AllowableDeductions", "ssn", "amount"]),
+    getValueAsNumber(form, ["AllowableDeductions", "ssn", "schedule"])
+  )
 
-secondary["allowable.father.social"] = multiply(
-  getValueAsNumber(form, ["AllowableDeductionsSecondary", "ssn", "amount"]),
-  getValueAsNumber(form, ["AllowableDeductionsSecondary", "ssn", "schedule"])
-)
+  secondary["allowable.father.social"] = multiply(
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "ssn", "amount"]),
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "ssn", "schedule"])
+  )
 
-//2H Mandatory retirement contributions
-primary["allowable.mother.mandatory"] = multiply(
-  getValueAsNumber(form, ["AllowableDeductions", "retirement", "amount"]),
-  getValueAsNumber(form, ["AllowableDeductions", "retirement", "schedule"])
-)
+  //2H Mandatory retirement contributions
+  primary["allowable.mother.mandatory"] = multiply(
+    getValueAsNumber(form, ["AllowableDeductions", "retirement", "amount"]),
+    getValueAsNumber(form, ["AllowableDeductions", "retirement", "schedule"])
+  )
 
-secondary["allowable.father.mandatory"] = multiply(
-  getValueAsNumber(form, ["AllowableDeductionsSecondary", "retirement", "amount"]),
-  getValueAsNumber(form, ["AllowableDeductionsSecondary", "retirement", "schedule"])
-)
+  secondary["allowable.father.mandatory"] = multiply(
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "retirement", "amount"]),
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "retirement", "schedule"])
+  )
 
-//2I Required employment expense 
-primary["allowable.mother.required"] = multiply(
-  getValueAsNumber(form, ["AllowableDeductions", "reqemp", "amount"]),
-  getValueAsNumber(form, ["AllowableDeductions", "reqemp", "schedule"])
-)
+  //2I Required employment expense 
+  primary["allowable.mother.required"] = multiply(
+    getValueAsNumber(form, ["AllowableDeductions", "reqemp", "amount"]),
+    getValueAsNumber(form, ["AllowableDeductions", "reqemp", "schedule"])
+  )
 
-secondary["allowable.father.required"] = multiply(
-  getValueAsNumber(form, ["AllowableDeductionsSecondary", "reqemp", "amount"]),
-  getValueAsNumber(form, ["AllowableDeductionsSecondary", "reqemp", "schedule"])
-)
+  secondary["allowable.father.required"] = multiply(
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "reqemp", "amount"]),
+    getValueAsNumber(form, ["AllowableDeductionsSecondary", "reqemp", "schedule"])
+  )
 
-//2J Dependent care expense for other children, less dependent care tax credit
-primary["allowable.mother.dependentcare"] =
-  calcDependentCareExpense(form, "OtherChildren")
-secondary["allowable.father.dependentcare"] =
-  calcDependentCareExpense(form, "OtherChildrenSecondary")
+  //2J Dependent care expense for other children, less dependent care tax credit
+  primary["allowable.mother.dependentcare"] =
+    calcDependentCareExpense(form, "OtherChildren")
+  secondary["allowable.father.dependentcare"] =
+    calcDependentCareExpense(form, "OtherChildrenSecondary")
 
-//2K Other (specify):___
-primary["allowable.mother.other"] =
-  calcOther(form, "OtherAllowableDeductions")
-secondary["allowable.father.other"] =
-  calcOther(form, "OtherAllowableDeductionsSecondary")
+  //2K Other (specify):___
+  primary["allowable.mother.other"] =
+    calcOther(form, "OtherAllowableDeductions")
+  secondary["allowable.father.other"] =
+    calcOther(form, "OtherAllowableDeductionsSecondary")
 
-addendum.push([
-  `${initiate["initiate.mother.name"]}, Other allowable deductions, continued from 2k`,
-  ...mapToAddendumOther(form, "OtherAllowableDeductions"),
-  `Total -- ${format(primary["allowable.mother.other"])}`
-], [
-  `${initiate["initiate.father.name"]}, Other allowable deductions, continued from 2k`,
-  ...mapToAddendumOther(form, "OtherAllowableDeductionsSecondary"),
-  `Total -- ${format(secondary["allowable.father.other"])}`
-])
+  addendum.push([
+    `${initiate["initiate.mother.name"]}, Other allowable deductions, continued from 2k`,
+    ...mapToAddendumOther(form, "OtherAllowableDeductions"),
+    `Total -- ${format(primary["allowable.mother.other"], 'currency')}`
+  ], [
+    `${initiate["initiate.father.name"]}, Other allowable deductions, continued from 2k`,
+    ...mapToAddendumOther(form, "OtherAllowableDeductionsSecondary"),
+    `Total -- ${format(secondary["allowable.father.other"], 'currency')}`
+  ])
 
-if (primary["allowable.mother.other"] || secondary["allowable.father.other"]) {
-  data["allowable.otherSpecify"] = "See Worksheet A Addendum"
-}
+  if (primary["allowable.mother.other"] || secondary["allowable.father.other"]) {
+    data["allowable.otherSpecify"] = "See Worksheet A Addendum"
+  }
 
-//2L TOTAL ALLOWABLE DEDUCTIONS (Add 2a through 2k) 
-primary["allowable.mother.total"] = sum(Object.values(primary))
-secondary["allowable.father.total"] = sum(Object.values(secondary))
+  //2L TOTAL ALLOWABLE DEDUCTIONS (Add 2a through 2k) 
+  primary["allowable.mother.total"] = sum(Object.values(primary))
+  secondary["allowable.father.total"] = sum(Object.values(secondary))
 
-// Line 3 INCOME AFTER DEDUCTIONS
-primary["allowable.mother.income"] = subtract(income["income.mother.total"], primary["allowable.mother.total"])
-secondary["allowable.father.income"] = subtract(income["income.father.total"], secondary["allowable.father.total"])
+  // Line 3 INCOME AFTER DEDUCTIONS
+  primary["allowable.mother.income"] = subtract(income["income.mother.total"], primary["allowable.mother.total"])
+  secondary["allowable.father.income"] = subtract(income["income.father.total"], secondary["allowable.father.total"])
 
-// Callout
-data["allowable.mother.incomeCallout"] = primary["allowable.mother.income"]
-data["allowable.father.incomeCallout"] = secondary["allowable.father.income"]
+  // Callout
+  data["allowable.mother.incomeCallout"] = primary["allowable.mother.income"]
+  data["allowable.father.incomeCallout"] = secondary["allowable.father.income"]
 
-return {
-  data: {
-    ...data,
-    ...primary,
-    ...secondary
-  },
-  addendum
-}
+  return {
+    data: {
+      ...data,
+      ...primary,
+      ...secondary
+    },
+    addendum
+  }
 }
 
 // Helpers
@@ -182,7 +182,7 @@ const calcOther = (form, key) => {
 
 const mapToAddendumOther = (form, key) => {
   return getValueAsArray(form, key)
-    .map(other => `${getValue(other, ["description"], "")} -- ${format(getValueAsNumber(other, ["amount"]))}`)
+    .map(other => `${getValue(other, ["description"], "")} -- ${format(getValueAsNumber(other, ["amount"]), 'currency')}`)
 }
 
 module.exports = { calcAllowableDeductions }

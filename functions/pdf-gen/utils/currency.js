@@ -2,51 +2,150 @@
 // You should use helper functions.
 const Dinero = require('dinero.js')
 
-// Compare if the value is a Dinero instance.
-const isDinero = (amount) => amount instanceof Object && amount.getAmount
+// Set locale
+Dinero.globalLocale = 'en-US'
 
-// Dinero instance factory.
-const currency = (amount, rest = {}) => {
-    if (isDinero(amount)) return amount
-    return Dinero({ amount: parseInt((Number(amount) || 0) * 100), ...rest })
+// Create Currency Object with Constructor.
+function Currency(object) {
+    this.amount = object.amount
+    this.currency = object.currency
+    this.precision = object.precision
+}
+
+// Currency instance factory.
+const currency = (amount = 0, rest = { currency: 'USD', precision: 2 }) => {
+    if (amount instanceof Currency) return amount
+    return new Currency(
+        Dinero({ amount: parseInt((Number(amount) || 0) * 100), ...rest })
+            .toObject()
+    )
 }
 
 // Helper functions.
 // Access
-const getAmount = (currency) => currency.getAmount ? currency.getAmount() : currency
+const getAmount = (currency) => {
+    return Dinero(currency)
+        .getAmount()
+}
 
 // Manipulation
-const add = (a, b) => currency(a).add(currency(b))
+const add = (a, b) => {
+    return new Currency(
+        Dinero(currency(a))
+            .add(Dinero(currency(b)))
+            .toObject()
+    )
+}
 
-const subtract = (a, b) => currency(a).subtract(currency(b))
+const subtract = (a, b) => {
+    return new Currency(
+        Dinero(currency(a))
+            .subtract(Dinero(currency(b)))
+            .toObject()
+    )
+}
 
-const multiply = (amount, ...args) => args.reduce((a, b) => a.multiply(b), currency(amount))
+const multiply = (amount, ...args) => {
+    return args.reduce((a, b) => {
+        return new Currency(
+            Dinero(a)
+                .multiply(b)
+                .toObject()
+        )
+    }, currency(amount))
+}
 
-const divide = (a, b) => currency(a).divide(b)
+const divide = (a, b) => {
+    return new Currency(
+        Dinero(currency(a))
+            .divide(b)
+            .toObject()
+    )
+}
 
-const sum = (array) => array.reduce((a, b) => a.add(currency(b)), currency())
+const sum = (array) => {
+    return array.reduce((a, b) => {
+        return new Currency(Dinero(currency(a))
+            .add(Dinero(currency(b)))
+            .toObject()
+        )
+    })
+}
 
-const percentage = (a, b) => currency(a).percentage(b)
+const percentage = (a, b) => {
+    return new Currency(
+        Dinero(currency(a))
+            .percentage(b)
+            .toObject()
+    )
+}
 
 // Testing
-const lt = (a, b) => currency(a).lessThan(currency(b))
+const lt = (a, b) => {
+    return Dinero(currency(a))
+        .lessThan(Dinero(currency(b)))
+}
 
-const gt = (a, b) => currency(a).greaterThan(currency(b))
+const gt = (a, b) => {
+    return Dinero(currency(a))
+        .greaterThan(Dinero(currency(b)))
+}
 
-const isZero = (amount) => currency(amount).isZero()
+const isZero = (amount) => {
+    return Dinero(currency(amount))
+        .isZero()
+}
 
-const isPositive = (amount) => currency(amount).isPositive()
+const isPositive = (amount) => {
+    return Dinero(currency(amount))
+        .isPositive()
+}
 
-const isNegative = (amount) => currency(amount).isNegative()
+const isNegative = (amount) => {
+    return Dinero(currency(amount))
+        .isNegative()
+}
 
-const minimum = (...args) => Dinero.minimum(args.map(amount => currency(amount)))
+const minimum = (...args) => {
+    return new Currency(
+        Dinero
+            .minimum(args.map(amount => Dinero(currency(amount))))
+            .toObject()
+    )
+}
 
-const maximum = (...args) => Dinero.maximum(args.map(amount => currency(amount)))
+const maximum = (...args) => {
+    return new Currency(
+        Dinero
+            .maximum(args.map(amount => Dinero(currency(amount))))
+            .toObject()
+    )
+}
 
 // Conversion & formatting
-const format = (amount) => currency(amount).toUnit().toLocaleString('en-US', { style: 'decimal', minimumFractionDigits: 0, maximumFractionDigits: 2 })
+const format = (amount, style = 'decimal') => {
+    const dinero = Dinero(currency(amount))
 
-const convertPrecision = (amount, newPrecision) => currency(amount).convertPrecision(newPrecision)
+    return dinero
+        .toUnit()
+        .toLocaleString(
+            dinero.getLocale(),
+            {
+                style: style,
+                currency: dinero.getCurrency(),
+                minimumFractionDigits: 0,
+                maximumFractionDigits: dinero.getPrecision()
+            }
+        )
+}
+
+const convertPrecision = (amount, newPrecision) => {
+    return new Currency(
+        Dinero(currency(amount))
+            .convertPrecision(newPrecision)
+            .toObject()
+    )
+}
 
 // Format Dinero objects into a string.
 const formatData = (data) => {
@@ -55,7 +154,7 @@ const formatData = (data) => {
         return Object.keys(nested).reduce((acc, key) => {
             return {
                 ...acc,
-                [key]: isDinero(nested[key]) ?
+                [key]: nested[key] instanceof Currency ?
                     format(nested[key]) :
                     nested[key]
             }

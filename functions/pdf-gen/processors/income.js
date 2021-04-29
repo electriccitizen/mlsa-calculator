@@ -86,14 +86,14 @@ const calcIncome = (form, initiate) => {
 
   addendum.push([
     `${initiate["initiate.mother.name"]}, Other taxable income, continued from 1g`,
-    `${getLabel('prize')} -- ${format(getValueAsNumber(form, ["OtherIncome", "prize"]))}`,
+    `${getLabel('prize')} -- ${format(getValueAsNumber(form, ["OtherIncome", "prize"]), 'currency')}`,
     ...mapOtherIncomeToAddendum(form, "TaxableIncome"),
-    `Total -- ${format(primary["income.mother.otherTaxable"])}`
+    `Total -- ${format(primary["income.mother.otherTaxable"], 'currency')}`
   ], [
     `${initiate["initiate.father.name"]}, Other taxable income, continued from 1g`,
-    `${getLabel('prize')} -- ${format(getValueAsNumber(form, ["OtherIncomeSecondary", "prize"]))}`,
+    `${getLabel('prize')} -- ${format(getValueAsNumber(form, ["OtherIncomeSecondary", "prize"]), 'currency')}`,
     ...mapOtherIncomeToAddendum(form, "TaxableIncomeSecondary"),
-    `Total -- ${format(secondary["income.father.otherTaxable"])}`
+    `Total -- ${format(secondary["income.father.otherTaxable"], 'currency')}`
   ])
 
   if (primary["income.mother.otherTaxable"] || secondary["income.father.otherTaxable"]) {
@@ -109,11 +109,11 @@ const calcIncome = (form, initiate) => {
   addendum.push([
     `${initiate["initiate.mother.name"]}, Other non-taxable income, continued from 1h`,
     ...mapOtherIncomeToAddendum(form, "NonTaxableIncome"),
-    `Total -- ${format(primary["income.mother.otherNonTaxable"])}`
+    `Total -- ${format(primary["income.mother.otherNonTaxable"], 'currency')}`
   ], [
     `${initiate["initiate.mother.name"]}, Other non-taxable income, continued from 1h`,
     ...mapOtherIncomeToAddendum(form, "NonTaxableIncomeSecondary"),
-    `Total -- ${format(secondary["income.father.otherNonTaxable"])}`
+    `Total -- ${format(secondary["income.father.otherNonTaxable"], 'currency')}`
   ])
 
   if (primary["income.mother.otherNonTaxable"] || secondary["income.father.otherNonTaxable"]) {
@@ -214,7 +214,7 @@ const calcOtherIncome = (form, key) => {
 
 const mapOtherIncomeToAddendum = (form, key) => {
   return getValueAsArray(form, key)
-    .map(other => `${getLabel(getValue(other, ["type"]))} -- ${format(getValueAsNumber(other, ["amt"]))}`)
+    .map(other => `${getLabel(getValue(other, ["type"]))} -- ${format(getValueAsNumber(other, ["amt"]), 'currency')}`)
 }
 
 module.exports = { calcIncome }

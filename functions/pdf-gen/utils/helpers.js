@@ -2,7 +2,7 @@
 const getValue = (nestedObj, pathArr, defaultTo) => {
     pathArr = Array.isArray(pathArr) ? pathArr : Array(pathArr)
     return pathArr.reduce((obj, key) =>
-        (obj && obj[key] !== undefined) ? obj[key] : defaultTo, nestedObj)
+        (obj && obj[key] !== undefined && obj[key] !== null ) ? obj[key] : defaultTo, nestedObj)
 }
 
 const getValueAsNumber = (nestedObj, pathArr, defaultTo = 0) => {
