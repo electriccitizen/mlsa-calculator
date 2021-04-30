@@ -295,8 +295,7 @@
     "grossAmount": "1000",
     "hoursPerWeek": "40",
     "schedule": "24",
-    "address": "123 Easy St",
-    "phone": "999999999"
+    "address": "123 Easy St"
   },
   "OtherJob": {
     "0": {

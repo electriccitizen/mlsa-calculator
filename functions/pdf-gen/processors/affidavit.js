@@ -25,7 +25,7 @@ const getAffidavit = (form) => {
             `${getValue(form, ["PrimaryMailing", "city2"], "")}, ${getValue(form, ["PrimaryMailing", "state2"], "")} ${getValue(form, ["PrimaryMailing", "zip2"], "")}`
 
     // Work Phone No.: 
-    data["personal.workPhoneNo"] = getValue(form, ["EmploymentPrimary", "phone"], "N/A")
+    data["personal.workPhoneNo"] = "N/A" // TODO
 
     // Home/Cell No.: 
     data["personal.homeCellNo"] = getValue(form, ["Primary", "phone"], "N/A")

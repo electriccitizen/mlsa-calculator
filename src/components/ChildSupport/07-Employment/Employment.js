@@ -143,11 +143,6 @@ export const Employment = d => {
                 label={"Street Address"}
                 name={"EmploymentPrimary.unionAddress"}
               />
-               <FieldInput
-                name={`EmploymentPrimary.phone`}
-                label="Phone"
-                required="Required"
-              />
             </>
           )}
       </>
