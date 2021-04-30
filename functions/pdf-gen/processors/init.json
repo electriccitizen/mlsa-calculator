@@ -4,6 +4,7 @@
   "Action": "establish",
   "CSED": "1234",
   "PrimaryMailing": {
+    "address": "123 Easy Street",
     "address2": "999 Diablo Ave",
     "city2": "NY",
     "state2": "NY",
@@ -160,8 +161,7 @@
     "address2": null,
     "city": "New York ",
     "state": "NY",
-    "zip": "55555",
-    "mail_address": "123 Easy Street"
+    "zip": "55555"
   },
   "OtherParent": {
     "fname": "John",
@@ -295,7 +295,8 @@
     "grossAmount": "1000",
     "hoursPerWeek": "40",
     "schedule": "24",
-    "address": "123 Easy St"
+    "address": "123 Easy St",
+    "phone": "999999999"
   },
   "OtherJob": {
     "0": {

@@ -1,9 +1,13 @@
-const getAddendum = (initiate, addendum) => {
+const { getValue } = require("../utils/helpers")
+
+const getAddendum = (form, addendum) => {
+    if(!addendum || addendum.length <= 0) return null
+
     return mapToPages(addendum).map((page, index) => {
         let data = {}
-        data["addendum.csed"] = initiate["initiate.csed"]
-        data["addendum.mother"] = initiate["initiate.mother.name"]
-        data["addendum.father"] = initiate["initiate.father.name"]
+        data["addendum.csed"] = getValue(form, ["CSED"])
+        data["addendum.mother"] = `${getValue(form, ["Primary", "fname"], "")} ${getValue(form, ["Primary", "lname"], "")}`
+        data["addendum.father"] = `${getValue(form, ["OtherParent", "fname"], "")} ${getValue(form, ["OtherParent", "lname"], "")}`
         data["addendum.page"] = index + 1
 
         data["addendum.copy"] = page.reduce((copy, data) => {

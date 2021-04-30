@@ -150,16 +150,22 @@ const convertPrecision = (amount, newPrecision) => {
 // Format Dinero objects into a string.
 const formatData = (data) => {
     if (!data) return {}
-    return (Array.isArray(data) ? data : Array(data)).map(nested => {
-        return Object.keys(nested).reduce((acc, key) => {
-            return {
-                ...acc,
-                [key]: nested[key] instanceof Currency ?
-                    format(nested[key]) :
-                    nested[key]
-            }
-        }, {})
-    })
+    return Object.entries(data).reduce((results, [key, value]) => {
+        return {
+            ...results,
+            [key]: (Array.isArray(value) ? value : Array(value))
+                .map(nested => {
+                    return Object.keys(nested).reduce((acc, key) => {
+                        return {
+                            ...acc,
+                            [key]: nested[key] instanceof Currency ?
+                                format(nested[key]) :
+                                nested[key]
+                        }
+                    }, {})
+                })
+        }
+    }, {})
 }
 
 module.exports = {

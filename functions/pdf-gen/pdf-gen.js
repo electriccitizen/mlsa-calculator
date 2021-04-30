@@ -35,6 +35,9 @@ const pdfs = [{
 }, {
   name: "wsbPartTwo",
   src: `${ROOT}/pdfs/wsb-part-2-fillable.pdf`
+}, {
+  name: "affidavit",
+  src: `${ROOT}/pdfs/affidavit-fillable.pdf`
 }]
 
 const fillPdf = (pdf, data) => {
@@ -62,7 +65,6 @@ const generatePdf = values => {
           return promises
         }
       }, [])
-
   // Merge pdfs
   return Promise
     .all(promises)
@@ -77,12 +79,21 @@ exports.handler = function (event, context, callback) {
   if (event.body !== null && event.body !== undefined) {
     const formData = JSON.parse(event.body)
     const data = processData(formData, pdfs)
+    const keys = Object.keys(data)
+    const values = Object.values(data)
+    const promises = values.map(value => generatePdf(value))
 
-    generatePdf(data)
-      .then(buffer => {
+    Promise
+      .all(promises)
+      .then(pdfs => {
+        // Zip object
+        const results = keys.reduce((acc, key, index) => {
+          return { ...acc, [key]: pdfs[index].toString('base64') }
+        }, {})
+
         callback(null, {
           statusCode: 200,
-          body: JSON.stringify(buffer.toString('base64')),
+          body: JSON.stringify(results),
         })
       })
       .catch(error => {

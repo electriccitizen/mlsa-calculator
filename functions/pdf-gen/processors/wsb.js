@@ -3,7 +3,7 @@ const { calcChildExpenses } = require("./percentages")
 const { getAmount, convertPrecision, add, subtract, multiply, divide, lt, gt, minimum, isZero } = require('../utils/currency')
 
 const calcWSB = (form, wsa) => {
-    if (wsa["initiate.documents.ab"] !== "true") return {}
+    if (wsa["initiate.documents.ab"] !== "true") return null
 
     // Main
     let wsaData = {}

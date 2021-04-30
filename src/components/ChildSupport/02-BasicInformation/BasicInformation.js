@@ -74,7 +74,7 @@ export const BasicInformation = () => {
         <AddressFieldMailing
           header={"What is your mailing address?"}
           label={"Mailing Address"}
-          name={"Primary.mail_address"}
+          name={"PrimaryMailing.address"}
         />
       )}
 

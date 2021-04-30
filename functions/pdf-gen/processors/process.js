@@ -1,16 +1,19 @@
-var moment = require("moment")
 // Hard-coded data for testing, copied from # Debug - Form values
 const init = require('./init.json')
 const { formatData } = require("../utils/currency")
+const { getValue } = require("../utils/helpers")
 
-const { getInitiate } = require("./initiate")
-const { calcIncome } = require("./income")
-const { calcAllowableDeductions } = require("./deductions")
-const { calcPercentages } = require("./percentages")
-const { calcSola } = require("./sola")
-const { calcParentingDays } = require("./parenting")
+const { calcWSA } = require("./wsa")
 const { getAddendum } = require("./addendum")
 const { calcWSB } = require("./wsb")
+const { getAffidavit } = require('./affidavit')
+
+// Available documents
+const DOCUMENTS = {
+  BOTH: "both",
+  WORKSHEETS: "worksheets",
+  AFFIDAVIT: "affadavit"
+}
 
 const processData = (form, pdfs) => {
   // Override pdfs array to object with names
@@ -19,60 +22,36 @@ const processData = (form, pdfs) => {
   // Pass hard-coded data to processors instead of form (init.json)
   form = init
 
-  // Main
-  let data = {}
-
-  // Initiate
-  let initiate = getInitiate(form)
-
-  // INCOME
-  let income = calcIncome(form, initiate.data)
-
-  // ALLOWABLE DEDUCTIONS
-  let deductions = calcAllowableDeductions(form, initiate.data, income.data)
-
-  // PARENTS’ PERCENTAGES and PRIMARY CHILD SUPPORT ALLOWANCE
-  let percentages = calcPercentages(form, initiate.data, deductions.data)
-
-  // SOLA AND PARENT’S ANNUAL CHILD SUPPORT
-  let sola = calcSola(form, initiate.data, percentages.data)
-
-  // PARENTING DAYS AND ANNUAL CHILD SUPPORT
-  let parenting = calcParentingDays(form, sola.data)
-
-  // WORKSHEET PREPARED BY
-  data["worksheet.prepared"] = initiate.data["initiate.mother.name"]
-
-  // WORKSHEET DATE
-  data["worksheet.date"] = moment().format('MMMM D, YYYY')
-
-  // WORKSHEET A ADDENDUM
-  let addendum = getAddendum(initiate.data, [
-    ...income.addendum,
-    ...deductions.addendum,
-    ...percentages.addendum,
-    ...sola.addendum
-  ])
+  const documents = getValue(form, "Documents")
+  const isWorksheets = documents === DOCUMENTS.BOTH || documents === DOCUMENTS.WORKSHEETS
+  const isAffidavit = documents === DOCUMENTS.BOTH || documents === DOCUMENTS.AFFIDAVIT
 
   // WORKSHEET A DATA
-  let wsa = {
-    ...data,
-    ...initiate.data,
-    ...income.data,
-    ...deductions.data,
-    ...percentages.data,
-    ...sola.data,
-    ...parenting.data
-  }
+  const wsa = isWorksheets && calcWSA(form)
 
-  // WORKSEET B DATA
-  let wsb = calcWSB(form, wsa)
+  // WORKSHEET A ADDENDUM
+  const addendum = isWorksheets && getAddendum(form, wsa.addendum)
+
+  // WORKSHEET B DATA
+  const wsb = isWorksheets && calcWSB(form, wsa.data)
+
+  // FINANCIAL AFFIDAVIT
+  const affidavit = isAffidavit && getAffidavit(form)
 
   return {
-    [pdfs.wsa]: formatData({ ...wsa, ...wsb.wsaData }),
-    [pdfs.addendum]: addendum,
-    [pdfs.wsbPartOne]: formatData(wsb.partOneData),
-    [pdfs.wsbPartTwo]: formatData(wsb.partTwoData)
+    ...isWorksheets && {
+      [DOCUMENTS.WORKSHEETS]: formatData({
+        ...wsa && { [pdfs.wsa]: { ...wsa.data, ...wsb && wsb.wsaData } },
+        ...addendum && { [pdfs.addendum]: addendum },
+        ...wsb && { [pdfs.wsbPartOne]: wsb.partOneData },
+        ...wsb && { [pdfs.wsbPartTwo]: wsb.partTwoData }
+      })
+    },
+    ...isAffidavit && {
+      [DOCUMENTS.AFFIDAVIT]: {
+        ...affidavit && { [pdfs.affidavit]: affidavit }
+      }
+    }
   }
 }
 

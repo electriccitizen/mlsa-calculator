@@ -9,8 +9,8 @@ export const CompleteApp = ({ state, pdf }) => {
   const form = useForm({ subscribe: { fields: ["Documents"] } })
   const [counter, setCounter] = useState(0)
 
-  const handlePrint = () => {
-    const base64 = pdf
+  const handlePrint = (key) => () => {
+    const base64 = pdf[key]
     printJS({ printable: base64, type: "pdf", base64: true })
   }
 
@@ -75,7 +75,7 @@ export const CompleteApp = ({ state, pdf }) => {
                 >
                   <a
                     class="logo"
-                    href={"data:application/pdf;base64," + pdf + ""}
+                    href={pdf && "data:application/pdf;base64," + pdf.worksheets + ""}
                     download="MontanaChildSupportWorksheet.pdf"
                   >
                     {state === true ? "Download" : loadingMessageDownload}
@@ -86,7 +86,7 @@ export const CompleteApp = ({ state, pdf }) => {
                   width="auto"
                   colorScheme="brand"
                   type="button"
-                  onClick={handlePrint}
+                  onClick={handlePrint('worksheets')}
                 >
                   {state === true ? "Print" : loadingMessagePrint}
                 </Button>
@@ -125,8 +125,8 @@ export const CompleteApp = ({ state, pdf }) => {
                 >
                   <a
                     class="logo"
-                    href={"data:application/pdf;base64," + pdf + ""}
-                    download="MontanaChildSupportWorksheet.pdf"
+                    href={pdf && "data:application/pdf;base64," + pdf.affadavit + ""}
+                    download="MontanaChildSupportFinancialAffidavit.pdf"
                   >
                     {state === true ? "Download" : loadingMessageDownload}
                   </a>
@@ -136,7 +136,7 @@ export const CompleteApp = ({ state, pdf }) => {
                   width="auto"
                   colorScheme="brand"
                   type="button"
-                  onClick={handlePrint}
+                  onClick={handlePrint('affadavit')}
                 >
                   {state === true ? "Print" : loadingMessagePrint}
                 </Button>
