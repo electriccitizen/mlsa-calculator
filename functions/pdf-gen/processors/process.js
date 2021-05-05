@@ -20,7 +20,7 @@ const processData = (form, pdfs) => {
   pdfs = pdfs && pdfs.reduce((names, pdf) => ({ ...names, [pdf.name]: pdf.name }), {})
 
   // Pass hard-coded data to processors instead of form (init.json)
-  // form = init
+  form = init
 
   const documents = getValue(form, "Documents")
   const isWorksheets = documents === DOCUMENTS.BOTH || documents === DOCUMENTS.WORKSHEETS
