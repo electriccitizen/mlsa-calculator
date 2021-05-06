@@ -6,9 +6,9 @@
   "PrimaryMailing": {
     "address": "123 Easy Street",
     "address2": "999 Diablo Ave",
-    "city2": "NY",
-    "state2": "NY",
-    "zip2": "55555"
+    "city": "NY",
+    "state": "NY",
+    "zip": "55555"
   },
   "NumPrimaryChildren": "3",
   "OtherChildrenPrimary": "yes",

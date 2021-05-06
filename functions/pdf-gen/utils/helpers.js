@@ -2,7 +2,7 @@
 const getValue = (nestedObj, pathArr, defaultTo) => {
     pathArr = Array.isArray(pathArr) ? pathArr : Array(pathArr)
     return pathArr.reduce((obj, key) =>
-        (obj && obj[key] !== undefined && obj[key] !== null ) ? obj[key] : defaultTo, nestedObj)
+        (obj && obj[key] !== undefined && obj[key] !== null) ? obj[key] : defaultTo, nestedObj)
 }
 
 const getValueAsNumber = (nestedObj, pathArr, defaultTo = 0) => {
@@ -13,4 +13,10 @@ const getValueAsArray = (nestedObj, pathArr, defaultTo = []) => {
     return Object.values(getValue(nestedObj, pathArr, defaultTo))
 }
 
-module.exports = { getValue, getValueAsNumber, getValueAsArray }
+const getValuesAsString = (nestedObj, pathsArr, defaultTo = "") => {
+    return pathsArr.reduce((string, pathArr) => (
+        `${string} ${getValue(nestedObj, pathArr, defaultTo)}`
+    ), "")
+}
+
+module.exports = { getValue, getValueAsNumber, getValueAsArray, getValuesAsString }

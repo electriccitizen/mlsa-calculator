@@ -16,17 +16,17 @@ export const AddressFieldMailing = ({ header, label, name }) => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldInput
-          name={`PrimaryMailing.city2`}
+          name={`PrimaryMailing.city`}
           label="City"
           required="Required"
         />
         <FieldInput
-          name={`PrimaryMailing.state2`}
+          name={`PrimaryMailing.state`}
           label="State"
           required="Required"
         />
         <FieldInput
-          name={"PrimaryMailing.zip2"}
+          name={"PrimaryMailing.zip"}
           label="Zip code"
           required="Required"
         />
