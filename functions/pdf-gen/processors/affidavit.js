@@ -1,6 +1,13 @@
 var moment = require("moment")
+var pixelWidth = require('string-pixel-width')
 const { format, subtract } = require("../utils/currency")
 const { getValue, getValueAsArray, getValueAsNumber, getValuesAsString } = require("../utils/helpers")
+
+// Static fields width in pixels
+const FIELDS_WIDTH = {
+    "personal.taxExemptions": [510, 830],
+    "children.insuranceOngoingDesc": [220, 815, 815, 815]
+}
 
 const getAffidavit = (form) => {
     // Main
@@ -43,8 +50,14 @@ const getAffidavit = (form) => {
     // Tax filing status
     data["personal.taxStatus"] = getValue(form, ["FinancialAffadavitOne", "taxStatus"])
 
-    // Tax Exemptions //TODO add multiline
-    data["personal.taxExemptions-1"] = getValue(form, ["FinancialAffadavitOne", "taxExemptions"])
+    // Tax Exemptions
+    const [taxExemptionsLines] = divideIntoLines(
+        getValue(form, ["FinancialAffadavitOne", "taxExemptions"]),
+        FIELDS_WIDTH["personal.taxExemptions"]
+    )
+    taxExemptionsLines.forEach((line, index) => {
+        data[`personal.taxExemptions-${index + 1}`] = line
+    })
 
     // Spouse income
     data["personal.spouseIncome"] =
@@ -196,10 +209,14 @@ const getAffidavit = (form) => {
     data["children.daycareExpense"] = getValue(form, ["FinancialAffadavitOne", "daycareExpense"])
 
     // The ongoing medical expenses. //TODO add multiline
-    data["children.insuranceOngoingDesc"] =
+    const [insuranceOngoingDescLines] = divideIntoLines(
         getValue(form, ["Insurance", "ongoing"]) === 'yes' &&
-        getValue(form, ["Insurance", "ongoingDesc"])
-
+        getValue(form, ["Insurance", "ongoingDesc"]),
+        FIELDS_WIDTH["children.insuranceOngoingDesc"]
+    )
+    insuranceOngoingDescLines.forEach((line, index) => {
+        data[`children.insuranceOngoingDesc-${index + 1}`] = line
+    })
     // Do you have health insurance available to you through employment or other group?
     data["children.insuranceCurrent"] = getValue(form, ["Insurance", "current"])
 
@@ -253,6 +270,54 @@ const getAffidavit = (form) => {
                 data[key]
         }
     }, {})
+}
+
+// Helpers
+const divideIntoLines = (string, widths) => {
+    const ADDENDUM_WIDTH = 700
+
+    if (!string) []
+
+    return Object.values(
+        Object.values(
+            string
+                .split(" ")
+                .reduce((lines, word) => {
+                    // Get current number of lines
+                    const length = Object.keys(lines).length
+                    const current = length - 1 < 0 ? 0 : length - 1
+
+                    // Set is addendum
+                    const isAddendum = current >= widths.length
+
+                    // Calculate number of words
+                    const words = [lines[current] || "", word].join(" ").trim()
+
+                    // Calculate width words
+                    const width = pixelWidth(words, { font: 'Helvetica', size: 16 })
+
+                    // Set max width field
+                    const maxWidth = isAddendum ? ADDENDUM_WIDTH : widths[current]
+
+                    // Set next number of page
+                    const next = Math.floor(width / maxWidth) >= 1 ? current + 1 : current
+
+                    return {
+                        ...lines,
+                        [next]: [lines[next] || "", word].join(" ").trim()
+                    }
+                }, {})
+        ).reduce((lines, line, index) => {
+            const key = index >= widths.length ? '1' : '0'
+            return {
+                ...lines,
+                [key]: [
+                    ...(lines[key] || []),
+                    line
+                ]
+            }
+        }, {})
+    )
 }
 
 module.exports = { getAffidavit }
