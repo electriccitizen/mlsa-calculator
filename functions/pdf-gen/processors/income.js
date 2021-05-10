@@ -217,4 +217,4 @@ const mapOtherIncomeToAddendum = (form, key) => {
     .map(other => `${getLabel(getValue(other, ["type"]))} -- ${format(getValueAsNumber(other, ["amt"]), 'currency')}`)
 }
 
-module.exports = { calcIncome }
+module.exports = { calcIncome, calcWages }

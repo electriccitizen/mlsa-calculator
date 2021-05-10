@@ -56,7 +56,7 @@ export const BasicInformation = () => {
           <FieldInput name={`Primary.dl`} label="Driver's License #" />
         </Stack>
 
-        <AddressField label={"Street Address"} name={"Primary.address"} />
+        <AddressField label={"Street Address"} name={"Primary"} />
 
         <FieldRadio
           name="PrimaryMailing"

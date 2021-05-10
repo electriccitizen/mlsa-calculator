@@ -5,9 +5,9 @@ import { Stack, Box } from "@chakra-ui/react"
 export const AddressField = ({ header, label, name }) => {
   return (
     <Box mt={4}>
-      <FieldInput name={name} label={label} required="Required" mb={4} />
+      <FieldInput name={`${name}.address`} label={label} required="Required" mb={4} />
       <FieldInput
-        name={`Primary.address2`}
+        name={`${name}.address2`}
         label="Line 2, if any (Apt number, P.O. Box, etc.)"
         placeholder="Optional"
       />
@@ -16,17 +16,17 @@ export const AddressField = ({ header, label, name }) => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldInput
-          name={`Primary.city`}
+          name={`${name}.city`}
           label="City"
           required="Required"
         />
         <FieldInput
-          name={`Primary.state`}
+          name={`${name}.state`}
           label="State"
           required="Required"
         />
         <FieldInput
-          name={"Primary.zip"}
+          name={`${name}.zip`}
           label="Zip code"
           required="Required"
         />

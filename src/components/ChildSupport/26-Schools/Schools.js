@@ -69,7 +69,7 @@ export const Schools = () => {
 
       {schoolCurrent === "yes" && (
         <FieldDate
-          name={`Schools.current.endDate`}
+          name={`Schools.dateOfGraduation`}
           label="What is your expected date of graduation? If you are not sure of the exact date, enter an approximate date. (MM/DD/YYYY)"
           required="Required"
           placeholder="MM/DD/YYYY"

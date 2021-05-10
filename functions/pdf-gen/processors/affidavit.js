@@ -2,11 +2,18 @@ var moment = require("moment")
 var pixelWidth = require('string-pixel-width')
 const { format, subtract } = require("../utils/currency")
 const { getValue, getValueAsArray, getValueAsNumber, getValuesAsString } = require("../utils/helpers")
+const { calcWages } = require("./income")
 
 // Static fields width in pixels
 const FIELDS_WIDTH = {
     "personal.taxExemptions": [510, 830],
-    "children.insuranceOngoingDesc": [220, 815, 815, 815]
+    "children.insuranceOngoingDesc": [220, 815, 815, 815],
+    "employment.employers.name": [340, 340],
+    "employment.info": [375, 805, 805, 805],
+    "employment.workReasonDesc": [355, 800],
+    "employment.unemploymentBenefitsDesc": [425, 800],
+    "employment.effortsDescNo": [690, 800],
+    "employment.effortsDescYes": [575, 800]
 }
 
 const getAffidavit = (form) => {
@@ -51,11 +58,11 @@ const getAffidavit = (form) => {
     data["personal.taxStatus"] = getValue(form, ["FinancialAffadavitOne", "taxStatus"])
 
     // Tax Exemptions
-    const [taxExemptionsLines] = divideIntoLines(
+    const [taxExemptions] = divideIntoLines(
         getValue(form, ["FinancialAffadavitOne", "taxExemptions"]),
         FIELDS_WIDTH["personal.taxExemptions"]
     )
-    taxExemptionsLines.forEach((line, index) => {
+    taxExemptions.forEach((line, index) => {
         data[`personal.taxExemptions-${index + 1}`] = line
     })
 
@@ -209,12 +216,12 @@ const getAffidavit = (form) => {
     data["children.daycareExpense"] = getValue(form, ["FinancialAffadavitOne", "daycareExpense"])
 
     // The ongoing medical expenses. //TODO add multiline
-    const [insuranceOngoingDescLines] = divideIntoLines(
+    const [insuranceOngoingDesc] = divideIntoLines(
         getValue(form, ["Insurance", "ongoing"]) === 'yes' &&
         getValue(form, ["Insurance", "ongoingDesc"]),
         FIELDS_WIDTH["children.insuranceOngoingDesc"]
     )
-    insuranceOngoingDescLines.forEach((line, index) => {
+    insuranceOngoingDesc.forEach((line, index) => {
         data[`children.insuranceOngoingDesc-${index + 1}`] = line
     })
     // Do you have health insurance available to you through employment or other group?
@@ -254,8 +261,115 @@ const getAffidavit = (form) => {
         getValueAsNumber(form, ["HealthInsurancePolicies", "0", "groupPortion"]),
     ))
 
-    //Portion of premium to be paid by employer or other group each month.
+    // Portion of premium to be paid by employer or other group each month.
     data["children.insurancePolicies.portionEmployer"] = format(getValueAsNumber(form, ["HealthInsurancePolicies", "0", "groupPortion"]))
+
+    // C. EMPLOYMENT
+    // List your current or most recent employer(s) first and your past two employers: //TODO add to addendum
+    // Employer's Name, Address, and Telephone Number
+    const [employer] = divideIntoLines(
+        `${getValuesAsString(form, [["EmploymentPrimary", "address"], ["EmploymentPrimary", "address2"]])}, ${getValuesAsString(form, [["Primary", "city"], ["Primary", "state"], ["Primary", "zip"]])}`,
+        FIELDS_WIDTH["employment.employers.name"]
+    )
+    employer.forEach((line, index) => {
+        data[`employment.employers-1.name-${index + 1}`] = line
+    })
+
+    // Dates of Employment
+    const employmentDateFrom = getValue(form, ["EmploymentPrimary", "start"])
+    const employmentDateTo = getValue(form, ["EmploymentPrimary", "end"])
+    data['employment.employers-1.dateFrom'] = employmentDateFrom && moment(employmentDateFrom).format('LL')
+    data['employment.employers-1.dateTo'] = employmentDateTo && moment(employmentDateTo).format('LL')
+
+    // Average Hours Worked and Current or Ending Pay
+    data['employment.employers-1.hours'] = getValue(form, ["EmploymentPrimary", "hoursPerWeek"])
+    data['employment.employers-1.payhour'] = format(getValueAsNumber(form, ["EmploymentPrimary", "grossAmount"]))
+
+    // Type of job
+    data['employment.employers-1.type'] = (getValue(form, ["EmploymentPrimary", "type"], "")[0] || "").toUpperCase()
+
+    // Kinds of work
+    const [kindsOfWork] = divideIntoLines(
+        getValue(form, ["EmploymentPrimary", "info"]),
+        FIELDS_WIDTH["employment.info"]
+    )
+    kindsOfWork.forEach((line, index) => {
+        data[`employment.info-${index + 1}`] = line
+    })
+
+    // Union
+    data['employment.union'] = getValue(form, ["EmploymentPrimary", "union"])
+
+    // Union info
+    data["employment.unionInfo-1"] = getValue(form, ["EmploymentPrimary", "unionName"])
+    data["employment.unionInfo-2"] = getValuesAsString(form, [
+        ["EmploymentPrimary", "unionAddress", "address"],
+        ["EmploymentPrimary", "unionAddress", "address2"],
+        ["EmploymentPrimary", "unionAddress", "city"],
+        ["EmploymentPrimary", "unionAddress", "state"],
+        ["EmploymentPrimary", "unionAddress", "zip"]
+    ])
+    data["employment.unionInfo-3"] = `Monthly dues: ${format(getValueAsNumber(form, ["EmploymentPrimary", "unionDues"]), "currency")}`
+
+    // Are you currently a student?
+    data["employment.student"] = getValue(form, ["Schools", "current"])
+
+    // Date of graduation
+    const dateOfGraduation = getValue(form, ["Schools", "dateOfGraduation"])
+    data["employment.dateOfGraduation"] = dateOfGraduation && moment(dateOfGraduation).format('LL')
+
+    // Work reason
+    data["employment.workReason"] = getValue(form, ["FinancialAffadavitTwo", "workReason"])
+
+    const [workReasonDesc] = divideIntoLines(
+        getValue(form, ["FinancialAffadavitTwo", "workReasonDesc"]),
+        FIELDS_WIDTH["employment.workReasonDesc"]
+    )
+    workReasonDesc.forEach((line, index) => {
+        data[`employment.workReasonDesc-${index + 1}`] = line
+    })
+
+    // Workers' compensation
+    data["employment.workersComp"] = getValue(form, ["FinancialAffadavitTwo", "workersComp"])
+
+    data["employment.workersCompDesc"] = `${getValue(form, ["FinancialAffadavitTwo", "workersCompPayment"])}, Claim number: ${getValue(form, ["FinancialAffadavitTwo", "workersCompClaimNum"], "N/A")}`
+
+    // Unemployment benefits
+    data["employment.unemploymentBenefits"] = getValue(form, ["FinancialAffadavitTwo", "unemployment"])
+
+    const [unemploymentBenefitsDesc] = divideIntoLines(
+        getValue(form, ["FinancialAffadavitTwo", "unemploymentDesc"]),
+        FIELDS_WIDTH["employment.unemploymentBenefitsDesc"]
+    )
+    unemploymentBenefitsDesc.forEach((line, index) => {
+        data[`employment.unemploymentBenefitsDesc-${index + 1}`] = line
+    })
+
+    // Employment efforts
+    data["employment.efforts"] = getValue(form, ["FinancialAffadavitTwo", "employmentEfforts"])
+
+    const [effortsDescNo] = divideIntoLines(
+        data["employment.efforts"] === 'no' &&
+        getValue(form, ["FinancialAffadavitTwo", "employmentEffortsDesc"]),
+        FIELDS_WIDTH["employment.effortsDescNo"]
+    )
+    effortsDescNo.forEach((line, index) => {
+        data[`employment.effortsDescNo-${index + 1}`] = line
+    })
+
+    const [effortsDescYes] = divideIntoLines(
+        data["employment.efforts"] === 'yes' &&
+        getValue(form, ["FinancialAffadavitTwo", "employmentEffortsDesc"]),
+        FIELDS_WIDTH["employment.effortsDescYes"]
+    )
+    effortsDescYes.forEach((line, index) => {
+        data[`employment.effortsDescYes-${index + 1}`] = line
+    })
+
+    // D. INCOME
+    // 1. List all income which you receive or have received in the last 12 months.
+    data["income.wages"] = calcWages(form, "EmploymentPrimary", "OtherJob")
+
 
     return Object.keys(data).reduce((acc, key) => {
         return {
@@ -276,7 +390,7 @@ const getAffidavit = (form) => {
 const divideIntoLines = (string, widths) => {
     const ADDENDUM_WIDTH = 700
 
-    if (!string) []
+    if (!string) return [["N/A"]]
 
     return Object.values(
         Object.values(

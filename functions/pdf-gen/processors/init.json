@@ -287,7 +287,13 @@
     "union": "yes",
     "unionName": "Foo Union",
     "unionDues": "100",
-    "unionAddress": "123 Easy St",
+    "unionAddress": {
+      "address": "123 Easy St",
+      "address2": "resfsdfsdf",
+      "city": "New York ",
+      "state": "NY",
+      "zip": "55555"
+    },
     "type": "permanent",
     "status": "fulltime",
     "start": "2021-03-09T06:00:00.000Z",
@@ -520,10 +526,9 @@
   },
   "Schools": {
     "level": "yes",
-    "current": {
-      "endDate": "2021-03-01T06:00:00.000Z"
-    },
-    "postSecondary": "yes"
+    "postSecondary": "yes",
+    "current": "yes",
+    "dateOfGraduation": "2021-05-11T22:00:00.000Z"
   },
   "OtherSchools": {
     "0": {

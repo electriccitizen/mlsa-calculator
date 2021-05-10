@@ -193,7 +193,7 @@ export const EnterOtherJobs = () => {
               <SectionHeader header={`Employer Address`} />
               <AddressField
                 label={"Enter the street address for this employer:"}
-                name={`OtherJob.${index}.address`}
+                name={`OtherJob.${index}`}
               />
             </>
           )}

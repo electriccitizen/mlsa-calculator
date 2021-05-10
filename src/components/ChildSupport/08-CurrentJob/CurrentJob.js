@@ -148,7 +148,7 @@ export const CurrentJob = d => {
               <SectionHeader header={`Employer Address`} />
               <AddressField
                 label={"Enter the street address for this employer:"}
-                name={"EmploymentPrimary.address"}
+                name={"EmploymentPrimary"}
               />
             </>
           )}
