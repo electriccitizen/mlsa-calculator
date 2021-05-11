@@ -300,8 +300,16 @@
     "payment": "salary",
     "grossAmount": "1000",
     "hoursPerWeek": "40",
-    "schedule": "24",
-    "address": "123 Easy St"
+    "employer": {
+      "address2": null,
+      "name": "Employer",
+      "address": "123 Easy St",
+      "city": "New York",
+      "state": "NY",
+      "zip": "55555",
+      "phone": "999999999"
+    },
+    "schedule": "24"
   },
   "OtherJob": {
     "0": {

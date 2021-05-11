@@ -115,40 +115,54 @@ export const CurrentJob = d => {
                 fieldWidth={"25%"}
               />
               {(state["EmploymentPrimary.status"] === "parttime" ||
-              state["EmploymentPrimary.payment"] === 'hourly') &&
-              state["EmploymentPrimary.type"] !== "temporary" && (
-                <FieldInput
-                  name={`EmploymentPrimary.weeksPerYear`}
-                  label="How many weeks per year do you work?"
+                state["EmploymentPrimary.payment"] === 'hourly') &&
+                state["EmploymentPrimary.type"] !== "temporary" && (
+                  <FieldInput
+                    name={`EmploymentPrimary.weeksPerYear`}
+                    label="How many weeks per year do you work?"
+                    required="Required"
+                    type="text"
+                    updateState={updateState}
+                    fieldWidth={"25%"}
+                  />
+                )}
+
+              {state["EmploymentPrimary.payment"] !== "hourly" && (
+                <FieldSelect
+                  name="EmploymentPrimary.schedule"
+                  label="Paid how often?"
+                  placeholder="Select option..."
                   required="Required"
-                  type="text"
                   updateState={updateState}
-                  fieldWidth={"25%"}
+                  options={[
+                    { value: "52", label: "Once per week" },
+                    { value: "26", label: "Every two weeks" },
+                    { value: "24", label: "Twice a month" },
+                    { value: "12", label: "Once per month" },
+                    { value: "1", label: "Yearly" },
+                  ]}
+                  fieldWidth={"30%"}
                 />
               )}
 
-              {state["EmploymentPrimary.payment"] !== "hourly" && (
-              <FieldSelect
-                name="EmploymentPrimary.schedule"
-                label="Paid how often?"
-                placeholder="Select option..."
+              <SectionHeader header={`Employer Information`} />
+              <FieldInput
+                name={`EmploymentPrimary.employer.name`}
+                label="Name"
                 required="Required"
+                type="text"
                 updateState={updateState}
-                options={[
-                  { value: "52", label: "Once per week" },
-                  { value: "26", label: "Every two weeks" },
-                  { value: "24", label: "Twice a month" },
-                  { value: "12", label: "Once per month" },
-                  { value: "1", label: "Yearly" },
-                ]}
-                fieldWidth={"30%"}
+                fieldWidth={"50%"}
               />
-              )}
-
-              <SectionHeader header={`Employer Address`} />
               <AddressField
                 label={"Enter the street address for this employer:"}
-                name={"EmploymentPrimary"}
+                name={"EmploymentPrimary.employer"}
+              />
+              <FieldInput
+                name={`EmploymentPrimary.employer.phone`}
+                label="Phone"
+                required="Required"
+                fieldWidth={"25%"}
               />
             </>
           )}

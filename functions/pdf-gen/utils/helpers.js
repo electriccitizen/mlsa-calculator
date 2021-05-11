@@ -13,10 +13,12 @@ const getValueAsArray = (nestedObj, pathArr, defaultTo = []) => {
     return Object.values(getValue(nestedObj, pathArr, defaultTo))
 }
 
-const getValuesAsString = (nestedObj, pathsArr, defaultTo = "") => {
-    return pathsArr.reduce((string, pathArr) => (
-        `${string} ${getValue(nestedObj, pathArr, defaultTo)}`
-    ), "")
+const getValuesAsString = (nestedObj, pathsArr, args = { defaultTo: "", separator: "" }) => {
+    const { defaultTo, separator } = args
+    return pathsArr.reduce((string, pathArr) => {
+        const value = getValue(nestedObj, pathArr, defaultTo)
+        return string ? value ? [string, value].join(separator + " ") : string : value
+    }, null)
 }
 
 module.exports = { getValue, getValueAsNumber, getValueAsArray, getValuesAsString }

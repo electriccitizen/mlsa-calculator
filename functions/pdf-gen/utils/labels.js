@@ -123,6 +123,26 @@ const getLabel = (value) => {
             value: "other",
             label: "Other"
         },
+        {
+            value: "52",
+            label: "Once per week"
+        },
+        {
+            value: "26",
+            label: "Every two weeks"
+        },
+        {
+            value: "24",
+            label: "Twice a month"
+        },
+        {
+            value: "12",
+            label: "Once per month"
+        },
+        {
+            value: "1",
+            label: "Yearly"
+        },
     ]
 
     return getValue(labels.find(label => label.value === value), ["label"], "")

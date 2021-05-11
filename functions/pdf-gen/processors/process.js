@@ -48,9 +48,9 @@ const processData = (form, pdfs) => {
       })
     },
     ...isAffidavit && {
-      [DOCUMENTS.AFFIDAVIT]: {
+      [DOCUMENTS.AFFIDAVIT]: formatData({
         ...affidavit && { [pdfs.affidavit]: affidavit }
-      }
+      })
     }
   }
 }
