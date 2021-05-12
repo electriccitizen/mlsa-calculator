@@ -15,6 +15,12 @@ const DOCUMENTS = {
   AFFIDAVIT: "affadavit"
 }
 
+// Max lines in addendum
+const ADDENDUM_MAX_LINES = {
+  WORKSHEETS: 62,
+  AFFIDAVIT: 57
+}
+
 const processData = (form, pdfs) => {
   // Override pdfs array to object with names
   pdfs = pdfs && pdfs.reduce((names, pdf) => ({ ...names, [pdf.name]: pdf.name }), {})
@@ -30,13 +36,16 @@ const processData = (form, pdfs) => {
   const wsa = isWorksheets && calcWSA(form)
 
   // WORKSHEET A ADDENDUM
-  const addendum = isWorksheets && getAddendum(form, wsa.addendum)
+  const addendum = isWorksheets && getAddendum(form, wsa.addendum, ADDENDUM_MAX_LINES["WORKSHEETS"])
 
   // WORKSHEET B DATA
   const wsb = isWorksheets && calcWSB(form, wsa.data)
 
   // FINANCIAL AFFIDAVIT
   const affidavit = isAffidavit && getAffidavit(form)
+
+  // FINANCIAL AFFIDAVIT ADDENDUM
+  const affidavitAddendum = isAffidavit && getAddendum(form, affidavit.addendum, ADDENDUM_MAX_LINES["AFFIDAVIT"])
 
   return {
     ...isWorksheets && {
@@ -49,7 +58,8 @@ const processData = (form, pdfs) => {
     },
     ...isAffidavit && {
       [DOCUMENTS.AFFIDAVIT]: formatData({
-        ...affidavit && { [pdfs.affidavit]: affidavit }
+        ...affidavit && { [pdfs.affidavit]: affidavit.data },
+        ...affidavitAddendum && { [pdfs.affidavitAddendum]: affidavitAddendum }
       })
     }
   }

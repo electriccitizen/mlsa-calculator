@@ -1,9 +1,9 @@
 const { getValue } = require("../utils/helpers")
 
-const getAddendum = (form, addendum) => {
-    if(!addendum || addendum.length <= 0) return null
+const getAddendum = (form, addendum, maxLines) => {
+    if (!addendum || addendum.length <= 0 || addendum.filter(a => a.length > 0).length <= 0) return null
 
-    return mapToPages(addendum).map((page, index) => {
+    return mapToPages(addendum, maxLines).map((page, index) => {
         let data = {}
         data["addendum.csed"] = getValue(form, ["CSED"])
         data["addendum.mother"] = `${getValue(form, ["Primary", "fname"], "")} ${getValue(form, ["Primary", "lname"], "")}`
@@ -22,33 +22,53 @@ const getAddendum = (form, addendum) => {
 }
 
 // Helpers
-const mapToPages = addendum => {
-    const MAX_LINES = 62
-
+const mapToPages = (addendum, maxLines) => {
     // Sum data length and new line
     const calcLines = (data) => {
         return data ? data.length + 1 : 0
     }
 
-    return Object.values(addendum.reduce((pages, data) => {
-        // Get current number of page
-        const length = Object.keys(pages).length
-        const current = length - 1 < 0 ? 0 : length - 1
+    return Object.values(
+        addendum
+            .reduce((splitedData, data) => {
+                return [
+                    ...splitedData,
+                    ...(calcLines(data) > maxLines ?
+                        Object.values(
+                            data.reduce((acc, line, index) => {
+                                const next = Math.floor(index / maxLines)
+                                return {
+                                    ...acc,
+                                    [next]: [
+                                        ...(acc[next] || []),
+                                        line
+                                    ]
+                                }
+                            }, {})
+                        ) :
+                        [data]
+                    )
+                ]
+            }, [])
+            .reduce((pages, data) => {
+                // Get current number of page
+                const length = Object.keys(pages).length
+                const current = length - 1 < 0 ? 0 : length - 1
 
-        // Calculate number of lines
-        const lines = (pages[current] || []).reduce((sum, d) => (sum + calcLines(d)), 0) + calcLines(data)
+                // Calculate number of lines
+                const lines = (pages[current] || []).reduce((sum, d) => (sum + calcLines(d)), 0) + calcLines(data)
 
-        // Set next number of page
-        const next = Math.floor(lines / MAX_LINES) >= 1 ? current + 1 : current
+                // Set next number of page
+                const next = Math.floor(lines / maxLines) >= 1 ? current + 1 : current
 
-        return {
-            ...pages,
-            [next]: [
-                ...(pages[next] || []),
-                data
-            ]
-        }
-    }, {}))
+                return {
+                    ...pages,
+                    [next]: [
+                        ...(pages[next] || []),
+                        data
+                    ]
+                }
+            }, {}))
 }
 
 module.exports = { getAddendum }

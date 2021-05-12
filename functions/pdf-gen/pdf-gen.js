@@ -38,6 +38,9 @@ const pdfs = [{
 }, {
   name: "affidavit",
   src: `${ROOT}/pdfs/affidavit-fillable.pdf`
+}, {
+  name: "affidavitAddendum",
+  src: `${ROOT}/pdfs/affidavit-addendum-fillable.pdf`
 }]
 
 const fillPdf = (pdf, data) => {
