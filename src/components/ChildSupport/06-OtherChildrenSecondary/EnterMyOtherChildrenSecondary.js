@@ -11,9 +11,10 @@ import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const EnterMyOtherChildrenSecondary = () => {
   const form = useForm({
-    subscribe: { fields: ["OtherParent.fname", "NumOtherChildrenSecondary"] },
+    subscribe: { fields: ["Documents", "OtherParent.fname", "NumOtherChildrenSecondary"] },
   })
   const numChildrenSecondary = form.values.NumOtherChildrenSecondary
+  const documents = form?.values?.Documents
   const [state, setState] = useState({})
   const updateState = (name, value, index) => {
     setState({
@@ -52,7 +53,6 @@ export const EnterMyOtherChildrenSecondary = () => {
             direction={["column", "column", "row"]}
             spacing={["0", "0", "1rem"]}
           >
-            */}
             <FieldInput
               name={`OtherChildrenSecondary.${index}.fname`}
               label="First name"
@@ -101,12 +101,16 @@ export const EnterMyOtherChildrenSecondary = () => {
               placeholder=""
             />
           )}
-          <FieldMoneyInput
-            name={`OtherChildrenSecondary.${index}.benefits`}
-            label="Dependent's benefits received for this child per year, if any. Examples: Social Security, VA, etc."
-            type="text"
-            placeholder="Enter amount"
-          />
+          {
+            (documents === "both" || documents === "affadavit") && (
+              <FieldMoneyInput
+                name={`OtherChildrenSecondary.${index}.benefits`}
+                label="Dependent's benefits received for this child per year, if any. Examples: Social Security, VA, etc."
+                type="text"
+                placeholder="Enter amount"
+              />
+            )
+          }
           <FieldRadio
             name={`OtherChildrenSecondary.${index}.support`}
             label="Is the other parent ordered to pay support for this child?"
@@ -189,12 +193,12 @@ export const EnterMyOtherChildrenSecondary = () => {
             ]}
           />
           {state[`OtherChildren.${index}.status`] &&
-              state[`OtherChildren.${index}.status`] !== "none" && (
-                <AlertBox>
-                  Sorry, but this child does not qualify and will not be counted
-                  in the child support calculations. Continue to the next step.
-                </AlertBox>
-              )}
+            state[`OtherChildren.${index}.status`] !== "none" && (
+              <AlertBox>
+                Sorry, but this child does not qualify and will not be counted
+                in the child support calculations. Continue to the next step.
+              </AlertBox>
+            )}
           <FieldRadio
             name={`OtherChildrenSecondary.${index}.disabled`}
             label="Does this child have a disability?"

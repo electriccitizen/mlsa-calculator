@@ -8,7 +8,9 @@ import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddressField } from "./AddressField"
 import { AddressFieldMailing } from "./AddressFieldMailing"
 export const BasicInformation = () => {
-  const form = useForm({ subscribe: { fields: ["PrimaryMailing"] } })
+  const form = useForm({ subscribe: { fields: ["Documents", "PrimaryMailing"] } })
+  const formPrimaryMailing = (form.fields.PrimaryMailing && form.fields.PrimaryMailing.value)
+  const documents = form?.values?.Documents
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
@@ -16,7 +18,7 @@ export const BasicInformation = () => {
       [name]: value,
     })
   }
-  const formPrimaryMailing = (form.fields.PrimaryMailing && form.fields.PrimaryMailing.value)
+
   return (
     <FormizStep
       label="Your contact information"
@@ -36,39 +38,40 @@ export const BasicInformation = () => {
         />
         <FieldInput name={`Primary.lname`} required="Required" label="Last" />
       </Stack>
-      {/*{(documents === "both" || documents === "affadavit") && (*/}
-      <>
-        <Stack
-          direction={["column", "column", "row"]}
-          spacing={["0", "0", "1rem"]}
-        >
-          <FieldDate
-            name={`Primary.dob`}
-            label="Date of birth"
-            required="Required"
-            placeholder="MM/DD/YYYY"
-          />
-          <FieldInput
-            name={`Primary.phone`}
-            label="Primary phone"
-            required="Required"
-          />
-          <FieldInput name={`Primary.dl`} label="Driver's License #" />
-        </Stack>
+      {(documents === "both" || documents === "affadavit") && (
+        <>
+          <Stack
+            direction={["column", "column", "row"]}
+            spacing={["0", "0", "1rem"]}
+          >
+            <FieldDate
+              name={`Primary.dob`}
+              label="Date of birth"
+              required="Required"
+              placeholder="MM/DD/YYYY"
+            />
+            <FieldInput
+              name={`Primary.phone`}
+              label="Primary phone"
+              required="Required"
+            />
+            <FieldInput name={`Primary.dl`} label="Driver's License #" />
+          </Stack>
 
-        <AddressField label={"Street Address"} name={"Primary"} />
+          <AddressField label={"Street Address"} name={"Primary"} />
 
-        <FieldRadio
-          name="PrimaryMailing"
-          label={"Is this your mailing address?"}
-          required="Required"
-          updateState={updateState}
-          options={[
-            { value: "yes", label: "Yes" },
-            { value: "no", label: "No" },
-          ]}
-        />
-      </>
+          <FieldRadio
+            name="PrimaryMailing"
+            label={"Is this your mailing address?"}
+            required="Required"
+            updateState={updateState}
+            options={[
+              { value: "yes", label: "Yes" },
+              { value: "no", label: "No" },
+            ]}
+          />
+        </>
+      )}
 
       {(state.PrimaryMailing === "no" || formPrimaryMailing === "no") && (
         <AddressFieldMailing

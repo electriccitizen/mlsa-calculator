@@ -10,8 +10,9 @@ import { AlertBox } from "../../Utils/AlertBox"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const EnterMyOtherChildren = () => {
-  const form = useForm({ subscribe: { fields: ["NumOtherChildren"] } })
+  const form = useForm({ subscribe: { fields: ["Documents", "NumOtherChildren"] } })
   const numOtherChildren = form.values.NumOtherChildren
+  const documents = form?.values?.Documents
   const [state, setState] = useState({})
   const updateState = (name, value, index) => {
     setState({
@@ -94,12 +95,16 @@ export const EnterMyOtherChildren = () => {
                 placeholder=""
               />
             )}
-            <FieldMoneyInput
-              name={`OtherChildren.${index}.benefits`}
-              label="Dependent's benefits received for this child per year, if any. Examples: Social Security, VA, etc."
-              type="text"
-              placeholder="Enter amount"
-            />
+            {
+              (documents === "both" || documents === "affadavit") && (
+                <FieldMoneyInput
+                  name={`OtherChildren.${index}.benefits`}
+                  label="Dependent's benefits received for this child per year, if any. Examples: Social Security, VA, etc."
+                  type="text"
+                  placeholder="Enter amount"
+                />
+              )
+            }
             <FieldRadio
               name={`OtherChildren.${index}.support`}
               label="Are you ordered to pay support for this child?"

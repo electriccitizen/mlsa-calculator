@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { FormizStep } from "@formiz/core"
+import { FormizStep, useForm } from "@formiz/core"
 import { isNumber } from "@formiz/validations"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
@@ -11,6 +11,8 @@ import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const OtherIncome = () => {
+  const form = useForm({ subscribe: { fields: ["Documents"] } })
+  const documents = form?.values?.Documents
   const [checkedItems, setCheckedItems] = useState({})
   return (
     <FormizStep label="Your other income" name="OtherIncome" order={10000}>
@@ -73,34 +75,40 @@ export const OtherIncome = () => {
               ]}
             />
           </Stack>
-          <Stack direction={"row"} spacing={["0", "0", "1rem"]}>
-            <FieldInput
-              name={`OtherIncome.SepEarning.desc`}
-              label="Describe your self-employment activities"
-              required="Required"
-              type="text"
-              width={"80%"}
-            />
-            <FieldInput
-              name={`OtherIncome.SepEarning.hoursPerWeek`}
-              label="Hours per week spent in self-employment activities"
-              required="Required"
-              type="text"
-            />
-          </Stack>
-          <FieldRadio
-            name="OtherIncome.SepEarning.primary"
-            placeholder="None"
-            required="Required"
-            label={
-              "\n" +
-              "Is your self-employment the primary source of your income for meeting your living expenses?"
-            }
-            options={[
-              { value: "yes", label: "Yes" },
-              { value: "no", label: "No" },
-            ]}
-          />
+          {
+            (documents === "both" || documents === "affadavit") && (
+              <>
+                <Stack direction={"row"} spacing={["0", "0", "1rem"]}>
+                  <FieldInput
+                    name={`OtherIncome.SepEarning.desc`}
+                    label="Describe your self-employment activities"
+                    required="Required"
+                    type="text"
+                    width={"80%"}
+                  />
+                  <FieldInput
+                    name={`OtherIncome.SepEarning.hoursPerWeek`}
+                    label="Hours per week spent in self-employment activities"
+                    required="Required"
+                    type="text"
+                  />
+                </Stack>
+                <FieldRadio
+                  name="OtherIncome.SepEarning.primary"
+                  placeholder="None"
+                  required="Required"
+                  label={
+                    "\n" +
+                    "Is your self-employment the primary source of your income for meeting your living expenses?"
+                  }
+                  options={[
+                    { value: "yes", label: "Yes" },
+                    { value: "no", label: "No" },
+                  ]}
+                />
+              </>
+            )
+          }
           <Text fontSize={"sm"} mt={2}>
             This amount may not be the same amount of income you claim on your
             taxes. Certian deductions are allowable for tax purposes but not for
@@ -246,14 +254,17 @@ export const OtherIncome = () => {
               type="text"
               mr={4}
             />
-
-            <FieldInput
-              name={`OtherIncome.prizeDesc`}
-              label="Describe the prize, including its present location."
-              required="Required"
-              type="text"
-              mr={4}
-            />
+            {
+              (documents === "both" || documents === "affadavit") && (
+                <FieldInput
+                  name={`OtherIncome.prizeDesc`}
+                  label="Describe the prize, including its present location."
+                  required="Required"
+                  type="text"
+                  mr={4}
+                />
+              )
+            }
           </Stack>
           <Text fontSize={"sm"} mt={2}>
             One-time payments can be spread out over several years. Because

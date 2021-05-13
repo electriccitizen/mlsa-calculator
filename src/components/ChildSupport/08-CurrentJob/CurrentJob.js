@@ -9,7 +9,8 @@ import { FieldDate } from "../../Fields/FieldDate"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const CurrentJob = d => {
-  const form = useForm({ subscribe: { fields: ["EmploymentPrimary.initiate"] } })
+  const form = useForm({ subscribe: { fields: ["Documents", "EmploymentPrimary.initiate"] } })
+  const documents = form?.values?.Documents
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
@@ -144,26 +145,31 @@ export const CurrentJob = d => {
                   fieldWidth={"30%"}
                 />
               )}
-
-              <SectionHeader header={`Employer Information`} />
-              <FieldInput
-                name={`EmploymentPrimary.employer.name`}
-                label="Name"
-                required="Required"
-                type="text"
-                updateState={updateState}
-                fieldWidth={"50%"}
-              />
-              <AddressField
-                label={"Enter the street address for this employer:"}
-                name={"EmploymentPrimary.employer"}
-              />
-              <FieldInput
-                name={`EmploymentPrimary.employer.phone`}
-                label="Phone"
-                required="Required"
-                fieldWidth={"25%"}
-              />
+              {
+                (documents === "both" || documents === "affadavit") && (
+                  <>
+                    <SectionHeader header={`Employer Information`} />
+                    <FieldInput
+                      name={`EmploymentPrimary.employer.name`}
+                      label="Name"
+                      required="Required"
+                      type="text"
+                      updateState={updateState}
+                      fieldWidth={"50%"}
+                    />
+                    <AddressField
+                      label={"Enter the street address for this employer:"}
+                      name={"EmploymentPrimary.employer"}
+                    />
+                    <FieldInput
+                      name={`EmploymentPrimary.employer.phone`}
+                      label="Phone"
+                      required="Required"
+                      fieldWidth={"25%"}
+                    />
+                  </>
+                )
+              }
             </>
           )}
           <AdministrativeRules
