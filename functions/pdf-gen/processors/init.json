@@ -201,13 +201,10 @@
       "lname": "Poppins",
       "dob": "2021-03-01T06:00:00.000Z",
       "housing": "me",
-      "otherHousing": "My mother",
       "benefits": "100",
       "support": "no",
       "depcare": "yes",
-      "depcareAmount": "1000",
       "medical": "yes",
-      "medicalAmount": "1000",
       "status": "none",
       "disabled": "no"
     },
@@ -219,7 +216,32 @@
       "housing": "otherparent",
       "benefits": "100",
       "support": "yes",
-      "childSupportAmount": "100",
+      "depcare": "no",
+      "medical": "no",
+      "status": "none",
+      "disabled": "no"
+    },
+    "2": {
+      "mname": null,
+      "benefits": null,
+      "fname": "Test",
+      "lname": "ASD",
+      "dob": "2021-05-03T22:00:00.000Z",
+      "housing": "me",
+      "support": "no",
+      "depcare": "no",
+      "medical": "no",
+      "status": "none",
+      "disabled": "no"
+    },
+    "3": {
+      "mname": null,
+      "benefits": null,
+      "fname": "Test 2",
+      "lname": "ASDd as",
+      "dob": "2021-05-30T22:00:00.000Z",
+      "housing": "otherparent",
+      "support": "no",
       "depcare": "no",
       "medical": "no",
       "status": "none",
@@ -547,11 +569,32 @@
       "degree": "BA"
     },
     "1": {
-      "completionDate": null,
       "name": "U of W",
       "courseOfStudy": "Cats",
       "grad": "no",
+      "completionDate": null,
       "degree": "BA"
+    },
+    "2": {
+      "completionDate": null,
+      "name": "U of D",
+      "courseOfStudy": "Dogs",
+      "grad": "no",
+      "degree": "CA"
+    },
+    "3": {
+      "name": "U of S",
+      "courseOfStudy": "Bird",
+      "grad": "yes",
+      "completionDate": "September 2014",
+      "degree": "XA"
+    },
+    "4": {
+      "name": "U of R",
+      "courseOfStudy": "RASD",
+      "grad": "yes",
+      "completionDate": "September 2014",
+      "degree": "XA"
     }
   },
   "Insurance": {

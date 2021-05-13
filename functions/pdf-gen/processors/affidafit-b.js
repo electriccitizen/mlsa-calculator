@@ -1,13 +1,13 @@
 var moment = require("moment")
 const { format, subtract } = require("../utils/currency")
-const { getValue, getValueAsArray, getValueAsNumber, getValuesAsString, divideIntoLines } = require("../utils/helpers")
+const { getValue, getValueAsArray, getValueAsNumber, getValuesAsString, divideIntoLines, capitalize } = require("../utils/helpers")
 
 // Static fields width in pixels
 const FIELDS_WIDTH = {
     "children.insuranceOngoingDesc": [194, 733, 733, 733],
 }
 
- // B. CHILDREN
+// B. CHILDREN
 const getAffidavitB = (form) => {
     // Main
     let data = {}
@@ -15,7 +15,8 @@ const getAffidavitB = (form) => {
     const primaryChildren = getValueAsArray(form, ["PrimaryChildren"])
     const otherChildren = getValueAsArray(form, ["OtherChildren"])
 
-    // 1. List all of your natural and adopted children (do not include stepchildren) // TODO add to addendum
+    // 1. List all of your natural and adopted children (do not include stepchildren)
+    let listChildrenAddendum = []
     primaryChildren.forEach((child, index) => {
         const childIndex = index + 1
         // Child's Full Name
@@ -43,30 +44,46 @@ const getAffidavitB = (form) => {
 
     otherChildren.forEach((child, index) => {
         const childIndex = index + 1 + primaryChildren.length
-        // Child's Full Name
-        data[`children.list.child-${childIndex}.name`] = getValuesAsString(child, [["fname"], ["lname"]])
-
-        // Date of Birth Month/Day/Year
-        const dob = getValue(child, ["dob"])
-        data[`children.list.child-${childIndex}.dob`] = dob && moment(dob).format('MMMM D, YYYY')
-
-        // Who does child live with?
+        const name = getValuesAsString(child, [["fname"], ["lname"]]).trim() || "N/A"
+        const dob = getValue(child, ["dob"], "N/A")
+        const dobFormated = (dob && dob !== "N/A") ? moment(dob).format('MMMM D, YYYY') : "N/A"
         const housing = getValue(form, ["ChildExpenses", index, "housing"])
-        data[`children.list.child-${childIndex}.housing`] =
-            housing === 'me' ?
-                getValuesAsString(form, [["Primary", "fname"], ["Primary", "lname"]]) :
-                housing === 'otherparent' ?
-                    "Other parent" :
-                    housing === 'split' ?
-                        "Both parents" :
-                        getValue(child, ["otherHousing"])
+        const liveWith = housing === 'me' ?
+            getValuesAsString(form, [["Primary", "fname"], ["Primary", "lname"]]).trim() || "N/A" :
+            housing === 'otherparent' ?
+                "Other parent" :
+                housing === 'split' ?
+                    "Both parents" :
+                    getValue(child, ["otherHousing"], "N/A")
+        const support = getValue(child, ["support"], "N/A")
+        const supportAmount = getValueAsNumber(child, ["childSupportAmount"])
 
-        // Are you ordered to pay support for this child?
-        data[`children.list.child-${childIndex}.support`] = getValue(child, ["support"])
-        data[`children.list.child-${childIndex}.supportAmount`] = format(getValueAsNumber(child, ["childSupportAmount"]))
+        if (childIndex <= 6) {
+            // Child's Full Name
+            data[`children.list.child-${childIndex}.name`] = name
+
+            // Date of Birth Month/Day/Year
+            data[`children.list.child-${childIndex}.dob`] = dobFormated
+
+            // Who does child live with?
+            data[`children.list.child-${childIndex}.housing`] = liveWith
+
+            // Are you ordered to pay support for this child? 
+            data[`children.list.child-${childIndex}.support`] = support
+            data[`children.list.child-${childIndex}.supportAmount`] = format(supportAmount)
+        } else {
+            listChildrenAddendum.push([
+                `Child's Full Name: ${name}`,
+                `Date of Birth: ${dobFormated}`,
+                `Who does child live with?: ${liveWith}`,
+                `Are you ordered to pay support for this child?: ${capitalize(support)}`,
+                `Support amount: ${format(supportAmount, "currency")}/month`
+            ])
+        }
     })
 
-    // 2. Complete the table below for all expenses you pay and benefits you receive on behalf of all children shown in the previous table. // TODO add to addendum
+    // 2. Complete the table below for all expenses you pay and benefits you receive on behalf of all children shown in the previous table.
+    let expensesAddendum = []
     primaryChildren.forEach((child, index) => {
         const childIndex = index + 1
         // Child's First Name
@@ -100,26 +117,46 @@ const getAffidavitB = (form) => {
 
     otherChildren.forEach((child, index) => {
         const childIndex = index + 1 + primaryChildren.length
-        // Child's First Name
-        data[`children.expenses.child-${childIndex}.firstName`] = getValue(child, ["fname"])
+        const name = getValue(child, ["fname"], "N/A")
+        const dayCareCosts = getValueAsNumber(form, ["OtherChildren", index, "depcareAmount"])
+        const unreimbursedMedicalExpenses = getValueAsNumber(form, ["OtherChildren", index, "medicalAmount"])
+        const dependentsBenefits = getValueAsNumber(form, ["OtherChildren", index, "benefits"])
+        const days = "N/A"
+        const mileage = "N/A"
+        const otherTransportationCosts = "N/A"
 
-        // Annual Day Care Costs
-        data[`children.expenses.child-${childIndex}.dayCareCosts`] = format(getValueAsNumber(form, ["OtherChildren", index, "depcareAmount"]))
+        if (childIndex <= 5) {
+            // Child's First Name
+            data[`children.expenses.child-${childIndex}.firstName`] = name
 
-        // Annual Unreimbursed Medical Expenses
-        data[`children.expenses.child-${childIndex}.unreimbursedMedicalExpenses`] = format(getValueAsNumber(form, ["OtherChildren", index, "medicalAmount"]))
+            // Annual Day Care Costs
+            data[`children.expenses.child-${childIndex}.dayCareCosts`] = format(dayCareCosts)
 
-        // Annual Dependent's Benefits Received
-        data[`children.expenses.child-${childIndex}.dependentsBenefits`] = format(getValueAsNumber(form, ["OtherChildren", index, "benefits"]))
+            // Annual Unreimbursed Medical Expenses
+            data[`children.expenses.child-${childIndex}.unreimbursedMedicalExpenses`] = format(unreimbursedMedicalExpenses)
 
-        // How many days does child spend with you per year?
-        data[`children.expenses.child-${childIndex}.days`] = "N/A"
+            // Annual Dependent's Benefits Received
+            data[`children.expenses.child-${childIndex}.dependentsBenefits`] = format(dependentsBenefits)
 
-        // Annual Miles Driven for Long Distance Parenting
-        data[`children.expenses.child-${childIndex}.mileage`] = "N/A"
+            // How many days does child spend with you per year?
+            data[`children.expenses.child-${childIndex}.days`] = days
 
-        // Other Transportation Costs for Long Distance Parenting
-        data[`children.expenses.child-${childIndex}.otherTransportationCosts`] = "N/A"
+            // Annual Miles Driven for Long Distance Parenting
+            data[`children.expenses.child-${childIndex}.mileage`] = mileage
+
+            // Other Transportation Costs for Long Distance Parenting
+            data[`children.expenses.child-${childIndex}.otherTransportationCosts`] = otherTransportationCosts
+        } else {
+            expensesAddendum.push([
+                `Child's First Name: ${name}`,
+                `Annual Day Care Costs: ${format(dayCareCosts, "currency")}`,
+                `Annual Unreimbursed Medical Expenses: ${format(unreimbursedMedicalExpenses, "currency")}`,
+                `Annual Dependent's Benefits Received*: ${format(dependentsBenefits, "currency")}`,
+                `How many days does child spend with you per year?**: ${days}`,
+                `Annual Miles Driven for Long Distance Parenting: ${mileage}`,
+                `Other Transportation Costs for Long Distance Parenting***: ${otherTransportationCosts}`
+            ])
+        }
     })
 
     // 3. Do you receive reimbursement for day care expenses?
@@ -138,61 +175,108 @@ const getAffidavitB = (form) => {
     // 5. Do you have health insurance available to you through employment or other group?
     data["children.insuranceCurrent"] = getValue(form, ["Insurance", "current"])
 
-    // Name everyone who is covered by this policy:  // TODO add to addendum
-    data["children.insurancePolicies.covered"] = getValue(form, ["HealthInsurancePolicies", "0", "covered"])
+    let policiesAddendum = []
+    const policies = getValueAsArray(form, ["HealthInsurancePolicies"])
+    policies.forEach((policy, index) => {
+        const policyIndex = index + 1
+        const covered = getValue(policy, ["covered"], "N/A")
+        const company = getValue(policy, ["company"], "N/A")
+        const address1 = getValuesAsString(policy, [
+            ["address"],
+            ["address2"]
+        ], { separator: "," }).trim() || "N/A"
+        const address2 = getValuesAsString(policy, [
+            ["city"],
+            ["state"],
+            ["zip"]
+        ], { separator: "," }).trim() || "N/A"
+        const policyNumber = getValue(policy, ["policyNumber"], "N/A")
+        const certNumber = getValue(policy, ["certNumber"], "N/A")
+        const totalCost = getValueAsNumber(policy, ["totalCost"])
+        const adultPortion = subtract(
+            getValueAsNumber(policy, ["totalCost"]),
+            getValueAsNumber(policy, ["childPortion"]),
+        )
+        const childPortion = getValueAsNumber(policy, ["childPortion"])
+        const portionYou = subtract(
+            getValueAsNumber(policy, ["totalCost"]),
+            getValueAsNumber(policy, ["groupPortion"]),
+        )
+        const portionEmployer = getValueAsNumber(policy, ["groupPortion"])
 
-    // Insurance Co. Name:
-    data["children.insurancePolicies.company"] = getValue(form, ["HealthInsurancePolicies", "0", "company"])
+        if (policyIndex <= 1) {
+            // Name everyone who is covered by this policy:
+            data["children.insurancePolicies.covered"] = covered
 
-    // Address:
-    data["children.insurancePolicies.address-1"] = getValuesAsString(form, [
-        ["HealthInsurancePolicies", "0", "address"],
-        ["HealthInsurancePolicies", "0", "address2"]
-    ], { separator: "," })
-    data["children.insurancePolicies.address-2"] = getValuesAsString(form, [
-        ["HealthInsurancePolicies", "0", "city"],
-        ["HealthInsurancePolicies", "0", "state"],
-        ["HealthInsurancePolicies", "0", "zip"]
-    ], { separator: "," })
+            // Insurance Co. Name:
+            data["children.insurancePolicies.company"] = company
 
-    // Policy Number:
-    data["children.insurancePolicies.policyNumber"] = getValue(form, ["HealthInsurancePolicies", "0", "policyNumber"])
+            // Address:
+            data["children.insurancePolicies.address-1"] = address1
+            data["children.insurancePolicies.address-2"] = address2
 
-    // Certificate Number:
-    data["children.insurancePolicies.certNumber"] = getValue(form, ["HealthInsurancePolicies", "0", "certNumber"])
+            // Policy Number:
+            data["children.insurancePolicies.policyNumber"] = policyNumber
 
-    // Total cost of health insurance premium per month, including your children.
-    data["children.insurancePolicies.totalCost"] = format(getValueAsNumber(form, ["HealthInsurancePolicies", "0", "totalCost"]))
+            // Certificate Number:
+            data["children.insurancePolicies.certNumber"] = certNumber
 
-    // Adult's portion of premium.
-    data["children.insurancePolicies.adultPortion"] = subtract(
-        getValueAsNumber(form, ["HealthInsurancePolicies", "0", "totalCost"]),
-        getValueAsNumber(form, ["HealthInsurancePolicies", "0", "childPortion"]),
-    )
+            // Total cost of health insurance premium per month, including your children.
+            data["children.insurancePolicies.totalCost"] = format(totalCost)
 
-    // Child(ren)'s portion of premium.
-    data["children.insurancePolicies.childPortion"] = format(getValueAsNumber(form, ["HealthInsurancePolicies", "0", "childPortion"]))
+            // Adult's portion of premium.
+            data["children.insurancePolicies.adultPortion"] = format(adultPortion)
 
-    // Portion of premium to be paid by you each month.
-    data["children.insurancePolicies.portionYou"] = subtract(
-        getValueAsNumber(form, ["HealthInsurancePolicies", "0", "totalCost"]),
-        getValueAsNumber(form, ["HealthInsurancePolicies", "0", "groupPortion"]),
-    )
+            // Child(ren)'s portion of premium.
+            data["children.insurancePolicies.childPortion"] = format(childPortion)
 
-    // Portion of premium to be paid by employer or other group each month.
-    data["children.insurancePolicies.portionEmployer"] = format(getValueAsNumber(form, ["HealthInsurancePolicies", "0", "groupPortion"]))
+            // Portion of premium to be paid by you each month.
+            data["children.insurancePolicies.portionYou"] = format(portionYou)
+
+            // Portion of premium to be paid by employer or other group each month.
+            data["children.insurancePolicies.portionEmployer"] = format(portionEmployer)
+        } else {
+            policiesAddendum.push([
+                `Name everyone who is covered by this policy: ${covered}`,
+                `Insurance Co. Name: ${company}`,
+                `Address: ${address1}, ${address2}`,
+                `Policy Number: ${policyNumber}`,
+                `Certificate Number: ${certNumber}`,
+                `Total cost of health insurance premium per month, including your children: ${format(totalCost, "currency")}`,
+                `Adult's portion of premium: ${format(adultPortion, "currency")}`,
+                `Child(ren)'s portion of premium: ${format(childPortion, "currency")}`,
+                `Portion of premium to be paid by you each month: ${format(portionYou, "currency")}`,
+                `Portion of premium to be paid by employer or other group each month: ${format(portionEmployer, "currency")}`
+            ])
+        }
+    })
+
+    if(listChildrenAddendum.length > 0) {
+        data["children.list.addendum"] = "Continued in Financial Affidavit Addendum"
+    }
+
+    if(expensesAddendum.length > 0) {
+        data["children.expenses.addendum"] = "Continued in Financial Affidavit Addendum"
+    }
+
+    if(policiesAddendum.length > 0) {
+        data["children.policies.addendum"] = "Continued in Financial Affidavit Addendum"
+    }
 
     let addendum = [
-        insuranceOngoingDescAddendum && 'If any of the children listed above have ongoing medical expenses, please describe, continued:\n' + insuranceOngoingDescAddendum
+        listChildrenAddendum.length > 0 && ['1. List all of your natural and adopted children (do not include stepchildren), continued:', listChildrenAddendum],
+        expensesAddendum.length > 0 && ['2. All expenses you pay and benefits you receive on behalf of all children, continued:', expensesAddendum],
+        insuranceOngoingDescAddendum && ['4. If any of the children listed above have ongoing medical expenses, please describe, continued:', insuranceOngoingDescAddendum],
+        policiesAddendum.length > 0 && ['5. Additional Health Insurance Policies, continued:', policiesAddendum]
     ].filter(a => !!a)
 
     return {
         data,
         addendum: [
-            addendum.length > 0 && [
-                'B. CHILDREN\n\n' +
-                addendum
-            ]
+            ...(addendum.length > 0 ? [
+                ['B. CHILDREN'],
+                ...addendum
+            ]: [])
         ]
     }
 }

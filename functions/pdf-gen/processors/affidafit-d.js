@@ -122,18 +122,18 @@ const getAffidavitD = (form) => {
     })
 
     let addendum = [
-        cashBenefitsDetailsAddendum && 'Describe the non-cash benefit you receive, how often you receive it, and the value of the benefit, continued:\n ' + cashBenefitsDetailsAddendum,
-        selfEmploymentDescAddendum && 'Describe your self-employment activities, continued:\n ' + selfEmploymentDescAddendum,
-        prizeDescAddendum && 'Describe the payment, including the amount and its present location and value, continued:\n ' + prizeDescAddendum,
+        cashBenefitsDetailsAddendum && ['2. Describe the non-cash benefit you receive, how often you receive it, and the value of the benefit, continued:', cashBenefitsDetailsAddendum],
+        selfEmploymentDescAddendum && ['3. Describe your self-employment activities, continued:', selfEmploymentDescAddendum],
+        prizeDescAddendum && ['4. Describe the payment, including the amount and its present location and value, continued:', prizeDescAddendum],
     ].filter(a => !!a)
 
     return {
         data,
         addendum: [
-            addendum.length > 0 && [
-                "D. INCOME\n\n" + 
-                addendum
-            ]
+            ...(addendum.length > 0 ? [
+                ["D. INCOME"],
+                ...addendum
+            ] : [])
         ]
     }
 }

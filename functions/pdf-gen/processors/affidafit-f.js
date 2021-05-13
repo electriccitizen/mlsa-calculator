@@ -32,17 +32,17 @@ const getAffidavitF = (form) => {
     })
 
     let addendum = [
-        anticipatedChangesAddendum && "Please list any changes you expect in your or your child(ren)'s circumstances during the next 18 months which would affect the calculation of child support, continued:\n" + anticipatedChangesAddendum,
-        additionalCommentsAddendum && "Additional Comments (a separate sheet may be attached), continued:\n" + additionalCommentsAddendum
+        anticipatedChangesAddendum && ["1. Please list any changes you expect in your or your child(ren)'s circumstances during the next 18 months which would affect the calculation of child support, continued:", anticipatedChangesAddendum],
+        additionalCommentsAddendum && ["2. Additional Comments (a separate sheet may be attached), continued:", additionalCommentsAddendum]
     ].filter(a => !!a)
 
     return {
         data,
         addendum: [
-            addendum.length > 0 && [
-                "F. ANTICIPATED CHANGES / ADDITIONAL COMMENTS\n\n" +
-                addendum
-            ]
+            ...(addendum.length > 0 ? [
+                ["F. ANTICIPATED CHANGES / ADDITIONAL COMMENTS"],
+                ...addendum
+            ] : [])
         ]
     }
 }

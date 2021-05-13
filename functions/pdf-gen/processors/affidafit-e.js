@@ -77,18 +77,18 @@ const getAffidavitE = (form) => {
     data["deductions.courtOrder"] = getValue(form, ["FinancialAffadavitThree", "courtOrder"])
 
     let addendum = [
-        extmedDescAddendum && 'List yearly expenses and attach proof, continued:\n' + extmedDescAddendum,
-        inhomeDescAddendum && 'Please list any necessary expense you pay for in-home nursing care to enable you to work and for whom the expense is paid, continued:\n' + inhomeDescAddendum,
-        otherExpensesTotalAddendum && 'List employment related expenses not shown elsewhere, continued:\n' + otherExpensesTotalAddendum,
+        extmedDescAddendum && ['3. List yearly expenses and attach proof, continued:', extmedDescAddendum],
+        inhomeDescAddendum && ['4. Please list any necessary expense you pay for in-home nursing care to enable you to work and for whom the expense is paid, continued:', inhomeDescAddendum],
+        otherExpensesTotalAddendum && ['6. List employment related expenses not shown elsewhere, continued:', otherExpensesTotalAddendum],
     ].filter(a => !!a)
 
     return {
         data,
         addendum: [
-            addendum.length > 0 && [
-                "E. DEDUCTIONS AND EXPENSES\n\n" +
-                addendum
-            ]
+            ...(addendum.length > 0 ? [
+                ["E. DEDUCTIONS AND EXPENSES"],
+                ...addendum
+            ]: [])
         ]
     }
 }

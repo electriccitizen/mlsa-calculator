@@ -4,7 +4,7 @@ const { getAffidavitC } = require('./affidafit-c')
 const { getAffidavitD } = require('./affidafit-d')
 const { getAffidavitE } = require('./affidafit-e')
 const { getAffidavitF } = require('./affidafit-f')
-const { parseLinesByNewLine } = require('../utils/helpers')
+const { splitLines, flattenLines, setInvalidValuesAsNA } = require('../utils/helpers')
 
 // Static fields width in pixels
 const FIELDS_WIDTH = {
@@ -39,24 +39,12 @@ const getAffidavit = (form) => {
 
     return {
         // Set invalid values as N/A
-        data: Object.keys(data)
-            .reduce((acc, key) => {
-                return {
-                    ...acc,
-                    [key]: (
-                        data[key] === undefined ||
-                        data[key] === null ||
-                        data[key] === false ||
-                        (typeof data[key] === "string" && !!!data[key].trim().length)
-                    ) ?
-                        "N/A" :
-                        data[key]
-                }
-            }, {}),
+        data: setInvalidValuesAsNA(data),
         // Divide into lines
         addendum: addendum
             .filter(addendumData => !!addendumData)
-            .map(addendumData => parseLinesByNewLine(addendumData, FIELDS_WIDTH["addendum"], ""))
+            .map(addendumData => flattenLines(addendumData))
+            .map(addendumData => splitLines(addendumData, FIELDS_WIDTH["addendum"], ""))
     }
 }
 

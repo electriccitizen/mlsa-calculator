@@ -24,40 +24,72 @@ const getValuesAsString = (nestedObj, pathsArr, args = { defaultTo: "", separato
 }
 
 // Form field helpers
-const divideIntoLines = (string, widths, defaultTo = "N/A") => {
+const divideIntoLines = (string, widths, defaultTo = "N/A", text = "Continued in Financial Affidavit Addendum") => {
+    text = `(${text})`
     if (!string) return [[defaultTo]]
+
+    const pixelWidthConfig =  { font: 'Helvetica', size: 13 }
 
     return Object.values(
         Object.entries(
             string
                 .split(" ")
-                .reduce((lines, word) => {
+                .reduce((lines, word, index, array) => {
                     // Get current number of lines
                     const length = Object.keys(lines).length
                     const current = length - 1 < 0 ? 0 : length - 1
 
-                    // Calculate number of words
-                    const words = [lines[current] || "", word].join(" ").trim()
-
-                    // Calculate width words
-                    const width = pixelWidth(words, { font: 'Helvetica', size: 13 })
+                    // Is last line
+                    const isLastLine = Array.isArray(widths) && current === widths.length - 1
 
                     // Set max width field
                     const maxWidth = Array.isArray(widths) ? widths[current] : widths
 
-                    // Set next number of page
-                    const next = Math.floor(width / maxWidth) >= 1 ? current + 1 : current
+                    // Calculate number of words
+                    let words = [lines[current] || "", word].join(" ").trim()
 
-                    if (Array.isArray(widths) && next >= widths.length) {
-                        return {
-                            ...lines,
-                            "addendum": [lines["addendum"] || "", word].join(" ").trim()
+                    // Check if rest words fit to last line
+                    if (isLastLine) {
+                        const restWords = array.slice(index, array.length)
+                        const lastLineWidth = pixelWidth([words, restWords].join(" ").trim(), pixelWidthConfig)
+                        if (Math.floor(lastLineWidth / maxWidth) >= 1) {
+                            words = [words, text].join(" ").trim()
                         }
                     }
 
+                    // Calculate width words
+                    const width = pixelWidth(words, pixelWidthConfig)
+
+                    // Set next number of page
+                    const next = Math.floor(width / maxWidth) >= 1 ? current + 1 : current
+
+                    // Is addendum
+                    const isAddendum = Array.isArray(widths) && next >= widths.length
+
                     return {
                         ...lines,
-                        [next]: [lines[next] || "", word].join(" ").trim()
+                        ...(!isAddendum) && {
+                            [next]: [
+                                lines[next] || "",
+                                word
+                            ].join(" ").trim()
+                        },
+                        ...(isLastLine && isAddendum) && {
+                            [current]: [
+                                lines[current] || "",
+                                text
+                            ].join(" ").trim(),
+                            "addendum": [
+                                lines["addendum"] || "",
+                                word
+                            ].join(" ").trim()
+                        },
+                        ...(!isLastLine && isAddendum) && {
+                            "addendum": [
+                                lines["addendum"] || "",
+                                word
+                            ].join(" ").trim()
+                        }
                     }
                 }, {})
         ).reduce((lines, [key, value]) => {
@@ -79,20 +111,45 @@ const divideIntoLines = (string, widths, defaultTo = "N/A") => {
     )
 }
 
-const parseLinesByNewLine = (data, widths, defaultTo = "N/A") => {
+const splitLines = (data, widths, defaultTo = "") => {
     return data.reduce((lines, line) => {
         return [
             ...lines,
-            ...line
-                .split(/\n/g)
-                .reduce((strings, string) => {
-                    return [
-                        ...strings,
-                        ...divideIntoLines(string, widths, defaultTo)[0]
-                    ]
-                }, [])
+            ...divideIntoLines(line, widths, defaultTo)[0]
         ]
     }, [])
 }
 
-module.exports = { getValue, getValueAsNumber, getValueAsArray, getValuesAsString, divideIntoLines, parseLinesByNewLine }
+const flattenLines = (data) => {
+    return data.reduce((lines, line) => {
+        return [
+            ...lines,
+            ...(Array.isArray(line) ? line.reduce((a, b) => [...a, ...b]) : Array(line))
+        ]
+    }, [])
+}
+
+const setInvalidValuesAsNA = (data) => {
+    return Object.keys(data)
+        .reduce((acc, key) => {
+            return {
+                ...acc,
+                [key]: (
+                    data[key] === undefined ||
+                    data[key] === null ||
+                    data[key] === false ||
+                    (typeof data[key] === "string" && !!!data[key].trim().length)
+                ) ?
+                    "N/A" :
+                    data[key]
+            }
+        }, {})
+}
+
+// Operations with strings helpers
+const capitalize = (s) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
+}
+
+module.exports = { getValue, getValueAsNumber, getValueAsArray, getValuesAsString, divideIntoLines, splitLines, flattenLines, setInvalidValuesAsNA, capitalize }

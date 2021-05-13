@@ -18,7 +18,7 @@ const DOCUMENTS = {
 // Max lines in addendum
 const ADDENDUM_MAX_LINES = {
   WORKSHEETS: 62,
-  AFFIDAVIT: 57
+  AFFIDAVIT: 58
 }
 
 const processData = (form, pdfs) => {
