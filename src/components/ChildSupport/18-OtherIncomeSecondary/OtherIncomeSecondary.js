@@ -3,7 +3,6 @@ import { FormizStep, useForm } from "@formiz/core"
 import { Box, Divider, Stack, Text } from '@chakra-ui/react'
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
-import { FieldRadio } from "../../Fields/FieldRadio"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { SectionHeader } from "../../Utils/SectionHeader"
@@ -81,43 +80,6 @@ export const OtherIncomeSecondary = () => {
                 { value: "24", label: "Twice a month" },
                 { value: "12", label: "Once per month" },
                 { value: "1", label: "Yearly" },
-              ]}
-            />
-          </Stack>
-          <Stack
-            direction={["column", "column", "row"]}
-            spacing={["0", "0", "1rem"]}
-          >
-            <FieldInput
-              name={`OtherIncomeSecondary.SepEarning.desc`}
-              label="Describe your self-employment activities"
-              required="Required"
-              type="text"
-              width={"80%"}
-            />
-
-            <FieldMoneyInput
-              name={`OtherIncomeSecondary.SepEarning.hoursPerWeek`}
-              label="Hours per week spent in self-employment activities"
-              required="Required"
-              type="text"
-            />
-          </Stack>
-          <Stack
-            direction={["column", "column", "row"]}
-            spacing={["0", "0", "1rem"]}
-          >
-            <FieldRadio
-              name="OtherIncomeSecondary.SepEarning.primary"
-              placeholder="None"
-              required="Required"
-              label={
-                "\n" +
-                "Is your self-employment the primary source of your income for meeting your living expenses?"
-              }
-              options={[
-                { value: "yes", label: "Yes" },
-                { value: "no", label: "No" },
               ]}
             />
           </Stack>

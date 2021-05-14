@@ -516,6 +516,26 @@
       "amt": "100"
     }
   ],
+  "ChildExpensesSecondary": {
+    "0": {
+      "childCareCost": "99",
+      "healthInsurance": "99",
+      "medicalExpense": "99",
+      "otherExpenses": "no"
+    },
+    "1": {
+      "childCareCost": "98",
+      "healthInsurance": "98",
+      "medicalExpense": "98",
+      "otherExpenses": "no"
+    },
+    "2": {
+      "childCareCost": "97",
+      "healthInsurance": "97",
+      "medicalExpense": "97",
+      "otherExpenses": "no"
+    }
+  },
   "OtherAllowableDeductionsSecondary": [
     {
       "description": "Foo",

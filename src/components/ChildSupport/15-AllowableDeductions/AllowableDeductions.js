@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { FormizStep } from "@formiz/core"
+import { FormizStep, useForm } from "@formiz/core"
 import { Box, Stack } from "@chakra-ui/react"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
@@ -9,6 +9,8 @@ import { SectionHeader } from "../../Utils/SectionHeader"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const AllowableDeductions = () => {
+  const form = useForm({ subscribe: { fields: ["Documents"] } })
+  const documents = form?.values?.Documents
   const [checkedItems, setCheckedItems] = useState({})
   return (
     <FormizStep
@@ -305,13 +307,17 @@ export const AllowableDeductions = () => {
               type="text"
               mr={4}
             />
-            <FieldInput
-              name={`AllowableDeductions.extmed.desc`}
-              label="List the types of extraordinary medical expenses you have."
-              required="Required"
-              type="text"
-              mr={4}
-            />
+            {
+              (documents === "both" || documents === "affadavit") && (
+                <FieldInput
+                  name={`AllowableDeductions.extmed.desc`}
+                  label="List the types of extraordinary medical expenses you have."
+                  required="Required"
+                  type="text"
+                  mr={4}
+                />
+              )
+            }
           </Stack>
         )}
         {checkedItems.inhome === true && (
@@ -326,13 +332,17 @@ export const AllowableDeductions = () => {
               type="text"
               mr={4}
             />
-            <FieldInput
-              name={`AllowableDeductions.inhome.desc`}
-              label="List the types of in-home nursing care expenses you have and who you pay."
-              required="Required"
-              type="text"
-              mr={4}
-            />
+            {
+              (documents === "both" || documents === "affadavit") && (
+                <FieldInput
+                  name={`AllowableDeductions.inhome.desc`}
+                  label="List the types of in-home nursing care expenses you have and who you pay."
+                  required="Required"
+                  type="text"
+                  mr={4}
+                />
+              )
+            }
           </Stack>
         )}
       </>

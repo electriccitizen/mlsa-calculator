@@ -131,11 +131,11 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
       case "ChildExpensesSecondary1":
       case "ChildExpensesSecondary2":
       case "ChildExpensesSecondary3":
-        stepLabel = form.values.OtherChildrenSecondary
+        stepLabel = form.values.PrimaryChildren
           ? `Step ${index + 1}: ${form.values.OtherParentName}'s expenses for ${
-              form.values.OtherChildrenSecondary[x] &&
-              form.values.OtherChildrenSecondary[x].fname
-            } (${parseInt(x) + 1} of ${numOtherChildrenSecondary})`
+              form.values.PrimaryChildren[x] &&
+              form.values.PrimaryChildren[x].fname
+            } (${parseInt(x) + 1} of ${numChildren})`
           : ""
         break
       default:

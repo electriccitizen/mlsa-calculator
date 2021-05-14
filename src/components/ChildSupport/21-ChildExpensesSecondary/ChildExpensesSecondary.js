@@ -11,7 +11,7 @@ import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 import { v4 as uuidv4 } from "uuid"
 
 export const ChildExpensesSecondary = () => {
-  const form = useForm({ subscribe: { fields: ["NumOtherChildrenSecondary"] } })
+  const form = useForm({ subscribe: true })
   
   const numChildren = form.values.NumPrimaryChildren
   const [state, setState] = useState({})

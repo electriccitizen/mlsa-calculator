@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { Stack } from "@chakra-ui/react"
-import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldSelect } from "../../Fields/FieldSelect"
@@ -310,13 +309,6 @@ export const AllowableDeductionsSecondary = () => {
             type="text"
             mr={4}
           />
-          <FieldInput
-            name={`AllowableDeductionsSecondary.extmed.desc`}
-            label="List the types of extraordinary medical expenses you have."
-            required="Required"
-            type="text"
-            mr={4}
-          />
         </Stack>
       )}
       {checkedItems.inhome === true && (
@@ -327,14 +319,6 @@ export const AllowableDeductionsSecondary = () => {
           <FieldMoneyInput
             name={`AllowableDeductionsSecondary.inhome.amount`}
             label="In-home nursing care expense - per year"
-            required="Required"
-            type="text"
-            mr={4}
-          />
-
-          <FieldInput
-            name={`AllowableDeductionsSecondary.inhome.desc`}
-            label="List the types of in-home nursing care expenses you have and who you pay."
             required="Required"
             type="text"
             mr={4}

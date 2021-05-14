@@ -63,7 +63,7 @@ export const CompleteApp = ({ state, pdf }) => {
                 mr={4}
               >
                 <a
-                  class="logo"
+                  className="logo"
                   href={"data:application/pdf;base64," + pdf + ""}
                   download="MontanaChildSupportWorksheet.pdf"
                 >

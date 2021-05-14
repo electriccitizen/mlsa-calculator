@@ -139,7 +139,7 @@ export default function Calculator() {
             <ParentingDays />
             {(documents === "both" || documents === "affadavit") && (
               <>
-           <FinancialAffadavitOne />
+                <FinancialAffadavitOne />
                 <Schools />
                 <OtherSchools />
                 <HealthInsurance />

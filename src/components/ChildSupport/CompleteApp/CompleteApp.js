@@ -74,7 +74,7 @@ export const CompleteApp = ({ state, pdf }) => {
                   mr={4}
                 >
                   <a
-                    class="logo"
+                    className="logo"
                     href={pdf && "data:application/pdf;base64," + pdf.worksheets + ""}
                     download="MontanaChildSupportWorksheet.pdf"
                   >
@@ -124,7 +124,7 @@ export const CompleteApp = ({ state, pdf }) => {
                   mr={4}
                 >
                   <a
-                    class="logo"
+                    className="logo"
                     href={pdf && "data:application/pdf;base64," + pdf.affadavit + ""}
                     download="MontanaChildSupportFinancialAffidavit.pdf"
                   >
