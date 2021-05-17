@@ -16,9 +16,7 @@ export const CurrentJobSecondary = d => {
       [name]: value,
     })
   }
-  const otherParent = form.values.OtherParent
-    ? form.values.OtherParent.fname
-    : "other parent"
+  const otherParent = form.values?.OtherParent?.fname || "other parent"
 
   let GrossAmountLabel = ""
   switch (state["EmploymentSecondary.payment"]) {

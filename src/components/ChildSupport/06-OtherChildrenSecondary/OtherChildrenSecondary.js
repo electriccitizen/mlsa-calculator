@@ -19,15 +19,13 @@ export const OtherChildrenSecondary = () => {
 
   const formOtherParentChildren = (form.fields.OtherParentChildren && form.fields.OtherParentChildren.value)
 
-  const otherParent = form.values.OtherParent
-    ? form.values.OtherParent.fname
-    : "other parent"
+  const otherParent = form.values?.OtherParent?.fname || "other parent"
 
   return (
     <FormizStep
       name="OtherChildrenSecondary"
       order={6000}
-      label={"Does the other parent have other children with someone else?"}
+      label={"Additional children (other parent)"}
     >
       <>
         <SectionHeader

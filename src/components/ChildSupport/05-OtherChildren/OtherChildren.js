@@ -17,7 +17,7 @@ export const OtherChildren = () => {
   const formOtherChildrenPrimary = (form.fields.OtherChildrenPrimary && form.fields.OtherChildrenPrimary.value)
 
   return (
-    <FormizStep label="Other children (you)" name="OtherChildren" order={5000}>
+    <FormizStep label="Your other children" name="OtherChildren" order={5000}>
       <>
         <SectionHeader
           header={`Do you have other children with someone else?`}

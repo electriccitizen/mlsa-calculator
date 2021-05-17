@@ -11,9 +11,7 @@ export const ParentingDays = number => {
   const form = useForm({ subscribe: true })
   const numChildren = form.values.NumPrimaryChildren
 
-  const otherParent = form.values.OtherParent
-    ? form.values.OtherParent.fname
-    : "Other parent"
+  const otherParent = form.values?.OtherParent?.fname || "Other parent"
 
   return (
     <FormizStep label="Parenting days" name="ParentingDays" order={24000}>

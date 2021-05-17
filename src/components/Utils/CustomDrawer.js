@@ -33,115 +33,58 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
   console.log(form)
   const { colorMode } = useColorMode()
 
-  const numChildren = form.values.NumPrimaryChildren
-  const numOtherChildren = form.values.NumOtherChildren
-  const numOtherChildrenSecondary = form.values.NumOtherChildrenSecondary
+  const switchLabel = (name, label, index, x) => {
+    const numPrimaryChildren = form.values?.NumPrimaryChildren
+    const numOtherChildren = form.values?.NumOtherChildren
+    const numOtherChildrenSecondary = form.values?.NumOtherChildrenSecondary
+    const otherParentFName = form.values?.OtherParent?.fname
+    const primaryChildFName = form.values?.PrimaryChildren?.[x]?.fname
+    const otherChildFName = form.values?.OtherChildren?.[x]?.fname
+    const otherChildSecondaryFName = form.values?.OtherChildrenSecondary?.[x]?.fname
 
-  let stepLabel
-  const switchLabel = (name, label, index, x, numChildren) => {
-    switch (name) {
+    let stepLabel
+    switch (name.replace(/[0-9]/g, '')) {
       case "OtherParent":
-        stepLabel = form.values.OtherParentName
-          ? `Step ${index + 1}: Other parent (${form.values.OtherParentName})`
-          : `Step ${index + 1}: Other parent's name`
+        stepLabel = otherParentFName && `${otherParentFName}'s information`
         break
       case "NumberChildren":
-        stepLabel = form.values.OtherParentName
-          ? `Step ${index + 1}: Your children with ${
-              form.values.OtherParentName
-            }`
-          : `Step ${index + 1}: Number of children`
+        stepLabel = otherParentFName && `Your children with ${otherParentFName}`
         break
-      case "EnterChildren0":
-      case "EnterChildren1":
-      case "EnterChildren2":
-      case "EnterChildren3":
-        stepLabel = form.values.PrimaryChildren
-          ? `Step ${index + 1}: ${
-            form.values.PrimaryChildren[x] &&
-            form.values.PrimaryChildren[x].fname
-          } (${parseInt(x) + 1} of ${numChildren})`
-          : `Step ${index + 1}: ${label}`
+      case "EnterChildren":
+        stepLabel = numPrimaryChildren && `${primaryChildFName ?? 'Child details'} (${parseInt(x) + 1} of ${numPrimaryChildren})`
         break
-      case "EnterMyOtherChildren0":
-      case "EnterMyOtherChildren1":
-      case "EnterMyOtherChildren2":
-      case "EnterMyOtherChildren3":
-        stepLabel = form.values.OtherChildren
-          ? `Step ${index + 1}: ${
-            form.values.OtherChildren[x] &&
-            form.values.OtherChildren[x].fname
-          } (${parseInt(x) + 1} of ${numOtherChildren})`
-          : `Step ${index + 1}: ${label}`
+      case "EnterMyOtherChildren":
+        stepLabel = numOtherChildren && `${otherChildFName ?? 'Child details'} (${parseInt(x) + 1} of ${numOtherChildren})`
         break
       case "OtherChildrenSecondary":
-        stepLabel = form.values.OtherParentName
-          ? `Step ${index + 1}: ${form.values.OtherParentName}'s other children`
-          : `Step ${index + 1}: Additional children (other parent)`
+        stepLabel = otherParentFName && `${otherParentFName}'s other children`
         break
-      case "EnterMyOtherChildrenSecondary0":
-      case "EnterMyOtherChildrenSecondary1":
-      case "EnterMyOtherChildrenSecondary2":
-      case "EnterMyOtherChildrenSecondary3":
-        stepLabel = form.values.OtherChildrenSecondary
-          ? `Step ${index + 1}: ${
-            form.values.OtherChildrenSecondary[x] &&
-            form.values.OtherChildrenSecondary[x].fname
-          } (${parseInt(x) + 1} of ${numOtherChildrenSecondary})`
-          : `Step ${index + 1}: ${label}`
+      case "EnterMyOtherChildrenSecondary":
+        stepLabel = numOtherChildrenSecondary && `${otherChildSecondaryFName ?? 'Child details'} (${parseInt(x) + 1} of ${numOtherChildrenSecondary})`
         break
       case "CurrentJobSecondary":
-        stepLabel = form.values.OtherParentName
-          ? `Step ${index + 1}: ${
-              form.values.OtherParentName
-            }'s employment status`
-          : `Step ${index + 1}: Employment status (other parent)`
+        stepLabel = otherParentFName && `${otherParentFName}'s employment status`
         break
       case "OtherIncomeSecondary":
-        stepLabel = form.values.OtherParentName
-          ? `Step ${index + 1}: ${form.values.OtherParentName}'s other income`
-          : `Step ${index + 1}: Other parent (other parent)`
+        stepLabel = otherParentFName && `${otherParentFName}'s other income`
         break
       case "AllowableDeductionsSecondary":
-        stepLabel = form.values.OtherParentName
-          ? `Step ${index + 1}: ${
-              form.values.OtherParentName
-            }'s allowable deductions`
-          : `Step ${index + 1}: Allowable deductions (other parent)`
+        stepLabel = otherParentFName && `${otherParentFName}'s allowable deductions`
         break
       case "StandardOfLivingSecondary":
-        stepLabel = form.values.OtherParentName
-          ? `Step ${index + 1}: ${
-              form.values.OtherParentName
-            }'s Standard of Living adjustment`
-          : `Step ${index + 1}: Standard of Living adjustment (other parent)`
+        stepLabel = otherParentFName && `${otherParentFName}'s Standard of Living adjustment`
         break
-      case `ChildExpenses0`:
-      case "ChildExpenses1":
-      case "ChildExpenses2":
-      case "ChildExpenses3":
-        stepLabel = form.values.PrimaryChildren
-          ? `Step ${index + 1}: Expenses for ${
-              form.values.PrimaryChildren[x] &&
-             'Child ' 
-            } ${parseInt(x) + 1} of ${numChildren}`
-          : ""
+      case `ChildExpenses`:
+        stepLabel = numPrimaryChildren && `${primaryChildFName ? `Your expenses for ${primaryChildFName}` : 'Child expenses'} (${parseInt(x) + 1} of ${numPrimaryChildren})`
         break
-      case `ChildExpensesSecondary0`:
-      case "ChildExpensesSecondary1":
-      case "ChildExpensesSecondary2":
-      case "ChildExpensesSecondary3":
-        stepLabel = form.values.PrimaryChildren
-          ? `Step ${index + 1}: ${form.values.OtherParentName}'s expenses for ${
-              form.values.PrimaryChildren[x] &&
-              form.values.PrimaryChildren[x].fname
-            } (${parseInt(x) + 1} of ${numChildren})`
-          : ""
+      case `ChildExpensesSecondary`:
+        stepLabel = numPrimaryChildren && `${(primaryChildFName && otherParentFName) ? `${otherParentFName}'s expenses for ${primaryChildFName}` : 'Child expenses'} (${parseInt(x) + 1} of ${numPrimaryChildren})`
         break
       default:
-        stepLabel = `Step ${index + 1}: ${label}`
+        stepLabel = label
+
     }
-    return stepLabel
+    return `Step ${index + 1}: ${stepLabel || label}`
   }
   const handleSubmit = url => {
     navigate(url)
@@ -202,22 +145,22 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
                         // Left padding
                         pl={
                           step.name.startsWith("EnterChildren") ||
-                          step.name.startsWith("EnterMyOtherChildren") ||
-                          step.name.startsWith("TaxableIncome") ||
-                          step.name.startsWith("NonTaxableIncome") ||
-                          step.name.startsWith("OtherAllowableDeductions") ||
-                          step.name.startsWith("OtherAllowableDeductionsSecondary") ||
-                          step.name.startsWith("OtherJobs") === true ||
-                          step.name.startsWith("EnterOtherJobs") === true ||
-                          step.name.startsWith("FirstResponderExpenses") === true ||
-                          step.name.startsWith("SupplyExpenses") === true ||
-                          step.name.startsWith("FutureExpenses") === true ||
-                          step.name.startsWith("MentalHealthFuture") === true ||
-                          step.name.startsWith("PropertyStolenLost") === true ||
-                          step.name.startsWith("PropertyStolenRecovered") === true ||
-                          step.name.startsWith("PropertyDamage") === true ||
-                          step.name.startsWith("LostWages") === true ||
-                          (step.name === "CurrentJob") === true
+                            step.name.startsWith("EnterMyOtherChildren") ||
+                            step.name.startsWith("TaxableIncome") ||
+                            step.name.startsWith("NonTaxableIncome") ||
+                            step.name.startsWith("OtherAllowableDeductions") ||
+                            step.name.startsWith("OtherAllowableDeductionsSecondary") ||
+                            step.name.startsWith("OtherJobs") === true ||
+                            step.name.startsWith("EnterOtherJobs") === true ||
+                            step.name.startsWith("FirstResponderExpenses") === true ||
+                            step.name.startsWith("SupplyExpenses") === true ||
+                            step.name.startsWith("FutureExpenses") === true ||
+                            step.name.startsWith("MentalHealthFuture") === true ||
+                            step.name.startsWith("PropertyStolenLost") === true ||
+                            step.name.startsWith("PropertyStolenRecovered") === true ||
+                            step.name.startsWith("PropertyDamage") === true ||
+                            step.name.startsWith("LostWages") === true ||
+                            (step.name === "CurrentJob") === true
                             ? "8"
                             : "0"
                         }
@@ -229,8 +172,7 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
                           (step.name.startsWith("ChildExpenses") ||
                             step.name.startsWith("EnterChildren") ||
                             step.name.startsWith("EnterMyOtherChildren")) &&
-                            step.name.charAt(step.name.length - 1),
-                          numChildren
+                          step.name.charAt(step.name.length - 1)
                         )}
                       </MenuItem>
                     )

@@ -22,9 +22,7 @@ export const EnterMyOtherChildrenSecondary = () => {
       [name]: value,
     })
   }
-  const otherParent = form.values.OtherParent
-    ? form.values.OtherParent.fname
-    : "other parent"
+  const otherParent = form.values?.OtherParent?.fname || "other parent"
   return (
     <>
       {Array.apply(null, { length: numChildrenSecondary }).map((e, index) => (

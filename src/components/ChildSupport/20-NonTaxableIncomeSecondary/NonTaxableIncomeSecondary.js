@@ -54,9 +54,8 @@ export const NonTaxableIncomeSecondary = () => {
     setCollection(c => c.filter(x => x.id !== id))
   }
 
-  const otherParent = form.values.OtherParent
-    ? form.values.OtherParent.fname
-    : "Other parent"
+  const otherParent = form.values?.OtherParent?.fname || "Other parent"
+
   const Expense = index => (
     <FieldSelect
       name={`NonTaxableIncomeSecondary[${index}].type`}

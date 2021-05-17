@@ -12,9 +12,7 @@ export const OtherIncomeSecondary = () => {
   const form = useForm({
     subscribe: { fields: ["OtherParent.fname"] },
   })
-  const otherParent = form.values.OtherParent
-    ? form.values.OtherParent.fname
-    : "Other parent"
+  const otherParent = form.values?.OtherParent?.fname || "Other parent"
 
   const [checkedItems, setCheckedItems] = useState({})
   return (

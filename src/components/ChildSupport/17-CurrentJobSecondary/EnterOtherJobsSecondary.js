@@ -40,9 +40,7 @@ export const EnterOtherJobsSecondary = () => {
     return GrossAmountLabel
   }
 
-  const otherParent = form.values.OtherParent
-    ? form.values.OtherParent.fname
-    : "other parent"
+  const otherParent = form.values?.OtherParent?.fname || "other parent"
 
   return (
     <>
@@ -165,22 +163,22 @@ export const EnterOtherJobsSecondary = () => {
             )}
             {(state[`OtherJobSecondary.${index}.payment`] === "salary" ||
               state[`OtherJobSecondary.${index}.payment`] === "commission") && (
-              <FieldSelect
-                name={`OtherJobSecondary.${index}.schedule`}
-                label="Paid how often?"
-                placeholder="Select option..."
-                required="Required"
-                fieldWidth={"25%"}
-                index={index}
-                options={[
-                  { value: "52", label: "Once per week" },
-                  { value: "26", label: "Every two weeks" },
-                  { value: "24", label: "Twice a month" },
-                  { value: "12", label: "Once per month" },
-                  { value: "1", label: "Yearly" },
-                ]}
-              />
-            )}
+                <FieldSelect
+                  name={`OtherJobSecondary.${index}.schedule`}
+                  label="Paid how often?"
+                  placeholder="Select option..."
+                  required="Required"
+                  fieldWidth={"25%"}
+                  index={index}
+                  options={[
+                    { value: "52", label: "Once per week" },
+                    { value: "26", label: "Every two weeks" },
+                    { value: "24", label: "Twice a month" },
+                    { value: "12", label: "Once per month" },
+                    { value: "1", label: "Yearly" },
+                  ]}
+                />
+              )}
           </>
           <AdministrativeRules
             rules={[105, 106, 108]}
