@@ -30,7 +30,6 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
   const form = useForm({ subscribe: true })
-  console.log(form)
   const { colorMode } = useColorMode()
 
   const switchLabel = (name, label, index, x) => {

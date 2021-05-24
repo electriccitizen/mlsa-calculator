@@ -54,7 +54,7 @@ export const ChildExpensesSecondary = () => {
               header={
                 `Enter ${otherParent}'s expenses for ` +
                 (form.values.PrimaryChildren &&
-                  form.values.PrimaryChildren[index].fname) +
+                  form.values.PrimaryChildren[index]?.fname) +
                 ` (Child ` +
                 (index + 1) +
                 ` of ` +
@@ -67,7 +67,7 @@ export const ChildExpensesSecondary = () => {
           <Text fontWeight={"md"} mb={4}>
             Enter the annual amounts spent on each expense for{" "}
             {form.values.PrimaryChildren &&
-              form.values.PrimaryChildren[index].fname}{" "}
+              form.values.PrimaryChildren[index]?.fname}{" "}
             if any.
           </Text>
           <FieldMoneyInput
