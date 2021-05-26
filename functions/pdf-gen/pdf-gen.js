@@ -47,7 +47,7 @@ const fillPdf = (pdf, data) => {
   return pdftk
     .input(pdf)
     .fillForm(data)
-    .flatten()
+    // .flatten()
     .output()
 }
 
