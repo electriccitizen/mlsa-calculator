@@ -184,17 +184,13 @@ const calcWage = (job) => {
 const calcWages = (form, keyEmployment, keyOther) => {
   const employment = getValue(form, [keyEmployment], {})
   const employmentStatus = getValue(form, [keyEmployment, "status"])
-  const employmentInitiate = getValue(form, [keyEmployment, "initiate"])
   const employmentOtherJobs = getValue(form, [keyEmployment, "otherJobs"])
 
   if (employmentStatus === "no") return 0
 
   const wage = calcWage(employment)
 
-  if (
-    employmentInitiate === 'yes' || // If primary person has current job don't calc other wages
-    employmentOtherJobs === 'no'
-  ) {
+  if (employmentOtherJobs === 'no') {
     return wage
   }
 

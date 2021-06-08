@@ -15,7 +15,6 @@
   "NumOtherChildren": "2",
   "OtherParentChildren": "yes",
   "NumOtherChildrenSecondary": "2",
-  "OtherJobs": "yes",
   "OtherJobsNumber": "2",
   "OtherIncome": {
     "sep": true,
@@ -331,7 +330,8 @@
       "zip": "55555",
       "phone": "999999999"
     },
-    "schedule": "24"
+    "schedule": "24",
+    "otherJobs": "yes"
   },
   "OtherJob": {
     "0": {
