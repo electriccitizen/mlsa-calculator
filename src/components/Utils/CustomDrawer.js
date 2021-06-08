@@ -141,7 +141,7 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
                       <MenuItem
                         key={index}
                         isDisabled={step.isValid ? false : true}
-                        onClick={() => form.goToStep(step.name)}
+                        onClick={() => { form.goToStep(step.name); onClose(); }}
                         // Left padding
                         pl={
                           step.name.startsWith("EnterChildren") ||
