@@ -14,7 +14,7 @@ const getInitiate = form => {
     data["initiate.father.name"] = `${getValue(form, ["OtherParent", "fname"], "")} ${getValue(form, ["OtherParent", "lname"], "")}`
 
     // Primary children DOB
-    const children = getValueAsArray(form, ["PrimaryChildren"])
+    const children = getValueAsArray(form, ["PrimaryChildren"]).filter(child => child.status === 'none')
     children.forEach(
         (child, index) => {
             const dob = getValue(child, ["dob"])

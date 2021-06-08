@@ -12,8 +12,8 @@ const getAffidavitB = (form) => {
     // Main
     let data = {}
 
-    const primaryChildren = getValueAsArray(form, ["PrimaryChildren"])
-    const otherChildren = getValueAsArray(form, ["OtherChildren"])
+    const primaryChildren = getValueAsArray(form, ["PrimaryChildren"]).filter(child => child.status === 'none')
+    const otherChildren = getValueAsArray(form, ["OtherChildren"]).filter(child => child.status === 'none')
 
     // 1. List all of your natural and adopted children (do not include stepchildren)
     let listChildrenAddendum = []
@@ -118,9 +118,9 @@ const getAffidavitB = (form) => {
     otherChildren.forEach((child, index) => {
         const childIndex = index + 1 + primaryChildren.length
         const name = getValue(child, ["fname"], "N/A")
-        const dayCareCosts = getValueAsNumber(form, ["OtherChildren", index, "depcareAmount"])
-        const unreimbursedMedicalExpenses = getValueAsNumber(form, ["OtherChildren", index, "medicalAmount"])
-        const dependentsBenefits = getValueAsNumber(form, ["OtherChildren", index, "benefits"])
+        const dayCareCosts = getValueAsNumber(child, ["depcareAmount"])
+        const unreimbursedMedicalExpenses = getValueAsNumber(child, ["medicalAmount"])
+        const dependentsBenefits = getValueAsNumber(child, ["benefits"])
         const days = "N/A"
         const mileage = "N/A"
         const otherTransportationCosts = "N/A"

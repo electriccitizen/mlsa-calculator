@@ -28,7 +28,7 @@ const calcParentingDays = (form, sola) => {
       // Table 25-B: CHILD SUPPORT/YEAR
       // Mother’s line 24 by line 10 and enter the same amount for each child in Mother’s column of Table 25-B. 
       // Do the same for Father in his column. Total the parent’s columns in Table 25-B.
-      const numPrimaryChildren = getValueAsNumber(form, ["NumPrimaryChildren"])
+      const numPrimaryChildren = getValueAsArray(form, ["PrimaryChildren"]).filter(child => child.status === 'none').length
       if (numPrimaryChildren > 0) {
         data[`parenting.table25b.mother.child.${childIndex}`] =
           convertPrecision(divide(sola["sola.mother.total"], numPrimaryChildren), 0)

@@ -85,7 +85,7 @@ const calcSola = (form, initiate, percentages) => {
 
       // 20 SOLA amount (Worksheet E)
       data["sola.mother.amount"] = calcStandardOfLivingAdjustment(
-        getValueAsNumber(form, ["NumPrimaryChildren"]),
+        getValueAsArray(form, ["PrimaryChildren"]).filter(child => child.status === 'none').length,
         data["sola.mother.adjusted"]
       )
 
@@ -150,7 +150,7 @@ const calcSola = (form, initiate, percentages) => {
 
       // 20 SOLA amount (Worksheet E)
       data["sola.father.amount"] = calcStandardOfLivingAdjustment(
-        getValueAsNumber(form, ["NumPrimaryChildren"]),
+        getValueAsArray(form, ["PrimaryChildren"]).filter(child => child.status === 'none').length,
         data["sola.father.adjusted"]
       )
 

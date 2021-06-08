@@ -13,7 +13,8 @@ import { v4 as uuidv4 } from "uuid"
 export const ChildExpensesSecondary = () => {
   const form = useForm({ subscribe: true })
   
-  const numChildren = form.values.NumPrimaryChildren
+  const primaryChildren = Object.values(form.values?.PrimaryChildren || {}).filter(child => child.status === 'none')
+  const numChildren = primaryChildren.length
   const [state, setState] = useState({})
   const updateState = (name, value, index) => {
     setState({
@@ -53,8 +54,8 @@ export const ChildExpensesSecondary = () => {
             <SectionHeader
               header={
                 `Enter ${otherParent}'s expenses for ` +
-                (form.values.PrimaryChildren &&
-                  form.values.PrimaryChildren[index]?.fname) +
+                (primaryChildren &&
+                  primaryChildren[index]?.fname) +
                 ` (Child ` +
                 (index + 1) +
                 ` of ` +
@@ -66,8 +67,8 @@ export const ChildExpensesSecondary = () => {
 
           <Text fontWeight={"md"} mb={4}>
             Enter the annual amounts spent on each expense for{" "}
-            {form.values.PrimaryChildren &&
-              form.values.PrimaryChildren[index]?.fname}{" "}
+            {primaryChildren &&
+              primaryChildren[index]?.fname}{" "}
             if any.
           </Text>
           <FieldMoneyInput

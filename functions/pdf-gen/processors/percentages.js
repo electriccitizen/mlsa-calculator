@@ -72,10 +72,10 @@ const calcPercentages = (form, initiate, deductions) => {
   data["ppa.father.percentageCallout"] = data["ppa.father.share"]
 
   // 10 Number of children listed above due support
-  data["ppa.numChildren"] = getValue(form, ["NumPrimaryChildren"], "")
+  data["ppa.numChildren"] = getValueAsArray(form, ["PrimaryChildren"]).filter(child => child.status === 'none').length
 
   // 11 Primary child support allowance from Table 2 
-  data["ppa.pcsa"] = getAllowanceChildren(getValueAsNumber(form, ["NumPrimaryChildren"]))
+  data["ppa.pcsa"] = getAllowanceChildren(data["ppa.numChildren"])
 
   const primaryChildExpenses = calcChildExpenses(form, "ChildExpenses")
   const secondaryChildExpenses = calcChildExpenses(form, "ChildExpensesSecondary")

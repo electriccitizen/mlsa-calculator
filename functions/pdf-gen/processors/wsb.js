@@ -1,4 +1,4 @@
-const { getValueAsNumber } = require("../utils/helpers")
+const { getValueAsArray } = require("../utils/helpers")
 const { calcChildExpenses } = require("./percentages")
 const { getAmount, convertPrecision, add, subtract, multiply, divide, lt, gt, minimum, isZero } = require('../utils/currency')
 
@@ -13,7 +13,7 @@ const calcWSB = (form, wsa) => {
     const MAX_CHILDREN_PART_ONE = 4
     const MAX_CHILDREN_PART_TWO = 2
 
-    const numChildren = getValueAsNumber(form, "NumPrimaryChildren")
+    const numChildren = getValueAsArray(form, ["PrimaryChildren"]).filter(child => child.status === 'none').length
     const arrChildren = Array.apply(null, { length: numChildren }).map((_, index) => index)
 
     const partOneData = mapToPages(arrChildren, MAX_CHILDREN_PART_ONE).map((children, index) => {

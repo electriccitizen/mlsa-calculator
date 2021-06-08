@@ -152,7 +152,7 @@ const calcAllowableDeductions = (form, initiate, income) => {
 // Helpers
 const calcOrderedChildSupport = (form, key) => {
   return getValueAsArray(form, key).reduce((total, child) => {
-    if (child.support === "yes" && child.childSupportAmount) {
+    if (child.support === "yes" && child.childSupportAmount && child.status === 'none') {
       return add(total, multiply(getValueAsNumber(child, ["childSupportAmount"]), 12))
     }
     return total
@@ -161,13 +161,13 @@ const calcOrderedChildSupport = (form, key) => {
 
 const countChildren = (form, key) => {
   return getValueAsArray(form, key).filter((child) => {
-    return child.housing === "me" && child.support === "no"
+    return child.housing === "me" && child.support === "no" && child.status === 'none'
   }).length
 }
 
 const calcDependentCareExpense = (form, key) => {
   return getValueAsArray(form, key).reduce((total, child) => {
-    if (child.depcare === "yes" && child.depcareAmount) {
+    if (child.depcare === "yes" && child.depcareAmount && child.status === 'none') {
       return add(total, getValueAsNumber(child, ["depcareAmount"]))
     }
     return total

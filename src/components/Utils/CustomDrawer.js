@@ -33,11 +33,12 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
   const { colorMode } = useColorMode()
 
   const switchLabel = (name, label, index, x) => {
-    const numPrimaryChildren = form.values?.NumPrimaryChildren
+    const primaryChildren = Object.values(form.values?.PrimaryChildren || {}).filter(child => child.status === 'none')
+    const numPrimaryChildren = primaryChildren.length
     const numOtherChildren = form.values?.NumOtherChildren
     const numOtherChildrenSecondary = form.values?.NumOtherChildrenSecondary
     const otherParentFName = form.values?.OtherParent?.fname
-    const primaryChildFName = form.values?.PrimaryChildren?.[x]?.fname
+    const primaryChildFName = primaryChildren?.[x]?.fname
     const otherChildFName = form.values?.OtherChildren?.[x]?.fname
     const otherChildSecondaryFName = form.values?.OtherChildrenSecondary?.[x]?.fname
 
@@ -50,7 +51,7 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
         stepLabel = otherParentFName && `Your children with ${otherParentFName}`
         break
       case "EnterChildren":
-        stepLabel = numPrimaryChildren && `${primaryChildFName ?? 'Child details'} (${parseInt(x) + 1} of ${numPrimaryChildren})`
+        stepLabel = form.values?.NumPrimaryChildren && `${form.values?.PrimaryChildren?.[x]?.fname ?? 'Child details'} (${parseInt(x) + 1} of ${form.values?.NumPrimaryChildren})`
         break
       case "EnterMyOtherChildren":
         stepLabel = numOtherChildren && `${otherChildFName ?? 'Child details'} (${parseInt(x) + 1} of ${numOtherChildren})`

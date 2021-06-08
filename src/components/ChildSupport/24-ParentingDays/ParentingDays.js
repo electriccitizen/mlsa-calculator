@@ -9,7 +9,8 @@ import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 
 export const ParentingDays = number => {
   const form = useForm({ subscribe: true })
-  const numChildren = form.values.NumPrimaryChildren
+  const primaryChildren = Object.values(form.values?.PrimaryChildren || {}).filter(child => child.status === 'none')
+  const numChildren = primaryChildren.length
 
   const otherParent = form.values?.OtherParent?.fname || "Other parent"
 
@@ -43,11 +44,11 @@ export const ParentingDays = number => {
             name={`ParentingDays.children.${index}.name`}
             label={"Child's name"}
             child={
-              form.values.PrimaryChildren &&
-              form.values.PrimaryChildren[index] &&
-              form.values.PrimaryChildren[index].fname +
+              primaryChildren &&
+              primaryChildren[index] &&
+              primaryChildren[index].fname +
                 " " +
-                form.values.PrimaryChildren[index].lname
+                primaryChildren[index].lname
             }
             mb="4"
             mr={"4"}

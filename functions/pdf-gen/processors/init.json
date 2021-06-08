@@ -173,7 +173,7 @@
       "mname": null,
       "lname": "Doe",
       "dob": "2021-03-01T06:00:00.000Z",
-      "status": "none",
+      "status": "emancipated",
       "disabled": "no"
     },
     "1": {
@@ -217,7 +217,7 @@
       "support": "yes",
       "depcare": "no",
       "medical": "no",
-      "status": "none",
+      "status": "emancipated",
       "disabled": "no"
     },
     "2": {
@@ -288,10 +288,6 @@
         "amount": "200"
       },
       "1": {
-        "name": null,
-        "amount": "200"
-      },
-      "2": {
         "name": null,
         "amount": "200"
       }
