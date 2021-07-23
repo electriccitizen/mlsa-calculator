@@ -158,7 +158,6 @@ export const PropertyDamage = () => {
           </Box>
         ))}
       {damage === "yes" &&
-        replaceRepair === "yes" &&
         additionalExpenses.length <= 20 && (
           <AddPlaceholder label="Add an expense" onClick={addItem} />
         )}

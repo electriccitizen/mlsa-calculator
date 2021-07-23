@@ -1,0 +1,278 @@
+{
+  "FuneralExpenses": {
+    "0": {
+      "date": "2021-07-14T05:00:00.000Z",
+      "amt": "10",
+      "description": "asdf",
+      "notes": "asdf",
+      "receipt": "yes"
+    }
+  },
+  "FirstResponderExpenses": {
+    "0": {
+      "date": "2021-07-15T05:00:00.000Z",
+      "amt": "11",
+      "description": "sadf",
+      "notes": "asdf",
+      "receipt": "no"
+    }
+  },
+  "SupplyExpenses": {
+    "0": {
+      "date": "2021-07-06T05:00:00.000Z",
+      "amt": "11",
+      "description": "sadf",
+      "notes": "asdf",
+      "receipt": "yes"
+    }
+  },
+  "FutureExpenses": {
+    "0": {
+      "date": "2021-06-30T05:00:00.000Z",
+      "amt": "12",
+      "description": "asdf",
+      "estimate": "asdf",
+      "notes": "asdf",
+      "receipt": "no"
+    },
+    "est": "yes"
+  },
+  "FutureExpensesRecurring": {
+    "0": {
+      "timeestimate": "qwasdf",
+      "sessions": "asdfasdf",
+      "amt": "123",
+      "description": "asdf",
+      "estimate": "asdf",
+      "notes": "asdf"
+    },
+    "est": "yes"
+  },
+  "MentalHealthFutureExpenses": "yes",
+  "PropertyDamage": {
+    "0": {
+      "date": "2021-07-15T05:00:00.000Z",
+      "itemCost": "12",
+      "amtInsurance": "12",
+      "amt": "1",
+      "notes": "asdf",
+      "receipt": "yes"
+    }
+  },
+  "initiate": {
+    "terms": "yes"
+  },
+  "Primary": {
+    "fname": "test",
+    "mname": null,
+    "lname": "test",
+    "phone": "555",
+    "email": "broeker@gmail.com",
+    "caseName": "foo",
+    "prosecutor": "asdf",
+    "causeNumber": "123",
+    "caseID": "123"
+  },
+  "MedicalExpenses": {
+    "0": {
+      "date": "2021-07-03T05:00:00.000Z",
+      "amt": "11",
+      "description": "adzxc",
+      "notes": "sadf",
+      "receipt": "yes"
+    },
+    "injury": "yes",
+    "expenses": "yes",
+    "onetime": "yes"
+  },
+  "MentalHealthExpenses": {
+    "0": {
+      "date": "2021-07-07T05:00:00.000Z",
+      "amt": "12",
+      "description": "sadf",
+      "notes": "asdf",
+      "receipt": "yes"
+    },
+    "status": "yes",
+    "current": "yes"
+  },
+  "MentalHealthFuture": {
+    "0": {
+      "timeestimate": "asdgf",
+      "sessions": "asdf",
+      "amt": "111",
+      "notes": "asdf"
+    },
+    "est": "yes"
+  },
+  "PropertyStolenExpenses": {
+    "stolen": "yes",
+    "recovered": "yes"
+  },
+  "PropertyStolenRecovered": {
+    "0": {
+      "date": "2021-07-01T05:00:00.000Z",
+      "amtInsurance": "11",
+      "amt": "1",
+      "notes": "asdf",
+      "receipt": "yes"
+    },
+    "damaged": "yes",
+    "replaceRepair": "yes",
+    "rental": "yes"
+  },
+  "PropertyStolenLost": {
+    "0": {
+      "date": "2021-07-07T05:00:00.000Z",
+      "amtInsurance": "12",
+      "amt": "1",
+      "notes": "sadf",
+      "receipt": "yes"
+    },
+    "replace": "yes"
+  },
+  "LostWages": {
+    "0": {
+      "notes": "asdf",
+      "expense": "12",
+      "amt": "12",
+      "receipt": "yes"
+    },
+    "status": "yes"
+  },
+  "LostWagesCourt": {
+    "0": {
+      "notes": "asdfasd",
+      "expense": "12",
+      "amt": "12",
+      "receipt": "yes"
+    },
+    "status": "yes"
+  },
+  "LostWagesOther": {
+    "0": {
+      "notes": "asdfads",
+      "expense": "12",
+      "amt": "123",
+      "receipt": "yes"
+    },
+    "1": {
+      "amt": "123"
+    },
+    "status": "yes"
+  },
+  "LostWagesFuture": {
+    "0": {
+      "description": "sadfasd",
+      "amt": "100",
+      "notes": "asdf",
+      "note2": "asdf"
+    },
+    "status": "yes"
+  },
+  "LostWagesCarTravel": {
+    "0": {
+      "date": "2021-07-06T05:00:00.000Z",
+      "notes": "asdf"
+    },
+    "status": "yes",
+    "car": "yes"
+  },
+  "LostWagesOtherTravel": {
+    "0": {
+      "date": "2021-07-07T05:00:00.000Z",
+      "notes": "asdf",
+      "description": "asdf",
+      "receipt": "yes"
+    },
+    "1": {
+      "date": "2021-07-01T05:00:00.000Z",
+      "notes": "asdf",
+      "description": "asdf",
+      "receipt": "no"
+    },
+    "status": "yes"
+  },
+  "Moving": {
+    "0": {
+      "date": "2021-07-07T05:00:00.000Z"
+    },
+    "1": {
+      "date": "2021-07-13T05:00:00.000Z"
+    },
+    "status": "yes"
+  },
+  "Working": {
+    "0": {
+      "expense": "1222",
+      "description": "asdf",
+      "descriptionNotes": "asdf",
+      "notes": "asdf",
+      "receipt": "yes"
+    },
+    "1": {
+      "expense": "123",
+      "description": "asdf",
+      "descriptionNotes": "asdf",
+      "notes": "asdf",
+      "receipt": "no"
+    }
+  },
+  "Safety": {
+    "0": {
+      "date": "2021-07-15T05:00:00.000Z",
+      "expense": "123",
+      "description": "asdf",
+      "descriptionNotes": "asdf",
+      "notes": "asdf",
+      "receipt": "yes"
+    },
+    "1": {
+      "date": "2021-07-22T05:00:00.000Z",
+      "expense": "123",
+      "description": "asdf",
+      "descriptionNotes": "asdf",
+      "notes": "asdf",
+      "receipt": "no"
+    },
+    "status": "yes"
+  },
+  "Education": {
+    "0": {
+      "date": "asdfadsff",
+      "expense": "123",
+      "description": "asdf",
+      "descriptionNotes": "asdf",
+      "payment": "asdf",
+      "receipt": "yes"
+    },
+    "1": {
+      "date": "asdfas",
+      "expense": "123",
+      "description": "asdfasd",
+      "descriptionNotes": "asdf",
+      "payment": "asdfa",
+      "receipt": "yes"
+    },
+    "status": "yes"
+  },
+  "OtherExpenses": {
+    "status": "yes"
+  },
+  "Other": {
+    "0": {
+      "date": "2021-06-30T05:00:00.000Z",
+      "expense": "123",
+      "description": "asdf",
+      "notes": "asdf",
+      "receipt": "yes"
+    },
+    "1": {
+      "date": "2021-07-08T05:00:00.000Z",
+      "expense": "123",
+      "description": "sadf",
+      "notes": "asdf",
+      "receipt": "no"
+    }
+  }
+}

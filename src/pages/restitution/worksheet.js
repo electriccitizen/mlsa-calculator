@@ -29,6 +29,8 @@ import { OtherExpenses } from "../../components/Restitution/15-OtherExpenses/Oth
 import { CompleteApp } from '../../components/Restitution/CompleteApp/CompleteApp'
 import { Beforeunload } from 'react-beforeunload'
 
+import * as init from '../../../functions/pdf-gen/processors/init-restitution.json';
+
 export default function Worksheet() {
   const form = useForm({ subscribe: false })
 
@@ -40,9 +42,13 @@ export default function Worksheet() {
     form.goToStep(stepWithError)
   }
 
+  // Set default values from init.json
+  const values = init.default
+
   return (
 
-    <Formiz onValidSubmit={handleSubmit}>
+    <Formiz onValidSubmit={handleSubmit}
+            initialValues={ values }>
       <Beforeunload onBeforeunload={event => event.preventDefault()} />
       <MultiStepsLayout
         app="restitution"

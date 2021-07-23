@@ -22,7 +22,7 @@ export const IntroCantDo = () => {
       </Text>
       <Text p={4} mb={2} color={colorMode === "dark" ? "gray.400" : "gray.500"}>
         <Icon color="red.700" as={FaStopCircle} /> Montana Legal Services
-        Association and/or CSED are not responsible for what happens if you use
+        Association is not responsible for what happens if you use
         this calculator.
       </Text>
 

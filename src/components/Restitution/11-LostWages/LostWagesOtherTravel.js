@@ -86,12 +86,6 @@ export const LostWagesOtherTravel = () => {
           name={`LostWagesOtherTravel.${index}.description`}
           label="Describe what kind of travel expense"
           required="Required"
-          validations={[
-            {
-              rule: isNumber(),
-              message: "Please enter a number",
-            },
-          ]}
         />
       </Stack>
 

@@ -40,40 +40,40 @@ export const IntroSafety = () => {
         internet use information may help you keep yourself, your family, and
         your information safe.
       </Text>
-      <Heading
-        as="h2"
-        fontSize="2xl"
-        lineHeight="tall"
-        fontWeight="normal"
-        color={"gray.500"}
-        href="#"
-      >
-        <Icon color={"brand.400"} as={FaInfoCircle} /> Domestic Violence
-      </Heading>
-      <Text mb={2}>
-        The Montana Child Support Enforcement Division (CSED), part of the MT
-        Department of Health and Human Services (DPHHS). To open a case with
-        CSED,{" "}
-        <Link
-          href={
-            "https://lawhelpinteractive.org/DispInterview?q=FmLSVfmGtLZ7fRvIcaIv2YiSdixIDjGVp6W4gZKaP%2F6zPrylM3kC6S2%2FsFsA%2B%2FBINC%2BkMhNmksQCIJXKDHRYin3dm1KXFrlrwoBySU799rMegEN85vGWk3kZOA0KoKinvb2gvb4X0D%2FVTl7E%2BhBYiPVyTps0SbN1eKw0gaaMKA34eb0ZCil3O2oGeTm90H5uyUtQ0W%2BJKPPiPJJMbh4NP0Ud1hLX7FPXe4hH2J1HR0pxY%2BGta0zYMKkBMbDV0%2BogInDTBbEltQwhs8INnp1k7z4h0gPRwGTR2x2zPRg2T%2FxhH3JBA8yYxdpF3C%2BG22xWeLNdDxGQO32f2KcPDv9zVQ%3D%3D#"
-          }
-          color={"brand.400"}
-        >
-          you may download an application.
-        </Link>{" "}
-        <Icon boxSize={"12px"} as={FaExternalLinkAlt} /> You may pick up an
-        application at a{" "}
-        <Link
-          href={
-            "https://lawhelpinteractive.org/DispInterview?q=FmLSVfmGtLZ7fRvIcaIv2YiSdixIDjGVp6W4gZKaP%2F6zPrylM3kC6S2%2FsFsA%2B%2FBINC%2BkMhNmksQCIJXKDHRYin3dm1KXFrlrwoBySU799rMegEN85vGWk3kZOA0KoKinvb2gvb4X0D%2FVTl7E%2BhBYiPVyTps0SbN1eKw0gaaMKA34eb0ZCil3O2oGeTm90H5uyUtQ0W%2BJKPPiPJJMbh4NP0Ud1hLX7FPXe4hH2J1HR0pxY%2BGta0zYMKkBMbDV0%2BogInDTBbEltQwhs8INnp1k7z4h0gPRwGTR2x2zPRg2T%2FxhH3JBA8yYxdpF3C%2BG22xWeLNdDxGQO32f2KcPDv9zVQ%3D%3D#"
-          }
-          color={"brand.400"}
-        >
-          local child support office
-        </Link>{" "}
-        <Icon boxSize={"12px"} as={FaExternalLinkAlt} />.
-      </Text>
+      {/*<Heading*/}
+      {/*  as="h2"*/}
+      {/*  fontSize="2xl"*/}
+      {/*  lineHeight="tall"*/}
+      {/*  fontWeight="normal"*/}
+      {/*  color={"gray.500"}*/}
+      {/*  href="#"*/}
+      {/*>*/}
+      {/*  <Icon color={"brand.400"} as={FaInfoCircle} /> Domestic Violence*/}
+      {/*</Heading>*/}
+      {/*<Text mb={2}>*/}
+      {/*  The Montana Child Support Enforcement Division (CSED), part of the MT*/}
+      {/*  Department of Health and Human Services (DPHHS). To open a case with*/}
+      {/*  CSED,{" "}*/}
+      {/*  <Link*/}
+      {/*    href={*/}
+      {/*      "https://lawhelpinteractive.org/DispInterview?q=FmLSVfmGtLZ7fRvIcaIv2YiSdixIDjGVp6W4gZKaP%2F6zPrylM3kC6S2%2FsFsA%2B%2FBINC%2BkMhNmksQCIJXKDHRYin3dm1KXFrlrwoBySU799rMegEN85vGWk3kZOA0KoKinvb2gvb4X0D%2FVTl7E%2BhBYiPVyTps0SbN1eKw0gaaMKA34eb0ZCil3O2oGeTm90H5uyUtQ0W%2BJKPPiPJJMbh4NP0Ud1hLX7FPXe4hH2J1HR0pxY%2BGta0zYMKkBMbDV0%2BogInDTBbEltQwhs8INnp1k7z4h0gPRwGTR2x2zPRg2T%2FxhH3JBA8yYxdpF3C%2BG22xWeLNdDxGQO32f2KcPDv9zVQ%3D%3D#"*/}
+      {/*    }*/}
+      {/*    color={"brand.400"}*/}
+      {/*  >*/}
+      {/*    you may download an application.*/}
+      {/*  </Link>{" "}*/}
+      {/*  <Icon boxSize={"12px"} as={FaExternalLinkAlt} /> You may pick up an*/}
+      {/*  application at a{" "}*/}
+      {/*  <Link*/}
+      {/*    href={*/}
+      {/*      "https://lawhelpinteractive.org/DispInterview?q=FmLSVfmGtLZ7fRvIcaIv2YiSdixIDjGVp6W4gZKaP%2F6zPrylM3kC6S2%2FsFsA%2B%2FBINC%2BkMhNmksQCIJXKDHRYin3dm1KXFrlrwoBySU799rMegEN85vGWk3kZOA0KoKinvb2gvb4X0D%2FVTl7E%2BhBYiPVyTps0SbN1eKw0gaaMKA34eb0ZCil3O2oGeTm90H5uyUtQ0W%2BJKPPiPJJMbh4NP0Ud1hLX7FPXe4hH2J1HR0pxY%2BGta0zYMKkBMbDV0%2BogInDTBbEltQwhs8INnp1k7z4h0gPRwGTR2x2zPRg2T%2FxhH3JBA8yYxdpF3C%2BG22xWeLNdDxGQO32f2KcPDv9zVQ%3D%3D#"*/}
+      {/*    }*/}
+      {/*    color={"brand.400"}*/}
+      {/*  >*/}
+      {/*    local child support office*/}
+      {/*  </Link>{" "}*/}
+      {/*  <Icon boxSize={"12px"} as={FaExternalLinkAlt} />.*/}
+      {/*</Text>*/}
     </FormizStep>
   )
 }
