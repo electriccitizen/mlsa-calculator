@@ -48,7 +48,8 @@ export default function Worksheet() {
   return (
 
     <Formiz onValidSubmit={handleSubmit}
-            //initialValues={ values }>
+            //initialValues={ values }
+        >
       <Beforeunload onBeforeunload={event => event.preventDefault()} />
       <MultiStepsLayout
         app="restitution"
