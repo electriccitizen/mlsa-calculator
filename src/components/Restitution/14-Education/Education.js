@@ -117,9 +117,7 @@ export const Education = () => {
 
       {status === "yes" && (
         <AlertBox>
-          If you had any trouble participating in school or school related
-          activities as a result of the crime, you may want to seek Title IX
-          assistance from a licensed attorney. Educational loss expenses might
+        Educational loss expenses might
           include lost tuition costs, books, or other costs associated with
           education that were lost due to the crime.
         </AlertBox>
