@@ -43,12 +43,12 @@ export default function Worksheet() {
   }
 
   // Set default values from init.json
-  const values = init.default
+  //const values = init.default
 
   return (
 
     <Formiz onValidSubmit={handleSubmit}
-            initialValues={ values }>
+            //initialValues={ values }>
       <Beforeunload onBeforeunload={event => event.preventDefault()} />
       <MultiStepsLayout
         app="restitution"
