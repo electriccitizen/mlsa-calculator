@@ -37,8 +37,8 @@ export const IntroSafety = () => {
         <Icon color={"brand.400"} as={FaInfoCircle} /> Browsing safety
       </Heading>
       <Text mb={2}>
-        If you feel unsafe in your household or in your relationship, this safe
-        internet use information may help you keep yourself, your family, and
+        If you feel unsafe in your household or in your relationship, this <a href={"/safety"} target={"_blank"}>safe
+        internet use information</a> may help you keep yourself, your family, and
         your information safe.
       </Text>
       <Heading
@@ -57,7 +57,7 @@ export const IntroSafety = () => {
         CSED,{" "}
         <Link
           href={
-            "https://lawhelpinteractive.org/DispInterview?q=FmLSVfmGtLZ7fRvIcaIv2YiSdixIDjGVp6W4gZKaP%2F6zPrylM3kC6S2%2FsFsA%2B%2FBINC%2BkMhNmksQCIJXKDHRYin3dm1KXFrlrwoBySU799rMegEN85vGWk3kZOA0KoKinvb2gvb4X0D%2FVTl7E%2BhBYiPVyTps0SbN1eKw0gaaMKA34eb0ZCil3O2oGeTm90H5uyUtQ0W%2BJKPPiPJJMbh4NP0Ud1hLX7FPXe4hH2J1HR0pxY%2BGta0zYMKkBMbDV0%2BogInDTBbEltQwhs8INnp1k7z4h0gPRwGTR2x2zPRg2T%2FxhH3JBA8yYxdpF3C%2BG22xWeLNdDxGQO32f2KcPDv9zVQ%3D%3D#"
+            "https://dphhs.mt.gov/index"
           }
           color={"brand.400"}
         >
@@ -67,7 +67,7 @@ export const IntroSafety = () => {
         application at a{" "}
         <Link
           href={
-            "https://lawhelpinteractive.org/DispInterview?q=FmLSVfmGtLZ7fRvIcaIv2YiSdixIDjGVp6W4gZKaP%2F6zPrylM3kC6S2%2FsFsA%2B%2FBINC%2BkMhNmksQCIJXKDHRYin3dm1KXFrlrwoBySU799rMegEN85vGWk3kZOA0KoKinvb2gvb4X0D%2FVTl7E%2BhBYiPVyTps0SbN1eKw0gaaMKA34eb0ZCil3O2oGeTm90H5uyUtQ0W%2BJKPPiPJJMbh4NP0Ud1hLX7FPXe4hH2J1HR0pxY%2BGta0zYMKkBMbDV0%2BogInDTBbEltQwhs8INnp1k7z4h0gPRwGTR2x2zPRg2T%2FxhH3JBA8yYxdpF3C%2BG22xWeLNdDxGQO32f2KcPDv9zVQ%3D%3D#"
+            "https://dphhs.mt.gov/index"
           }
           color={"brand.400"}
         >

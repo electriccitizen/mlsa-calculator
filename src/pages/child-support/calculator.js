@@ -99,23 +99,23 @@ export default function Calculator() {
         >
           <RulesProvider>
             <TermsOfUse />
-            <InitiateInterview />
-            <BasicInformation />
-            <OtherParent />
-            <NumberChildren />
-            <EnterChildren />
-            <OtherChildren />
-            <EnterMyOtherChildren />
-            {(documents === "both" || documents === "worksheets") && (
-              <>
-                <OtherChildrenSecondary />
-                <EnterMyOtherChildrenSecondary />
-              </>
-            )}
-            <Employment />
-            <CurrentJob />
-            <OtherJobs />
-            <EnterOtherJobs />
+            {/*<InitiateInterview />*/}
+            {/*<BasicInformation />*/}
+            {/*<OtherParent />*/}
+            {/*<NumberChildren />*/}
+            {/*<EnterChildren />*/}
+            {/*<OtherChildren />*/}
+            {/*<EnterMyOtherChildren />*/}
+            {/*{(documents === "both" || documents === "worksheets") && (*/}
+            {/*  <>*/}
+            {/*    <OtherChildrenSecondary />*/}
+            {/*    <EnterMyOtherChildrenSecondary />*/}
+            {/*  </>*/}
+            {/*)}*/}
+            {/*<Employment />*/}
+            {/*<CurrentJob />*/}
+            {/*<OtherJobs />*/}
+            {/*<EnterOtherJobs />*/}
             <OtherIncome />
             <TaxableIncome />
             <NonTaxableIncome />

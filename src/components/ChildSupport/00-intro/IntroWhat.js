@@ -87,7 +87,7 @@ export const IntroWhat = () => {
         online on{" "}
         <Link
           color="brand.400"
-          href="https://dphhs.mt.gov/csed/services/guidelinespacket"
+          href="https://dphhs.mt.gov/index"
           isExternal
         >
           Montana’s DPHHS Child Support Services Division website

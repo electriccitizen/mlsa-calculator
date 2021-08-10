@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
+import { isRequired, isNotEmptyArray } from '@formiz/validations'
 import { isNumber } from "@formiz/validations"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
@@ -14,13 +15,14 @@ export const OtherIncome = () => {
   const form = useForm({ subscribe: { fields: ["Documents"] } })
   const documents = form?.values?.Documents
   const [checkedItems, setCheckedItems] = useState({})
+
   return (
     <FormizStep label="Your other income" name="OtherIncome" order={10000}>
       <SectionHeader header={`Your other income`} />
       <FieldCheckbox
         name="OtherIncome"
         label="Select all that apply, or none of the above if you have no other income."
-        required="Required"
+        required="Required yo"
         setCheckedItems={setCheckedItems}
         checkedItems={checkedItems}
         options={[
@@ -50,6 +52,9 @@ export const OtherIncome = () => {
           { value: "none", label: "None of the above" },
         ]}
       />
+
+
+
       {checkedItems.sep === true && (
         <>
           <Divider mb={4} />
@@ -57,7 +62,7 @@ export const OtherIncome = () => {
             <FieldMoneyInput
               name={`OtherIncome.SepEarning.net`}
               label="Self-employment net earnings (- loss)"
-              required="required"
+              required="Required"
               type="text"
             />
             <FieldSelect
@@ -231,8 +236,8 @@ export const OtherIncome = () => {
           <Text fontSize={"sm"} mt={2}>
             See here:{" "}
             <a
-              isExternal
-              href="https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/earned-income-tax-credit-income-limits-and-maximum-credit-amounts"
+              target={"_blank"}
+                href="https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/earned-income-tax-credit-income-limits-and-maximum-credit-amounts"
             >
               Limits and Maximum Credit Amounts
             </a>

@@ -19,7 +19,6 @@ const defaultProps = {
 
 export default function SiteHeader() {
   const { colorMode, toggleColorMode } = useColorMode()
-  console.log(colorMode)
   return (
     <StaticQuery
       query={graphql`

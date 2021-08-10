@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { Checkbox, Stack } from "@chakra-ui/react"
+import { Checkbox, CheckboxGroup, Stack } from "@chakra-ui/react"
 import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
 import { FormGroup } from "../Utils/FormGroup"
 
@@ -42,7 +42,7 @@ export const FieldCheckbox = props => {
     ...otherProps
   } = props
   const [isTouched, setIsTouched] = useState(false)
-  const showError = !isValid
+  const showError = !isValid && (isTouched || isSubmitted)
 
   useEffect(() => {
     setIsTouched(false)
@@ -58,39 +58,45 @@ export const FieldCheckbox = props => {
     ...otherProps,
   }
 
+  const clearState = () => {
+    setCheckedItems({});
+  };
+
   const handleChange = e => {
-    if (e.target.value === 'none' && e.target.checked === true) {
-      console.log('undo me!')
-      setCheckedItems(initialState)
-      console.log(checkedItems)
-      // setCheckedItems({
-      //   [e.target.value]: e.target.checked,
-      // })
-    } else {
+
+      console.log(e.target.value)
+    console.log(isValid)
+    setValue({
+      ...value,
+      [e.target.value]: e.target.checked,
+    })
+
       setCheckedItems({
-        ...checkedItems,
         [e.target.value]: e.target.checked,
       })
-    }
+
   }
 
   return (
-      <FormGroup {...formGroupProps}>
-        <Stack>
-          {(options || []).map((item, i) => (
-              <Checkbox
-                  key={i}
-                  // isChecked={checkedItems[i]}
-                  //onChange={val => handleChange(val)}
-                  value={item.value}
-                  onChange={(val) => {setValue(!value); handleChange(val)}} // Update here
-                  required={required}
-              >
-                {item.label}
-              </Checkbox>
-          ))}
-        </Stack>
-      </FormGroup>
+    <FormGroup {...formGroupProps}>
+      <Stack>
+        <CheckboxGroup isDisabled="true" colorScheme="green" defaultValue={["naruto", "kakashi"]}>
+          foo
+        {(options || []).map((item, i) => (
+          <Checkbox
+            key={i}
+            isChecked={checkedItems[i]}
+            value={item.value}
+             onChange={val => handleChange(val)}
+            //onChange={val => setValue(!val)}
+          >
+            {item.label}
+          </Checkbox>
+
+        ))}
+        </CheckboxGroup>
+      </Stack>
+    </FormGroup>
   )
 }
 

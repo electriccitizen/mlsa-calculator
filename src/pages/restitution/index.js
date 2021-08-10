@@ -11,6 +11,7 @@ import { IntroSafety } from "../../components/Restitution/00-intro/IntroSafety"
 import { IntroQuestions } from '../../components/Restitution/00-intro/IntroQuestions'
 import { IntroHelp } from "../../components/Restitution/00-intro/IntroHelp"
 import { MultiStepsLayout } from "../../components/MultiStepsLayout"
+// import { scrollToStepTop } from '../components/Utils/scroll'
 
 export default function (Restitution) {
   const handleSubmit = () => {
@@ -23,6 +24,7 @@ export default function (Restitution) {
         buttonTitle="Restitution Workbook"
         submitLabel="Finish"
       >
+
         <IntroHow />
         <IntroCanDo />
         <IntroCantDo />
