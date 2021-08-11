@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { isRequired, isNotEmptyArray } from '@formiz/validations'
 import { isNumber } from "@formiz/validations"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
@@ -10,11 +9,13 @@ import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
+import { AlertBox } from "../../Utils/AlertBox";
 
 export const OtherIncome = () => {
   const form = useForm({ subscribe: { fields: ["Documents"] } })
   const documents = form?.values?.Documents
   const [checkedItems, setCheckedItems] = useState({})
+
 
   return (
     <FormizStep label="Your other income" name="OtherIncome" order={10000}>
@@ -22,7 +23,7 @@ export const OtherIncome = () => {
       <FieldCheckbox
         name="OtherIncome"
         label="Select all that apply, or none of the above if you have no other income."
-        required="Required yo"
+        required="Select None of the above if you have no other income"
         setCheckedItems={setCheckedItems}
         checkedItems={checkedItems}
         options={[
@@ -49,11 +50,15 @@ export const OtherIncome = () => {
           { value: "bonus", label: "Bonus" },
           { value: "taxable", label: " Other taxable income" },
           { value: "nontaxable", label: " Other non-taxable income" },
-          { value: "none", label: "None of the above" },
+          { value: "nonex", label: "None of the above" },
         ]}
       />
 
-
+        {checkedItems.nonex === true && (
+            <AlertBox>
+              Uncheck
+            </AlertBox>
+        )}
 
       {checkedItems.sep === true && (
         <>
@@ -315,6 +320,7 @@ export const OtherIncome = () => {
           />
         </>
       )}
+
       <AdministrativeRules
         rules={[105, 106, 108, 144]}
         explanation={
