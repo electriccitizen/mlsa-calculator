@@ -46,7 +46,7 @@ export const PropertyDamage = () => {
   }
 
   const damage = state["PropertyDamage"]
-  const replaceRepair = state["PropertyDamage.replaceRepair"]
+  // const replaceRepair = state["PropertyDamage.replaceRepair"]
 
   const Note = index => (
     <>

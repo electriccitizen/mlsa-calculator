@@ -7,6 +7,7 @@ import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
+import {AlertBox} from "../../Utils/AlertBox";
 
 export const AllowableDeductions = () => {
   const form = useForm({ subscribe: { fields: ["Documents"] } })
@@ -19,7 +20,7 @@ export const AllowableDeductions = () => {
       order={15000}
     >
       <>
-        <SectionHeader header={`Your allowable deduction`} />
+        <SectionHeader header={`Your allowable deductions`} />
         <FieldCheckbox
           name="AllowableDeductions"
           label="Select all that apply, or none of the above if you have no allowable deductions."
@@ -60,7 +61,15 @@ export const AllowableDeductions = () => {
             { value: "none", label: "None of the above" },
           ]}
         />
-        {checkedItems.alimony === true && (
+
+          {checkedItems.none === true && (
+              <AlertBox>
+                  If you select "None of the above", please deselect all other options to continue.
+              </AlertBox>
+          )}
+
+
+          {checkedItems.alimony === true && (
           <Box d={"flex"}>
             <Box flex={1} mr={4}>
               <FieldMoneyInput

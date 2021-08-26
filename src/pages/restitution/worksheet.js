@@ -28,8 +28,8 @@ import { Education } from "../../components/Restitution/14-Education/Education"
 import { OtherExpenses } from "../../components/Restitution/15-OtherExpenses/OtherExpenses"
 import { CompleteApp } from '../../components/Restitution/CompleteApp/CompleteApp'
 import { Beforeunload } from 'react-beforeunload'
-import { Element } from 'react-scroll';
-import * as init from '../../../functions/pdf-gen/processors/init-restitution.json';
+// import { Element } from 'react-scroll';
+// import * as init from '../../../functions/pdf-gen/processors/init-restitution.json';
 
 export default function Worksheet() {
   const form = useForm({ subscribe: false })

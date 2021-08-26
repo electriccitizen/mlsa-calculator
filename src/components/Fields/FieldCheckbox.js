@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import PropTypes from "prop-types"
-import { Checkbox, CheckboxGroup, Stack } from "@chakra-ui/react"
-import {useField, fieldPropTypes, fieldDefaultProps, useForm} from "@formiz/core"
+import { Checkbox, Stack } from "@chakra-ui/react"
+import {useField, fieldPropTypes, fieldDefaultProps} from "@formiz/core"
 import { FormGroup } from "../Utils/FormGroup"
 
 const propTypes = {
@@ -23,8 +23,7 @@ export const FieldCheckbox = props => {
     errorMessage,
     id,
     isValid,
-    isSubmitted,
-    resetKey,
+    // resetKey,
     setValue,
     value,
   } = useField(props)
@@ -42,20 +41,15 @@ export const FieldCheckbox = props => {
     setCheckedItems,
     ...otherProps
   } = props
-  const [isTouched, setIsTouched] = useState(false)
-  const [checkedArray,setCheckedArray] = useState([]);
-  const [checked, setChecked] = useState(false);
+  // const [isTouched, setIsTouched] = useState(false)
+  // const [checkedArray,setCheckedArray] = useState([]);
+  // const [checked, setChecked] = useState(false);
+  // const [checkedItems, setCheckedItems] = React.useState([])
   const showError = !isValid
-  const form = useForm()
 
   // useEffect(() => {
-  //   console.log('use my effect')
-  //   empty && setChecked(false);
-  // }, [empty]);
-
-  useEffect(() => {
-    setIsTouched(false)
-  }, [resetKey])
+  //   setIsTouched(false)
+  // }, [resetKey])
 
   const formGroupProps = {
     errorMessage,
@@ -68,9 +62,8 @@ export const FieldCheckbox = props => {
   }
 
   const handleChange = e => {
-    if (e.target.value === 'nonex' && e.target.checked === true) {
-        console.log('uncheck everything else!')
-      // document.querySelectorAll('input[type=checkbox]').forEach( el => el.checked = false );
+
+    if (e.target.value === 'none' && e.target.checked === true) {
       setCheckedItems({
         [e.target.value]: e.target.checked,
       })
@@ -82,29 +75,29 @@ export const FieldCheckbox = props => {
     }
   }
 
-  console.log(checkedItems)
-
+  // const allChecked = checkedItems.every(Boolean)
   return (
       <FormGroup {...formGroupProps}>
         <Stack>
+          {/*<CheckboxGroup name="MyCheckBoxGroup">*/}
           {(options || []).map((item, i) => (
-              <>
-              <CheckboxGroup name="MyCheckBoxGroup">
               <Checkbox
                   key={i}
-                  isChecked={checkedItems[i]}
+                  // isChecked={checkedItems[i]}
                   value={item.value}
                   onChange={(val) => {setValue(!value); handleChange(val)}} // Update here
+                  // onChange={(e) => setCheckedItems({...checkedItems},[e.target.value,e.target.checked])}
+                  //onChange={(e) => setCheckedItems({...checkedItems},[e.target.value, e.target.checked])}
+                  // onChange={(val) =>  handleChange(val)}
                   required={required}
-                  // checked={false}
-
+                  // checked={true}
               >
 
                 {item.label}
               </Checkbox>
-              </CheckboxGroup>
-              </>
+
           ))}
+          {/*</CheckboxGroup>*/}
         </Stack>
       </FormGroup>
   )

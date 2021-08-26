@@ -1,8 +1,8 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
-import { Text, Link, Heading, Icon } from "@chakra-ui/react"
-import { FaInfoCircle, FaExternalLinkAlt } from "react-icons/fa/index"
+import { Text,  Heading, Icon } from "@chakra-ui/react"
+import { FaInfoCircle  } from "react-icons/fa/index"
 export const IntroSafety = () => {
   return (
     <FormizStep label={"Safety and privacy"} name="introSafety" order={1000}>

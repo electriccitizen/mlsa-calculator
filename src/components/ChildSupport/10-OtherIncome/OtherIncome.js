@@ -23,7 +23,7 @@ export const OtherIncome = () => {
       <FieldCheckbox
         name="OtherIncome"
         label="Select all that apply, or none of the above if you have no other income."
-        required="Select None of the above if you have no other income"
+        required='Required'
         setCheckedItems={setCheckedItems}
         checkedItems={checkedItems}
         options={[
@@ -50,13 +50,13 @@ export const OtherIncome = () => {
           { value: "bonus", label: "Bonus" },
           { value: "taxable", label: " Other taxable income" },
           { value: "nontaxable", label: " Other non-taxable income" },
-          { value: "nonex", label: "None of the above" },
+          { value: "none", label: "None of the above" },
         ]}
       />
 
-        {checkedItems.nonex === true && (
+        {checkedItems.none === true && (
             <AlertBox>
-              Uncheck
+             If you select "None of the above", please deselect all other options to continue.
             </AlertBox>
         )}
 
@@ -241,7 +241,7 @@ export const OtherIncome = () => {
           <Text fontSize={"sm"} mt={2}>
             See here:{" "}
             <a
-              target={"_blank"}
+              target={"_blank"} rel={"noreferrer"}
                 href="https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/earned-income-tax-credit-income-limits-and-maximum-credit-amounts"
             >
               Limits and Maximum Credit Amounts
