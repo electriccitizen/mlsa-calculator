@@ -6,6 +6,7 @@ import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
+import {AlertBox} from "../../Utils/AlertBox";
 
 export const AllowableDeductionsSecondary = () => {
   const form = useForm({
@@ -60,6 +61,11 @@ export const AllowableDeductionsSecondary = () => {
           { value: "none", label: "None of the above" },
         ]}
       />
+        {checkedItems.none === true && (
+            <AlertBox>
+                If you select "None of the above", please uncheck any other options to continue.
+            </AlertBox>
+        )}
       {checkedItems.alimony === true && (
         <Stack
           direction={["column", "column", "row"]}

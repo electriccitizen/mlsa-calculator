@@ -7,6 +7,7 @@ import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
+import {AlertBox} from "../../Utils/AlertBox";
 
 export const OtherIncomeSecondary = () => {
   const form = useForm({
@@ -54,6 +55,13 @@ export const OtherIncomeSecondary = () => {
           { value: "none", label: "None of the above" },
         ]}
       />
+
+        {checkedItems.none === true && (
+            <AlertBox>
+                If you select "None of the above", please uncheck any other options to continue.
+            </AlertBox>
+        )}
+
       {checkedItems.sep === true && (
         <>
           <Divider mb={4} />
