@@ -56,7 +56,7 @@ export const OtherIncome = () => {
 
         {checkedItems.none === true && (
             <AlertBox>
-             If you select "None of the above", please deselect all other options to continue.
+             If you select "None of the above", please uncheck any other options to continue.
             </AlertBox>
         )}
 
