@@ -3,13 +3,9 @@
 const pdftk = require('node-pdftk')
 const path = require('path')
 const { processData } = require('./processors/process')
-const fs = require('fs')
 
 // Set the root path
-const ROOT =
-  process.env.LOCAL_ENV === "true" ?
-    `${process.env.LAMBDA_TASK_ROOT}/functions/pdf-gen` :
-    `${process.env.LAMBDA_TASK_ROOT}/functions/pdf-gen`
+const ROOT = `${process.env.LAMBDA_TASK_ROOT}/functions/pdf-gen`
 
 // AWS Lambda + PDFtk
 // Set the PATH and LD_LIBRARY_PATH environment variables.
@@ -80,10 +76,6 @@ const generatePdf = values => {
 }
 
 exports.handler = function (event, context, callback) {
-  callback(null, {
-    statusCode: 200,
-    body: JSON.stringify(pdfs.map(pdf => ({ ...pdf, isExists: fs.existsSync(pdf.src) }))),
-  })
   if (event.body !== null && event.body !== undefined) {
     const formData = JSON.parse(event.body)
     const data = processData(formData, pdfs)
