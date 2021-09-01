@@ -79,6 +79,10 @@ const generatePdf = values => {
 }
 
 exports.handler = function (event, context, callback) {
+  callback(null, {
+    statusCode: 200,
+    body: JSON.stringify(process.env),
+  })
   if (event.body !== null && event.body !== undefined) {
     const formData = JSON.parse(event.body)
     const data = processData(formData, pdfs)
