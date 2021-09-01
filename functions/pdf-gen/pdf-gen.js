@@ -3,6 +3,7 @@
 const pdftk = require('node-pdftk')
 const path = require('path')
 const { processData } = require('./processors/process')
+const fs = require('fs')
 
 // Set the root path
 const ROOT =
@@ -81,7 +82,7 @@ const generatePdf = values => {
 exports.handler = function (event, context, callback) {
   callback(null, {
     statusCode: 200,
-    body: JSON.stringify(process.env),
+    body: JSON.stringify(pdfs.map(pdf => ({ ...pdf, isExists: fs.existsSync(pdf.src) }))),
   })
   if (event.body !== null && event.body !== undefined) {
     const formData = JSON.parse(event.body)
