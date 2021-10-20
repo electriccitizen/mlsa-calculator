@@ -46,6 +46,7 @@ export const Funeral = () => {
   const removeItem = id => {
     setAdditionalExpenses(s => s.filter(index => index.id !== id))
   }
+
   const funeralExpenses = state["FuneralExpenses"]
 
   const Note = index => (

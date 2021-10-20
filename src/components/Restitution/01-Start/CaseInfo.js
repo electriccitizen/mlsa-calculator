@@ -29,13 +29,13 @@ export const CaseInfo = () => {
         direction={["column", "column", "row"]}
         spacing={["0", "0", "1rem"]}
       >
-        <FieldInput
-          name={`Primary.causeNumber`}
-          label="What is the Cause Number?"
-        />
+        {/*<FieldInput*/}
+        {/*  name={`Primary.causeNumber`}*/}
+        {/*  label="What is the Cause Number/Case ID?"*/}
+        {/*/>*/}
         <FieldInput
           name={`Primary.caseID`}
-          label="What is the Case ID?"
+          label="What is the Cause Numbner/Case ID?"
         />
       </Stack>
     </FormizStep>

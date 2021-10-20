@@ -36,8 +36,8 @@ export const IntroSafety = () => {
         <Icon color={"brand.400"} as={FaInfoCircle} /> Browsing safety
       </Heading>
       <Text mb={2}>
-        If you feel unsafe in your household or in your relationship, this safe
-        internet use information may help you keep yourself, your family, and
+        If you feel unsafe in your household or in your relationship, this <a target="_new" href="./safety">safe
+        internet use information</a> may help you keep yourself, your family, and
         your information safe.
       </Text>
       {/*<Heading*/}

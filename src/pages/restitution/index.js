@@ -9,7 +9,7 @@ import { IntroLearnMore } from "../../components/Restitution/00-intro/IntroLearn
 import { IntroAdditional } from "../../components/Restitution/00-intro/IntroAdditional"
 import { IntroSafety } from "../../components/Restitution/00-intro/IntroSafety"
 import { IntroQuestions } from '../../components/Restitution/00-intro/IntroQuestions'
-import { IntroHelp } from "../../components/Restitution/00-intro/IntroHelp"
+// import { IntroHelp } from "../../components/Restitution/00-intro/IntroHelp"
 import { MultiStepsLayout } from "../../components/MultiStepsLayout"
 // import { scrollToStepTop } from '../components/Utils/scroll'
 
@@ -33,7 +33,7 @@ export default function (Restitution) {
         <IntroAdditional />
         <IntroSafety />
         <IntroQuestions />
-        <IntroHelp />
+        {/*<IntroHelp />*/}
       </MultiStepsLayout>
     </Formiz>
   )
