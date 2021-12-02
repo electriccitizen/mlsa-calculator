@@ -6,7 +6,6 @@ import { PageLayout } from "../layout/PageLayout"
 import { Box, Grid, Button, Stack } from "@chakra-ui/react"
 import { CustomDrawer } from "./Utils/CustomDrawer"
 import { navigate } from "gatsby"
-import { Element, scroller } from 'react-scroll';
 const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   form: PropTypes.object,
@@ -18,7 +17,6 @@ const defaultProps = {
   children: "",
   submitLabel: "",
 }
-
 export const MultiStepsLayout = ({
   children,
   submitLabel = "Submit",
@@ -26,26 +24,16 @@ export const MultiStepsLayout = ({
   buttonTitle,
   ...props
 }) => {
-  // const fieldRef = React.useRef<HTMLInputElement>(null);
   const form = useForm({ subscribe: { form: true, fields: ["TermsOfUse"] } })
   const hasSteps = !!form.steps.length
   const handleExit = (dest) => {
     navigate(dest)
   }
 
-
-  // Similar to componentDidMount and componentDidUpdate:
-  // useEffect(() => {
-  //
-  //   // Update the document title using the browser API
-  //   scroller.scrollTo('step-top-scroll', {
-  //     duration: 500,
-  //     delay: 50,
-  //     smooth: true,
-  //     // containerId: 'ContainerElementID',
-  //     offset: -100, // Scrolls to element + 50 pixels down the page
-  //   })
-  // });
+  const goBack = () => {
+    form.prevStep()
+    window.scrollTo({top: 0, behavior: 'smooth'})
+  }
 
   const submitStep = async (e) => {
     e.preventDefault()
@@ -53,20 +41,11 @@ export const MultiStepsLayout = ({
     // fieldRef.current.scrollIntoView();
     // Trigger the Formiz submitStep
     form.submitStep()
-    // Update the document title using the browser API
-    scroller.scrollTo('step-top-scroll', {
-      duration: 500,
-      delay: 50,
-      smooth: true,
-      // containerId: 'ContainerElementID',
-      offset: -100, // Scrolls to element + 50 pixels down the page
-    })
+    window.scrollTo({top: 0, behavior: 'smooth'})
   }
   return (
     <PageLayout {...props}>
-      <Element name='step-top-scroll'/>
       <form noValidate onSubmit={hasSteps ? submitStep : form.submit}>
-
         <Stack w="100%" direction={["column", "row"]}>
           <Box width="100%" align="right" flex={1}>
             <CustomDrawer app={app} buttonTitle={buttonTitle} />
@@ -78,7 +57,7 @@ export const MultiStepsLayout = ({
         {hasSteps && (
           <Grid mt={8} templateColumns="1fr 2fr 1fr" alignItems="center">
             {!form.isFirstStep && (
-              <Button gridColumn="1" onClick={form.prevStep}>
+              <Button gridColumn="1" onClick={goBack}>
                 Previous
               </Button>
             )}

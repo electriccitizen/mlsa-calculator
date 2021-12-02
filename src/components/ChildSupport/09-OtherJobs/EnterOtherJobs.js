@@ -120,17 +120,17 @@ export const EnterOtherJobs = () => {
             <SectionHeader header={`Wage information`} />
           )}
 
-          {state[`OtherJob.${index}.status`] === "parttime" && (
-            <FieldInput
-              name={`OtherJob.${index}.WeeksPerYear`}
-              label="How many weeks per year do you work?"
-              required="Required"
-              type="text"
-              updateState={updateState}
-              mb="4"
-              fieldwidth={"25%"}
-            />
-          )}
+          {/*{state[`OtherJob.${index}.status`] === "parttime" && (*/}
+          {/*  <FieldInput*/}
+          {/*    name={`OtherJob.${index}.WeeksPerYear`}*/}
+          {/*    label="How many weeks per year do you work?"*/}
+          {/*    required="Required"*/}
+          {/*    type="text"*/}
+          {/*    updateState={updateState}*/}
+          {/*    mb="4"*/}
+          {/*    fieldwidth={"25%"}*/}
+          {/*  />*/}
+          {/*)}*/}
           {state[`OtherJob.${index}.type`] && (
             <FieldRadio
               name={`OtherJob.${index}.payment`}

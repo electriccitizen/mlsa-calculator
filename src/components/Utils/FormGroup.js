@@ -44,9 +44,7 @@ export const FormGroup = ({
 
     {children}
     {!!helper && (
-      <FormHelperText>
-        {helper}
-      </FormHelperText>
+      <FormHelperText dangerouslySetInnerHTML={{__html: helper}} />
     )}
     <FormErrorMessage id={`${id}-error`}>
       { errorMessage }

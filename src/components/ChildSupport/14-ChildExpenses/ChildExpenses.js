@@ -149,7 +149,7 @@ export const ChildExpenses = () => {
             type="text"
             placeholder="Enter amount"
             helper={
-              "For information of the Dependent Care Credit see the <a href='#' target='_blank'>User manual</a>  or visit  https://www.irs.gov/taxtopics/tc602"
+              "For information of the Dependent Care Credit see the <a href='/child-support/guide' target='_blank'>User manual</a>  or visit  https://www.irs.gov/taxtopics/tc602"
             }
           />
           <FieldMoneyInput
