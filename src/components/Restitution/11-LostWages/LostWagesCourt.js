@@ -49,7 +49,7 @@ export const LostWagesCourt = () => {
   const Note = index => (
     <>
       <FieldInput
-        name={`LostWagesCourt.${index}.notes`}
+        name={`LostWagesCourt.data.${index}.notes`}
         label="What day or days did you miss work?"
         helper={"Enter an exact date, or a range of dates"}
       />
@@ -58,11 +58,11 @@ export const LostWagesCourt = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldInput
-          name={`LostWagesCourt.${index}.notes`}
+          name={`LostWagesCourt.data.${index}.notes`}
           label="Why did you miss work?"
         />
         <FieldInput
-          name={`LostWagesCourt.${index}.expense`}
+          name={`LostWagesCourt.data.${index}.expense`}
           label="How many hours of work did you miss?"
           required="Required"
           validations={[
@@ -75,7 +75,7 @@ export const LostWagesCourt = () => {
 
       </Stack>
       <FieldMoneyInput
-        name={`LostWagesCourt.${index}.amt`}
+        name={`LostWagesCourt.data.${index}.amt`}
         label="What is your hourly wage?"
         required="Required"
         helper={"To determine your hourly wage if you are on salary, divide your annual salary by 2,080."}
@@ -87,7 +87,7 @@ export const LostWagesCourt = () => {
         ]}
       />
       <FieldRadio
-        name={`LostWagesCourt.${index}.receipt`}
+        name={`LostWagesCourt.data.${index}.receipt`}
         placeholder="None"
         required="Required"
         label={"Do you have any documents that show you missed work?"}
@@ -139,7 +139,7 @@ export const LostWagesCourt = () => {
             />
           </Box>
         ))}
-      {status === "yes" && additionalExpenses.length <= 20 && (
+      {status === "yes" && additionalExpenses.length <= 2 && (
         <AddPlaceholder label="Add another" onClick={addItem} />
       )}
     </FormizStep>

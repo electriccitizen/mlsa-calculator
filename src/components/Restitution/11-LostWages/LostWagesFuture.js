@@ -54,11 +54,11 @@ export const LostWagesFuture = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldInput
-          name={`LostWagesFuture.${index}.description`}
+          name={`LostWagesFuture.data.${index}.description`}
           label="Describe the future loss"
         />
         <FieldMoneyInput
-          name={`LostWagesFuture.${index}.amt`}
+          name={`LostWagesFuture.data.${index}.amt`}
           label="Estimate the amount of future loss"
           required="Required"
           validations={[
@@ -70,10 +70,10 @@ export const LostWagesFuture = () => {
         />
       </Stack>
       <FieldInput
-        name={`LostWagesFuture.${index}.notes`}
+        name={`LostWagesFuture.data.${index}.notes`}
         label="How did you estimate that?"
       />
-      <FieldInput name={`LostWagesFuture.${index}.note2`} label="Do you have any other notes?" />
+      <FieldInput name={`LostWagesFuture.data.${index}.note2`} label="Do you have any other notes?" />
     </>
   )
 
@@ -122,7 +122,7 @@ export const LostWagesFuture = () => {
             />
           </Box>
         ))}
-      {status === "yes" && additionalExpenses.length <= 20 && (
+      {status === "yes" && additionalExpenses.length <= 2 && (
         <AddPlaceholder label="Add another" onClick={addItem} />
       )}
     </FormizStep>
