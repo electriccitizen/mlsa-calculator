@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Formiz, useForm } from "@formiz/core"
 import { MultiStepsLayout } from "../../components/MultiStepsLayout"
 import { TermsOfUse } from "../../components/Restitution/TermsOfUse"
@@ -29,27 +29,46 @@ import { OtherExpenses } from "../../components/Restitution/15-OtherExpenses/Oth
 import { CompleteApp } from '../../components/Restitution/CompleteApp/CompleteApp'
 import { Beforeunload } from 'react-beforeunload'
 // import { Element } from 'react-scroll';
-// import * as init from '../../../functions/pdf-gen/processors/init-restitution.json';
+// import * as init from "../../../functions/pdf-gen/processors/init-restitution.json"
 
 export default function Worksheet() {
   const form = useForm({ subscribe: false })
+  const [appState, setAppState] = useState({
+    loading: false,
+    pdf: null,
+    error: false,
+  })
 
   const handleSubmit = values => {
-    form.invalidateFields({
-      "docker.image": "You can display an error after an API call",
+    setAppState({ loading: true, pdf: null, error: false })
+    const data = {
+      app: 'restitution',
+      formData: values
+    }
+    fetch("/.netlify/functions/pdf-gen", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     })
-    const stepWithError = form.getFieldStepName("docker.image")
-    form.goToStep(stepWithError)
+      .then(response => response.json())
+      .then(data => {
+        setAppState({ loading: false, pdf: data, error: false })
+      })
+      .catch(error => {
+        setAppState({ loading: false, pdf: null, error: true })
+      })
   }
 
   // Set default values from init.json
-  //const values = init.default
+  // const values = init.default
 
   return (
 
-    <Formiz onValidSubmit={handleSubmit}
-            //initialValues={ values }
-        >
+    <Formiz connect={form} onValidSubmit={handleSubmit} 
+        // initialValues={values}
+      >
       <Beforeunload onBeforeunload={event => event.preventDefault()} />
       <MultiStepsLayout
         app="restitution"
@@ -81,7 +100,7 @@ export default function Worksheet() {
         <Safety />
         <Education />
         <OtherExpenses />
-        <CompleteApp />
+        <CompleteApp state={!appState.loading && !!appState.pdf} pdf={appState.pdf} />
       </MultiStepsLayout>
     </Formiz>
   )

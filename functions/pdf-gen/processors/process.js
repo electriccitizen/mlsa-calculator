@@ -22,9 +22,6 @@ const ADDENDUM_MAX_LINES = {
 }
 
 const processData = (form, pdfs) => {
-  // Override pdfs array to object with names
-  pdfs = pdfs && pdfs.reduce((names, pdf) => ({ ...names, [pdf.name]: pdf.name }), {})
-
   // Pass hard-coded data to processors instead of form (init.json)
   // form = init
 

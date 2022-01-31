@@ -56,9 +56,12 @@ export default function Calculator() {
 
   const handleSubmit = values => {
     setAppState({ complete: false, values: values })
-    const data = values
-    fetch("/.netlify/functions/pdf-gen/", {
-      method: "POST", // or 'PUT'
+    const data = {
+      app: 'child-support',
+      formData: values
+    }
+    fetch("/.netlify/functions/pdf-gen", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
