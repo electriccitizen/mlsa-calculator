@@ -53,7 +53,7 @@ export const PropertyStolenLost = () => {
   const Note = index => (
     <>
       <FieldDate
-        name={`PropertyStolenLost.${index}.date`}
+        name={`PropertyStolenLost.data.${index}.date`}
         label="Date of purchase or expense"
         required="Required"
         type="text"
@@ -65,7 +65,7 @@ export const PropertyStolenLost = () => {
       >
 
         <FieldMoneyInput
-          name={`PropertyStolenLost.${index}.amtInsurance`}
+          name={`PropertyStolenLost.data.${index}.amtInsurance`}
           label="Amount paid by insurance"
           required="Required"
           validations={[
@@ -76,7 +76,7 @@ export const PropertyStolenLost = () => {
           ]}
         />
         <FieldMoneyInput
-          name={`PropertyStolenLost.${index}.amt`}
+          name={`PropertyStolenLost.data.${index}.amt`}
           label="Amount paid by you"
           required="Required"
           validations={[
@@ -89,11 +89,11 @@ export const PropertyStolenLost = () => {
 
       </Stack>
       <FieldInput
-        name={`PropertyStolenLost.${index}.notes`}
+        name={`PropertyStolenLost.data.${index}.notes`}
         label="Describe the expense and how it relates to the crime"
       />
       <FieldRadio
-        name={`PropertyStolenLost.${index}.receipt`}
+        name={`PropertyStolenLost.data.${index}.receipt`}
         placeholder="None"
         required="Required"
         label={
@@ -148,7 +148,7 @@ export const PropertyStolenLost = () => {
             />
           </Box>
         ))}
-      {replace === "yes" && additionalExpenses.length <= 20 && (
+      {replace === "yes" && additionalExpenses.length <= 2 && (
         <AddPlaceholder label="Add an expense" onClick={addItem} />
       )}
     </FormizStep>

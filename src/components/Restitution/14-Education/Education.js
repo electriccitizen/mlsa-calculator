@@ -54,13 +54,13 @@ export const Education = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldInput
-          name={`Education.${index}.date`}
+          name={`Education.data.${index}.date`}
           label="What was the date you incurred the loss?"
           required={"Required"}
           helper={"e.g. Winter semester 2019"}
         />
         <FieldMoneyInput
-          name={`Education.${index}.expense`}
+          name={`Education.data.${index}.expense`}
           label="Amount of expense?"
           required="Required"
           pt={[0, 0, 6]}
@@ -73,21 +73,21 @@ export const Education = () => {
         />
       </Stack>
       <FieldInput
-        name={`Education.${index}.description`}
+        name={`Education.data.${index}.description`}
         label="Description of the loss"
         required={"Required"}
       />
       <FieldInput
-        name={`Education.${index}.descriptionNotes`}
+        name={`Education.data.${index}.descriptionNotes`}
         label="Please describe how the crime impacted your schooling"
       />
       <FieldInput
-        name={`Education.${index}.payment`}
+        name={`Education.data.${index}.payment`}
         label="Notes related to payment"
       />
 
       <FieldRadio
-        name={`Education.${index}.receipt`}
+        name={`Education.data.${index}.receipt`}
         placeholder="None"
         required="Required"
         label={"Do you have a receipt or other way of showing the cost?"}
@@ -140,7 +140,7 @@ export const Education = () => {
             />
           </Box>
         ))}
-      {status === "yes" && additionalExpenses.length <= 20 && (
+      {status === "yes" && additionalExpenses.length <= 2 && (
         <AddPlaceholder label="Add another" onClick={addItem} />
       )}
     </FormizStep>

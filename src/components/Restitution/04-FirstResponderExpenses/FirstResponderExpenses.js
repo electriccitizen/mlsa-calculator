@@ -55,14 +55,14 @@ export const FirstResponderExpenses = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldDate
-          name={`FirstResponderExpenses.${index}.date`}
+          name={`FirstResponderExpenses.data.${index}.date`}
           label="Date of purchase or expense"
           required="Required"
           type="text"
           placeholder="MM/DD/YYYY"
         />
         <FieldMoneyInput
-          name={`FirstResponderExpenses.${index}.amt`}
+          name={`FirstResponderExpenses.data.${index}.amt`}
           label="Amount of expense"
           required="Required"
           validations={[
@@ -74,16 +74,16 @@ export const FirstResponderExpenses = () => {
         />
       </Stack>
       <FieldInput
-        name={`FirstResponderExpenses.${index}.description`}
+        name={`FirstResponderExpenses.data.${index}.description`}
         label="Description of expense"
         required="Required"
       />
       <FieldInput
-        name={`FirstResponderExpenses.${index}.notes`}
+        name={`FirstResponderExpenses.data.${index}.notes`}
         label="Enter notes about how the expense was paid or if there is any amount still owing"
       />
       <FieldRadio
-        name={`FirstResponderExpenses.${index}.receipt`}
+        name={`FirstResponderExpenses.data.${index}.receipt`}
         placeholder="None"
         required="Required"
         label={"Do you have receipts or other way of showing the cost (estimate, bill, etc.)?"}
@@ -133,7 +133,7 @@ export const FirstResponderExpenses = () => {
             />
           </Box>
         ))}
-      {expenses === "yes" && additionalExpenses.length <= 20 && (
+      {expenses === "yes" && additionalExpenses.length <= 2 && (
         <AddPlaceholder label="Add an expense" onClick={addItem} />
       )}
     </FormizStep>

@@ -56,14 +56,14 @@ export const Funeral = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldDate
-          name={`FuneralExpenses.${index}.date`}
+          name={`FuneralExpenses.data.${index}.date`}
           label="Date of purchase or expense"
           required="Required"
           type="text"
           placeholder="MM/DD/YYYY"
         />
         <FieldMoneyInput
-          name={`FuneralExpenses.${index}.amt`}
+          name={`FuneralExpenses.data.${index}.amt`}
           label="Amount of expense"
           required="Required"
           validations={[
@@ -75,16 +75,16 @@ export const Funeral = () => {
         />
       </Stack>
       <FieldInput
-        name={`FuneralExpenses.${index}.description`}
+        name={`FuneralExpenses.data.${index}.description`}
         label="Description of expense"
         required="Required"
       />
       <FieldInput
-        name={`FuneralExpenses.${index}.notes`}
+        name={`FuneralExpenses.data.${index}.notes`}
         label="Enter notes about how the expense was paid or if there is any amount still owing"
       />
       <FieldRadio
-        name={`FuneralExpenses.${index}.receipt`}
+        name={`FuneralExpenses.data.${index}.receipt`}
         placeholder="None"
         required="Required"
         label={"Do you have receipts or other way of showing the cost (estimate, bill, etc.)?"}
@@ -125,7 +125,7 @@ export const Funeral = () => {
             />
           </Box>
         ))}
-      {funeralExpenses === "yes" && additionalExpenses.length <= 20 && (
+      {funeralExpenses === "yes" && additionalExpenses.length <= 2 && (
         <>
           <AddPlaceholder label="Add another expense?" onClick={addItem} />
         </>

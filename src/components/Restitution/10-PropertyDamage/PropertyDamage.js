@@ -55,14 +55,14 @@ export const PropertyDamage = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldDate
-          name={`PropertyDamage.${index}.date`}
+          name={`PropertyDamage.data.${index}.date`}
           label="Date of purchase or expense"
           required="Required"
           type="text"
           placeholder="MM/DD/YYYY"
         />
         <FieldMoneyInput
-          name={`PropertyDamage.${index}.itemCost`}
+          name={`PropertyDamage.data.${index}.itemCost`}
           label="Cost of repair or replacement?"
           required="Required"
           validations={[
@@ -78,7 +78,7 @@ export const PropertyDamage = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldMoneyInput
-          name={`PropertyDamage.${index}.amtInsurance`}
+          name={`PropertyDamage.data.${index}.amtInsurance`}
           label="Amount paid by insurance"
           required="Required"
           validations={[
@@ -89,7 +89,7 @@ export const PropertyDamage = () => {
           ]}
         />
         <FieldMoneyInput
-          name={`PropertyDamage.${index}.amt`}
+          name={`PropertyDamage.data.${index}.amt`}
           label="Amount paid by you"
           required="Required"
           validations={[
@@ -101,11 +101,11 @@ export const PropertyDamage = () => {
         />
       </Stack>
       <FieldInput
-        name={`PropertyDamage.${index}.notes`}
+        name={`PropertyDamage.data.${index}.notes`}
         label="Describe the expense and how it relates to the crime"
       />
       <FieldRadio
-        name={`PropertyDamage.${index}.receipt`}
+        name={`PropertyDamage.data.${index}.receipt`}
         placeholder="None"
         required="Required"
         label={
@@ -158,7 +158,7 @@ export const PropertyDamage = () => {
           </Box>
         ))}
       {damage === "yes" &&
-        additionalExpenses.length <= 20 && (
+        additionalExpenses.length <= 2 && (
           <AddPlaceholder label="Add an expense" onClick={addItem} />
         )}
     </FormizStep>

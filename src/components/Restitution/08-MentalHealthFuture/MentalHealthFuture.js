@@ -58,19 +58,19 @@ export const MentalHealthFuture = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldInput
-          name={`MentalHealthFuture.${index}.timeestimate`}
+          name={`MentalHealthFuture.data.${index}.timeestimate`}
           label={"Estimate the period of time you will need treatment"}
           helper={"e.g. three months or one year"}
           required="Required"
         />
         <FieldInput
-          name={`MentalHealthFuture.${index}.sessions`}
+          name={`MentalHealthFuture.data.${index}.sessions`}
           label={"Can you estimate how many sessions or treatments?"}
           required="Required"
         />
       </Stack>
       <FieldMoneyInput
-        name={`MentalHealthFuture.${index}.amt`}
+        name={`MentalHealthFuture.data.${index}.amt`}
         label="How much does each session cost?"
         required="Required"
         validations={[
@@ -81,11 +81,11 @@ export const MentalHealthFuture = () => {
         ]}
       />
       <FieldInput
-        name={`MentalHealthFuture.${index}.notes`}
+        name={`MentalHealthFuture.data.${index}.notes`}
         label="Describe the expense"
       />
       <FieldInput
-        name={`FutureExpensesRecurring.${index}.notes`}
+        name={`FutureExpensesRecurring.data.${index}.notes`}
         label="How did you get those numbers?"
       />
     </>
@@ -148,7 +148,7 @@ export const MentalHealthFuture = () => {
         ))}
       {expenses === "yes" &&
         estimate === "yes" &&
-        additionalExpenses.length <= 20 && (
+        additionalExpenses.length <= 2 && (
           <AddPlaceholder label="Add an expense" onClick={addItem} />
         )}
     </FormizStep>

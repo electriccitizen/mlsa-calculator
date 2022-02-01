@@ -55,14 +55,14 @@ export const SupplyExpenses = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldDate
-          name={`SupplyExpenses.${index}.date`}
+          name={`SupplyExpenses.data.${index}.date`}
           label="Date of purchase or expense"
           required="Required"
           type="text"
           placeholder="MM/DD/YYYY"
         />
         <FieldMoneyInput
-          name={`SupplyExpenses.${index}.amt`}
+          name={`SupplyExpenses.data.${index}.amt`}
           label="Amount of expense"
           required="Required"
           validations={[
@@ -74,16 +74,16 @@ export const SupplyExpenses = () => {
         />
       </Stack>
       <FieldInput
-        name={`SupplyExpenses.${index}.description`}
+        name={`SupplyExpenses.data.${index}.description`}
         label="Description of expense"
         required="Required"
       />
       <FieldInput
-        name={`SupplyExpenses.${index}.notes`}
+        name={`SupplyExpenses.data.${index}.notes`}
         label="Enter notes about how the expense was paid or if there is any amount still owing"
       />
       <FieldRadio
-        name={`SupplyExpenses.${index}.receipt`}
+        name={`SupplyExpenses..data${index}.receipt`}
         placeholder="None"
         required="Required"
         label={"Do you have receipts or other way of showing the cost (estimate, bill, etc.)?"}
@@ -133,7 +133,7 @@ export const SupplyExpenses = () => {
             />
           </Box>
         ))}
-      {expenses === "yes" && additionalExpenses.length <= 20 && (
+      {expenses === "yes" && additionalExpenses.length <= 2 && (
         <AddPlaceholder label="Add an expense" onClick={addItem} />
       )}
     </FormizStep>

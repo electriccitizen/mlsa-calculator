@@ -54,19 +54,19 @@ export const FutureExpensesRecurring = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldInput
-          name={`FutureExpensesRecurring.${index}.timeestimate`}
+          name={`FutureExpensesRecurring.data.${index}.timeestimate`}
           label={"Estimate the period of time you will need treatment"}
           helper={"e.g. three months or one year"}
           required="Required"
         />
         <FieldInput
-          name={`FutureExpensesRecurring.${index}.sessions`}
+          name={`FutureExpensesRecurring.data.${index}.sessions`}
           label={"Can you estimate how many sessions or treatments?"}
           required="Required"
         />
       </Stack>
       <FieldMoneyInput
-        name={`FutureExpensesRecurring.${index}.amt`}
+        name={`FutureExpensesRecurring.data.${index}.amt`}
         label="Estimated cost of each session or prescription"
         required="Required"
         validations={[
@@ -77,18 +77,18 @@ export const FutureExpensesRecurring = () => {
         ]}
       />
       <FieldInput
-        name={`FutureExpensesRecurring.${index}.description`}
+        name={`FutureExpensesRecurring.data.${index}.description`}
         label="Describe the expense"
         required="Required"
       />
 
       <FieldInput
-        name={`FutureExpensesRecurring.${index}.estimate`}
+        name={`FutureExpensesRecurring.data.${index}.estimate`}
         label="How did you get your estimates?"
         required="Required"
       />
       <FieldInput
-        name={`FutureExpensesRecurring.${index}.notes`}
+        name={`FutureExpensesRecurring.data.${index}.notes`}
         label="Do you have other notes related to this expense?
 "
       />
@@ -151,7 +151,7 @@ export const FutureExpensesRecurring = () => {
             />
           </Box>
         ))}
-      {estimate === "yes" && additionalExpenses.length <= 20 && (
+      {estimate === "yes" && additionalExpenses.length <= 2 && (
         <AddPlaceholder label="Add an estimate" onClick={addItem} />
       )}
     </FormizStep>

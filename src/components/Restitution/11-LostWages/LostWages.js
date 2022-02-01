@@ -49,7 +49,7 @@ export const LostWages = () => {
   const Note = index => (
     <>
       <FieldInput
-        name={`LostWages.${index}.notes`}
+        name={`LostWages.data.${index}.notes`}
         label="What day or days did you miss work?"
         helper={"Enter an exact date, or a range of dates"}
       />
@@ -58,11 +58,11 @@ export const LostWages = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldInput
-          name={`LostWages.${index}.notes`}
+          name={`LostWages.data.${index}.notes`}
           label="Why did you miss work?"
         />
         <FieldInput
-          name={`LostWages.${index}.expense`}
+          name={`LostWages.data.${index}.expense`}
           label="How many hours of work did you miss?"
           required="Required"
           validations={[
@@ -74,7 +74,7 @@ export const LostWages = () => {
         />
       </Stack>
       <FieldMoneyInput
-        name={`LostWages.${index}.amt`}
+        name={`LostWages.data.${index}.amt`}
         label="What is your hourly wage?"
         required="Required"
         helper={
@@ -140,7 +140,7 @@ export const LostWages = () => {
             />
           </Box>
         ))}
-      {status === "yes" && additionalExpenses.length <= 20 && (
+      {status === "yes" && additionalExpenses.length <= 2 && (
         <AddPlaceholder label="Add another" onClick={addItem} />
       )}
     </FormizStep>

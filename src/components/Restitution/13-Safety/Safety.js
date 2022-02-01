@@ -54,14 +54,14 @@ export const Safety = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldDate
-          name={`Safety.${index}.date`}
+          name={`Safety.data.${index}.date`}
           label="Date of expense"
           required="Required"
           type="text"
           placeholder="MM/DD/YYYY"
         />
         <FieldMoneyInput
-          name={`Safety.${index}.expense`}
+          name={`Safety.data.${index}.expense`}
           label="Amount of expense?"
           required="Required"
           validations={[
@@ -73,20 +73,20 @@ export const Safety = () => {
         />
       </Stack>
       <FieldInput
-        name={`Safety.${index}.description`}
+        name={`Safety.data.${index}.description`}
         label="Description of expense"
         required={"Required"}
       />
       <FieldInput
-        name={`Safety.${index}.descriptionNotes`}
+        name={`Safety.data.${index}.descriptionNotes`}
         label="How does it relate to the crime?"
       />
       <FieldInput
-        name={`Safety.${index}.notes`}
+        name={`Safety.data.${index}.notes`}
         label="Notes related to payment"
       />
       <FieldRadio
-        name={`Safety.${index}.receipt`}
+        name={`Safety.data.${index}.receipt`}
         placeholder="None"
         required="Required"
         label={"Do you have a receipt or other way of showing the cost?"}
@@ -129,7 +129,7 @@ export const Safety = () => {
             />
           </Box>
         ))}
-      {status === "yes" && additionalExpenses.length <= 20 && (
+      {status === "yes" && additionalExpenses.length <= 2 && (
         <AddPlaceholder label="Add another" onClick={addItem} />
       )}
     </FormizStep>
