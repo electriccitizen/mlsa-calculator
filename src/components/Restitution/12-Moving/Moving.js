@@ -61,7 +61,7 @@ export const Moving = () => {
           placeholder="MM/DD/YYYY"
         />
         <FieldMoneyInput
-          name={`Working.data.${index}.expense`}
+          name={`Moving.data.${index}.amt`}
           label="Amount of expense?"
           required="Required"
           validations={[
@@ -73,20 +73,20 @@ export const Moving = () => {
         />
       </Stack>
       <FieldInput
-        name={`Working.data.${index}.description`}
+        name={`Moving.data.${index}.description`}
         label="Description of expense"
         required={"Required"}
       />
       <FieldInput
-        name={`Working.data.${index}.descriptionNotes`}
+        name={`Moving.data.${index}.descriptionNotes`}
         label="How does it relate to the crime?"
       />
       <FieldInput
-        name={`Working.data.${index}.notes`}
+        name={`Moving.data.${index}.notes`}
         label="Notes related to payment"
       />
       <FieldRadio
-        name={`Working.data.${index}.receipt`}
+        name={`Moving.data.${index}.receipt`}
         placeholder="None"
         required="Required"
         label={"Do you have a receipt or other way of showing the cost?"}

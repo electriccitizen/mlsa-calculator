@@ -16,7 +16,7 @@ function Currency(object) {
 const currency = (amount = 0, rest = { currency: 'USD', precision: 2 }) => {
     if (amount instanceof Currency) return amount
     return new Currency(
-        Dinero({ amount: parseInt((Number(amount) || 0) * 100), ...rest })
+        Dinero({ amount: parseInt((Number(amount) || 0) * Math.pow(10, rest.precision)), ...rest })
             .toObject()
     )
 }

@@ -46,7 +46,7 @@ export const SupplyExpenses = () => {
     setAdditionalExpenses(s => s.filter(x => x.id !== id))
   }
 
-  const expenses = state["SupplyExpenses"]
+  const expenses = state["SupplyExpenses.status"]
 
   const Note = index => (
     <>
@@ -83,7 +83,7 @@ export const SupplyExpenses = () => {
         label="Enter notes about how the expense was paid or if there is any amount still owing"
       />
       <FieldRadio
-        name={`SupplyExpenses..data${index}.receipt`}
+        name={`SupplyExpenses.data.${index}.receipt`}
         placeholder="None"
         required="Required"
         label={"Do you have receipts or other way of showing the cost (estimate, bill, etc.)?"}
@@ -106,7 +106,7 @@ export const SupplyExpenses = () => {
     >
       <SectionHeader header={`Medication and medical supply expenses`} />
       <FieldRadio
-        name="SupplyExpenses"
+        name="SupplyExpenses.status"
         placeholder="None"
         required="Required"
         label={"Did you have to take medication or get any medical supplies (for example crutches or a sling)?"}

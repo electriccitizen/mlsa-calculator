@@ -47,7 +47,7 @@ export const Funeral = () => {
     setAdditionalExpenses(s => s.filter(index => index.id !== id))
   }
 
-  const funeralExpenses = state["FuneralExpenses"]
+  const funeralExpenses = state["FuneralExpenses.status"]
 
   const Note = index => (
     <>
@@ -101,7 +101,7 @@ export const Funeral = () => {
     <FormizStep label={`Funeral expenses`} name="FuneralExpenses" order={2000}>
       <SectionHeader header={`Funeral expenses`} />
       <FieldRadio
-        name="FuneralExpenses"
+        name="FuneralExpenses.status"
         placeholder="None"
         required="Required"
         label={"Do you have funeral expenses?"}

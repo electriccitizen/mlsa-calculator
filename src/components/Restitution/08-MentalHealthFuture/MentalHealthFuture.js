@@ -48,7 +48,7 @@ export const MentalHealthFuture = () => {
     setAdditionalExpenses(s => s.filter(x => x.id !== id))
   }
 
-  const expenses = state["MentalHealthFutureExpenses"]
+  const expenses = state["MentalHealthFuture.status"]
   const estimate = state["MentalHealthFuture.est"]
 
   const Note = index => (
@@ -81,11 +81,11 @@ export const MentalHealthFuture = () => {
         ]}
       />
       <FieldInput
-        name={`MentalHealthFuture.data.${index}.notes`}
+        name={`MentalHealthFuture.data.${index}.description`}
         label="Describe the expense"
       />
       <FieldInput
-        name={`FutureExpensesRecurring.data.${index}.notes`}
+        name={`MentalHealthFuture.data.${index}.source`}
         label="How did you get those numbers?"
       />
     </>
@@ -100,7 +100,7 @@ export const MentalHealthFuture = () => {
     >
       <SectionHeader header={`Future mental health expenses`} />
       <FieldRadio
-        name="MentalHealthFutureExpenses"
+        name="MentalHealthFuture.status"
         placeholder="None"
         required="Required"
         label={

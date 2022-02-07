@@ -152,4 +152,22 @@ const capitalize = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-module.exports = { getValue, getValueAsNumber, getValueAsArray, getValuesAsString, divideIntoLines, splitLines, flattenLines, setInvalidValuesAsNA, capitalize }
+const camelize = (s) => {
+    if (typeof s !== 'string') return s
+    return s.replace(/^([A-Z])|[\s-_]+(\w)/g, function(match, p1, p2, offset) {
+        if (p2) return p2.toUpperCase()
+        return p1.toLowerCase()  
+    })
+}
+
+// Data helpers
+function flatten(data, prefix = "") {
+  if (!data) return {}
+  return Object.entries(data).reduce((result, [key, value]) => {
+    if (typeof value == "object")
+      return { ...result, ...flatten(value, `${prefix}.${key}`) }
+    else return { ...result, [`${prefix}.${key}`.replace(/^\./, "")]: value }
+  }, {})
+}
+
+module.exports = { getValue, getValueAsNumber, getValueAsArray, getValuesAsString, divideIntoLines, splitLines, flattenLines, setInvalidValuesAsNA, capitalize, camelize, flatten }

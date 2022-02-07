@@ -46,7 +46,7 @@ export const OtherExpenses = () => {
     setAdditionalExpenses(s => s.filter(x => x.id !== id))
   }
 
-  const status = state["OtherExpenses.status"]
+  const status = state["Other.status"]
 
   const Note = index => (
     <>
@@ -62,7 +62,7 @@ export const OtherExpenses = () => {
           placeholder="MM/DD/YYYY"
         />
         <FieldMoneyInput
-          name={`Other.data.${index}.expense`}
+          name={`Other.data.${index}.amt`}
           label="Amount of expense?"
           required="Required"
           validations={[
@@ -79,7 +79,7 @@ export const OtherExpenses = () => {
         required={"Required"}
       />
       <FieldInput
-        name={`Education.data.${index}.descriptionNotes`}
+        name={`Other.data.${index}.descriptionNotes`}
         label="Please describe how the expense relates to the crime"
       />
       <FieldInput
@@ -112,7 +112,7 @@ export const OtherExpenses = () => {
         }}
       />
       <FieldRadio
-        name="OtherExpenses.status"
+        name="Other.status"
         placeholder="None"
         required="Required"
         label={

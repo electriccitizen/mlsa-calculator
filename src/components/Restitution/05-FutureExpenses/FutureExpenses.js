@@ -46,7 +46,7 @@ export const FutureExpenses = () => {
   const removeItem = id => {
     setAdditionalExpenses(s => s.filter(x => x.id !== id))
   }
-  const expenses = state["FutureExpenses"]
+  const expenses = state["FutureExpenses.status"]
   const estimate = state["FutureExpenses.est"]
 
   const Note = index => (
@@ -123,7 +123,7 @@ export const FutureExpenses = () => {
         }}
       />
       <FieldRadio
-        name="FutureExpenses"
+        name="FutureExpenses.status"
         placeholder="None"
         required="Required"
         label={

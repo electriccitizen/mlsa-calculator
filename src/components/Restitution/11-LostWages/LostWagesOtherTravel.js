@@ -63,7 +63,7 @@ export const LostWagesOtherTravel = () => {
           placeholder="MM/DD/YYYY"
         />
         <FieldMoneyInput
-          name={`LostWagesOther.data.${index}.amt`}
+          name={`LostWagesOtherTravel.data.${index}.amt`}
           label="How much was the expense?"
           required="Required"
           validations={[

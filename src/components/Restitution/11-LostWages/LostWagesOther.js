@@ -49,7 +49,7 @@ export const LostWagesOther = () => {
   const Note = index => (
     <>
       <FieldInput
-        name={`LostWagesOther.data.${index}.notes`}
+        name={`LostWagesOther.data.${index}.dates`}
         label="What day or days did you miss work?"
         helper={"Enter an exact date, or a range of dates"}
       />
@@ -62,7 +62,7 @@ export const LostWagesOther = () => {
           label="Why did you miss work?"
         />
         <FieldInput
-          name={`LostWagesOther.data.${index}.expense`}
+          name={`LostWagesOther.data.${index}.hours`}
           label="How many hours of work did you miss?"
           required="Required"
           validations={[

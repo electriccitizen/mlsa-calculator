@@ -61,7 +61,7 @@ export const Safety = () => {
           placeholder="MM/DD/YYYY"
         />
         <FieldMoneyInput
-          name={`Safety.data.${index}.expense`}
+          name={`Safety.data.${index}.amt`}
           label="Amount of expense?"
           required="Required"
           validations={[

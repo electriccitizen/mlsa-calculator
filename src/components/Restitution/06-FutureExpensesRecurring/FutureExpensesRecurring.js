@@ -45,7 +45,7 @@ export const FutureExpensesRecurring = () => {
   const removeItem = id => {
     setAdditionalExpenses(s => s.filter(x => x.id !== id))
   }
-  const expenses = state["FutureExpensesRecurring"]
+  const expenses = state["FutureExpensesRecurring.status"]
   const estimate = state["FutureExpensesRecurring.est"]
   const Note = index => (
     <>
@@ -104,7 +104,7 @@ export const FutureExpensesRecurring = () => {
     >
       <SectionHeader header={`Recurring medical expenses (future)`} />
       <FieldRadio
-        name="FutureExpensesRecurring"
+        name="FutureExpensesRecurring.status"
         placeholder="None"
         required="Required"
         label={

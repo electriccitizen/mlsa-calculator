@@ -1,16 +1,17 @@
 import React, { useState } from "react"
-import { FormizStep } from "@formiz/core"
+import { FormizStep, useForm } from "@formiz/core"
 import { Heading, Box, Button, Text, Stack } from "@chakra-ui/react"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import printJS from "print-js"
 import { navigate } from "gatsby"
 
 export const CompleteApp = ({ state, pdf }) => {
-
+  const form = useForm({ subscribe: true })
   const [counter, setCounter] = useState(0)
 
   const handlePrint = () => {
-    const base64 = pdf
+    if(!pdf) return
+    const base64 = pdf.restitution
     printJS({ printable: base64, type: "pdf", base64: true })
   }
 
@@ -64,7 +65,7 @@ export const CompleteApp = ({ state, pdf }) => {
               >
                 <a
                   className="logo"
-                  href={"data:application/pdf;base64," + pdf + ""}
+                  href={pdf && "data:application/pdf;base64," + pdf.restitution + ""}
                   download="MLSA-restitution-worksheet.pdf"
                 >
                   {state === true ? "Download" : loadingMessageDownload}
@@ -90,6 +91,7 @@ export const CompleteApp = ({ state, pdf }) => {
       </Box>
       <Stack align={"center"}>
         <Button
+          isDisabled={!form.isValid}
           colorScheme={"brand"}
           type={"submit"}
           onClick={() => setCounter(counter + 1)}

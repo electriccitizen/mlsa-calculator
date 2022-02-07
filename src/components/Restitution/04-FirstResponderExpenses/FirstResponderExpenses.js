@@ -46,7 +46,7 @@ export const FirstResponderExpenses = () => {
     setAdditionalExpenses(s => s.filter(x => x.id !== id))
   }
 
-  const expenses = state["FirstResponderExpenses"]
+  const expenses = state["FirstResponderExpenses.status"]
 
   const Note = index => (
     <>
@@ -106,7 +106,7 @@ export const FirstResponderExpenses = () => {
     >
       <SectionHeader header={`First responder expenses`} />
       <FieldRadio
-        name="FirstResponderExpenses"
+        name="FirstResponderExpenses.status"
         placeholder="None"
         required="Required"
         label={"Did your receive help from a first responder?"}

@@ -60,7 +60,7 @@ export const LostWagesCarTravel = () => {
           pt={[0, 0, 6]}
         />
         <FieldInput
-          name={`LostWagesCarTravel.data.${index}.notes`}
+          name={`LostWagesCarTravel.data.${index}.distance`}
           label="How many miles did you travel round trip?"
         />
       </Stack>

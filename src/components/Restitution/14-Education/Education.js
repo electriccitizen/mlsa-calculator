@@ -54,13 +54,13 @@ export const Education = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldInput
-          name={`Education.data.${index}.date`}
+          name={`Education.data.${index}.timeestimate`}
           label="What was the date you incurred the loss?"
           required={"Required"}
           helper={"e.g. Winter semester 2019"}
         />
         <FieldMoneyInput
-          name={`Education.data.${index}.expense`}
+          name={`Education.data.${index}.amt`}
           label="Amount of expense?"
           required="Required"
           pt={[0, 0, 6]}

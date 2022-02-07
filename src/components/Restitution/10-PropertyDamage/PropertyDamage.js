@@ -45,7 +45,7 @@ export const PropertyDamage = () => {
     setAdditionalExpenses(s => s.filter(x => x.id !== id))
   }
 
-  const damage = state["PropertyDamage"]
+  const damage = state["PropertyDamage.status"]
   // const replaceRepair = state["PropertyDamage.replaceRepair"]
 
   const Note = index => (
@@ -127,7 +127,7 @@ export const PropertyDamage = () => {
     >
       <SectionHeader header={`Damaged property expenses`} />
       <FieldRadio
-        name="PropertyDamage"
+        name="PropertyDamage.status"
         placeholder="None"
         required="Required"
         label={
