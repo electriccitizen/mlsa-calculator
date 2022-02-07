@@ -41,7 +41,7 @@ const pdfs = [{
   src: `${ROOT}/pdfs/affidavit-addendum-fillable.pdf`
 }, {
   name: "restitutionWorksheet",
-  src: `${ROOT}/pdfs/MLSA-restitution-worksheet.pdf`
+  src: `${ROOT}/pdfs/MLSA-restitution-worksheet-fillable.pdf`
 }]
 
 const fillPdf = (pdf, data) => {
