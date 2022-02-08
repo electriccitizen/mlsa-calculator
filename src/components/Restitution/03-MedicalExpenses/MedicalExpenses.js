@@ -56,14 +56,14 @@ export const MedicalExpenses = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldDate
-          name={`MedicalExpenses.${index}.date`}
+          name={`MedicalExpenses.data.${index}.date`}
           label="Date of purchase or expense"
           required="Required"
           type="text"
           placeholder="MM/DD/YYYY"
         />
         <FieldMoneyInput
-          name={`MedicalExpenses.${index}.amt`}
+          name={`MedicalExpenses.data.${index}.amt`}
           label="Amount of expense"
           required="Required"
           validations={[
@@ -75,16 +75,16 @@ export const MedicalExpenses = () => {
         />
       </Stack>
       <FieldInput
-        name={`MedicalExpenses.${index}.description`}
+        name={`MedicalExpenses.data.${index}.description`}
         label="Description of expense"
         required="Required"
       />
       <FieldInput
-        name={`MedicalExpenses.${index}.notes`}
+        name={`MedicalExpenses.data.${index}.notes`}
         label="Enter notes about how the expense was paid or if there is any amount still owing"
       />
       <FieldRadio
-        name={`MedicalExpenses.${index}.receipt`}
+        name={`MedicalExpenses.data.${index}.receipt`}
         placeholder="None"
         required="Required"
         label={
@@ -171,7 +171,7 @@ export const MedicalExpenses = () => {
             />
           </Box>
         ))}
-      {onetime === "yes" && additionalExpenses.length <= 20 && (
+      {onetime === "yes" && additionalExpenses.length <= 2 && (
         <AddPlaceholder label="Add an expense" onClick={addItem} />
       )}
     </FormizStep>

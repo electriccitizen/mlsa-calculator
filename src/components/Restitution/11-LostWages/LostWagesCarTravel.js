@@ -52,7 +52,7 @@ export const LostWagesCarTravel = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldDate
-          name={`LostWagesCarTravel.${index}.date`}
+          name={`LostWagesCarTravel.data.${index}.date`}
           label="Date of travel"
           required="Required"
           type="text"
@@ -60,7 +60,7 @@ export const LostWagesCarTravel = () => {
           pt={[0, 0, 6]}
         />
         <FieldInput
-          name={`LostWagesCarTravel.${index}.notes`}
+          name={`LostWagesCarTravel.data.${index}.distance`}
           label="How many miles did you travel round trip?"
         />
       </Stack>
@@ -75,7 +75,7 @@ export const LostWagesCarTravel = () => {
       </Box>
 
       <FieldInput
-        name={`LostWagesCarTravel.${index}.notes`}
+        name={`LostWagesCarTravel.data.${index}.notes`}
         label="What was the reason for the travel?"
       />
     </>
@@ -132,7 +132,7 @@ export const LostWagesCarTravel = () => {
             />
           </Box>
         ))}
-      {car === "yes" && additionalExpenses.length <= 20 && (
+      {car === "yes" && additionalExpenses.length <= 2 && (
         <AddPlaceholder label="Add another" onClick={addItem} />
       )}
     </FormizStep>

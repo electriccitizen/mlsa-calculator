@@ -46,7 +46,7 @@ export const FutureExpenses = () => {
   const removeItem = id => {
     setAdditionalExpenses(s => s.filter(x => x.id !== id))
   }
-  const expenses = state["FutureExpenses"]
+  const expenses = state["FutureExpenses.status"]
   const estimate = state["FutureExpenses.est"]
 
   const Note = index => (
@@ -56,14 +56,14 @@ export const FutureExpenses = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldDate
-          name={`FutureExpenses.${index}.date`}
+          name={`FutureExpenses.data.${index}.date`}
           label="Estimate when you will incur the expense"
           required="Required"
           type="text"
           placeholder="MM/DD/YYYY"
         />
         <FieldMoneyInput
-          name={`FutureExpenses.${index}.amt`}
+          name={`FutureExpenses.data.${index}.amt`}
           label="Estimated amount of expense"
           required="Required"
           validations={[
@@ -76,22 +76,22 @@ export const FutureExpenses = () => {
         />
       </Stack>
       <FieldInput
-        name={`FutureExpenses.${index}.description`}
+        name={`FutureExpenses.data.${index}.description`}
         label="Description of expense"
         required="Required"
       />
       <FieldInput
-        name={`FutureExpenses.${index}.estimate`}
+        name={`FutureExpenses.data.${index}.estimate`}
         label="How did you get your estimate?"
         required="Required"
       />
       <FieldInput
-        name={`FutureExpenses.${index}.notes`}
+        name={`FutureExpenses.data.${index}.notes`}
         label="Do you have other notes related to this expense?
 "
       />
       <FieldRadio
-        name={`FutureExpenses.${index}.receipt`}
+        name={`FutureExpenses.data.${index}.receipt`}
         placeholder="None"
         required="Required"
         label={
@@ -123,7 +123,7 @@ export const FutureExpenses = () => {
         }}
       />
       <FieldRadio
-        name="FutureExpenses"
+        name="FutureExpenses.status"
         placeholder="None"
         required="Required"
         label={
@@ -171,7 +171,7 @@ export const FutureExpenses = () => {
         ))}
       {expenses === "yes" &&
         estimate === "yes" &&
-        additionalExpenses.length <= 20 && (
+        additionalExpenses.length <= 2 && (
           <AddPlaceholder label="Add an expense" onClick={addItem} />
         )}
     </FormizStep>

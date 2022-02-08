@@ -56,14 +56,14 @@ export const LostWagesOtherTravel = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldDate
-          name={`LostWagesOtherTravel.${index}.date`}
+          name={`LostWagesOtherTravel.data.${index}.date`}
           label="Date of travel"
           required="Required"
           type="text"
           placeholder="MM/DD/YYYY"
         />
         <FieldMoneyInput
-          name={`LostWagesOther.${index}.amt`}
+          name={`LostWagesOtherTravel.data.${index}.amt`}
           label="How much was the expense?"
           required="Required"
           validations={[
@@ -79,18 +79,18 @@ export const LostWagesOtherTravel = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldInput
-          name={`LostWagesOtherTravel.${index}.notes`}
+          name={`LostWagesOtherTravel.data.${index}.notes`}
           label="What was the reason for travel?"
         />
         <FieldInput
-          name={`LostWagesOtherTravel.${index}.description`}
+          name={`LostWagesOtherTravel.data.${index}.description`}
           label="Describe what kind of travel expense"
           required="Required"
         />
       </Stack>
 
       <FieldRadio
-        name={`LostWagesOtherTravel.${index}.receipt`}
+        name={`LostWagesOtherTravel.data.${index}.receipt`}
         placeholder="None"
         required="Required"
         label={"Do you have a receipt or other way of showing the cost?"}
@@ -141,7 +141,7 @@ export const LostWagesOtherTravel = () => {
             />
           </Box>
         ))}
-      {status === "yes" && additionalExpenses.length <= 20 && (
+      {status === "yes" && additionalExpenses.length <= 2 && (
         <AddPlaceholder label="Add another" onClick={addItem} />
       )}
     </FormizStep>

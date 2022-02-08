@@ -54,14 +54,14 @@ export const Moving = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldDate
-          name={`Moving.${index}.date`}
+          name={`Moving.data.${index}.date`}
           label="Date of expense"
           required="Required"
           type="text"
           placeholder="MM/DD/YYYY"
         />
         <FieldMoneyInput
-          name={`Working.${index}.expense`}
+          name={`Moving.data.${index}.amt`}
           label="Amount of expense?"
           required="Required"
           validations={[
@@ -73,20 +73,20 @@ export const Moving = () => {
         />
       </Stack>
       <FieldInput
-        name={`Working.${index}.description`}
+        name={`Moving.data.${index}.description`}
         label="Description of expense"
         required={"Required"}
       />
       <FieldInput
-        name={`Working.${index}.descriptionNotes`}
+        name={`Moving.data.${index}.descriptionNotes`}
         label="How does it relate to the crime?"
       />
       <FieldInput
-        name={`Working.${index}.notes`}
+        name={`Moving.data.${index}.notes`}
         label="Notes related to payment"
       />
       <FieldRadio
-        name={`Working.${index}.receipt`}
+        name={`Moving.data.${index}.receipt`}
         placeholder="None"
         required="Required"
         label={"Do you have a receipt or other way of showing the cost?"}
@@ -128,7 +128,7 @@ export const Moving = () => {
             />
           </Box>
         ))}
-      {status === "yes" && additionalExpenses.length <= 20 && (
+      {status === "yes" && additionalExpenses.length <= 2 && (
         <AddPlaceholder label="Add another" onClick={addItem} />
       )}
     </FormizStep>

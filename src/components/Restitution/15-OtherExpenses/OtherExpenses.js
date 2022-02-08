@@ -46,7 +46,7 @@ export const OtherExpenses = () => {
     setAdditionalExpenses(s => s.filter(x => x.id !== id))
   }
 
-  const status = state["OtherExpenses.status"]
+  const status = state["Other.status"]
 
   const Note = index => (
     <>
@@ -55,14 +55,14 @@ export const OtherExpenses = () => {
         spacing={["0", "0", "1rem"]}
       >
         <FieldDate
-          name={`Other.${index}.date`}
+          name={`Other.data.${index}.date`}
           label="Date of expense"
           required="Required"
           type="text"
           placeholder="MM/DD/YYYY"
         />
         <FieldMoneyInput
-          name={`Other.${index}.expense`}
+          name={`Other.data.${index}.amt`}
           label="Amount of expense?"
           required="Required"
           validations={[
@@ -74,20 +74,20 @@ export const OtherExpenses = () => {
         />
       </Stack>
       <FieldInput
-        name={`Other.${index}.description`}
+        name={`Other.data.${index}.description`}
         label="Description of expense"
         required={"Required"}
       />
       <FieldInput
-        name={`Education.${index}.descriptionNotes`}
+        name={`Other.data.${index}.descriptionNotes`}
         label="Please describe how the expense relates to the crime"
       />
       <FieldInput
-        name={`Other.${index}.notes`}
+        name={`Other.data.${index}.notes`}
         label="Notes related to payment"
       />
       <FieldRadio
-        name={`Other.${index}.receipt`}
+        name={`Other.data.${index}.receipt`}
         placeholder="None"
         required="Required"
         label={"Do you have a receipt or other way of showing the cost?"}
@@ -112,7 +112,7 @@ export const OtherExpenses = () => {
         }}
       />
       <FieldRadio
-        name="OtherExpenses.status"
+        name="Other.status"
         placeholder="None"
         required="Required"
         label={
@@ -153,7 +153,7 @@ export const OtherExpenses = () => {
             />
           </Box>
         ))}
-      {status === "yes" && additionalExpenses.length <= 20 && (
+      {status === "yes" && additionalExpenses.length <= 2 && (
         <AddPlaceholder label="Add another expense" onClick={addItem} />
       )}
     </FormizStep>
