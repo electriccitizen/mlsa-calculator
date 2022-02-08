@@ -2,7 +2,8 @@
 
 const pdftk = require('node-pdftk')
 const path = require('path')
-const { processData } = require('./processors/process')
+const { processData: processChildSupportData } = require('./processors/process')
+const { processRestitutionData } = require('./processors/process-restitution')
 
 // Set the root path
 const ROOT = `${process.env.LAMBDA_TASK_ROOT}/functions/pdf-gen`
@@ -38,6 +39,9 @@ const pdfs = [{
 }, {
   name: "affidavitAddendum",
   src: `${ROOT}/pdfs/affidavit-addendum-fillable.pdf`
+}, {
+  name: "restitutionWorksheet",
+  src: `${ROOT}/pdfs/MLSA-restitution-worksheet.pdf`
 }]
 
 const fillPdf = (pdf, data) => {
@@ -75,10 +79,36 @@ const generatePdf = values => {
     })
 }
 
+const processData = (formData, app) => {
+  // Override pdfs array to object with names
+  const pdfsNames = pdfs.reduce((names, pdf) => ({ ...names, [pdf.name]: pdf.name }), {})
+
+  switch(app) {
+    case 'child-support':
+      return processChildSupportData(formData, pdfsNames)
+    case 'restitution': 
+      return processRestitutionData(formData, pdfsNames)
+    default: 
+      throw new Error(`Unhandled app: ${app}`)
+  }
+}
+
 exports.handler = function (event, context, callback) {
-  if (event.body !== null && event.body !== undefined) {
-    const formData = JSON.parse(event.body)
-    const data = processData(formData, pdfs)
+  // Only allow POST
+  if (event.httpMethod !== "POST") {
+    return { 
+      statusCode: 405, 
+      body: "Method Not Allowed" 
+    }
+  }
+
+  try {
+    if (!event.body) {
+      throw new Error("No data body.")
+    }
+
+    const { app, formData } = JSON.parse(event.body)
+    const data = processData(formData, app)
     const keys = Object.keys(data)
     const values = Object.values(data)
     const promises = values.map(value => generatePdf(value))
@@ -102,10 +132,10 @@ exports.handler = function (event, context, callback) {
           body: JSON.stringify(error),
         })
       })
-  } else {
-    callback(null, {
+  } catch (error) {
+    return {
       statusCode: 400,
-      body: JSON.stringify("No data body."),
-    })
+      body: error.message
+    }
   }
 }

@@ -65,7 +65,7 @@ export const CompleteApp = ({ state, pdf }) => {
                 <a
                   className="logo"
                   href={"data:application/pdf;base64," + pdf + ""}
-                  download="MontanaChildSupportWorksheet.pdf"
+                  download="MLSA-restitution-worksheet.pdf"
                 >
                   {state === true ? "Download" : loadingMessageDownload}
                 </a>
@@ -92,7 +92,7 @@ export const CompleteApp = ({ state, pdf }) => {
         <Button
           colorScheme={"brand"}
           type={"submit"}
-          //onClick={() => setCounter(counter + 1)}
+          onClick={() => setCounter(counter + 1)}
         >
           {!counter || counter === 0
             ? "Generate workbook"
