@@ -194,7 +194,7 @@ const calcRestitution = form => {
         return {
           ...item,
           ...(date && { date: moment(new Date(date)).format("MM/DD/YYYY") }),
-          ...(amt && { amt: format(amtInsurance, "currency") }),
+          ...(amt && { amt: format(amt, "currency") }),
           ...(amtInsurance && {
             amtInsurance: format(amtInsurance, "currency"),
           }),

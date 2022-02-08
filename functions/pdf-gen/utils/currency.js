@@ -125,15 +125,15 @@ const maximum = (...args) => {
 // Conversion & formatting
 const format = (amount, style = 'decimal') => {
     const dinero = Dinero(currency(amount))
+    const unit = dinero.toUnit()
 
-    return dinero
-        .toUnit()
+    return unit
         .toLocaleString(
             dinero.getLocale(),
             {
                 style: style,
                 currency: dinero.getCurrency(),
-                minimumFractionDigits: 0,
+                minimumFractionDigits: unit % 1 === 0 ? 0 : 2,
                 maximumFractionDigits: dinero.getPrecision()
             }
         )
