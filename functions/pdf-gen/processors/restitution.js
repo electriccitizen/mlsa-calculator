@@ -126,12 +126,9 @@ const calcRestitution = form => {
             } else if (formKey === "LostWagesCarTravel") {
               // [P] LostWagesCarTravel
               const globalMileageRate = getIRSBusinessMileageRate()
-              const mileageCost = convertPrecision(
-                multiply(
-                  globalMileageRate,
-                  getValueAsNumber(item, ["distance"])
-                ),
-                2
+              const mileageCost = multiply(
+                globalMileageRate,
+                getValueAsNumber(item, ["distance"])
               )
 
               return add(total, mileageCost)
@@ -181,7 +178,7 @@ const calcRestitution = form => {
       if (formKey === "summaryTotal") {
         return {
           ...acc,
-          [formKey]: format(formData, "currency"),
+          [formKey]: format(convertPrecision(formData, 2), "currency"),
         }
       }
 
@@ -193,7 +190,7 @@ const calcRestitution = form => {
 
         return {
           ...item,
-          ...(date && { date: moment(new Date(date)).format("MM/DD/YYYY") }),
+          ...(date && { date: moment(date).utc().format("MM/DD/YYYY") }),
           ...(amt && { amt: format(amt, "currency") }),
           ...(amtInsurance && {
             amtInsurance: format(amtInsurance, "currency"),
@@ -210,7 +207,7 @@ const calcRestitution = form => {
           ...(data &&
             data.length > 0 && {
               data,
-              total: format(total, "currency"),
+              total: format(convertPrecision(total, 2), "currency"),
             }),
         },
       }
