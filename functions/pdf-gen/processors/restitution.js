@@ -190,7 +190,7 @@ const calcRestitution = form => {
 
         return {
           ...item,
-          ...(date && { date: moment(date).utc().format("MM/DD/YYYY") }),
+          ...(date && { date: moment(date).format("L") }),
           ...(amt && { amt: format(amt, "currency") }),
           ...(amtInsurance && {
             amtInsurance: format(amtInsurance, "currency"),
