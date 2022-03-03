@@ -35,7 +35,7 @@ export const CaseInfo = () => {
         {/*/>*/}
         <FieldInput
           name={`Primary.caseID`}
-          label="What is the Cause Numbner/Case ID?"
+          label="What is the Cause Number/Case ID?"
         />
       </Stack>
     </FormizStep>
