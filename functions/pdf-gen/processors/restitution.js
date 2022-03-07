@@ -87,7 +87,11 @@ const calcRestitution = form => {
         const total = data.reduce((total, item, index) => {
           // Max 3 items
           if (index < 3) {
-            if (formKey === "MentalHealthFuture") {
+            if (
+              formKey === "FutureExpensesRecurring" ||
+              formKey === "MentalHealthFuture"
+            ) {
+              // [F] FutureExpensesRecurring
               // [H] MentalHealthFuture
               const amount = multiply(
                 getValueAsNumber(item, ["amt"]),
@@ -138,7 +142,6 @@ const calcRestitution = form => {
               // [C] FirstResponderExpenses
               // [D] SupplyExpenses
               // [E] FutureExpenses
-              // [F] FutureExpensesRecurring
               // [G] MentalHealthExpenses
               // [O] LostWagesFuture
               // [Q] LostWagesOtherTravel
