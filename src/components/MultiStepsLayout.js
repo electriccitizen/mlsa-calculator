@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useRef} from "react"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import { useForm } from "@formiz/core"
@@ -6,6 +6,8 @@ import { PageLayout } from "../layout/PageLayout"
 import { Box, Grid, Button, Stack } from "@chakra-ui/react"
 import { CustomDrawer } from "./Utils/CustomDrawer"
 import { navigate } from "gatsby"
+import {useEffect} from "react";
+
 const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   form: PropTypes.object,
@@ -24,28 +26,39 @@ export const MultiStepsLayout = ({
   buttonTitle,
   ...props
 }) => {
+
+
   const form = useForm({ subscribe: { form: true, fields: ["TermsOfUse"] } })
   const hasSteps = !!form.steps.length
   const handleExit = (dest) => {
     navigate(dest)
   }
-
+  // useEffect(() => {
+  //   // Update the document title using the browser API
+  //   console.log("fooman")
+  //
+  // },[myRef]);
   const goBack = () => {
     form.prevStep()
-    window.scrollTo({top: 0, behavior: 'smooth'})
+    var el =   document.getElementById("page-wrap")
+    el.scrollIntoView(true);
+    document.getElementById("page-wrap").scrollTop -= 150;
+    // document.getElementById('page-wrap').scrollIntoView(alignToTop)
   }
 
-  const submitStep = async (e) => {
+
+  const useSubmitStep = async (e) => {
     e.preventDefault()
-
-    // fieldRef.current.scrollIntoView();
-    // Trigger the Formiz submitStep
     form.submitStep()
-    window.scrollTo({top: 0, behavior: 'smooth'})
+    var el =   document.getElementById("page-wrap")
+    el.scrollIntoView(true);
+    document.getElementById("page-wrap").scrollTop -= 150;
   }
+
+
   return (
-    <PageLayout {...props}>
-      <form noValidate onSubmit={hasSteps ? submitStep : form.submit}>
+    <PageLayout  {...props}>
+      <form  noValidate onSubmit={hasSteps ? useSubmitStep : form.submit}>
         <Stack w="100%" direction={["column", "row"]}>
           <Box width="100%" align="right" flex={1}>
             <CustomDrawer app={app} buttonTitle={buttonTitle} />

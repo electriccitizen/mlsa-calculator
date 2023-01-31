@@ -1,4 +1,5 @@
 import React from "react"
+import {useEffect} from "react";
 import { Formiz } from "@formiz/core"
 import { navigate } from "gatsby"
 import { IntroWhat } from "../../components/ChildSupport/00-intro/IntroWhat"
@@ -16,6 +17,8 @@ export default function CalculatorIntro() {
   const handleSubmit = () => {
     navigate("/child-support/calculator")
   }
+  useEffect(() => {
+    window.history.scrollRestoration = 'manual';}, []);
   return (
     <Formiz onValidSubmit={handleSubmit}>
       <MultiStepsLayout

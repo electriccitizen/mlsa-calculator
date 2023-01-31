@@ -33,6 +33,7 @@ const useDebugTime = () => {
     )
   })
 }
+
 export const PageLayout = ({ children }) => {
   const [debugMode, setDebugMode] = useState("off")
   const handleDebug = value => {
@@ -43,7 +44,7 @@ export const PageLayout = ({ children }) => {
   const isDarkTheme = useDarkTheme()
 
   return (
-    <>
+    <div id="app-wrapper">
       <SiteHeader />
       <Stack
         flex="1"
@@ -103,7 +104,7 @@ export const PageLayout = ({ children }) => {
 
       </Stack>
       
-    </>
+    </div>
   )
 }
 

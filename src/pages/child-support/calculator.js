@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Formiz, useForm } from "@formiz/core"
+
 // import * as init from '../../../functions/pdf-gen/processors/init.json'; 
 
 import { TermsOfUse } from "../../components/ChildSupport/TermsOfUse"
@@ -115,9 +116,9 @@ export default function Calculator() {
             {/*    <EnterMyOtherChildrenSecondary />*/}
             {/*  </>*/}
             {/*)}*/}
-            {/*<Employment />*/}
+            <Employment />
             {/*<CurrentJob />*/}
-            {/*<OtherJobs />*/}
+            <OtherJobs />
             {/*<EnterOtherJobs />*/}
             {/*<OtherIncome />*/}
             {/*<TaxableIncome />*/}

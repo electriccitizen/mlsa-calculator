@@ -18,8 +18,9 @@ const styles = {
         "               Roboto, Oxygen-Sans, Ubuntu, Cantarell,\n" +
         '               "Helvetica Neue", sans-serif;',
       fontSize: "lg",
-      overflow: "auto",
-
+      "*": {
+        "scroll-margin-top": "150px",
+},
       a: {
         color: "brand.400",
       },
