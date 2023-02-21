@@ -149,7 +149,7 @@ export const ChildExpenses = () => {
             type="text"
             placeholder="Enter amount"
             helper={
-              "For information of the Dependent Care Credit see the <a href='/child-support/guide' target='_blank'>User manual</a>  or visit  https://www.irs.gov/taxtopics/tc602"
+              "For information of the Dependent Care Credit see the <a href='/child-support/guide' target='_blank'>User manual</a>  or visit  <a href='https://www.irs.gov/taxtopics/tc602' target='_blank'>or visit the IRS Child and Dependent Care Credit page</a>"
             }
           />
           <FieldMoneyInput
@@ -207,7 +207,7 @@ export const ChildExpenses = () => {
                     />
                   </Box>
                   <Box flex="1">
-                    <FieldInput
+                    <FieldMoneyInput
                       name={`ChildExpenses.${index}.otherExpenses.${x}.amt`}
                       label="Amount per year"
                       required="Required"

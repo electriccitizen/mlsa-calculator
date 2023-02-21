@@ -25,8 +25,7 @@ export const OtherIncomeSecondary = () => {
       <SectionHeader header={otherParent + `'s other income`} />
       <FieldCheckbox
         name="OtherIncomeSecondary"
-        label="Select all that apply, or none of the above if you have no other income."
-        required="Required"
+        label="Select all that apply, or none of the above if there is no other income."
         setCheckedItems={setCheckedItems}
         checkedItems={checkedItems}
         options={[

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { Input, Box, InputRightElement, Spinner } from "@chakra-ui/react"
+import { Input } from "@chakra-ui/react"
 import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
 import { FormGroup } from "../Utils/FormGroup"
+import {isNumber} from "@formiz/validations";
 import {isPattern} from "@formiz/validations";
-
 const propTypes = {
   label: PropTypes.node,
   type: PropTypes.string,
@@ -20,13 +20,12 @@ const defaultProps = {
   ...fieldDefaultProps,
 }
 
-export const FieldMoneyInput = props => {
+export const FieldNumberInput = props => {
   const {
     errorMessage,
     id,
     isValid,
     isSubmitted,
-    isValidating,
     resetKey,
     setValue,
     value,
@@ -40,12 +39,17 @@ export const FieldMoneyInput = props => {
     required,
     placeholder,
     helper,
+    format,
     fieldWidth,
     ...otherProps
   } = props
 
   const [isTouched, setIsTouched] = useState(false)
   const showError = !isValid && (isTouched || isSubmitted)
+
+  // const handleChange = value => {
+  //   setValue(value)
+  // }
 
   useEffect(() => {
     setIsTouched(false)
@@ -64,43 +68,33 @@ export const FieldMoneyInput = props => {
   const removeNonNumeric = num => num.toString().replace(/[^0-9]/g, "");
 
   const handleChange = e =>
-      setValue(addCommas(removeNonNumeric(e.target.value)));
+      format !== "false" ?
+      setValue(addCommas(removeNonNumeric(e.target.value))) :
+      setValue(e.target.value)
   return (
     <FormGroup {...formGroupProps}>
-      <Box d="flex" alignContent="bottom">
-        <Box fontSize="lg" mt={2} mr={2}>
-          $
-        </Box>
-        <Box flex={1}>
-          <Input
-            key={resetKey}
-            type={type || "text"}
-            id={id}
-            value={value ?? ""}
-            // onChange={e => setValue(e.target.value)}
-            onChange={(e) => handleChange(e)} value={value}
-            onBlur={() => setIsTouched(true)}
-            aria-invalid={showError}
-            aria-describedby={!isValid ? `${id}-error` : null}
-            placeholder={placeholder}
-            width={fieldWidth ? fieldWidth : "40%"}
-            validations={[
-              {
-                rule: isPattern(/^[1-9]\d*(((,\d{3}){1})?(\.\d{0,2})?)$/),
-                message: 'Please enter a valid dollar amount',
-              },
-            ]}
-          />
-          {(isTouched || isSubmitted) && isValidating && (
-            <InputRightElement>
-              <Spinner size="sm" flex="none" />
-            </InputRightElement>
-          )}
-        </Box>
-      </Box>
+      <Input
+        key={resetKey}
+        type={type || "text"}
+        id={id}
+        value={value ?? ""}
+        //onChange={e => setValue(e.target.value)}
+        onChange={(e) => handleChange(e)} value={value}
+        onBlur={() => setIsTouched(true)}
+        aria-invalid={showError}
+        aria-describedby={!isValid ? `${id}-error` : null}
+        placeholder={placeholder}
+        width={fieldWidth ? fieldWidth : "100%"}
+        validations={[
+          {
+            rule: isPattern(/^[1-9]\d*(((,\d{3}){1})?(\.\d{0,2})?)$/),
+            message: 'Please enter a valid number',
+          },
+        ]}
+      />
     </FormGroup>
   )
 }
 
-FieldMoneyInput.propTypes = propTypes
-FieldMoneyInput.defaultProps = defaultProps
+FieldNumberInput.propTypes = propTypes
+FieldNumberInput.defaultProps = defaultProps

@@ -18,7 +18,7 @@ const defaultCollection = [
 
 export const OtherAllowableDeductions = () => {
   const form = useForm({
-    subscribe: { fields: ["AllowableDeductions", "AllowableDeductions.other"] },
+    subscribe: { fields: ["AllowableDeductions", "AllowableDeductions.other.trigger"] },
   })
 
   const [collection, setCollection] = useState(defaultCollection)
@@ -54,7 +54,7 @@ export const OtherAllowableDeductions = () => {
   return (
     <>
       {form.values.AllowableDeductions &&
-        form.values.AllowableDeductions.other === true && (
+        form.values.AllowableDeductions.other && (
           <FormizStep
             label="Other deductions"
             name="OtherAllowableDeductions"

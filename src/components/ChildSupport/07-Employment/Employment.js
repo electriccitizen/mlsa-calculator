@@ -56,7 +56,7 @@ export const Employment = d => {
               }
               {state["EmploymentPrimary.initiate"] === "no" && (
                 <FieldRadio
-                  name="EmploymentPrimaryEver"
+                  name="EmploymentPrimary.trigger"
                   placeholder="None"
                   required="Required"
                   updateState={updateState}
@@ -67,7 +67,7 @@ export const Employment = d => {
                   ]}
                 />
               )}
-              {(state["EmploymentPrimary.initiateEver"] === "yes" ||
+              {(state["EmploymentPrimary.initiateEver.trigger"] === "yes" ||
                 state["EmploymentPrimary.initiate"] === "yes") && (
                   <>
                     <FieldInput

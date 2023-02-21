@@ -69,7 +69,7 @@ export default function SiteHeader() {
 
           >
 
-            <Box width="90%">
+            <Box width="100%">
               <Heading
                 fontFamily={
                   '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
@@ -98,18 +98,18 @@ export default function SiteHeader() {
                 Provided by the Montana Legal Services Association
               </Box>
             </Box>
-            <Box width="10%">
-              <Stack isInline align="center" mb="1" ml="auto">
-                <FaMoon />
-                <Switch
-                  size={"md"}
-                  isChecked={true}
-                  onChange={toggleColorMode}
-                  colorScheme="brand"
-                />
-                <FaSun />
-              </Stack>
-            </Box>
+            {/*<Box width="10%">*/}
+            {/*  <Stack isInline align="center" mb="1" ml="auto">*/}
+            {/*    <FaMoon />*/}
+            {/*    <Switch*/}
+            {/*      size={"md"}*/}
+            {/*      isChecked={true}*/}
+            {/*      onChange={toggleColorMode}*/}
+            {/*      colorScheme="brand"*/}
+            {/*    />*/}
+            {/*    <FaSun />*/}
+            {/*  </Stack>*/}
+            {/*</Box>*/}
           </Stack>
         </>
       )}

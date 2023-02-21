@@ -1,5 +1,6 @@
 import React from "react"
 import { FieldInput } from "../../Fields/FieldInput"
+import { FieldNumberInput } from "../../Fields/FieldNumberInput"
 import { Stack } from "@chakra-ui/react"
 
 export const InsuranceAddressField = ({ header, index, label, name }) => {
@@ -11,7 +12,7 @@ export const InsuranceAddressField = ({ header, index, label, name }) => {
         required="Required"
         mb="4"
       />
-      <FieldInput
+      <FieldNumberInput
         name={`HealthInsurancePolicies.${index}.policyNumber`}
         label="Policy number"
         required="Required"
@@ -50,10 +51,11 @@ export const InsuranceAddressField = ({ header, index, label, name }) => {
           label="State"
           required="Required"
         />
-        <FieldInput
+        <FieldNumberInput
           name={`HealthInsurancePolicies.${index}.zip`}
           label="Zip code"
           required="Required"
+          format="false"
         />
       </Stack>
     </>

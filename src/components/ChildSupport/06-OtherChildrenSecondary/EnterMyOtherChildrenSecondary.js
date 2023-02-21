@@ -177,6 +177,17 @@ export const EnterMyOtherChildrenSecondary = () => {
             ]}
           />
           <FieldRadio
+              name={`OtherChildrenSecondary.${index}.disabled`}
+              label="Does this child have a disability?"
+              required="Required"
+              index={index}
+              updateState={updateState}
+              options={[
+                { value: "yes", label: "Yes" },
+                { value: "no", label: "No" },
+              ]}
+          />
+          <FieldRadio
             name={`OtherChildrenSecondary.${index}.status`}
             label="This child is (select all that apply):"
             required="Required"
@@ -197,17 +208,7 @@ export const EnterMyOtherChildrenSecondary = () => {
                 in the child support calculations. Continue to the next step.
               </AlertBox>
             )}
-          <FieldRadio
-            name={`OtherChildrenSecondary.${index}.disabled`}
-            label="Does this child have a disability?"
-            required="Required"
-            index={index}
-            updateState={updateState}
-            options={[
-              { value: "yes", label: "Yes" },
-              { value: "no", label: "No" },
-            ]}
-          />
+
           <AdministrativeRules
             rules={[103, 110, 111]}
             explanation={

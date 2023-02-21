@@ -75,6 +75,16 @@ export const EnterChildren = () => {
               />
             </Box>
             <FieldRadio
+                name={`PrimaryChildren.${index}.disabled`}
+                label="Does this child have a disability?"
+                required="Required"
+                index={index}
+                options={[
+                  { value: "yes", label: "Yes" },
+                  { value: "no", label: "No" },
+                ]}
+            />
+            <FieldRadio
               name={`PrimaryChildren.${index}.status`}
               label="This child is (select all that apply):"
               required="Required"
@@ -96,16 +106,7 @@ export const EnterChildren = () => {
                   in the child support calculations. Continue to the next step.
                 </AlertBox>
               )}
-            <FieldRadio
-              name={`PrimaryChildren.${index}.disabled`}
-              label="Does this child have a disability?"
-              required="Required"
-              index={index}
-              options={[
-                { value: "yes", label: "Yes" },
-                { value: "no", label: "No" },
-              ]}
-            />
+
           </>
           <AdministrativeRules
             rules={[103]}

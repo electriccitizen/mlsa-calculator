@@ -2,11 +2,12 @@ import React from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { Stack, Text } from "@chakra-ui/react"
 import { FieldInput } from "../../Fields/FieldInput"
+import { FieldNumberInput } from "../../Fields/FieldNumberInput"
 import { FieldChild } from '../../Fields/FieldChild'
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
-
+import {isMaxNumber} from "@formiz/validations";
 export const ParentingDays = number => {
   const form = useForm({ subscribe: true })
   const primaryChildren = Object.values(form.values?.PrimaryChildren || {}).filter(child => child.status === 'none')
@@ -57,8 +58,7 @@ export const ParentingDays = number => {
             fontSize={"lg"}
           />
 
-
-          <FieldInput
+          <FieldNumberInput
             name={`ParentingDays.children.${index}.amount`}
             label="Days spent per year with you"
             defaultValue=""
@@ -66,7 +66,12 @@ export const ParentingDays = number => {
             mb="4"
             isRequired={true}
             fieldWidth={"60%"}
-          />
+            validations={[
+                {
+                    rule: isMaxNumber(366),
+                    message: 'Should be 365 or less',
+                },
+            ]}/>
         </Stack>
       ))}
       <AdministrativeRules rules={[124]} />

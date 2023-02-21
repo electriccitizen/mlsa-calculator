@@ -1,12 +1,14 @@
 import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
+import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
+import { FieldNumberInput } from "../../Fields/FieldNumberInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldDate } from "../../Fields/FieldDate"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
-
+import {isMaxNumber, isMinNumber} from "@formiz/validations";
 export const CurrentJobSecondary = d => {
   const form = useForm({ subscribe: { fields: ["OtherParent.fname"] } })
   const [state, setState] = useState({})
@@ -79,12 +81,18 @@ export const CurrentJobSecondary = d => {
         )}
 
       {state["EmploymentSecondary.type"] === "parttime" && (
-        <FieldInput
+        <FieldNumberInput
           name={`EmploymentSecondary.weeksPerYear`}
           label="How many weeks per year do you work?"
           required="Required"
           type="text"
           fieldWidth={"25%"}
+          validations={[
+            {
+              rule: isMaxNumber(53),
+              message: 'Should be 52 or less',
+            },
+          ]}
         />
       )}
       {state["EmploymentSecondary.type"] &&
@@ -105,7 +113,7 @@ export const CurrentJobSecondary = d => {
       {state["EmploymentSecondary.type"] &&
         state["EmploymentSecondary.status"] === "yes" && (
           <>
-            <FieldInput
+            <FieldMoneyInput
               name={`EmploymentSecondary.grossAmount`}
               label={GrossAmountLabel}
               required="Required"
@@ -113,20 +121,32 @@ export const CurrentJobSecondary = d => {
               fieldWidth={"25%"}
             />
             {state["EmploymentSecondary.payment"] === "hourly" && (
-              <FieldInput
+              <FieldNumberInput
                 name={`EmploymentSecondary.hoursPerWeek`}
                 label="Hours worked per week"
                 required="Required"
                 type="text"
                 fieldWidth={"25%"}
+                validations={[
+                  {
+                    rule: isMaxNumber(53),
+                    message: 'Should be 52 or less',
+                  },
+                ]}
               />
             )}
-            <FieldInput
+            <FieldNumberInput
               name={`EmploymentSecondary.weeksPerYear`}
               label="Weeks worked per year"
               required="Required"
               type="text"
               fieldWidth={"25%"}
+              validations={[
+                {
+                  rule: isMaxNumber(53),
+                  message: 'Should be 52 or less',
+                },
+              ]}
             />
           </>
         )}

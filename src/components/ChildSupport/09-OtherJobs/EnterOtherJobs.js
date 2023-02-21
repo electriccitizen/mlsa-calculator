@@ -6,6 +6,7 @@ import { FieldRadio } from "../../Fields/FieldRadio"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { AddressField } from "../02-BasicInformation/AddressField"
+import {isNumber} from "@formiz/validations";
 
 export const EnterOtherJobs = () => {
   const form = useForm({ subscribe: { fields: ["OtherJobsNumber"] } })
@@ -155,6 +156,12 @@ export const EnterOtherJobs = () => {
                 type="text"
                 updateState={updateState}
                 fieldWidth={"25%"}
+                validations={[
+                  {
+                    rule: isNumber(),
+                    message: 'Please enter a valid number',
+                  },
+                ]}
               />
               <FieldInput
                 name={`OtherJob.${index}.hoursPerWeek`}
@@ -163,6 +170,12 @@ export const EnterOtherJobs = () => {
                 type="text"
                 updateState={updateState}
                 fieldWidth={"25%"}
+                validations={[
+                  {
+                    rule: isNumber(),
+                    message: 'Please enter a valid number',
+                  },
+                ]}
               />
               <FieldInput
                 name={`OtherJob.${index}.weeksPerYear`}
@@ -171,6 +184,12 @@ export const EnterOtherJobs = () => {
                 type="text"
                 updateState={updateState}
                 fieldWidth={"25%"}
+                validations={[
+                  {
+                    rule: isNumber(),
+                    message: 'Please enter a valid number',
+                  },
+                ]}
               />
               {
                 (state[`OtherJobSecondary.${index}.payment`] === "salary" ||

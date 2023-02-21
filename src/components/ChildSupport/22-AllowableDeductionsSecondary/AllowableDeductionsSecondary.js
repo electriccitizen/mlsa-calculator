@@ -7,6 +7,7 @@ import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 import {AlertBox} from "../../Utils/AlertBox";
+import {FieldInput} from "../../Fields/FieldInput";
 
 export const AllowableDeductionsSecondary = () => {
   const form = useForm({
@@ -23,8 +24,7 @@ export const AllowableDeductionsSecondary = () => {
       <SectionHeader header={otherParent + `'s allowable deductions`} />
       <FieldCheckbox
         name="AllowableDeductionsSecondary"
-        label="Select all that apply, or none of the above if you have no allowable deductions."
-        required="Required"
+        label="Select all that apply, or none of the above if there are no allowable deductions."
         setCheckedItems={setCheckedItems}
         checkedItems={checkedItems}
         options={[
@@ -234,7 +234,6 @@ export const AllowableDeductionsSecondary = () => {
             label="How often?"
             placeholder="Select option..."
             required="Required"
-            fieldWidth={"25%"}
             options={[
               { value: "52", label: "Once per week" },
               { value: "26", label: "Every two weeks" },
@@ -329,6 +328,19 @@ export const AllowableDeductionsSecondary = () => {
           />
         </Stack>
       )}
+        {checkedItems.other === true && (
+            <>
+                <AlertBox>
+                    Enter "other" deductions on the next screen.
+                </AlertBox>
+                <FieldInput
+                    name={`AllowableDeductionsSecondary.other.trigger`}
+                    value={"1"}
+                    type="hidden"
+                    mr={4}
+                />
+            </>
+        )}
       <AdministrativeRules
         rules={[110, 111]}
         explanation={

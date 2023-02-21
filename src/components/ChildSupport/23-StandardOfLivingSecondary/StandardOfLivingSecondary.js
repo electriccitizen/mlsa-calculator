@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { Box } from "@chakra-ui/react"
 import { FieldInput } from "../../Fields/FieldInput"
+import { FieldNumberInput } from "../../Fields/FieldNumberInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
@@ -9,6 +10,7 @@ import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddAnother } from "../../Utils/AddAnother"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 import { v4 as uuidv4 } from "uuid"
+import {isMaxNumber} from "@formiz/validations";
 
 const defaultCollection = [
   {
@@ -87,13 +89,19 @@ export const StandardOfLivingSecondary = number => {
         ]}
       />
       {state["StandardOfLivingSecondary.mileage"] === "yes" && (
-        <FieldInput
+        <FieldNumberInput
           name={`StandardOfLivingSecondary.mileage.distance`}
           label={`How many miles does ${otherParent} drive annually to exercise long-distance parenting?`}
           type="text"
           fieldWidth={"25%"}
           placeholder=""
           mb="4"
+          validations={[
+            {
+              rule: isMaxNumber(15000),
+              message: 'Should be 15,000 or less',
+            },
+          ]}
         />
       )}
       <FieldRadio
@@ -107,11 +115,12 @@ export const StandardOfLivingSecondary = number => {
         ]}
       />
       {state["StandardOfLivingSecondary.transportation"] === "yes" && (
-        <FieldInput
+        <FieldMoneyInput
           name={`StandardOfLivingSecondary.transportation.othercost`}
           label="How much are those other costs, annually?"
           type="text"
           fieldWidth={"25%"}
+          required="Required"
           placeholder=""
           mb="4"
         />

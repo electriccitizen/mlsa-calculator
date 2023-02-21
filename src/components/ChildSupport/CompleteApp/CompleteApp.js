@@ -40,7 +40,23 @@ export const CompleteApp = ({ state, pdf }) => {
         Your interview is now complete. Generate your completed {docText} below
         for download or printing:
       </Text>
-
+        <Stack mb={8} align={"center"}>
+            <Button
+                colorScheme={"brand"}
+                type={"submit"}
+                onClick={() => setCounter(counter + 1)}
+            >
+                {!counter || counter === 0
+                    ? "Generate " + docPlural
+                    : "Regenerate " + docPlural + "?"}
+            </Button>
+            {counter > 0 && (
+                <Text pt={4}  fontSize={"sm"}>
+                    If necessary, you can edit your responses and regenerate your{" "}
+                    {docPlural}.
+                </Text>
+            )}
+        </Stack>
       <Box
         bg={"gray.100"}
         width={["100%", "80%", "80%"]}
@@ -151,23 +167,7 @@ export const CompleteApp = ({ state, pdf }) => {
           )}
         </Stack>
       </Box>
-      <Stack align={"center"}>
-        <Button
-          colorScheme={"brand"}
-          type={"submit"}
-          onClick={() => setCounter(counter + 1)}
-        >
-          {!counter || counter === 0
-            ? "Generate " + docPlural
-            : "Regenerate " + docPlural + "?"}
-        </Button>
-        {counter > 0 && (
-          <Text pt={4} width="300px" fontSize={"sm"}>
-            If necessary, you can edit your responses and regenerate your{" "}
-            {docPlural}.
-          </Text>
-        )}
-      </Stack>
+
       <Text pl={16} pr={16} mt={4} fontSize="sm">
         Your session will remain active as long as this browser window remains
         open. Click{" "}

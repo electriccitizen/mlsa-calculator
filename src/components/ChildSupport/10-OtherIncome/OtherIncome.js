@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { isNumber } from "@formiz/validations"
 import { FieldInput } from "../../Fields/FieldInput"
+import { FieldNumberInput } from "../../Fields/FieldNumberInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { Divider, Text, Stack } from "@chakra-ui/react"
@@ -9,7 +9,9 @@ import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
+import {isMaxNumber, isMinNumber} from "@formiz/validations";
 import { AlertBox } from "../../Utils/AlertBox";
+
 
 export const OtherIncome = () => {
   const form = useForm({ subscribe: { fields: ["Documents"] } })
@@ -23,7 +25,6 @@ export const OtherIncome = () => {
       <FieldCheckbox
         name="OtherIncome"
         label="Select all that apply, or none of the above if you have no other income."
-        required='Required'
         setCheckedItems={setCheckedItems}
         checkedItems={checkedItems}
         options={[
@@ -96,11 +97,17 @@ export const OtherIncome = () => {
                     type="text"
                     width={"80%"}
                   />
-                  <FieldInput
+                  <FieldNumberInput
                     name={`OtherIncome.SepEarning.hoursPerWeek`}
                     label="Hours per week spent in self-employment activities"
                     required="Required"
                     type="text"
+                    validations={[
+                        {
+                            rule: isMaxNumber(101),
+                            message: 'Should be 100 or less',
+                        },
+                    ]}
                   />
                 </Stack>
                 <FieldRadio
@@ -155,12 +162,7 @@ export const OtherIncome = () => {
             required="Required"
             type="text"
             mr={4}
-            validations={[
-              {
-                rule: isNumber(),
-                message: "Please enter a valid dollar (e.g. 420 or 6996)",
-              },
-            ]}
+
           />
           <Text fontSize={"sm"} mt={2}>
             Enter only social Security Retirement and/or survivors benefits. Do
@@ -182,6 +184,7 @@ export const OtherIncome = () => {
             required="Required"
             type="text"
             mr={4}
+
           />
         </>
       )}
@@ -195,6 +198,7 @@ export const OtherIncome = () => {
             required="Required"
             type="text"
             mr={4}
+
           />
         </>
       )}
@@ -237,6 +241,7 @@ export const OtherIncome = () => {
             required="Required"
             type="text"
             mr={4}
+
           />
           <Text fontSize={"sm"} mt={2}>
             See here:{" "}
@@ -295,6 +300,12 @@ export const OtherIncome = () => {
             recieved by a child on behalf of a disabled parent. See ARM
             37.62.144
           </Text>
+            <FieldInput
+                name={`OtherIncome.taxable.trigger`}
+                value={"1"}
+                type="hidden"
+                mr={4}
+            />
         </>
       )}
       {checkedItems.nontaxable === true && (
@@ -306,6 +317,12 @@ export const OtherIncome = () => {
             related expenses (find this on your tuition statement IRS Form
             1098-T) See ARM 37.62.105(2).
           </Text>
+            <FieldInput
+                name={`OtherIncome.nontaxable.trigger`}
+                value={"1"}
+                type="hidden"
+                mr={4}
+            />
         </>
       )}
       {checkedItems.bonus === true && (

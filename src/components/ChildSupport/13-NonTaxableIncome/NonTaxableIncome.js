@@ -19,7 +19,7 @@ const defaultCollection = [
 ]
 export const NonTaxableIncome = () => {
   const form = useForm({
-    subscribe: { fields: ["OtherIncome", "OtherIncome.nontaxable"] },
+    subscribe: { fields: ["OtherIncome", "OtherIncome.nontaxable.trigger"] },
   })
   const [state, setState] = useState({})
   let updateState = (name, value) => {
@@ -99,7 +99,7 @@ export const NonTaxableIncome = () => {
 
   return (
     <>
-      {form.values.OtherIncome && form.values.OtherIncome.nontaxable === true && (
+      {form.values.OtherIncome && form.values.OtherIncome.nontaxable && (
         <FormizStep
           label="Non-taxable (other)"
           name="NonTaxableIncome"

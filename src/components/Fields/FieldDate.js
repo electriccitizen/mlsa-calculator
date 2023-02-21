@@ -78,6 +78,7 @@ export const FieldDate = props => {
         showYearDropdown
         dropdownMode="select"
         maxDate={tenYears}
+        help={"e.g. MM/DD/YYYY"}
 
         //minDate={subMonths(new Date(), 6)}
       />

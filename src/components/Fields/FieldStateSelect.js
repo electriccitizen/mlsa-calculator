@@ -20,7 +20,7 @@ const defaultProps = {
   ...fieldDefaultProps,
 }
 
-export const FieldSelect = props => {
+export const FieldStateSelect = props => {
   const {
     errorMessage,
     id,
@@ -41,7 +41,6 @@ export const FieldSelect = props => {
     updateLabel,
     updateState,
     fieldWidth,
-    defaultValue,
     ...otherProps
   } = props
   const [isTouched, setIsTouched] = useState(false)
@@ -71,10 +70,9 @@ export const FieldSelect = props => {
       <Select
         id={id}
         key={resetKey}
-
+        value={value || ""}
         onBlur={() => setIsTouched(true)}
         aria-invalid={showError}
-        defaultValue={defaultValue}
         aria-describedby={!isValid ? `${id}-error` : null}
         placeholder={placeholder}
         name={name}
@@ -85,8 +83,7 @@ export const FieldSelect = props => {
         }}
       >
         {(options || []).map(item => (
-
-            <option key={item.value} value={item.value}>
+          <option key={item.value} value={item.value}>
             {item.label || item.value}
           </option>
         ))}
@@ -95,5 +92,5 @@ export const FieldSelect = props => {
   )
 }
 
-FieldSelect.propTypes = propTypes
-FieldSelect.defaultProps = defaultProps
+FieldStateSelect.propTypes = propTypes
+FieldStateSelect.defaultProps = defaultProps

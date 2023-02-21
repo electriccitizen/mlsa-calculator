@@ -1,12 +1,16 @@
 import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
+import { FieldPhone } from "../../Fields/FieldPhone"
+import { FieldNumberInput } from "../../Fields/FieldNumberInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddressField } from "../02-BasicInformation/AddressField"
 import { FieldDate } from "../../Fields/FieldDate"
+import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
+import {isMaxNumber, isMinNumber} from "@formiz/validations";
 
 export const CurrentJob = d => {
   const form = useForm({ subscribe: { fields: ["Documents", "EmploymentPrimary.initiate"] } })
@@ -99,7 +103,7 @@ export const CurrentJob = d => {
           )}
           {state["EmploymentPrimary.payment"] && (
             <>
-              <FieldInput
+              <FieldMoneyInput
                 name={`EmploymentPrimary.grossAmount`}
                 label={GrossAmountLabel}
                 required="Required"
@@ -107,24 +111,40 @@ export const CurrentJob = d => {
                 updateState={updateState}
                 fieldWidth={"25%"}
               />
-              <FieldInput
+              <FieldNumberInput
                 name={`EmploymentPrimary.hoursPerWeek`}
                 label="Hours worked per week"
                 required="Required"
                 type="text"
                 updateState={updateState}
                 fieldWidth={"25%"}
+                format="false"
+                validations={[
+                  {
+                    rule: isMaxNumber(101),
+                    message: 'Should be 100 or less',
+                  },
+                ]}
+
               />
               {(state["EmploymentPrimary.status"] === "parttime" ||
                 state["EmploymentPrimary.payment"] === 'hourly') &&
                 state["EmploymentPrimary.type"] !== "temporary" && (
-                  <FieldInput
+                  <FieldNumberInput
                     name={`EmploymentPrimary.weeksPerYear`}
                     label="How many weeks per year do you work?"
                     required="Required"
                     type="text"
+                    format="false"
                     updateState={updateState}
                     fieldWidth={"25%"}
+                    validations={[
+                      {
+                        rule: isMaxNumber(53),
+                        message: 'Should 52 or less',
+                      },
+                    ]}
+
                   />
                 )}
 
@@ -161,7 +181,7 @@ export const CurrentJob = d => {
                       label={"Enter the street address for this employer:"}
                       name={"EmploymentPrimary.employer"}
                     />
-                    <FieldInput
+                    <FieldPhone
                       name={`EmploymentPrimary.employer.phone`}
                       label="Phone"
                       required="Required"

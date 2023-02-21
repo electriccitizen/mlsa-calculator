@@ -126,7 +126,7 @@ export const ChildExpensesSecondary = () => {
                     />
                   </Box>
                   <Box flex="1">
-                    <FieldInput
+                    <FieldMoneyInput
                       name={`ChildExpensesSecondary.${index}.otherExpenses.${x}.amt`}
                       label="Amount per year"
                       required="Required"

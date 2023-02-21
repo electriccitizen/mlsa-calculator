@@ -189,18 +189,18 @@ export const CustomDrawer = ({ app, buttonTitle }) => {
                     }
                   </MenuItem>
                 )}
-                {(app === "support" || app === "restitution") && (
-                  <MenuItem onClick={() => handleSubmit("/")} pl={0}>
-                    {
-                      app === "support" && 
-                      "Exit interview"
-                    }
-                    {
-                      app === "restitution" && 
-                      "Exit workbook"
-                    }
-                  </MenuItem>
-                )}
+                {/*{(app === "support" || app === "restitution") && (*/}
+                {/*  <MenuItem onClick={() => handleSubmit("/")} pl={0}>*/}
+                {/*    {*/}
+                {/*      app === "support" && */}
+                {/*      "Exit interview"*/}
+                {/*    }*/}
+                {/*    {*/}
+                {/*      app === "restitution" && */}
+                {/*      "Exit workbook"*/}
+                {/*    }*/}
+                {/*  </MenuItem>*/}
+                {/*)}*/}
                 {app === "supportIntro" && (
                   <>
                     <MenuItem

@@ -67,8 +67,8 @@ export const FieldRadio = props => {
     <>
       <RadioGroup key={resetKey} value={value || ""} onChange={handleChange} >
         <Stack
-          direction={forceStack ? ["column"] : ["column", "column", "row"]}
-          spacing={forceStack ? [".2rem"] : ["0"]}
+          // direction={forceStack ? ["column"] : ["column", "column", "row"]}
+          // spacing={forceStack ? [".2rem"] : [".2rem"]}
         >
           {(options || []).map(item => (
             <Radio

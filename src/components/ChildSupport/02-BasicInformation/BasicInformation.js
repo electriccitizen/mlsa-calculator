@@ -1,6 +1,7 @@
-import React, { useState } from "react"
+import React, { useState, setState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
+import { FieldPhone } from "../../Fields/FieldPhone"
 import { FieldDate } from "../../Fields/FieldDate"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { Stack } from "@chakra-ui/react"
@@ -18,6 +19,8 @@ export const BasicInformation = () => {
       [name]: value,
     })
   }
+  const [inputValue, setInputValue] = useState('');
+
 
   return (
     <FormizStep
@@ -50,10 +53,10 @@ export const BasicInformation = () => {
               required="Required"
               placeholder="MM/DD/YYYY"
             />
-            <FieldInput
+            <FieldPhone
               name={`Primary.phone`}
               label="Primary phone"
-              required="Required"
+              helper="e.g. 555-555-5555"
             />
             <FieldInput name={`Primary.dl`} label="Driver's License #" />
           </Stack>

@@ -21,7 +21,7 @@ export const OtherAllowableDeductionsSecondary = () => {
     subscribe: {
       fields: [
         "AllowableDeductionsSecondary",
-        "AllowableDeductionsSecondary.other",
+        "AllowableDeductionsSecondary.other.trigger"
       ],
     },
   })
@@ -61,7 +61,7 @@ export const OtherAllowableDeductionsSecondary = () => {
   return (
     <>
       {form.values.AllowableDeductionsSecondary &&
-        form.values.AllowableDeductionsSecondary.other === true && (
+        form.values.AllowableDeductionsSecondary.other && (
           <FormizStep
             name="OtherAllowableDeductionsSecondary"
             label="Other deductions"

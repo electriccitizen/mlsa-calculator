@@ -24,7 +24,6 @@ export const AllowableDeductions = () => {
         <FieldCheckbox
           name="AllowableDeductions"
           label="Select all that apply, or none of the above if you have no allowable deductions."
-          required="Required"
           setCheckedItems={setCheckedItems}
           checkedItems={checkedItems}
           options={[
@@ -354,6 +353,19 @@ export const AllowableDeductions = () => {
             }
           </Stack>
         )}
+          {checkedItems.other === true && (
+             <>
+              <AlertBox>
+                Enter your "other" deductions on the next screen.
+              </AlertBox>
+              <FieldInput
+              name={`AllowableDeductions.other.trigger`}
+              value={"1"}
+              type="hidden"
+              mr={4}
+              />
+             </>
+          )}
       </>
       <AdministrativeRules
         rules={[110, 111]}

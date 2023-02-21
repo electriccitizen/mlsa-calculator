@@ -1,12 +1,13 @@
 import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { FieldInput } from "../../Fields/FieldInput"
+import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
+import { FieldNumberInput } from "../../Fields/FieldNumberInput"
 import { FieldDate } from "../../Fields/FieldDate"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
-
+import {isMaxNumber, isMinNumber} from "@formiz/validations";
 export const EnterOtherJobsSecondary = () => {
   const form = useForm({
     subscribe: { fields: ["OtherParent.fname", "NumOtherSecondaryJobs"] },
@@ -65,8 +66,7 @@ export const EnterOtherJobsSecondary = () => {
           <>
             <FieldRadio
               name={`OtherJobSecondary.${index}.current`}
-              label=" Enter all current jobs you have before you enter any previous
-                jobs."
+              label=" Enter all current jobs you have before you enter any previous jobs."
               placeholder="None"
               required="Required"
               index={index}
@@ -136,7 +136,7 @@ export const EnterOtherJobsSecondary = () => {
             )}
             {state[`OtherJobSecondary.${index}.payment`] && (
               <>
-                <FieldInput
+                <FieldMoneyInput
                   name={`OtherJobSecondary.${index}.grossAmount`}
                   label={switchLabel(index)}
                   required="Required"
@@ -144,21 +144,32 @@ export const EnterOtherJobsSecondary = () => {
                   fieldWidth={"25%"}
                 />
                 {state[`OtherJobSecondary.${index}.payment`] === "hourly" && (
-                  <FieldInput
+                  <FieldNumberInput
                     name={`OtherJobSecondary.${index}.hoursPerWeek`}
                     label="Hours worked per week"
                     required="Required"
                     type="text"
                     fieldWidth={"25%"}
+                    validations={[
+                      {
+                        rule: isMaxNumber(81),
+                        message: 'Should be 80 or less',
+                      },
+                    ]}
                   />
                 )}
-                <FieldInput
+                <FieldNumberInput
                   name={`OtherJobSecondary.${index}.weeksPerYear`}
                   label="Weeks worked per year"
                   required="Required"
                   type="text"
                   fieldWidth={"25%"}
-                />
+                  validations={[
+                    {
+                      rule: isMaxNumber(53),
+                      message: 'Should be 52 or less',
+                    },
+                  ]}/>
               </>
             )}
             {(state[`OtherJobSecondary.${index}.payment`] === "salary" ||

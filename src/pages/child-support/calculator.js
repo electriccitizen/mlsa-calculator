@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Formiz, useForm } from "@formiz/core"
 
-// import * as init from '../../../functions/pdf-gen/processors/init.json'; 
+import * as init from '../../../functions/pdf-gen/processors/init.json';
 
 import { TermsOfUse } from "../../components/ChildSupport/TermsOfUse"
 import { InitiateInterview } from "../../components/ChildSupport/01-InitiateInterview/IntiateInterview"
@@ -85,14 +85,14 @@ export default function Calculator() {
   const documents = form.values.Documents ? form.values.Documents : ""
 
   // Set default values from init.json
-  // const values = init.default
+   const values = init.default
 
   return (
     <>
       <Beforeunload onBeforeunload={event => event.preventDefault()} />
       {/* @TODO Temporarily using onSubmit vs onValidSubmit for testing */}
       <Formiz connect={form} onSubmit={handleSubmit} 
-      // initialValues={ values }
+       initialValues={ values }
       > 
         <MultiStepsLayout
           app="support"
@@ -105,53 +105,53 @@ export default function Calculator() {
             <TermsOfUse />
             <InitiateInterview />
             <BasicInformation />
-            {/*<OtherParent />*/}
-            {/*<NumberChildren />*/}
-            {/*<EnterChildren />*/}
-            {/*<OtherChildren />*/}
-            {/*<EnterMyOtherChildren />*/}
-            {/*{(documents === "both" || documents === "worksheets") && (*/}
-            {/*  <>*/}
-            {/*    <OtherChildrenSecondary />*/}
-            {/*    <EnterMyOtherChildrenSecondary />*/}
-            {/*  </>*/}
-            {/*)}*/}
+            <OtherParent />
+            <NumberChildren />
+            <EnterChildren />
+            <OtherChildren />
+            <EnterMyOtherChildren />
+            {(documents === "both" || documents === "worksheets") && (
+              <>
+                <OtherChildrenSecondary />
+                <EnterMyOtherChildrenSecondary />
+              </>
+            )}
             <Employment />
-            {/*<CurrentJob />*/}
+            <CurrentJob />
             <OtherJobs />
-            {/*<EnterOtherJobs />*/}
-            {/*<OtherIncome />*/}
-            {/*<TaxableIncome />*/}
-            {/*<NonTaxableIncome />*/}
-            {/*<ChildExpenses />*/}
-            {/*<AllowableDeductions />*/}
-            {/*<OtherAllowableDeductions />*/}
-            {/*<StandardOfLiving />*/}
-            {/*{(documents === "both" || documents === "worksheets") && (*/}
-            {/*  <>*/}
-            {/*    <CurrentJobSecondary />*/}
-            {/*    <EnterOtherJobsSecondary />*/}
-            {/*    <OtherIncomeSecondary />*/}
-            {/*    <TaxableIncomeSecondary />*/}
-            {/*    <NonTaxableIncomeSecondary />*/}
-            {/*    <ChildExpensesSecondary />*/}
-            {/*    <AllowableDeductionsSecondary />*/}
-            {/*    <OtherAllowableDeductionsSecondary />*/}
-            {/*    <StandardOfLivingSecondary />*/}
-            {/*  </>*/}
-            {/*)}*/}
-            {/*<ParentingDays />*/}
-            {/*{(documents === "both" || documents === "affadavit") && (*/}
-            {/*  <>*/}
-            {/*    <FinancialAffadavitOne />*/}
-            {/*    <Schools />*/}
-            {/*    <OtherSchools />*/}
-            {/*    <HealthInsurance />*/}
-            {/*    <HealthInsurancePolicies />*/}
-            {/*    <FinancialAffadavitTwo />*/}
-            {/*    <FinancialAffadavitThree />*/}
-            {/*  </>*/}
-            {/*)}*/}
+            <EnterOtherJobs />
+            <OtherIncome />
+            <TaxableIncome />
+            <NonTaxableIncome />
+            <ChildExpenses />
+            <AllowableDeductions />
+            <OtherAllowableDeductions />
+            <StandardOfLiving />
+            {(documents === "both" || documents === "worksheets") && (
+              <>
+                <CurrentJobSecondary />
+                <EnterOtherJobsSecondary />
+                <OtherIncomeSecondary />
+                <TaxableIncomeSecondary />
+                <NonTaxableIncomeSecondary />
+                <ChildExpensesSecondary />
+                <AllowableDeductionsSecondary />
+                <OtherAllowableDeductionsSecondary />
+                <StandardOfLivingSecondary />
+              </>
+            )}
+            <ParentingDays />
+            {(documents === "both" || documents === "affadavit") && (
+              <>
+                <FinancialAffadavitOne />
+                <Schools />
+                <OtherSchools />
+                <HealthInsurance />
+                <HealthInsurancePolicies />
+                <FinancialAffadavitTwo />
+                <FinancialAffadavitThree />
+              </>
+            )}
             <CompleteApp state={appState.complete} pdf={appState.pdf} />
           </RulesProvider>
         </MultiStepsLayout>
