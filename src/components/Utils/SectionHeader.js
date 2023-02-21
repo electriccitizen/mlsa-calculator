@@ -86,7 +86,7 @@ export const SectionHeader = ({ header, helpText, helpLinks }) => {
                     <>
                       <Heading
                         as={"h4"}
-                        color={isDarkTheme ? "gray.500" : "brand.400"}
+                        color={"brand.400"}
                         size={"sm"}
                       >
                         References:
