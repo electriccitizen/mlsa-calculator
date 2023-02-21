@@ -10,7 +10,7 @@ import { AddressField } from "../02-BasicInformation/AddressField"
 import { FieldDate } from "../../Fields/FieldDate"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
-import {isMaxNumber, isMinNumber} from "@formiz/validations";
+import {isMaxNumber} from "@formiz/validations";
 
 export const CurrentJob = d => {
   const form = useForm({ subscribe: { fields: ["Documents", "EmploymentPrimary.initiate"] } })

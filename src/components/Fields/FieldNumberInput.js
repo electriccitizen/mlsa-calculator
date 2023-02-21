@@ -3,7 +3,6 @@ import PropTypes from "prop-types"
 import { Input } from "@chakra-ui/react"
 import { useField, fieldPropTypes, fieldDefaultProps } from "@formiz/core"
 import { FormGroup } from "../Utils/FormGroup"
-import {isNumber} from "@formiz/validations";
 import {isPattern} from "@formiz/validations";
 const propTypes = {
   label: PropTypes.node,
@@ -77,7 +76,7 @@ export const FieldNumberInput = props => {
         key={resetKey}
         type={type || "text"}
         id={id}
-        value={value ?? ""}
+        // value={value ?? ""}
         //onChange={e => setValue(e.target.value)}
         onChange={(e) => handleChange(e)} value={value}
         onBlur={() => setIsTouched(true)}

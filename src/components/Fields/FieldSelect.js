@@ -28,7 +28,6 @@ export const FieldSelect = props => {
     isSubmitted,
     resetKey,
     setValue,
-    value,
   } = useField(props)
   const {
     label,

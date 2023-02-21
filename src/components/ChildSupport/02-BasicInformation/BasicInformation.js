@@ -1,4 +1,4 @@
-import React, { useState, setState } from "react"
+import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldPhone } from "../../Fields/FieldPhone"
@@ -19,7 +19,6 @@ export const BasicInformation = () => {
       [name]: value,
     })
   }
-  const [inputValue, setInputValue] = useState('');
 
 
   return (

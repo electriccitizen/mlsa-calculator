@@ -1,4 +1,4 @@
-import React, {useRef} from "react"
+import React from "react"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import { useForm } from "@formiz/core"
@@ -6,7 +6,6 @@ import { PageLayout } from "../layout/PageLayout"
 import { Box, Grid, Button, Stack } from "@chakra-ui/react"
 import { CustomDrawer } from "./Utils/CustomDrawer"
 import { navigate } from "gatsby"
-import {useEffect} from "react";
 
 const propTypes = {
   // eslint-disable-next-line react/forbid-prop-types

@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldNumberInput } from "../../Fields/FieldNumberInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
@@ -8,7 +7,7 @@ import { FieldSelect } from "../../Fields/FieldSelect"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldDate } from "../../Fields/FieldDate"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
-import {isMaxNumber, isMinNumber} from "@formiz/validations";
+import {isMaxNumber} from "@formiz/validations";
 export const CurrentJobSecondary = d => {
   const form = useForm({ subscribe: { fields: ["OtherParent.fname"] } })
   const [state, setState] = useState({})

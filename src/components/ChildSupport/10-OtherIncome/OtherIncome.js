@@ -9,7 +9,7 @@ import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
-import {isMaxNumber, isMinNumber} from "@formiz/validations";
+import {isMaxNumber} from "@formiz/validations";
 import { AlertBox } from "../../Utils/AlertBox";
 
 

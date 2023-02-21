@@ -26,8 +26,6 @@ export const FieldPhone= props => {
     isValid,
     isSubmitted,
     resetKey,
-    setValue,
-    value,
   } = useField(props)
 
   const {
@@ -75,7 +73,7 @@ export const FieldPhone= props => {
         key={resetKey}
         type={type || "text"}
         id={id}
-        value={value ?? ""}
+        // value={value ?? ""}
         // onChange={e => setValue(e.target.value)}
         onChange={(e) => handleInput(e)} value={inputValue}
         onBlur={() => setIsTouched(true)}

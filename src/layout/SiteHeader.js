@@ -2,9 +2,9 @@ import React from "react"
 import { StaticQuery, graphql } from "gatsby"
 import { Link as GatsbyLink } from "gatsby"
 import PropTypes from "prop-types"
-import { Stack, useColorMode, Switch, Heading, Box } from "@chakra-ui/react"
+import { Stack, Heading, Box } from "@chakra-ui/react"
 import { Menu } from "./Menu"
-import { FaSun, FaMoon } from "react-icons/fa"
+// import { FaSun, FaMoon } from "react-icons/fa"
 
 const propTypes = {
   children: PropTypes.node,
@@ -18,7 +18,7 @@ const defaultProps = {
 }
 
 export default function SiteHeader() {
-  const { colorMode, toggleColorMode } = useColorMode()
+  // const { colorMode, toggleColorMode } = useColorMode()
   return (
     <StaticQuery
       query={graphql`
@@ -56,7 +56,7 @@ export default function SiteHeader() {
             menuLinks3={data.site.siteMetadata.menuLinks3}
           />
           <Stack
-            bg={colorMode === "dark" ? "black" : "brand.400"}
+            // bg={colorMode === "dark" ? "black" : "brand.400"}
             isInline
             align="center"
             ml="auto"

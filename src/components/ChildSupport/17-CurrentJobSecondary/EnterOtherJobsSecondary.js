@@ -7,7 +7,7 @@ import { FieldRadio } from "../../Fields/FieldRadio"
 import { FieldSelect } from "../../Fields/FieldSelect"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
-import {isMaxNumber, isMinNumber} from "@formiz/validations";
+import {isMaxNumber} from "@formiz/validations";
 export const EnterOtherJobsSecondary = () => {
   const form = useForm({
     subscribe: { fields: ["OtherParent.fname", "NumOtherSecondaryJobs"] },
