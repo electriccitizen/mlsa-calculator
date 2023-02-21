@@ -79,12 +79,12 @@ export const StandardOfLiving = () => {
           { value: "yes", label: "Yes" },
           { value: "no", label: "No" },
         ]}
-        validations={[
-          {
-            rule: isMaxNumber(15000),
-            message: 'Should be 15,000 or less',
-          },
-        ]}
+        // validations={[
+        //   {
+        //     rule: isMaxNumber(15000),
+        //     message: 'Should be 15,000 or less',
+        //   },
+        // ]}
       />
       {state["StandardOfLiving.mileage"] === "yes" && (
         <FieldNumberInput

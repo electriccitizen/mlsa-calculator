@@ -96,12 +96,12 @@ export const StandardOfLivingSecondary = number => {
           fieldWidth={"25%"}
           placeholder=""
           mb="4"
-          validations={[
-            {
-              rule: isMaxNumber(15000),
-              message: 'Should be 15,000 or less',
-            },
-          ]}
+          // validations={[
+          //   {
+          //     rule: isMaxNumber(15000),
+          //     message: 'Should be 15,000 or less',
+          //   },
+          // ]}
         />
       )}
       <FieldRadio
