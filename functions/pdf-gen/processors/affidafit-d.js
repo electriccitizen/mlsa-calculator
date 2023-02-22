@@ -110,7 +110,7 @@ const getAffidavitD = (form) => {
     data["income.selfEmploymentPrimarySource"] = getValue(form, ["OtherIncome", "SepEarning", "primary"])
 
     // 4. Prize, award, settlement, or other one-time payment within the past 12 months
-    data["income.prize"] = getValue(form, ["OtherIncome", "prize"]) === false ? "no" : "yes"
+    data["income.prize"] = (getValue(form, ["OtherIncome", "prize"]) === false || getValue(form, ["OtherIncome", "prize"]) === undefined) ? "no" : "yes"
 
     const [prizeDesc, prizeDescAddendum] = divideIntoLines(
         data["income.prize"] === "yes" &&

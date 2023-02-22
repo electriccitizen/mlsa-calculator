@@ -36,10 +36,10 @@ const getAffidavitE = (form) => {
     data["deductions.reqemp.schedule"] = getLabel(getValue(form, ["AllowableDeductions", "reqemp", "schedule"]))
 
     // 2. Alimony
-    data["deductions.alimony"] = getValue(form, ["AllowableDeductions", "alimony"]) === false ? "no" : "yes"
+    data["deductions.alimony"] = (getValue(form, ["AllowableDeductions", "alimony"]) === false || getValue(form, ["AllowableDeductions", "alimony"]) === undefined) ? "no" : "yes"
 
     // 3. Extraordinary dical expense for yourself
-    data["deductions.extmed"] = getValue(form, ["AllowableDeductions", "extmed"]) === false ? "no" : "yes"
+    data["deductions.extmed"] = (getValue(form, ["AllowableDeductions", "extmed"]) === false || getValue(form, ["AllowableDeductions", "extmed"]) === undefined)? "no" : "yes"
 
     const [extmedDesc, extmedDescAddendum] = divideIntoLines(
         data["deductions.extmed"] === "yes" &&
@@ -52,7 +52,7 @@ const getAffidavitE = (form) => {
 
     // 4. Extraordinary dical expense for yourself
     const [inhomeDesc, inhomeDescAddendum] = divideIntoLines(
-        getValue(form, ["AllowableDeductions", "inhome"]) !== false &&
+        (getValue(form, ["AllowableDeductions", "inhome"]) !== false || getValue(form, ["AllowableDeductions", "inhome"]) !== undefined) &&
         `Description: ${getValue(form, ["AllowableDeductions", "inhome", "desc"])}. The total yearly expense is ${format(getValueAsNumber(form, ["AllowableDeductions", "inhome", "amount"]), "currency")}.`,
         FIELDS_WIDTH["deductions.inhomeDesc"]
     )
@@ -61,7 +61,7 @@ const getAffidavitE = (form) => {
     })
 
     // 5. Retirement mandatory
-    data["deductions.retirementMandatory"] = getValue(form, ["AllowableDeductions", "retirement"]) === false ? "no" : "yes"
+    data["deductions.retirementMandatory"] = (getValue(form, ["AllowableDeductions", "retirement"]) === false || getValue(form, ["AllowableDeductions", "retirement"]) === undefined) ? "no" : "yes"
 
     // 6. List the other employment-related expenses
     const [otherExpensesTotal, otherExpensesTotalAddendum] = divideIntoLines(
