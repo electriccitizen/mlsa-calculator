@@ -100,7 +100,7 @@ const calcRestitution = form => {
               formKey === "PropertyStolenLost" ||
               formKey === "PropertyDamage"
             ) {
-              console.log(amount)
+              // console.log(amount)
               // [I] PropertyStolenRecovered
               // [J] PropertyStolenLost
               // [K] PropertyDamage
