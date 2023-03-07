@@ -1,6 +1,7 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
+import { FieldPhone } from "../../Fields/FieldPhone"
 import { Stack } from "@chakra-ui/react"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { isEmail } from "@formiz/validations"
@@ -37,10 +38,10 @@ export const PersonalInfo = () => {
         direction={["column", "column", "row"]}
         spacing={["0", "0", "1rem"]}
       >
-        <FieldInput
+        <FieldPhone
           name={`Primary.phone`}
           label="Phone number"
-          required="Required"
+          helper="e.g. 555-555-5555"
         />
         <FieldInput
           name={`Primary.email`}

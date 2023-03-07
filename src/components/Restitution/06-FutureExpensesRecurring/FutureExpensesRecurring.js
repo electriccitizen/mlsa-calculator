@@ -69,12 +69,6 @@ export const FutureExpensesRecurring = () => {
         name={`FutureExpensesRecurring.data.${index}.amt`}
         label="Estimated cost of each session or prescription"
         required="Required"
-        validations={[
-          {
-            rule: isNumber(),
-            message: "Please enter a valid dollar amount a number",
-          },
-        ]}
       />
       <FieldInput
         name={`FutureExpensesRecurring.data.${index}.description`}

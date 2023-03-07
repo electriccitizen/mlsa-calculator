@@ -64,12 +64,6 @@ export const Safety = () => {
           name={`Safety.data.${index}.amt`}
           label="Amount of expense?"
           required="Required"
-          validations={[
-            {
-              rule: isNumber(),
-              message: "Please enter a number",
-            },
-          ]}
         />
       </Stack>
       <FieldInput

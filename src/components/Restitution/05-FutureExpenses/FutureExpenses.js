@@ -66,12 +66,6 @@ export const FutureExpenses = () => {
           name={`FutureExpenses.data.${index}.amt`}
           label="Estimated amount of expense"
           required="Required"
-          validations={[
-            {
-              rule: isNumber(),
-              message: "Please enter a valid dollar amount a number",
-            },
-          ]}
           pt={[0, 0, 6]}
         />
       </Stack>

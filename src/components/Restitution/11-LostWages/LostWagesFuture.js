@@ -61,12 +61,7 @@ export const LostWagesFuture = () => {
           name={`LostWagesFuture.data.${index}.amt`}
           label="Estimate the amount of future loss"
           required="Required"
-          validations={[
-            {
-              rule: isNumber(),
-              message: "Please enter a valid dollar amount a number",
-            },
-          ]}
+
         />
       </Stack>
       <FieldInput

@@ -66,12 +66,6 @@ export const MentalHealth = () => {
           name={`MentalHealthExpenses.data.${index}.amt`}
           label="Amount of expense"
           required="Required"
-          validations={[
-            {
-              rule: isNumber(),
-              message: "Please enter a valid dollar amount a number",
-            },
-          ]}
         />
       </Stack>
       <FieldInput

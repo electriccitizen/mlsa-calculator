@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Formiz, useForm } from "@formiz/core"
 import { MultiStepsLayout } from "../../components/MultiStepsLayout"
-import { TermsOfUse } from "../../components/Restitution/TermsOfUse"
+import { TermsOfUseRest } from "../../components/Restitution/TermsOfUseRest"
 import { PersonalInfo } from "../../components/Restitution/01-Start/Personalnfo"
 import { CaseInfo } from "../../components/Restitution/01-Start/CaseInfo"
 import { Funeral } from "../../components/Restitution/02-Funeral/Funeral"
@@ -75,7 +75,7 @@ export default function Worksheet() {
         buttonTitle="Restitution Workbook"
         submitLabel="Finish"
       >
-        <TermsOfUse />
+        <TermsOfUseRest />
         <PersonalInfo />
         <CaseInfo />
         <Funeral />

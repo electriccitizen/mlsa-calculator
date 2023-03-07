@@ -65,12 +65,6 @@ export const OtherExpenses = () => {
           name={`Other.data.${index}.amt`}
           label="Amount of expense?"
           required="Required"
-          validations={[
-            {
-              rule: isNumber(),
-              message: "Please enter a number",
-            },
-          ]}
         />
       </Stack>
       <FieldInput

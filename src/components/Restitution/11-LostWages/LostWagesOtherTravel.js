@@ -66,12 +66,6 @@ export const LostWagesOtherTravel = () => {
           name={`LostWagesOtherTravel.data.${index}.amt`}
           label="How much was the expense?"
           required="Required"
-          validations={[
-            {
-              rule: isNumber(),
-              message: "Please enter a valid dollar amount a number",
-            },
-          ]}
         />
       </Stack>
       <Stack

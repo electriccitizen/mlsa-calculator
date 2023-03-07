@@ -64,12 +64,6 @@ export const Education = () => {
           label="Amount of expense?"
           required="Required"
           pt={[0, 0, 6]}
-          validations={[
-            {
-              rule: isNumber(),
-              message: "Please enter a number",
-            },
-          ]}
         />
       </Stack>
       <FieldInput

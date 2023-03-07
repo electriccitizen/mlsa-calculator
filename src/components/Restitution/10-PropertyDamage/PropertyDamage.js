@@ -65,12 +65,6 @@ export const PropertyDamage = () => {
           name={`PropertyDamage.data.${index}.itemCost`}
           label="Cost of repair or replacement?"
           required="Required"
-          validations={[
-            {
-              rule: isNumber(),
-              message: "Please enter a valid dollar amount a number",
-            },
-          ]}
         />
       </Stack>
       <Stack
@@ -81,23 +75,11 @@ export const PropertyDamage = () => {
           name={`PropertyDamage.data.${index}.amtInsurance`}
           label="Amount paid by insurance"
           required="Required"
-          validations={[
-            {
-              rule: isNumber(),
-              message: "Please enter a valid dollar amount a number",
-            },
-          ]}
         />
         <FieldMoneyInput
           name={`PropertyDamage.data.${index}.amt`}
           label="Amount paid by you"
           required="Required"
-          validations={[
-            {
-              rule: isNumber(),
-              message: "Please enter a valid dollar amount a number",
-            },
-          ]}
         />
       </Stack>
       <FieldInput

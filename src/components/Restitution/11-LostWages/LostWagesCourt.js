@@ -79,12 +79,6 @@ export const LostWagesCourt = () => {
         label="What is your hourly wage?"
         required="Required"
         helper={"To determine your hourly wage if you are on salary, divide your annual salary by 2,080."}
-        validations={[
-          {
-            rule: isNumber(),
-            message: "Please enter a valid dollar amount a number",
-          },
-        ]}
       />
       <FieldRadio
         name={`LostWagesCourt.data.${index}.receipt`}

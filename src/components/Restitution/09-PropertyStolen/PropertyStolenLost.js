@@ -63,28 +63,21 @@ export const PropertyStolenLost = () => {
         direction={["column", "column", "row"]}
         spacing={["0", "0", "1rem"]}
       >
+        <FieldMoneyInput
+            name={`PropertyStolenLost.data.${index}.expense`}
+            label="Cost of item or repair:"
+            required="Required"
+          />
 
         <FieldMoneyInput
           name={`PropertyStolenLost.data.${index}.amtInsurance`}
           label="Amount paid by insurance"
           required="Required"
-          validations={[
-            {
-              rule: isNumber(),
-              message: "Please enter a valid dollar amount a number",
-            },
-          ]}
         />
         <FieldMoneyInput
           name={`PropertyStolenLost.data.${index}.amt`}
           label="Amount paid by you"
           required="Required"
-          validations={[
-            {
-              rule: isNumber(),
-              message: "Please enter a valid dollar amount a number",
-            },
-          ]}
         />
 
       </Stack>
