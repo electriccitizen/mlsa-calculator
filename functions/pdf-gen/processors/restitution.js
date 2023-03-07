@@ -101,7 +101,6 @@ const calcRestitution = form => {
               formKey === "PropertyDamage"
             ) {
               console.log(total)
-              console.log(amount)
               // [I] PropertyStolenRecovered
               // [J] PropertyStolenLost
               // [K] PropertyDamage
@@ -110,7 +109,6 @@ const calcRestitution = form => {
                   getValueAsNumber(item, ["amt"]),
                   getValueAsNumber(item, ["amtInsurance"])
               )
-              console.log(amount)
 
               return add(total, amount)
             } else if (
