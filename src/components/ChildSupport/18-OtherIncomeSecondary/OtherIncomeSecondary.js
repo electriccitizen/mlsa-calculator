@@ -55,11 +55,11 @@ export const OtherIncomeSecondary = () => {
         ]}
       />
 
-        {checkedItems.none === true && (
-            <AlertBox>
-                If you select "None of the above", please uncheck any other options to continue.
-            </AlertBox>
-        )}
+        {/*{checkedItems.none === true && (*/}
+        {/*    <AlertBox>*/}
+        {/*        If you select "None of the above", please uncheck any other options to continue.*/}
+        {/*    </AlertBox>*/}
+        {/*)}*/}
 
       {checkedItems.sep === true && (
         <>
