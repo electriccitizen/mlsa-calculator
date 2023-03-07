@@ -100,12 +100,14 @@ const calcRestitution = form => {
               formKey === "PropertyStolenLost" ||
               formKey === "PropertyDamage"
             ) {
+              console.log(amount)
               // [I] PropertyStolenRecovered
               // [J] PropertyStolenLost
               // [K] PropertyDamage
               const amount = add(
-                getValueAsNumber(item, ["amt"]),
-                getValueAsNumber(item, ["amtInsurance"])
+                  getValueAsNumber(item, ["expense"]),
+                  getValueAsNumber(item, ["amt"]),
+                  getValueAsNumber(item, ["amtInsurance"])
               )
 
               return add(total, amount)
@@ -138,7 +140,7 @@ const calcRestitution = form => {
               // [C] FirstResponderExpenses
               // [D] SupplyExpenses
               // [E] FutureExpenses
-              // [F] FutureExpensesRecurring
+              // [F] FutureExpensesRecurring **
               // [G] MentalHealthExpenses
               // [O] LostWagesFuture
               // [Q] LostWagesOtherTravel

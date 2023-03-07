@@ -76,7 +76,7 @@ export const FieldMoneyInput = props => {
             key={resetKey}
             type={type || "text"}
             id={id}
-            // value={value ?? ""}
+            value={value ?? ""}
             // onChange={e => setValue(e.target.value)}
             onChange={(e) => handleChange(e)} value={value}
             onBlur={() => setIsTouched(true)}
