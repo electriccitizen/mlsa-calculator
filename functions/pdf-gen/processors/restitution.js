@@ -110,11 +110,11 @@ const calcRestitution = form => {
                   getValueAsNumber(item, ["amtInsurance"])
               )
 
-              // const totalExpense = getValueAsNumber(item, ["expense"])
-              const amtPaid = getValueAsNumber(item, ["amt"])
+              const totalExpense = getValueAsNumber(item, ["expense"])
+              // const amtPaid = getValueAsNumber(item, ["amt"])
               const amtPaidInsurance = getValueAsNumber(item, ["amtInsurance"])
 
-              const totalAmountPaid = (amtPaid - amtPaidInsurance)
+              const totalAmountPaid = (totalExpense - amtPaidInsurance)
               console.log(totalAmountPaid)
 
               // console.log( getValueAsNumber(item, ["expense"]))
