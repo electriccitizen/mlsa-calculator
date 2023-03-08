@@ -40,6 +40,24 @@ export const CompleteApp = ({ state, pdf }) => {
         p={"8"}
         rounded={"lg"}
       >
+        <Stack align={"center"}>
+          <Button
+              isDisabled={!form.isValid}
+              colorScheme={"brand"}
+              type={"submit"}
+              onClick={() => setCounter(counter + 1)}
+          >
+            {!counter || counter === 0
+                ? "Generate workbook"
+                : "Regenerate  workbook?"}
+          </Button>
+          {counter > 0 && (
+              <Text pt={4} width="300px" fontSize={"sm"}>
+                If necessary, you can edit your responses and regenerate your{" "}
+                workbook.
+              </Text>
+          )}
+        </Stack>
         <Stack
           direction={["column", "column", "row"]}
           spacing={["0", "0", "1rem"]}
@@ -89,24 +107,7 @@ export const CompleteApp = ({ state, pdf }) => {
           </>
         </Stack>
       </Box>
-      <Stack align={"center"}>
-        <Button
-          isDisabled={!form.isValid}
-          colorScheme={"brand"}
-          type={"submit"}
-          onClick={() => setCounter(counter + 1)}
-        >
-          {!counter || counter === 0
-            ? "Generate workbook"
-            : "Regenerate  workbook?"}
-        </Button>
-        {counter > 0 && (
-          <Text pt={4} width="300px" fontSize={"sm"}>
-            If necessary, you can edit your responses and regenerate your{" "}
-            workbook.
-          </Text>
-        )}
-      </Stack>
+
       <Text pl={16} pr={16} mt={4} fontSize="sm">
         Your session will remain active as long as this browser window remains
         open. Click{" "}
