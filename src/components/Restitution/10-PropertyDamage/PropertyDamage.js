@@ -62,7 +62,7 @@ export const PropertyDamage = () => {
           placeholder="MM/DD/YYYY"
         />
         <FieldMoneyInput
-          name={`PropertyDamage.data.${index}.itemCost`}
+          name={`PropertyDamage.data.${index}.expense`}
           label="Cost of repair or replacement?"
           required="Required"
         />
