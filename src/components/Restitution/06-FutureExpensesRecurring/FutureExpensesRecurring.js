@@ -127,7 +127,7 @@ export const FutureExpensesRecurring = () => {
         />
       )}
       {expenses === "yes" && estimate === "no" && (
-        <AlertBox>Screen about how to estimate</AlertBox>
+        <AlertBox>Talk to your provider about getting an estimate on how much care you will need in the future and what the cost of that care will be. Let the provider know the reason you are asking is for restitution. A prosecutor may want your provider to give them paperwork with their estimate, or even come to court to say how they came up with the estimated cost.</AlertBox>
       )}
       {estimate === "yes" && (
         <AddAnotherHeader
