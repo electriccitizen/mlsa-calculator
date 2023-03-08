@@ -109,10 +109,18 @@ const calcRestitution = form => {
                   getValueAsNumber(item, ["amt"]),
                   getValueAsNumber(item, ["amtInsurance"])
               )
-              console.log( getValueAsNumber(item, ["expense"]))
-              console.log( getValueAsNumber(item, ["amt"]))
-              console.log( getValueAsNumber(item, ["amtInsurance"]))
-              return add(total, amount)
+
+              // const totalExpense = getValueAsNumber(item, ["expense"])
+              const amtPaid = getValueAsNumber(item, ["amt"])
+              const amtPaidInsurance = getValueAsNumber(item, ["amtInsurance"])
+
+              const totalAmountPaid = (amtPaid - amtPaidInsurance)
+              console.log(totalAmountPaid)
+
+              // console.log( getValueAsNumber(item, ["expense"]))
+              // console.log( getValueAsNumber(item, ["amt"]))
+              // console.log( getValueAsNumber(item, ["amtInsurance"]))
+              return add(total, totalAmountPaid)
             } else if (
               formKey === "LostWages" ||
               formKey === "LostWagesCourt" ||
