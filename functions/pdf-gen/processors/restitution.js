@@ -123,6 +123,7 @@ const calcRestitution = form => {
               // console.log( getValueAsNumber(item, ["amt"]))
               // console.log( getValueAsNumber(item, ["amtInsurance"]))
               return add(total, totalAmountPaid)
+              
             } else if (
               formKey === "LostWages" ||
               formKey === "LostWagesCourt" ||
