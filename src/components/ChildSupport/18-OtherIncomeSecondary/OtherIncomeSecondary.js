@@ -7,7 +7,6 @@ import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
-import {AlertBox} from "../../Utils/AlertBox";
 
 export const OtherIncomeSecondary = () => {
   const form = useForm({

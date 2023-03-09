@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { isNumber } from "@formiz/validations"
 import { Box, Stack } from "@chakra-ui/react"
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
@@ -10,6 +9,7 @@ import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { v4 as uuidv4 } from "uuid"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
 import { FieldDate } from "../../Fields/FieldDate"
+
 const defaultCollection = [
   {
     id: uuidv4(),
@@ -18,7 +18,58 @@ const defaultCollection = [
 ]
 
 export const PropertyDamage = () => {
-  const form = useForm({ subscribe: { fields: ["PropertyDamage"] } })
+  // const form = useForm({ subscribe: { fields: ["PropertyDamage"] } })
+    const form = useForm({
+        subscribe: {
+            values: true,
+            fields: true,
+        },
+        // validateOnMount: true,
+    });
+
+
+    const validateFields = (index) => {
+        const values = form.values;
+        const data = values.PropertyDamage?.data;
+        if (!data || index < 0 || index >= data.length) {
+            return true; // or return an error message for invalid index
+        }
+        const { amt, amtInsurance, expense } = data[index];
+        let numAmt = amt ? amt.replace(/,/g, "") : '';
+        let numAmtInsurance = amtInsurance ? amtInsurance.replace(/,/g, "") : '';
+        let numExpense = expense ? expense.replace(/,/g, "") : '';
+
+        numAmt = Number(numAmt)
+        numAmtInsurance = Number(numAmtInsurance)
+        numExpense = Number(numExpense)
+
+        if (numAmt + numAmtInsurance > numExpense) {
+            form.setFieldsValues({
+                PropertyDamage: {
+                    data: [
+
+                        { amtInsurance: '' },
+
+                    ],
+                },
+            });
+            form.setFieldsValues({
+                PropertyDamage: {
+                    data: [
+
+                        { amt: '' },
+
+                    ],
+                },
+            });
+            return false
+        } else {
+            return true
+        }
+
+        return null; // return null if all fields are valid
+    };
+    
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
@@ -50,10 +101,7 @@ export const PropertyDamage = () => {
 
   const Note = index => (
     <>
-      <Stack
-        direction={["column", "column", "row"]}
-        spacing={["0", "0", "1rem"]}
-      >
+
         <FieldDate
           name={`PropertyDamage.data.${index}.date`}
           label="Date of purchase or expense"
@@ -65,23 +113,38 @@ export const PropertyDamage = () => {
           name={`PropertyDamage.data.${index}.expense`}
           label="Cost of repair or replacement?"
           required="Required"
+          validations={[
+              {
+                  rule: (value, values) => validateFields(index, value, values),
+                  message: 'The amount paid by you and the amount paid by insurance cannot exceed the total cost of the item or repair.',
+              },
+
+          ]}
         />
-      </Stack>
-      <Stack
-        direction={["column", "column", "row"]}
-        spacing={["0", "0", "1rem"]}
-      >
+
         <FieldMoneyInput
           name={`PropertyDamage.data.${index}.amtInsurance`}
           label="Amount paid by insurance"
           required="Required"
+          validations={[
+              {
+                  rule: (value, values) => validateFields(index, value, values),
+                  message: 'The amount paid by you and the amount paid by insurance cannot exceed the total cost of the item or repair.',
+              },
+          ]}
+          
         />
         <FieldMoneyInput
           name={`PropertyDamage.data.${index}.amt`}
           label="Amount paid by you"
           required="Required"
+          validations={[
+            {
+                rule: (value, values) => validateFields(index, value, values),
+                message: 'The amount paid by you and the amount paid by insurance cannot exceed the total cost of the item or repair.',
+            },
+        ]}
         />
-      </Stack>
       <FieldInput
         name={`PropertyDamage.data.${index}.notes`}
         label="Describe the expense and how it relates to the crime"

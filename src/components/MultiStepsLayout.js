@@ -82,18 +82,20 @@ export const MultiStepsLayout = ({
               Step {form.currentStep.index + 1} / {form.steps.length}
             </Box>
             {!form.isLastStep &&
+
             <Button
               type="submit"
               gridColumn="3"
               colorScheme="brand"
               isDisabled={
-                app === "support" &&
+                (app === "support" || app === "restitution") &&
                 form.values &&
                 form.values.TermsOfUse !== "yes"
                   ? true
                   : (form.isLastStep ? !form.isValid : !form.isStepValid) &&
                   form.isStepSubmitted
               }
+
             >
               {form.isLastStep ? submitLabel : "Next"}
             </Button>

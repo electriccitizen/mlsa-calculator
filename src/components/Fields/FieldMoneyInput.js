@@ -78,7 +78,7 @@ export const FieldMoneyInput = props => {
             id={id}
             value={value ?? ""}
             // onChange={e => setValue(e.target.value)}
-            onChange={(e) => handleChange(e)} value={value}
+            onChange={(e) => handleChange(e)}
             onBlur={() => setIsTouched(true)}
             aria-invalid={showError}
             aria-describedby={!isValid ? `${id}-error` : null}

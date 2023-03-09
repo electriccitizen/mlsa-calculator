@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Formiz, useForm } from "@formiz/core"
 import { MultiStepsLayout } from "../../components/MultiStepsLayout"
-import { TermsOfUseRest } from "../../components/Restitution/TermsOfUseRest"
+import { TermsOfUse } from "../../components/Restitution/TermsOfUse"
 import { PersonalInfo } from "../../components/Restitution/01-Start/Personalnfo"
 import { CaseInfo } from "../../components/Restitution/01-Start/CaseInfo"
 import { Funeral } from "../../components/Restitution/02-Funeral/Funeral"
@@ -28,8 +28,7 @@ import { Education } from "../../components/Restitution/14-Education/Education"
 import { OtherExpenses } from "../../components/Restitution/15-OtherExpenses/OtherExpenses"
 import { CompleteApp } from '../../components/Restitution/CompleteApp/CompleteApp'
 import { Beforeunload } from 'react-beforeunload'
-// import { Element } from 'react-scroll';
-import * as init from "../../../functions/pdf-gen/processors/init-restitution.json"
+// import * as init from "../../../functions/pdf-gen/processors/init-restitution.json"
 
 export default function Worksheet() {
   const form = useForm({ subscribe: false })
@@ -62,12 +61,12 @@ export default function Worksheet() {
   }
 
   // Set default values from init.json
-  const values = init.default
+  // const values = init.default
 
   return (
 
     <Formiz connect={form} onValidSubmit={handleSubmit} 
-        initialValues={values}
+        // initialValues={values}
       >
       <Beforeunload onBeforeunload={event => event.preventDefault()} />
       <MultiStepsLayout
@@ -75,7 +74,7 @@ export default function Worksheet() {
         buttonTitle="Restitution Workbook"
         submitLabel="Finish"
       >
-        <TermsOfUseRest />
+        <TermsOfUse />
         <PersonalInfo />
         <CaseInfo />
         <Funeral />

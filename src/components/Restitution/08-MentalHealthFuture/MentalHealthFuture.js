@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { isNumber } from "@formiz/validations"
 import { FieldInput } from "../../Fields/FieldInput"
+import { FieldNumberInput } from "../../Fields/FieldNumberInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { Box, Stack } from "@chakra-ui/react"
@@ -57,13 +57,13 @@ export const MentalHealthFuture = () => {
         direction={["column", "column", "row"]}
         spacing={["0", "0", "1rem"]}
       >
-        <FieldInput
+        <FieldNumberInput
           name={`MentalHealthFuture.data.${index}.timeestimate`}
           label={"Estimate the period of time you will need treatment"}
           helper={"e.g. three months or one year"}
           required="Required"
         />
-        <FieldInput
+        <FieldMoneyInput
           name={`MentalHealthFuture.data.${index}.sessions`}
           label={"Can you estimate how many sessions or treatments?"}
           required="Required"
@@ -121,7 +121,7 @@ export const MentalHealthFuture = () => {
       )}
 
       {expenses === "yes" && estimate === "no" && (
-        <AlertBox>Add info on how to estimate.</AlertBox>
+          <AlertBox>Talk to your provider about getting an estimate on how much care you will need in the future and what the cost of that care will be. Let the provider know the reason you are asking is for restitution. A prosecutor may want your provider to give them paperwork with their estimate, or even come to court to say how they came up with the estimated cost.</AlertBox>
       )}
 
       {estimate === "yes" && (

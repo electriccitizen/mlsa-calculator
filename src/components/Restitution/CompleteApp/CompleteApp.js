@@ -30,7 +30,24 @@ export const CompleteApp = ({ state, pdf }) => {
         Your workbook is now complete. Generate your completed workbook below
         for download or printing:
       </Text>
-
+      <Stack mb={8} align={"center"}>
+        <Button
+            isDisabled={!form.isValid}
+            colorScheme={"brand"}
+            type={"submit"}
+            onClick={() => setCounter(counter + 1)}
+        >
+          {!counter || counter === 0
+              ? "Generate workbook"
+              : "Regenerate  workbook?"}
+        </Button>
+        {counter > 0 && (
+            <Text pt={4} width="300px" fontSize={"sm"}>
+              If necessary, you can edit your responses and regenerate your{" "}
+              workbook.
+            </Text>
+        )}
+      </Stack>
       <Box
         bg={"gray.100"}
         width={["100%", "80%", "80%"]}
@@ -40,24 +57,7 @@ export const CompleteApp = ({ state, pdf }) => {
         p={"8"}
         rounded={"lg"}
       >
-        <Stack align={"center"}>
-          <Button
-              isDisabled={!form.isValid}
-              colorScheme={"brand"}
-              type={"submit"}
-              onClick={() => setCounter(counter + 1)}
-          >
-            {!counter || counter === 0
-                ? "Generate workbook"
-                : "Regenerate  workbook?"}
-          </Button>
-          {counter > 0 && (
-              <Text pt={4} width="300px" fontSize={"sm"}>
-                If necessary, you can edit your responses and regenerate your{" "}
-                workbook.
-              </Text>
-          )}
-        </Stack>
+
         <Stack
           direction={["column", "column", "row"]}
           spacing={["0", "0", "1rem"]}

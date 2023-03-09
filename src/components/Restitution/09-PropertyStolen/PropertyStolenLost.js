@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { isNumber } from "@formiz/validations"
 import { Box, Stack } from '@chakra-ui/react'
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
@@ -19,9 +18,59 @@ const defaultCollection = [
 ]
 
 export const PropertyStolenLost = () => {
+  // const form = useForm({
+  //   subscribe: { fields: ["PropertyStolenExpenses.stolen"] },
+  // })
   const form = useForm({
-    subscribe: { fields: ["PropertyStolenExpenses.stolen"] },
-  })
+    subscribe: {
+      values: true,
+      fields: true,
+    },
+    // validateOnMount: true,
+  });
+
+  const validateFields = (index) => {
+    const values = form.values;
+    const data = values.PropertyStolenLost?.data;
+    if (!data || index < 0 || index >= data.length) {
+      return true; // or return an error message for invalid index
+    }
+    const { amt, amtInsurance, expense } = data[index];
+    let numAmt = amt ? amt.replace(/,/g, "") : '';
+    let numAmtInsurance = amtInsurance ? amtInsurance.replace(/,/g, "") : '';
+    let numExpense = expense ? expense.replace(/,/g, "") : '';
+
+    numAmt = Number(numAmt)
+    numAmtInsurance = Number(numAmtInsurance)
+    numExpense = Number(numExpense)
+
+    if (numAmt + numAmtInsurance > numExpense) {
+      form.setFieldsValues({
+        PropertyStolenLost: {
+          data: [
+
+            { amtInsurance: '' },
+
+          ],
+        },
+      });
+      form.setFieldsValues({
+        PropertyStolenLost: {
+          data: [
+
+            { amt: '' },
+
+          ],
+        },
+      });
+      return false
+    } else {
+      return true
+    }
+
+    return null; // return null if all fields are valid
+  };
+
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
@@ -59,28 +108,43 @@ export const PropertyStolenLost = () => {
         type="text"
         placeholder="MM/DD/YYYY"
       />
-      <Stack
-        direction={["column", "column", "row"]}
-        spacing={["0", "0", "1rem"]}
-      >
+
         <FieldMoneyInput
             name={`PropertyStolenLost.data.${index}.expense`}
             label="Cost of item or repair:"
             required="Required"
+            validations={[
+              {
+                rule: (value, values) => validateFields(index, value, values),
+                message: 'The amount paid by you and the amount paid by insurance cannot exceed the total cost of the item or repair.',
+              },
+
+            ]}
           />
 
         <FieldMoneyInput
           name={`PropertyStolenLost.data.${index}.amtInsurance`}
           label="Amount paid by insurance"
-          required="Required"
+          required="The total amount paid by insurance and the amount paid by you cannot exceed the total cost of the item or repair. Adjust the numbers accordingly."
+          validations={[
+            {
+              rule: (value, values) => validateFields(index, value, values),
+              message: 'The amount paid by you and the amount paid by insurance cannot exceed the total cost of the item or repair.',
+            },
+          ]}
         />
         <FieldMoneyInput
           name={`PropertyStolenLost.data.${index}.amt`}
           label="Amount paid by you"
-          required="Required"
+          required="The total amount paid by insurance and the amount paid by you cannot exceed the total cost of the item or repair. Adjust the numbers accordingly."
+          validations={[
+            {
+              rule: (value, values) => validateFields(index, value, values),
+              message: 'The amount paid by you and the amount paid by insurance cannot exceed the total cost of the item or repair.',
+            },
+          ]}
         />
 
-      </Stack>
       <FieldInput
         name={`PropertyStolenLost.data.${index}.notes`}
         label="Describe the expense and how it relates to the crime"

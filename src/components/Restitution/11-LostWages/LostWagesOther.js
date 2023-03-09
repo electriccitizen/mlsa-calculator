@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { isNumber } from "@formiz/validations"
 import { Box, Stack } from '@chakra-ui/react'
 import { FieldInput } from "../../Fields/FieldInput"
-import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
+import { FieldNumberInput } from "../../Fields/FieldNumberInput"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
@@ -61,21 +60,14 @@ export const LostWagesOther = () => {
           name={`LostWagesOther.data.${index}.notes`}
           label="Why did you miss work?"
         />
-        <FieldInput
+        <FieldNumberInput
           name={`LostWagesOther.data.${index}.hours`}
           label="How many hours of work did you miss?"
           required="Required"
-          validations={[
-            {
-              rule: isNumber(),
-              message: "Please enter a number",
-            },
-          ]}
         />
 
       </Stack>
 
-      />
       <FieldRadio
         name={`LostWagesOther.data.${index}.receipt`}
         placeholder="None"

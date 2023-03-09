@@ -10,7 +10,6 @@ import { FieldSelect } from "../../Fields/FieldSelect"
 import { FieldCheckbox } from "../../Fields/FieldCheckbox"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 import {isMaxNumber} from "@formiz/validations";
-import { AlertBox } from "../../Utils/AlertBox";
 
 
 export const OtherIncome = () => {

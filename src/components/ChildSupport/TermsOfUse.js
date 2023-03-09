@@ -28,11 +28,7 @@ export const TermsOfUse = () => {
     <FormizStep label="Terms Of Use" name="TermsOfUse" order={500}>
       <SectionHeader header={"Terms Of Use"} />
       <Text mb={2}>
-        You must accept these{" "}
-        <Link isExternal color={"brand.400"} href={"/terms-of-use"}>
-          Terms of Use
-        </Link>{" "}
-        <Icon boxSize={"12px"} as={FaExternalLinkAlt} /> before using this tool.
+        You must accept these Terms of Use before using this tool.
       </Text>
       <Box ml="8">
         <List

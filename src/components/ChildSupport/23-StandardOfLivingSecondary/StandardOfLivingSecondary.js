@@ -10,7 +10,6 @@ import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddAnother } from "../../Utils/AddAnother"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 import { v4 as uuidv4 } from "uuid"
-import {isMaxNumber} from "@formiz/validations";
 
 const defaultCollection = [
   {

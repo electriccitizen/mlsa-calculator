@@ -8,7 +8,6 @@ import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
 import { v4 as uuidv4 } from "uuid"
 import { Box, Stack } from "@chakra-ui/react"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
-import { isNumber } from "@formiz/validations"
 import { FieldInput } from "../../Fields/FieldInput"
 
 const defaultCollection = [
