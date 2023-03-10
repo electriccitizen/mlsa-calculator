@@ -204,10 +204,11 @@ const calcRestitution = form => {
 
       const data = getValueAsArray(formData, ["data"]).map(item => {
         const date = getValue(item, ["date"])
-        const amt = getValueAsNumber(item, ["amt"])
+        const amt = getValue(item, ["amt"])
         const amtInsurance = getValue(item, ["amtInsurance"])
         const expense = getValue(item, ["expense"])
-console.log(item)
+        console.log(item)
+        console.log(amt)
         return {
           ...item,
           ...(date && { date: moment(date).format("L") }),
