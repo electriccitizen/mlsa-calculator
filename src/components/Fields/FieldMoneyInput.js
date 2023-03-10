@@ -61,19 +61,6 @@ export const FieldMoneyInput = props => {
     showError,
     ...otherProps,
   }
-  // const addCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-  // const handleChange = (e) => {
-  //   const commaSeparatedValue = (e.target.value).replace(/,/g, "");
-  //   setValue(commaSeparatedValue.replace(/,/g, ""));
-  // }
-
-  // const handleChange = (e) => {
-  //   const rawValue = e.target.value.replace(/,/g, ""); // Remove commas from the input value
-  //   const formattedValue = rawValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format the value with commas
-  //   setValue(rawValue); // Set the actual form value without commas
-  //   e.target.value = formattedValue; // Set the formatted value as the input value with commas
-  // };
 
   const handleChange = (e) => {
     const rawValue = e.target.value.replace(/,/g, "");
