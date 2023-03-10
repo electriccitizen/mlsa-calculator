@@ -204,13 +204,17 @@ const calcRestitution = form => {
 
       const data = getValueAsArray(formData, ["data"]).map(item => {
         const date = getValue(item, ["date"])
-        const amt = getValue(item, ["amt"])
+
+        let amt = getValue(item, ["amt"])
+        amt = amt.replace(/,/g, "")
+
         const amtInsurance = getValue(item, ["amtInsurance"])
         const expense = getValue(item, ["expense"])
+
         return {
           ...item,
           ...(date && { date: moment(date).format("L") }),
-          ...(amt && { amt: format(amt, "currency") }),
+          ...(amt && { amt: format(amt , "currency")}),
           ...(amtInsurance && {
             amtInsurance: format(amtInsurance, "currency"),
           }),

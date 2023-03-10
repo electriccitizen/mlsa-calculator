@@ -75,30 +75,30 @@ export default function Worksheet() {
         submitLabel="Finish"
       >
         <TermsOfUse />
-        <PersonalInfo />
-        <CaseInfo />
+        {/*<PersonalInfo />*/}
+        {/*<CaseInfo />*/}
         <Funeral />
-        <MedicalExpenses />
-        <FirstResponderExpenses />
-        <SupplyExpenses />
-        <FutureExpenses />
-        <FutureExpensesRecurring />
-        <MentalHealth />
-        <MentalHealthFuture />
+        {/*<MedicalExpenses />*/}
+        {/*<FirstResponderExpenses />*/}
+        {/*<SupplyExpenses />*/}
+        {/*<FutureExpenses />*/}
+        {/*<FutureExpensesRecurring />*/}
+        {/*<MentalHealth />*/}
+        {/*<MentalHealthFuture />*/}
         <PropertyStolen />
         <PropertyStolenRecovered />
-        <PropertyStolenLost />
-        <PropertyDamage />
-        <LostWages />
-        <LostWagesCourt />
-        <LostWagesOther />
-        <LostWagesFuture />
-        <LostWagesCarTravel />
-        <LostWagesOtherTravel />
-        <Moving />
-        <Safety />
-        <Education />
-        <OtherExpenses />
+        {/*<PropertyStolenLost />*/}
+        {/*<PropertyDamage />*/}
+        {/*<LostWages />*/}
+        {/*<LostWagesCourt />*/}
+        {/*<LostWagesOther />*/}
+        {/*<LostWagesFuture />*/}
+        {/*<LostWagesCarTravel />*/}
+        {/*<LostWagesOtherTravel />*/}
+        {/*<Moving />*/}
+        {/*<Safety />*/}
+        {/*<Education />*/}
+        {/*<OtherExpenses />*/}
         <CompleteApp state={!appState.loading && !!appState.pdf} pdf={appState.pdf} />
       </MultiStepsLayout>
     </Formiz>

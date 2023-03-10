@@ -45,6 +45,7 @@ export const FieldMoneyInput = props => {
   } = props
 
   const [isTouched, setIsTouched] = useState(false)
+  const [displayValue, setDisplayValue] = useState("");
   const showError = !isValid && (isTouched || isSubmitted)
 
   useEffect(() => {
@@ -60,11 +61,27 @@ export const FieldMoneyInput = props => {
     showError,
     ...otherProps,
   }
-  const addCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  const removeNonNumeric = num => num.toString().replace(/[^0-9]/g, "");
+  // const addCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-  const handleChange = e =>
-      setValue(addCommas(removeNonNumeric(e.target.value)));
+  // const handleChange = (e) => {
+  //   const commaSeparatedValue = (e.target.value).replace(/,/g, "");
+  //   setValue(commaSeparatedValue.replace(/,/g, ""));
+  // }
+
+  // const handleChange = (e) => {
+  //   const rawValue = e.target.value.replace(/,/g, ""); // Remove commas from the input value
+  //   const formattedValue = rawValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format the value with commas
+  //   setValue(rawValue); // Set the actual form value without commas
+  //   e.target.value = formattedValue; // Set the formatted value as the input value with commas
+  // };
+
+  const handleChange = (e) => {
+    const rawValue = e.target.value.replace(/,/g, "");
+    const formattedValue = rawValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Format the value with commas
+    setValue(rawValue);
+    setDisplayValue(formattedValue);
+  };
+
   return (
     <FormGroup {...formGroupProps}>
       <Box d="flex" alignContent="bottom">
@@ -76,7 +93,7 @@ export const FieldMoneyInput = props => {
             key={resetKey}
             type={type || "text"}
             id={id}
-            value={value ?? ""}
+            value={displayValue !== "" ? displayValue : (value ?? "")}
             // onChange={e => setValue(e.target.value)}
             onChange={(e) => handleChange(e)}
             onBlur={() => setIsTouched(true)}
