@@ -57,15 +57,15 @@ export const MentalHealthFuture = () => {
         direction={["column", "column", "row"]}
         spacing={["0", "0", "1rem"]}
       >
-        <FieldNumberInput
+        <FieldInput
           name={`MentalHealthFuture.data.${index}.timeestimate`}
           label={"Estimate the period of time you will need treatment"}
           helper={"e.g. three months or one year"}
           required="Required"
         />
-        <FieldMoneyInput
+        <FieldNumberInput
           name={`MentalHealthFuture.data.${index}.sessions`}
-          label={"Can you estimate how many sessions or treatments?"}
+          label={"Estimate the number of sessions or treatments"}
           required="Required"
         />
       </Stack>

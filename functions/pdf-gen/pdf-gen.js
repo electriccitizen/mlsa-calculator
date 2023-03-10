@@ -93,13 +93,60 @@ const processData = (formData, app) => {
   }
 }
 
+// exports.handler = function (event, context, callback) {
+//   // Only allow POST
+//   if (event.httpMethod !== "POST") {
+//     return {
+//       statusCode: 405,
+//       body: "Method Not Allowed"
+//     }
+//   }
+//
+//   try {
+//     if (!event.body) {
+//       throw new Error("No data body.")
+//     }
+//
+//     const { app, formData } = JSON.parse(event.body)
+//     const data = processData(formData, app)
+//     const keys = Object.keys(data)
+//     const values = Object.values(data)
+//     const promises = values.map(value => generatePdf(value))
+//
+//     Promise
+//       .all(promises)
+//       .then(pdfs => {
+//         // Zip object
+//         const results = keys.reduce((acc, key, index) => {
+//           return { ...acc, [key]: pdfs[index].toString('base64') }
+//         }, {})
+//
+//         callback(null, {
+//           statusCode: 200,
+//           body: JSON.stringify(results),
+//         })
+//       })
+//       .catch(error => {
+//         callback(null, {
+//           statusCode: 500,
+//           body: JSON.stringify(error),
+//         })
+//       })
+//   } catch (error) {
+//     return {
+//       statusCode: 400,
+//       body: error.message
+//     }
+//   }
+// }
+
 exports.handler = function (event, context, callback) {
   // Only allow POST
   if (event.httpMethod !== "POST") {
-    return { 
-      statusCode: 405, 
-      body: "Method Not Allowed" 
-    }
+    return callback(null, {
+      statusCode: 405,
+      body: "Method Not Allowed"
+    })
   }
 
   try {
@@ -114,28 +161,28 @@ exports.handler = function (event, context, callback) {
     const promises = values.map(value => generatePdf(value))
 
     Promise
-      .all(promises)
-      .then(pdfs => {
-        // Zip object
-        const results = keys.reduce((acc, key, index) => {
-          return { ...acc, [key]: pdfs[index].toString('base64') }
-        }, {})
+        .all(promises)
+        .then(pdfs => {
+          // Zip object
+          const results = keys.reduce((acc, key, index) => {
+            return { ...acc, [key]: pdfs[index].toString('base64') }
+          }, {})
 
-        callback(null, {
-          statusCode: 200,
-          body: JSON.stringify(results),
+          callback(null, {
+            statusCode: 200,
+            body: JSON.stringify(results),
+          })
         })
-      })
-      .catch(error => {
-        callback(null, {
-          statusCode: 500,
-          body: JSON.stringify(error),
+        .catch(error => {
+          callback(null, {
+            statusCode: 500,
+            body: JSON.stringify(error),
+          })
         })
-      })
   } catch (error) {
-    return {
+    callback(null, {
       statusCode: 400,
       body: error.message
-    }
+    })
   }
 }

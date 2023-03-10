@@ -11,6 +11,12 @@ const getValueAsNumber = (nestedObj, pathArr, defaultTo = 0) => {
     return Number(getValue(nestedObj, pathArr, defaultTo)) || defaultTo
 }
 
+// const getValueAsNumber = (nestedObj, pathArr, defaultTo = 0) => {
+//     const value = getValue(nestedObj, pathArr, defaultTo);
+//     const numberWithoutCommas = value.replace(/,/g, '');
+//     return Number(numberWithoutCommas) || defaultTo;
+// }
+
 const getValueAsArray = (nestedObj, pathArr, defaultTo = []) => {
     return Object.values(getValue(nestedObj, pathArr, defaultTo))
 }

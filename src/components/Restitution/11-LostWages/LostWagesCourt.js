@@ -3,6 +3,7 @@ import { FormizStep, useForm } from "@formiz/core"
 import { isNumber } from "@formiz/validations"
 import { Box, Stack } from "@chakra-ui/react"
 import { FieldInput } from "../../Fields/FieldInput"
+import { FieldNumberInput} from "../../Fields/FieldNumberInput";
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { SectionHeader } from "../../Utils/SectionHeader"
@@ -61,7 +62,7 @@ export const LostWagesCourt = () => {
           name={`LostWagesCourt.data.${index}.notes`}
           label="Why did you miss work?"
         />
-        <FieldInput
+        <FieldNumberInput
           name={`LostWagesCourt.data.${index}.hours`}
           label="How many hours of work did you miss?"
           required="Required"

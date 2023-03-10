@@ -17,12 +17,12 @@ module.exports = {
         text: "Help determine your child support costs.",
         icon: "FaCalculator",
       },
-      {
-        name: "Calculator Guide",
-        link: "/child-support/guide",
-        text: "Learn more about how the calculator works.",
-        icon: "FaGlobe",
-      },
+      // {
+      //   name: "Calculator Guide",
+      //   link: "/child-support/guide",
+      //   text: "Learn more about how the calculator works.",
+      //   icon: "FaGlobe",
+      // },
     ],
     menuLinks2: [
       {

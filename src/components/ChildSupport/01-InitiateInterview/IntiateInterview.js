@@ -26,10 +26,10 @@ export const InitiateInterview = () => {
     <FormizStep label="Start interview" name="initiateInterview" order={1000}>
       <SectionHeader
         header={"Which documents would you like to produce?"}
-        helpLinks={[
-          { value: "/guide", label: "Calculator Guide" },
-          { value: "/guide", label: "Calculator Guide" },
-        ]}
+        // helpLinks={[
+        //   { value: "/guide", label: "Calculator Guide" },
+        //   { value: "/guide", label: "Calculator Guide" },
+        // ]}
         helpText={{
           text:
             "<p>You can choose to create one or both of the" +

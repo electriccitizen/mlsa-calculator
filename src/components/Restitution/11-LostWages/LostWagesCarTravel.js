@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { Box, Stack } from "@chakra-ui/react"
 import { FieldInput } from "../../Fields/FieldInput"
+import { FieldNumberInput} from "../../Fields/FieldNumberInput";
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
@@ -59,7 +60,7 @@ export const LostWagesCarTravel = () => {
           placeholder="MM/DD/YYYY"
           pt={[0, 0, 6]}
         />
-        <FieldInput
+        <FieldNumberInput
           name={`LostWagesCarTravel.data.${index}.distance`}
           label="How many miles did you travel round trip?"
         />

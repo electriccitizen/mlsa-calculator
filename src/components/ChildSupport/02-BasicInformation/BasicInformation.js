@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
-import { FieldPhone } from "../../Fields/FieldPhone"
+// import { FieldPhone } from "../../Fields/FieldPhone"
 import { FieldDate } from "../../Fields/FieldDate"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { Stack } from "@chakra-ui/react"
@@ -52,7 +52,7 @@ export const BasicInformation = () => {
               required="Required"
               placeholder="MM/DD/YYYY"
             />
-            <FieldPhone
+            <FieldInput
               name={`Primary.phone`}
               label="Primary phone"
               helper="e.g. 555-555-5555"

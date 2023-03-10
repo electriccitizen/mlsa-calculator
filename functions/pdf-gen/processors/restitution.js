@@ -90,8 +90,18 @@ const calcRestitution = form => {
             if (formKey === "MentalHealthFuture") {
               // [H] MentalHealthFuture
               const amount = multiply(
-                getValueAsNumber(item, ["amt"]),
-                getValueAsNumber(item, ["sessions"])
+                  getValueAsNumber(item, ["amt"]),
+                  getValueAsNumber(item, ["sessions"])
+              )
+
+              return add(total, amount)
+            } else if (
+              formKey === "FutureExpensesRecurring"
+            ) {
+              // [F] FutureExpensesRecurring
+              const amount = multiply(
+                  getValueAsNumber(item, ["amt"]),
+                  getValueAsNumber(item, ["sessions"])
               )
 
               return add(total, amount)
@@ -114,14 +124,8 @@ const calcRestitution = form => {
               // const amtPaid = getValueAsNumber(item, ["amt"])
               const amtPaidInsurance = getValueAsNumber(item, ["amtInsurance"])
 
-              console.log(totalExpense)
-              console.log(amtPaidInsurance)
               const totalAmountPaid = (totalExpense - amtPaidInsurance)
-              console.log(totalAmountPaid)
 
-              // console.log( getValueAsNumber(item, ["expense"]))
-              // console.log( getValueAsNumber(item, ["amt"]))
-              // console.log( getValueAsNumber(item, ["amtInsurance"]))
               return add(total, totalAmountPaid)
 
             } else if (
@@ -197,12 +201,15 @@ const calcRestitution = form => {
         }
       }
 
-      const data = getValueAsArray(formData, ["data"]).map(item => {
-        const date = getValue(item, ["date"])
-        const amt = getValue(item, ["amt"])
-        const amtInsurance = getValue(item, ["amtInsurance"])
-        const itemCost = getValue(item, ["itemCost"])
 
+      const data = getValueAsArray(formData, ["data"]).map(item => {
+      console.log(data)
+        const date = getValue(item, ["date"])
+        const amt = getValueAsNumber(item, ["amt"])
+        const amtInsurance = getValue(item, ["amtInsurance"])
+        const expense = getValue(item, ["expense"])
+
+        console.log(amt)
         return {
           ...item,
           ...(date && { date: moment(date).format("L") }),
@@ -210,7 +217,7 @@ const calcRestitution = form => {
           ...(amtInsurance && {
             amtInsurance: format(amtInsurance, "currency"),
           }),
-          ...(itemCost && { itemCost: format(itemCost, "currency") }),
+          ...(expense && { expense: format(expense, "currency") }),
         }
       })
 

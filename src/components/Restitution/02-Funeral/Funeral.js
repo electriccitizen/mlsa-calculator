@@ -61,7 +61,7 @@ export const Funeral = () => {
           type="text"
           placeholder="MM/DD/YYYY"
         />
-        <FieldMoneyInput
+        <FieldInput
           name={`FuneralExpenses.data.${index}.amt`}
           label="Amount of expense"
           required="Required"

@@ -8,6 +8,7 @@ import { FieldRadio } from "../../Fields/FieldRadio"
 import { AddPlaceholder } from "../../Utils/AddPlaceholder"
 import { AddAnother, AddAnotherHeader } from "../../Utils/AddAnother"
 import { v4 as uuidv4 } from "uuid"
+import {FieldMoneyInput} from "../../Fields/FieldMoneyInput";
 
 const defaultCollection = [
   {
@@ -67,7 +68,12 @@ export const LostWagesOther = () => {
         />
 
       </Stack>
-
+      <FieldMoneyInput
+          name={`LostWagesOther.data.${index}.amt`}
+          label="What is your hourly wage?"
+          required="Required"
+          helper={"To determine your hourly wage if you are on salary, divide your annual salary by 2,080."}
+      />
       <FieldRadio
         name={`LostWagesOther.data.${index}.receipt`}
         placeholder="None"

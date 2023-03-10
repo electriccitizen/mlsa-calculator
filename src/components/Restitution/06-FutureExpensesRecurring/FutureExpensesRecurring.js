@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { Box, Stack } from "@chakra-ui/react"
 import { FieldInput } from "../../Fields/FieldInput"
+import { FieldNumberInput} from "../../Fields/FieldNumberInput";
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { SectionHeader } from "../../Utils/SectionHeader"
@@ -58,9 +59,9 @@ export const FutureExpensesRecurring = () => {
           helper={"e.g. three months or one year"}
           required="Required"
         />
-        <FieldInput
+        <FieldNumberInput
           name={`FutureExpensesRecurring.data.${index}.sessions`}
-          label={"Can you estimate how many sessions or treatments?"}
+          label={"Estimate the number of sessions or treatments"}
           required="Required"
         />
       </Stack>

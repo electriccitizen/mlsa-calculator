@@ -1,404 +1,426 @@
 {
-"TermsOfUse": "yes",
-"Primary": {
-"mname": null,
-"phone": null,
-"fname": "sdaf",
-"lname": "sadf",
-"email": "sadf@sad.com",
-"caseName": "sadf",
-"prosecutor": "asdf",
-"caseID": "123"
-},
-"FuneralExpenses": {
-"status": "yes",
-"data": {
-"0": {
-"date": "2023-03-04T06:00:00.000Z",
-"amt": "123",
-"description": "sadf",
-"notes": "sadf",
-"receipt": "yes"
-}
-}
-},
-"MedicalExpenses": {
-"injury": "yes",
-"expenses": "yes",
-"onetime": "yes",
-"data": {
-"0": {
-"date": "2023-03-01T06:00:00.000Z",
-"amt": "100",
-"description": "sadf",
-"notes": "sadf",
-"receipt": "yes"
-}
-}
-},
-"FirstResponderExpenses": {
-"status": "yes",
-"data": {
-"0": {
-"date": "2023-03-01T06:00:00.000Z",
-"amt": "500",
-"description": "dsf",
-"notes": "sadf",
-"receipt": "yes"
-}
-}
-},
-"SupplyExpenses": {
-"status": "yes",
-"data": {
-"0": {
-"date": "2023-03-02T06:00:00.000Z",
-"amt": "100",
-"description": "sadf",
-"notes": "asdf",
-"receipt": "no"
-},
-"1": {
-"date": "2023-03-29T05:00:00.000Z",
-"amt": "100",
-"description": "asdf",
-"notes": "asdf",
-"receipt": "no"
-}
-}
-},
-"FutureExpenses": {
-"status": "yes",
-"est": "yes",
-"data": {
-"0": {
-"date": "2023-03-04T06:00:00.000Z",
-"amt": "100",
-"description": "asdf",
-"estimate": "asdf",
-"notes": "asdf",
-"receipt": "yes"
-},
-"1": {
-"date": "2023-03-21T05:00:00.000Z",
-"amt": "100",
-"description": "sadf",
-"estimate": "sadf",
-"notes": "sadf",
-"receipt": "no"
-}
-}
-},
-"FutureExpensesRecurring": {
-"status": "yes",
-"est": "yes",
-"data": {
-"0": {
-"timeestimate": "one year",
-"sessions": "12",
-"amt": "100",
-"description": "sadf",
-"estimate": "asdf asd asdf ",
-"notes": "asdfasdf"
-},
-"1": {
-"notes": null,
-"timeestimate": "a long time",
-"sessions": "12",
-"amt": "100",
-"description": "asdfasd",
-"estimate": "asdf "
-}
-}
-},
-"MentalHealthExpenses": {
-"status": "yes",
-"current": "yes",
-"data": {
-"0": {
-"date": "2023-03-01T06:00:00.000Z",
-"amt": "100",
-"description": "asdf",
-"notes": "asdf",
-"receipt": "yes"
-},
-"1": {
-"date": "2023-03-01T06:00:00.000Z",
-"amt": "123",
-"description": "asdf",
-"notes": "asdf",
-"receipt": "yes"
-}
-}
-},
-"MentalHealthFuture": {
-"status": "yes",
-"est": "yes",
-"data": {
-"0": {
-"timeestimate": "asdf ",
-"sessions": "6",
-"amt": "100",
-"description": "sadaf",
-"source": "sadfasd"
-}
-}
-},
-"PropertyStolenExpenses": {
-"stolen": "yes",
-"recovered": "yes"
-},
-"PropertyStolenRecovered": {
-"damaged": "yes",
-"replaceRepair": "yes",
-"rental": "yes",
-"data": {
-"0": {
-"date": "2023-03-01T06:00:00.000Z",
-"amtInsurance": "100",
-"amt": "100",
-"notes": "asdf",
-"receipt": "yes"
-},
-"1": {
-"date": "2023-03-01T06:00:00.000Z",
-"amtInsurance": "0",
-"amt": "100",
-"notes": "asdf",
-"receipt": "yes"
-}
-}
-},
-"PropertyStolenLost": {
-"replace": "yes",
-"data": {
-"0": {
-"date": "2023-03-01T06:00:00.000Z",
-"amtInsurance": "0",
-"amt": "100",
-"notes": "aSD",
-"receipt": "yes"
-},
-"1": {
-"date": "2023-03-14T05:00:00.000Z",
-"amtInsurance": "100",
-"amt": "0",
-"notes": "asdf",
-"receipt": "yes"
-},
-"2": {
-"date": "2023-03-08T06:00:00.000Z",
-"amtInsurance": "100",
-"amt": "100",
-"notes": "asdf",
-"receipt": "yes"
-}
-}
-},
-"PropertyDamage": {
-"status": "yes",
-"data": {
-"0": {
-"date": "2023-03-02T06:00:00.000Z",
-"itemCost": "100",
-"amtInsurance": "0",
-"amt": "100",
-"notes": "asdf",
-"receipt": "yes"
-},
-"1": {
-"date": "2023-03-29T05:00:00.000Z",
-"itemCost": "100",
-"amtInsurance": "50",
-"amt": "100",
-"notes": "sadf",
-"receipt": "yes"
-}
-}
-},
-"LostWages": {
-"status": "yes",
-"data": {
-"0": {
-"dates": "sadf asdf ",
-"notes": "asdfasdf",
-"hours": "12",
-"amt": "20",
-"receipt": "yes"
-},
-"1": {
-"dates": "asdfasdf",
-"notes": "sadfasdf",
-"hours": "20",
-"amt": "20",
-"receipt": "no"
-}
-}
-},
-"LostWagesCourt": {
-"status": "yes",
-"data": {
-"0": {
-"dates": "asdf asdf ",
-"notes": "asdfsadf",
-"hours": "100",
-"amt": "20",
-"receipt": "yes"
-},
-"1": {
-"dates": "asdf",
-"notes": "asdf",
-"amt": "100",
-"receipt": "yes",
-"hours": "12"
-}
-}
-},
-"LostWagesOther": {
-"status": "yes",
-"data": {
-"0": {
-"dates": "sadf ",
-"notes": "sadf ",
-"hours": "12",
-"amt": "20",
-"receipt": "yes"
-},
-"1": {
-"dates": "asdf",
-"notes": "sadfas asdf",
-"hours": "10",
-"amt": "12",
-"receipt": "yes"
-}
-}
-},
-"LostWagesFuture": {
-"status": "yes",
-"data": {
-"0": {
-"description": "asdfasd",
-"notes": "aSFDADS",
-"amt": "100",
-"note2": "asdf"
-},
-"1": {
-"description": "asdfasdf",
-"amt": "100",
-"notes": "asdf",
-"note2": "asdf"
-}
-}
-},
-"LostWagesCarTravel": {
-"status": "yes",
-"car": "yes",
-"data": {
-"0": {
-"date": "2023-03-02T06:00:00.000Z",
-"distance": "200",
-"notes": "asdf"
-},
-"1": {
-"date": "2023-03-09T06:00:00.000Z",
-"distance": "200",
-"notes": "asdfasdf"
-}
-}
-},
-"LostWagesOtherTravel": {
-"status": "yes",
-"data": {
-"0": {
-"date": "2023-03-01T06:00:00.000Z",
-"amt": "100",
-"notes": "sadfasd",
-"description": "asdfasdf",
-"receipt": "yes"
-},
-"1": {
-"date": "2023-03-24T05:00:00.000Z",
-"amt": "100",
-"notes": "asdf",
-"description": "asdf",
-"receipt": "yes"
-}
-}
-},
-"Moving": {
-"status": "yes",
-"data": {
-"0": {
-"date": "2023-03-01T06:00:00.000Z",
-"amt": "100",
-"description": "asdf",
-"descriptionNotes": "asdf",
-"notes": "asdf",
-"receipt": "yes"
-}
-}
-},
-"Safety": {
-"status": "yes",
-"data": {
-"0": {
-"date": "2023-03-02T06:00:00.000Z",
-"amt": "100",
-"description": "asdf",
-"descriptionNotes": "asdf",
-"notes": "asdf",
-"receipt": "yes"
-},
-"1": {
-"date": "2023-04-05T05:00:00.000Z",
-"amt": "100",
-"description": "asdf",
-"descriptionNotes": "asdf",
-"notes": "sadf",
-"receipt": "yes"
-}
-}
-},
-"Education": {
-"status": "yes",
-"data": {
-"0": {
-"timeestimate": "asdfasdf",
-"amt": "100",
-"description": "asdf",
-"descriptionNotes": "sadf",
-"payment": "asdf",
-"receipt": "yes"
-},
-"1": {
-"timeestimate": "asdf",
-"amt": "100",
-"description": "asdfasdf",
-"descriptionNotes": "sadf",
-"payment": "asdfasdf",
-"receipt": "yes"
-}
-}
-},
-"Other": {
-"status": "yes",
-"data": {
-"0": {
-"date": "2023-03-02T06:00:00.000Z",
-"amt": "200",
-"description": "asdf",
-"descriptionNotes": "sadf",
-"notes": "asdf",
-"receipt": "no"
-},
-"1": {
-"date": "2023-03-02T06:00:00.000Z",
-"amt": "100",
-"description": "sadf",
-"descriptionNotes": "asdf",
-"notes": "asdf",
-"receipt": "yes"
-}
-}
-}
+  "TermsOfUse": "yes",
+  "Primary": {
+    "mname": null,
+    "phone": null,
+    "fname": "Fooman",
+    "lname": "Jones",
+    "email": "bro@bro.com",
+    "caseName": "asd",
+    "prosecutor": "ASD",
+    "caseID": "1234"
+  },
+  "FuneralExpenses": {
+    "status": "yes",
+    "data": {
+      "0": {
+        "date": "2023-03-01T06:00:00.000Z",
+        "amt": "100",
+        "description": "Fooman ate my cat",
+        "notes": "The man still owes",
+        "receipt": "yes"
+      },
+      "1": {
+        "date": "2023-03-03T06:00:00.000Z",
+        "amt": "100",
+        "description": "Fooman ate my dog.",
+        "notes": "The man also owes on this one.",
+        "receipt": "no"
+      }
+    }
+  },
+  "MedicalExpenses": {
+    "injury": "yes",
+    "expenses": "yes",
+    "onetime": "yes",
+    "data": {
+      "0": {
+        "date": "2023-03-01T06:00:00.000Z",
+        "amt": "100",
+        "description": "Fooman hit my head.",
+        "notes": "Still owe the whole dang thing",
+        "receipt": "yes"
+      },
+      "1": {
+        "date": "2023-03-22T05:00:00.000Z",
+        "amt": "100",
+        "description": "Tasedf asdf kl asdf lksad f asdfasd .",
+        "notes": "Tasdf lk asdf asdfasdfasdfa .",
+        "receipt": "no"
+      },
+      "2": {
+        "date": "2023-03-02T06:00:00.000Z",
+        "amt": "1,000",
+        "description": "asdf a asdf asdf asdf asdf",
+        "notes": "asdf asdf asdf asdf asdf asdf",
+        "receipt": "yes"
+      }
+    }
+  },
+  "FirstResponderExpenses": {
+    "status": "yes",
+    "data": {
+      "0": {
+        "date": "2023-02-28T06:00:00.000Z",
+        "amt": "1,000",
+        "description": "asdfsadf",
+        "notes": " asdf asdf asdf asdf asdf",
+        "receipt": "yes"
+      },
+      "1": {
+        "date": "2023-03-01T06:00:00.000Z",
+        "amt": "2,000",
+        "description": "asdf asdf sadf asdf asdf",
+        "notes": "asdfasd asdf asdf",
+        "receipt": "no"
+      }
+    }
+  },
+  "SupplyExpenses": {
+    "status": "yes",
+    "data": {
+      "0": {
+        "date": "2023-03-01T06:00:00.000Z",
+        "amt": "1,500",
+        "description": "sadf sdaf asdf asdf asdf asdf",
+        "notes": "asdf asdf asdf asdf asdf",
+        "receipt": "yes"
+      },
+      "1": {
+        "date": "2023-03-22T05:00:00.000Z",
+        "amt": "1,000",
+        "description": "asdf asdf asdf asdf asdf asdf",
+        "notes": "asdfasdfasdfasdf",
+        "receipt": "no"
+      }
+    }
+  },
+  "FutureExpenses": {
+    "status": "yes",
+    "est": "yes",
+    "data": {
+      "0": {
+        "date": "2023-03-01T06:00:00.000Z",
+        "amt": "100",
+        "description": "sadfasdfasdfasdfasdf",
+        "estimate": "asdfasdf",
+        "notes": "asdfsadfasdf",
+        "receipt": "yes"
+      }
+    }
+  },
+  "FutureExpensesRecurring": {
+    "status": "yes",
+    "est": "yes",
+    "data": {
+      "0": {
+        "timeestimate": "12ff",
+        "sessions": "12",
+        "amt": "100",
+        "description": "sadfasdf",
+        "estimate": "asdfasdf",
+        "notes": "asdfasdf"
+      },
+      "1": {
+        "timeestimate": "asdfasdfasdf",
+        "sessions": "12",
+        "amt": "200",
+        "description": "asdf",
+        "estimate": "sadf",
+        "notes": "sadf"
+      }
+    }
+  },
+  "MentalHealthExpenses": {
+    "status": "yes",
+    "current": "yes",
+    "data": {
+      "0": {
+        "date": "2023-02-28T06:00:00.000Z",
+        "amt": "500",
+        "description": "sadfsadf",
+        "notes": "asdfsadf",
+        "receipt": "yes"
+      },
+      "1": {
+        "date": "2023-02-28T06:00:00.000Z",
+        "amt": "500",
+        "description": "asdasdf",
+        "notes": "asdfsadf",
+        "receipt": "yes"
+      }
+    }
+  },
+  "MentalHealthFuture": {
+    "status": "yes",
+    "est": "yes",
+    "data": {
+      "0": {
+        "sessions": "12",
+        "amt": "100",
+        "description": "sadfasdf",
+        "source": "asdfasdf",
+        "timeestimate": "666"
+      },
+      "1": {
+        "timeestimate": "666",
+        "sessions": "12",
+        "amt": "100",
+        "description": "asdfasdf",
+        "source": "sadfsadf"
+      }
+    }
+  },
+  "PropertyStolenExpenses": {
+    "stolen": "yes",
+    "recovered": "yes"
+  },
+  "PropertyStolenRecovered": {
+    "damaged": "yes",
+    "replaceRepair": "yes",
+    "rental": "yes",
+    "data": {
+      "0": {
+        "date": "2023-03-01T06:00:00.000Z",
+        "expense": "100",
+        "amtInsurance": "50",
+        "amt": "50",
+        "notes": "asdfasdf",
+        "receipt": "yes"
+      },
+      "1": {
+        "date": "2023-03-21T05:00:00.000Z",
+        "expense": "100",
+        "amtInsurance": "100",
+        "amt": "0",
+        "notes": "asdfsadf",
+        "receipt": "yes"
+      },
+      "2": {
+        "date": "2023-02-28T06:00:00.000Z",
+        "expense": "100",
+        "amtInsurance": "0",
+        "amt": "100",
+        "notes": "asdfasdf",
+        "receipt": "yes"
+      }
+    }
+  },
+  "PropertyStolenLost": {
+    "replace": "yes",
+    "data": {
+      "0": {
+        "date": "2023-02-27T06:00:00.000Z",
+        "expense": "100",
+        "amtInsurance": "50",
+        "amt": "50",
+        "notes": "asdfasdf",
+        "receipt": "yes"
+      }
+    }
+  },
+  "PropertyDamage": {
+    "status": "yes",
+    "data": {
+      "0": {
+        "date": "2023-02-28T06:00:00.000Z",
+        "expense": "100",
+        "amtInsurance": "60",
+        "amt": "40",
+        "notes": "asdfasdf",
+        "receipt": "yes"
+      },
+      "1": {
+        "date": "2023-03-29T05:00:00.000Z",
+        "expense": "100",
+        "amtInsurance": "50",
+        "amt": "50",
+        "notes": "asdasdf",
+        "receipt": "yes"
+      }
+    }
+  },
+  "LostWages": {
+    "status": "yes",
+    "data": {
+      "0": {
+        "dates": "asdfasdfsadf",
+        "notes": "asdfasdasdf",
+        "hours": "12",
+        "amt": "100",
+        "receipt": "yes"
+      },
+      "1": {
+        "dates": "sadfasdf",
+        "notes": "asdfsadf",
+        "hours": "12",
+        "amt": "100",
+        "receipt": "no"
+      }
+    }
+  },
+  "LostWagesCourt": {
+    "status": "yes",
+    "data": {
+      "0": {
+        "dates": "sadfsdaf",
+        "notes": "asdfsdaf",
+        "hours": "12",
+        "amt": "100",
+        "receipt": "yes"
+      },
+      "1": {
+        "dates": "asdfsadf",
+        "notes": "asdfasdf",
+        "hours": "12",
+        "amt": "100",
+        "receipt": "yes"
+      }
+    }
+  },
+  "LostWagesOther": {
+    "status": "yes",
+    "data": {
+      "0": {
+        "dates": "asdfasdf",
+        "notes": "asdfasdf",
+        "hours": "12",
+        "receipt": "yes"
+      },
+      "1": {
+        "dates": "asdfsadf",
+        "notes": "asfdsadf",
+        "hours": "12",
+        "receipt": "yes"
+      }
+    }
+  },
+  "LostWagesFuture": {
+    "status": "yes",
+    "data": {
+      "0": {
+        "description": "asdfsadf",
+        "amt": "100",
+        "notes": "sadfasdf",
+        "note2": "sadfsadf"
+      },
+      "1": {
+        "description": "asdfasdf",
+        "amt": "1,000",
+        "notes": "sadfsadf",
+        "note2": "asdfsdaf"
+      }
+    }
+  },
+  "LostWagesCarTravel": {
+    "status": "yes",
+    "car": "yes",
+    "data": {
+      "0": {
+        "date": "2023-03-01T06:00:00.000Z",
+        "distance": "100",
+        "notes": "asdfasdf"
+      },
+      "1": {
+        "date": "2023-02-28T06:00:00.000Z",
+        "distance": "200",
+        "notes": "sadfasdf"
+      }
+    }
+  },
+  "LostWagesOtherTravel": {
+    "status": "yes",
+    "data": {
+      "0": {
+        "date": "2023-03-15T05:00:00.000Z",
+        "amt": "100",
+        "notes": "sadf",
+        "description": "sadf",
+        "receipt": "yes"
+      },
+      "1": {
+        "date": "2023-02-27T06:00:00.000Z",
+        "amt": "100",
+        "notes": "sadfasdf",
+        "description": "asdfsdaf",
+        "receipt": "yes"
+      }
+    }
+  },
+  "Moving": {
+    "status": "yes",
+    "data": {
+      "0": {
+        "date": "2023-03-15T05:00:00.000Z",
+        "amt": "1,000",
+        "description": "asdfasdf",
+        "descriptionNotes": "sadfasdf",
+        "notes": "asdfsadf",
+        "receipt": "yes"
+      },
+      "1": {
+        "date": "2023-03-01T06:00:00.000Z",
+        "amt": "2,000",
+        "description": "sadfsadf",
+        "descriptionNotes": "sadfsadf",
+        "notes": "asdf",
+        "receipt": "yes"
+      }
+    }
+  },
+  "Safety": {
+    "status": "yes",
+    "data": {
+      "0": {
+        "date": "2023-03-08T06:00:00.000Z",
+        "amt": "100",
+        "description": "sadfasdf",
+        "descriptionNotes": "asdfsadf",
+        "notes": "sadfdsaf",
+        "receipt": "yes"
+      },
+      "1": {
+        "date": "2023-03-08T06:00:00.000Z",
+        "amt": "200",
+        "description": "asdfsdfa",
+        "descriptionNotes": "sadfsdaf",
+        "notes": "asdfsadf",
+        "receipt": "yes"
+      }
+    }
+  },
+  "Education": {
+    "status": "yes",
+    "data": {
+      "0": {
+        "timeestimate": "sadfasdf",
+        "amt": "200",
+        "description": "sadfsadf",
+        "descriptionNotes": "asdfsdaf",
+        "payment": "sadfasdf",
+        "receipt": "yes"
+      }
+    }
+  },
+  "Other": {
+    "status": "yes",
+    "data": {
+      "0": {
+        "date": "2023-03-15T05:00:00.000Z",
+        "amt": "200",
+        "description": "sadfsdaf",
+        "descriptionNotes": "sadfsadf",
+        "notes": "sadfsadf",
+        "receipt": "yes"
+      },
+      "1": {
+        "date": "2023-03-16T05:00:00.000Z",
+        "amt": "100",
+        "description": "asdfsadf",
+        "descriptionNotes": "asdfsadf",
+        "notes": "sdafsdaf",
+        "receipt": "yes"
+      }
+    }
+  }
 }

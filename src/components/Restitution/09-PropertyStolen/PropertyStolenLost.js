@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { Box, Stack } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { FieldInput } from "../../Fields/FieldInput"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
@@ -65,10 +65,9 @@ export const PropertyStolenLost = () => {
       });
       return false
     } else {
-      return true
+      return true; // return true if all fields are valid
     }
 
-    return null; // return null if all fields are valid
   };
 
   const [state, setState] = useState({})
@@ -101,6 +100,10 @@ export const PropertyStolenLost = () => {
 
   const Note = index => (
     <>
+      <FieldInput
+          name={`PropertyStolenLost.data.${index}.notes`}
+          label="Describe the expense and how it relates to the crime"
+      />
       <FieldDate
         name={`PropertyStolenLost.data.${index}.date`}
         label="Date of purchase or expense"
@@ -145,10 +148,7 @@ export const PropertyStolenLost = () => {
           ]}
         />
 
-      <FieldInput
-        name={`PropertyStolenLost.data.${index}.notes`}
-        label="Describe the expense and how it relates to the crime"
-      />
+
       <FieldRadio
         name={`PropertyStolenLost.data.${index}.receipt`}
         placeholder="None"
