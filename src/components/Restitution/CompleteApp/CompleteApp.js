@@ -41,6 +41,11 @@ export const CompleteApp = ({ state, pdf }) => {
               ? "Generate workbook"
               : "Regenerate  workbook?"}
         </Button>
+        {!counter && (
+            <Text pt={4}  fontSize={"sm"}>
+               After clicking generate, please be patient while your document loads.
+            </Text>
+        )}
         {counter > 0 && (
             <Text pt={4} width="300px" fontSize={"sm"}>
               If necessary, you can edit your responses and regenerate your{" "}

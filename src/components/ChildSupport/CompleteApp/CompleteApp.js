@@ -50,10 +50,9 @@ export const CompleteApp = ({ state, pdf }) => {
                     ? "Generate " + docPlural
                     : "Regenerate " + docPlural + "?"}
             </Button>
-            {counter === 0 && (
+            {!counter && (
                 <Text pt={4}  fontSize={"sm"}>
-                    If necessary, you can edit your responses and regenerate your{" "}
-                    After clicking, please wait for your documents to finish generating.
+                    After clicking generate, please be patient while your document loads.
                 </Text>
             )}
             {counter > 0 && (
