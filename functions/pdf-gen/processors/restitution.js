@@ -207,8 +207,6 @@ const calcRestitution = form => {
         const amt = getValue(item, ["amt"])
         const amtInsurance = getValue(item, ["amtInsurance"])
         const expense = getValue(item, ["expense"])
-        console.log(item)
-        console.log(amt)
         return {
           ...item,
           ...(date && { date: moment(date).format("L") }),
