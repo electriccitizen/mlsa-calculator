@@ -73,24 +73,24 @@ export const FieldNumberInput = props => {
   return (
     <FormGroup {...formGroupProps}>
       <Input
-        key={resetKey}
-        type={type || "text"}
-        id={id}
-        // value={value ?? ""}
-        //onChange={e => setValue(e.target.value)}
-        onChange={(e) => handleChange(e)} value={value}
-        onBlur={() => setIsTouched(true)}
-        aria-invalid={showError}
-        aria-describedby={!isValid ? `${id}-error` : null}
-        placeholder={placeholder}
-        width={fieldWidth ? fieldWidth : "100%"}
-        validations={[
-          {
-            rule: isPattern(/^[1-9]\d*(((,\d{3}){1})?(\.\d{0,2})?)$/),
-            message: 'Please enter a valid number',
-          },
-        ]}
+          key={resetKey}
+          type={type || "text"}
+          id={id}
+          value={value ?? ""}
+          onChange={(e) => handleChange(e)}
+          onBlur={() => setIsTouched(true)}
+          aria-invalid={showError}
+          aria-describedby={!isValid ? `${id}-error` : null}
+          placeholder={placeholder}
+          width={fieldWidth ? fieldWidth : "100%"}
+          validations={[
+            {
+              rule: isPattern(/^[1-9]\d*(((,\d{3}){1})?(\.\d{0,2})?)$/),
+              message: 'Please enter a valid number',
+            },
+          ]}
       />
+
     </FormGroup>
   )
 }

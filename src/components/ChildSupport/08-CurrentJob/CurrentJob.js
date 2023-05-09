@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
 import { FieldInput } from "../../Fields/FieldInput"
-import { FieldPhone } from "../../Fields/FieldPhone"
 import { FieldNumberInput } from "../../Fields/FieldNumberInput"
 import { FieldRadio } from "../../Fields/FieldRadio"
 import { FieldSelect } from "../../Fields/FieldSelect"
@@ -181,10 +180,11 @@ export const CurrentJob = d => {
                       label={"Enter the street address for this employer:"}
                       name={"EmploymentPrimary.employer"}
                     />
-                    <FieldPhone
+                    <FieldInput
                       name={`EmploymentPrimary.employer.phone`}
                       label="Phone"
                       required="Required"
+                      helper="e.g. (555) 555-5555"
                       fieldWidth={"25%"}
                     />
                   </>

@@ -26,6 +26,8 @@ export const FieldPhone= props => {
     isValid,
     isSubmitted,
     resetKey,
+    setValue,
+    value,
   } = useField(props)
 
   const {
@@ -43,9 +45,21 @@ export const FieldPhone= props => {
   const [isTouched, setIsTouched] = useState(false)
   const showError = !isValid && (isTouched || isSubmitted)
 
-  // const handleChange = value => {
-  //   setValue(value)
-  // }
+  const formatPhoneNumber = (phoneNumber) => {
+    const cleaned = phoneNumber.replace(/\D/g, '').slice(0, 10)
+    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
+    if (match) {
+      return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+    }
+    return cleaned
+  }
+
+  const handleChange = (event) => {
+    const input = event.target.value
+    const formatted = formatPhoneNumber(input)
+    setValue(formatted)
+  }
+
 
   useEffect(() => {
     setIsTouched(false)
@@ -60,59 +74,23 @@ export const FieldPhone= props => {
     showError,
     ...otherProps,
   }
-  const [inputValue, setInputValue] = useState('');
-  const handleInput = (e) => {
-    // this is where we'll call our future formatPhoneNumber function that we haven't written yet.
-    const formattedPhoneNumber = formatPhoneNumber(e.target.value);
-    // we'll set the input value using our setInputValue
-    setInputValue(formattedPhoneNumber);
-  };
+
   return (
-    <FormGroup {...formGroupProps}>
-      <Input
-        key={resetKey}
-        type={type || "text"}
-        id={id}
-        // value={value ?? ""}
-        // onChange={e => setValue(e.target.value)}
-        onChange={(e) => handleInput(e)} value={inputValue}
-        onBlur={() => setIsTouched(true)}
-        aria-invalid={showError}
-        aria-describedby={!isValid ? `${id}-error` : null}
-        placeholder={placeholder}
-        width={fieldWidth ? fieldWidth : "100%"}
-      />
-    </FormGroup>
+      <FormGroup {...formGroupProps}>
+        <Input
+            key={resetKey}
+            type={type || "text"}
+            id={id}
+            value={value ?? ""}
+            onChange={handleChange}
+            onBlur={() => setIsTouched(true)}
+            aria-invalid={showError}
+            aria-describedby={!isValid ? `${id}-error` : null}
+            placeholder={placeholder}
+            width={fieldWidth ? fieldWidth : "100%"}
+        />
+      </FormGroup>
   )
-}
-
-function formatPhoneNumber(value) {
-  // if input value is falsy eg if the user deletes the input, then just return
-  if (!value) return value;
-
-  // clean the input for any non-digit values.
-  const phoneNumber = value.replace(/[^\d]/g, '');
-
-  // phoneNumberLength is used to know when to apply our formatting for the phone number
-  const phoneNumberLength = phoneNumber.length;
-
-  // we need to return the value with no formatting if its less then four digits
-  // this is to avoid weird behavior that occurs if you  format the area code to early
-
-  if (phoneNumberLength < 4) return phoneNumber;
-
-  // if phoneNumberLength is greater than 4 and less the 7 we start to return
-  // the formatted number
-  if (phoneNumberLength < 7) {
-    return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
-  }
-
-  // finally, if the phoneNumberLength is greater then seven, we add the last
-  // bit of formatting and return it.
-  return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
-      3,
-      6
-  )}-${phoneNumber.slice(6, 10)}`;
 }
 
 FieldPhone.propTypes = propTypes
