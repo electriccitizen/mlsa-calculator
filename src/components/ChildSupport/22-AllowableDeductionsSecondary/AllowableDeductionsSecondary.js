@@ -66,7 +66,7 @@ export const AllowableDeductionsSecondary = () => {
       {/*          If you select "None of the above", please uncheck any other options to continue.*/}
       {/*      </AlertBox>*/}
       {/*  )}*/}
-      {/*{checkedItems.alimony === true && (*/}
+      {checkedItems.alimony === true && (
         <Stack
           direction={["column", "column", "row"]}
           spacing={["0", "0", "1rem"]}
