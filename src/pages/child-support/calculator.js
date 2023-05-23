@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Formiz, useForm } from "@formiz/core"
 
 // Debugging data
-import * as init from '../../../functions/pdf-gen/processors/init2.json';
+// import * as init from '../../../functions/pdf-gen/processors/init2.json';
 
 import { TermsOfUse } from "../../components/ChildSupport/TermsOfUse"
 import { InitiateInterview } from "../../components/ChildSupport/01-InitiateInterview/IntiateInterview"
@@ -86,14 +86,16 @@ export default function Calculator() {
   const documents = form.values.Documents ? form.values.Documents : ""
 
   // Set default debugging values from init.json
-   const values = init.default
+  //  const values = init.default
 
   return (
     <>
       <Beforeunload onBeforeunload={event => event.preventDefault()} />
       {/* @TODO Temporarily using onSubmit vs onValidSubmit for testing */}
       <Formiz connect={form} onSubmit={handleSubmit} 
-       initialValues={ values }
+       // Set default debugging values
+       // initialValues={ values }
+
       > 
         <MultiStepsLayout
           app="support"

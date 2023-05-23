@@ -109,7 +109,7 @@ export const EnterOtherJobs = () => {
               type="text"
             />
           )}
-          {(state[`OtherJob.${index}.type`] === "temporary" || state[`OtherJob.${index}.current`] == 'former') && (
+          {(state[`OtherJob.${index}.type`] === "temporary" || state[`OtherJob.${index}.current`] === 'former') && (
             <FieldDate
               name={`OtherJob.${index}.End`}
               label="When did  or will this job end? (MM/DD/YYYY) (Please note, if your job is expected to end next year or later, please enter December 31 and the current year into the box. Entering a date that is later than December 31 of the current year may result in a miscalculation). "

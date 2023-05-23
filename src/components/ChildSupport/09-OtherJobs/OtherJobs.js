@@ -6,7 +6,7 @@ import { Text } from "@chakra-ui/react"
 import { AdministrativeRules } from '../AdministrativeRules/AdministrativeRules'
 
 export const OtherJobs = () => {
-  const form = useForm({ subscribe: { fields: ["OtherJobsNumber","EmploymentPrimary","EmploymentPrimary.trigger",,"EmploymentPrimary.initiate"] } })
+  const form = useForm({ subscribe: { fields: ["OtherJobsNumber","EmploymentPrimary","EmploymentPrimary.trigger","EmploymentPrimary.initiate"] } })
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
