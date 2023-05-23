@@ -165,7 +165,7 @@ export const AllowableDeductionsSecondary = () => {
             required="Required"
             type="text"
             helper={
-              "You can use your last tax return to calculate this number or see the User's manual to learn more."
+              "You can use your last tax return to calculate this number."
             }
           />
           <FieldSelect
@@ -195,7 +195,7 @@ export const AllowableDeductionsSecondary = () => {
             required="Required"
             type="text"
             helper={
-              "You can use your last tax return to calculate this number or see the User's manual to learn more."
+              "You can use your last tax return to calculate this number."
             }
           />
 
@@ -226,7 +226,7 @@ export const AllowableDeductionsSecondary = () => {
             required="Required"
             type="text"
             helper={
-              "You can use your last tax return to calculate this number or see the User's manual to learn more."
+              "You can use your last tax return to calculate this number."
             }
           />
           <FieldSelect

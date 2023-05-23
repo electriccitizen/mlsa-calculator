@@ -66,7 +66,7 @@ export const IntroHelp = () => {
             }}
           />
           <Box mt="4" mb="4" fontSize={"lg"}>
-            This icon will be available any time there is additional informatin
+            This icon will be available any time there is additional informatipn
             or tips about a particular step in the interview.
           </Box>
         </Box>

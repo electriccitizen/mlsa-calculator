@@ -24,6 +24,8 @@ export const OtherJobs = () => {
           If you have another job (or former jobs) that you want to report,
           select yes below to continue adding additional jobs. Otherwise
           select no to continue.
+
+
           </Text>
         <FieldRadio
           name="EmploymentPrimary.otherJobs"
@@ -37,7 +39,9 @@ export const OtherJobs = () => {
         />
 
         {state["EmploymentPrimary.otherJobs"] === "yes" && (
-          <FieldRadio
+            <>
+          <div>  Add any additional current jobs first, followed by any former jobs you wish to report.</div>
+            <FieldRadio
             name="OtherJobsNumber"
             required="Required"
             forceStack={true}
@@ -47,6 +51,7 @@ export const OtherJobs = () => {
               { value: "2", label: "Two" },
             ]}
           />
+            </>
         )}
         <AdministrativeRules
           rules={[105, 106, 108]}
