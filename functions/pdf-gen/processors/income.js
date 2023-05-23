@@ -157,27 +157,31 @@ const calcWage = (job) => {
   let jobGrossAmount = getValueAsNumber(job, "grossAmount")
   let jobSchedule = getValueAsNumber(job, "schedule")
   let jobPayment = getValue(job, "payment")
+  let jobCurrent = getValue(job, "current")
 
-  switch (jobType) {
-    case "temporary":
-      numWeeks = calcWeeksBetween(jobStart, jobEnd)
-      break
-    case "permanent":
-    case "seasonal":
-      numWeeks = jobWeeksPerYear
-      break
+  if (jobCurrent !== 'former') {
+    switch (jobType) {
+      case "temporary":
+        numWeeks = calcWeeksBetween(jobStart, jobEnd)
+        break
+      case "permanent":
+      case "seasonal":
+        numWeeks = jobWeeksPerYear
+        break
+    }
+
+    switch (jobPayment) {
+      case "hourly":
+        wage = multiply(jobGrossAmount, jobHoursPerWeek, numWeeks)
+        break
+      case "salary":
+      case "commission":
+        wage = multiply(jobGrossAmount, jobSchedule)
+        break
+    }
+  } else {
+    wage = ''
   }
-
-  switch (jobPayment) {
-    case "hourly":
-      wage = multiply(jobGrossAmount, jobHoursPerWeek, numWeeks)
-      break
-    case "salary":
-    case "commission":
-      wage = multiply(jobGrossAmount, jobSchedule)
-      break
-  }
-
   return wage
 }
 
