@@ -65,10 +65,7 @@ export const LostWagesCarTravel = () => {
             name={`LostWagesCarTravel.data.${index}.amt`}
             label="How many miles did you travel round trip?"
         />
-        <FieldNumberInput
-            name={`LostWagesCarTravel.data.${index}.distance`}
-            label="How many miles did you travel round trip?"
-        />
+
       </Stack>
       <Box mb="4" fontSize={"sm"}>
         See:{" "}

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { FormizStep, useForm } from "@formiz/core"
-import { Heading, Box, Button, Text, Stack } from "@chakra-ui/react"
+import { Heading, Box, Button, Text, Stack, Spinner } from "@chakra-ui/react"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import printJS from "print-js"
 import { navigate } from "gatsby"
@@ -20,8 +20,11 @@ export const CompleteApp = ({ state, pdf }) => {
     navigate("/")
   }
 
-  const loadingMessageDownload = counter > 0 ? "Loading..." : "Download"
-  const loadingMessagePrint = counter > 0 ? "Loading..." : "Print"
+  // const loadingMessageDownload = counter > 0 ? "Loading..." : "Download"
+  // const loadingMessagePrint = counter > 0 ? "Loading..." : "Print"
+
+  const loadingMessageDownload = counter > 0 ? <Spinner size="sm" /> : "Download";
+  const loadingMessagePrint = counter > 0 ? <Spinner size="sm" /> : "Print";
 
   return (
     <FormizStep label={"Complete workbook"} name="CompleteApp" order={30000}>
