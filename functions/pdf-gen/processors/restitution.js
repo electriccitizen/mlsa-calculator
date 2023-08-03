@@ -147,7 +147,7 @@ const calcRestitution = form => {
               const globalMileageRate = getIRSBusinessMileageRate()
               const mileageCost = multiply(
                 globalMileageRate,
-                getValueAsNumber(item, ["distance"])
+                getValueAsNumber(item, ["amt"])
               )
 
               return add(total, mileageCost)
