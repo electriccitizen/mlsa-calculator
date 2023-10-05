@@ -106,7 +106,6 @@ export const PropertyDamage = () => {
         <FieldDate
           name={`PropertyDamage.data.${index}.date`}
           label="Date of purchase or expense"
-          required="Required"
           type="text"
           placeholder="MM/DD/YYYY"
         />

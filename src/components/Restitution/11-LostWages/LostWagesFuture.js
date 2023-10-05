@@ -93,7 +93,7 @@ export const LostWagesFuture = () => {
       {status === "yes" && (
         <AlertBox>
           You may want to talk to a lawyer to calculate money you lost from
-          future work do to the crime.
+          future work due to the crime.
         </AlertBox>
       )}
 
