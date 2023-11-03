@@ -38,12 +38,6 @@ export default function SiteHeader() {
                 text
                 icon
               }
-              menuLinks3 {
-                link
-                name
-                text
-                icon
-              }
             }
           }
         }
@@ -53,7 +47,7 @@ export default function SiteHeader() {
           <Menu
             menuLinks={data.site.siteMetadata.menuLinks}
             menuLinks2={data.site.siteMetadata.menuLinks2}
-            menuLinks3={data.site.siteMetadata.menuLinks3}
+            // menuLinks3={data.site.siteMetadata.menuLinks3}
           />
           <Stack
             bg={"brand.400"}

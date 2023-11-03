@@ -44,7 +44,7 @@ function IconSwap(icon) {
       return null
   }
 }
-export const Menu = ({ menuLinks, menuLinks2, menuLinks3 }) => {
+export const Menu = ({ menuLinks, menuLinks2 }) => {
   const { colorMode } = useColorMode()
 
   const styles = {
@@ -148,28 +148,28 @@ export const Menu = ({ menuLinks, menuLinks2, menuLinks3 }) => {
           ))}
         </List>
         <Divider />
-        <List
-          border="0"
-          outline="none"
-          w="100%"
-          pl="4"
-          pr="4"
-          mt="4"
-          spacing="4"
-        >
-          {menuLinks3.map(link => (
-            <Box key={link.link}>
-              <IconSwap icon={link.icon} />
-              <ListItem key={link.link}>
-                <ListIcon as={IconSwap(link.icon)} color="brand" />
-                <GatsbyLink className="menulink" to={link.link}>
-                  {link.name}
-                </GatsbyLink>
+        {/*<List*/}
+        {/*  border="0"*/}
+        {/*  outline="none"*/}
+        {/*  w="100%"*/}
+        {/*  pl="4"*/}
+        {/*  pr="4"*/}
+        {/*  mt="4"*/}
+        {/*  spacing="4"*/}
+        {/*>*/}
+        {/*  {menuLinks3.map(link => (*/}
+        {/*    <Box key={link.link}>*/}
+        {/*      <IconSwap icon={link.icon} />*/}
+        {/*      <ListItem key={link.link}>*/}
+        {/*        <ListIcon as={IconSwap(link.icon)} color="brand" />*/}
+        {/*        <GatsbyLink className="menulink" to={link.link}>*/}
+        {/*          {link.name}*/}
+        {/*        </GatsbyLink>*/}
 
-              </ListItem>
-            </Box>
-          ))}
-        </List>
+        {/*      </ListItem>*/}
+        {/*    </Box>*/}
+        {/*  ))}*/}
+        {/*</List>*/}
       </BurgerMenu>
     </>
   )

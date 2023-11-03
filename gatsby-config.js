@@ -11,11 +11,17 @@ module.exports = {
   siteMetadata: {
     title: "Montana Legal Help Tools",
     menuLinks: [
+      // {
+      //   name: "Child Support Calculator",
+      //   link: "/child-support",
+      //   text: "Help determine your child support costs.",
+      //   icon: "FaCalculator",
+      // },
       {
-        name: "Child Support Calculator",
-        link: "/child-support",
-        text: "Help determine your child support costs.",
-        icon: "FaCalculator",
+        name: "Restitution Worksheet",
+        link: "/restitution",
+        text: "Create a restitution log.",
+        icon: "FaRegFileAlt",
       },
       // {
       //   name: "Calculator Guide",
@@ -24,15 +30,15 @@ module.exports = {
       //   icon: "FaGlobe",
       // },
     ],
+    // menuLinks2: [
+    //   {
+    //     name: "Restitution Worksheet",
+    //     link: "/restitution",
+    //     text: "Create a restitution log.",
+    //     icon: "FaRegFileAlt",
+    //   },
+    // ],
     menuLinks2: [
-      {
-        name: "Restitution Worksheet",
-        link: "/restitution",
-        text: "Create a restitution log.",
-        icon: "FaRegFileAlt",
-      },
-    ],
-    menuLinks3: [
       {
         name: "Safe Internet Use",
         link: "/safety",

@@ -53,39 +53,39 @@ export const PageFooter = ({ handleDebug, debugMode }) => {
       </Box>
 
       {/*{Debugging}*/}
-      <Box d="flex" alignItems="center" mt="8" pt="2">
-        <Stack mr="4" mt="2" isInline align="center" mb="2">
-          <Icon
-            as={FaBug}
-            name="view-off"
-            boxSize={4}
-            opacity={debugMode !== "off" ? "0.3" : null}
-          />
-          <Switch
-            size="sm"
-            onChange={e => {
-              handleDebug(debugMode === "on" ? "off" : "on")
-            }}
-            color="none"
-          />
-          <Icon
-            as={FaBug}
-            name="view"
-            boxSize={4}
-            opacity={debugMode !== "on" ? "0.3" : null}
-          />
-        </Stack>
-        <Button
-          onClick={() => {
-            sessionStorage.clear()
-            windowGlobal.location.reload(sessionStorage.clear())
-          }}
-          size="sm"
-          mr="auto"
-        >
-          Reset
-        </Button>
-      </Box>
+      {/*<Box d="flex" alignItems="center" mt="8" pt="2">*/}
+      {/*  <Stack mr="4" mt="2" isInline align="center" mb="2">*/}
+      {/*    <Icon*/}
+      {/*      as={FaBug}*/}
+      {/*      name="view-off"*/}
+      {/*      boxSize={4}*/}
+      {/*      opacity={debugMode !== "off" ? "0.3" : null}*/}
+      {/*    />*/}
+      {/*    <Switch*/}
+      {/*      size="sm"*/}
+      {/*      onChange={e => {*/}
+      {/*        handleDebug(debugMode === "on" ? "off" : "on")*/}
+      {/*      }}*/}
+      {/*      color="none"*/}
+      {/*    />*/}
+      {/*    <Icon*/}
+      {/*      as={FaBug}*/}
+      {/*      name="view"*/}
+      {/*      boxSize={4}*/}
+      {/*      opacity={debugMode !== "on" ? "0.3" : null}*/}
+      {/*    />*/}
+      {/*  </Stack>*/}
+      {/*  <Button*/}
+      {/*    onClick={() => {*/}
+      {/*      sessionStorage.clear()*/}
+      {/*      windowGlobal.location.reload(sessionStorage.clear())*/}
+      {/*    }}*/}
+      {/*    size="sm"*/}
+      {/*    mr="auto"*/}
+      {/*  >*/}
+      {/*    Reset*/}
+      {/*  </Button>*/}
+      {/*</Box>*/}
 
     </>
   )
