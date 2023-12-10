@@ -5,8 +5,8 @@ import { Text,  Heading, Icon } from "@chakra-ui/react"
 import { FaInfoCircle  } from "react-icons/fa/index"
 export const IntroSafety = () => {
   return (
-    <FormizStep label={"Safety and privacy"} name="introSafety" order={1000}>
-      <SectionHeader header={"Safety and privacy"} />
+    <FormizStep label={"Safety and Privacy"} name="introSafety" order={1000}>
+      <SectionHeader header={"Safety and Privacy"} />
       <Text mb={2}>
         This tool does not collect or store any personal information, but basic
         safety precautions should be taken into account:

@@ -6,7 +6,7 @@ import { FaInfoCircle, FaExternalLinkAlt } from "react-icons/fa/index"
 export const IntroSafety = () => {
   return (
     <FormizStep label="Safety and privacy" name="introSafety" order={1000}>
-      <SectionHeader header={"Safety and privacy"} />
+      <SectionHeader header={"Safety and Privacy"} />
 
       <Text mb={2}>
         This tool does not collect or store any personal information, but basic
@@ -52,22 +52,22 @@ export const IntroSafety = () => {
         <Icon color={"brand.400"} as={FaInfoCircle} /> Domestic Violence
       </Heading>
       <Text mb={2}>
-        The Montana Child Support Enforcement Division (CSED), part of the MT
+        The Montana Child Support Services Division (CSSD), part of the MT
         Department of Health and Human Services (DPHHS). To open a case with
-        CSED,{" "}
+        CSSD,{" "}
         <Link
           href={
-            "https://dphhs.mt.gov/index"
+            "https://webapp.hhs.mt.gov/SEARCHSIntakeApplicationApp/"
           }
           color={"brand.400"}
         >
-          you may download an application.
-        </Link>{" "}
+            you can apply online here
+        </Link>.{" "}
         <Icon boxSize={"12px"} as={FaExternalLinkAlt} /> You may pick up an
         application at a{" "}
         <Link
           href={
-            "https://dphhs.mt.gov/index"
+            "https://dphhs.mt.gov/cssd/Contacts"
           }
           color={"brand.400"}
         >

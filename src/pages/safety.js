@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, Heading, Text, Box } from "@chakra-ui/react"
+import { Heading, Text, Box } from "@chakra-ui/react"
 
 import { PageLayout } from "../layout/PageLayout"
 export default function Safety() {
@@ -104,25 +104,6 @@ export default function Safety() {
                 </li>
               </ul>
             </Box>
-            <p>
-              Wondering if your devices are being monitored?{" "}
-              <Link
-                color={"brand.400"}
-                href="https://www.techsafety.org/computerspyware"
-              >
-                Learn more about computer spyware
-              </Link>
-              .
-            </p>
-            <p>
-              For more information on Internet and technology safety:{" "}
-              <Link
-                href="https://nnedv.org/mdocs-posts/technology-safety-quick-tips-chart/"
-                color="brand.400"
-              >
-                See Quick Safety Chart
-              </Link>
-            </p>
           </Text>
           <Heading as="h2" size="lg" mb={4}>
             If you are in immediate danger, call 911
@@ -172,7 +153,7 @@ export default function Safety() {
             </ul>
           </Box>
           <Text mb={4}>
-            More Safety Planning information is available from the
+            More Safety Planning information is available from the {" "}
             <a href={"https://www.thehotline.org/"} isExternal>National
             Domestic Violence Hotline</a> website.
           </Text>

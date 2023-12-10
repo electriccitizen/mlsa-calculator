@@ -3,7 +3,6 @@ import { FormizStep } from "@formiz/core"
 import { FieldRadio } from "../Fields/FieldRadio"
 import { SectionHeader } from "../Utils/SectionHeader"
 import {
-  Icon,
   Box,
   Link,
   List,
@@ -13,7 +12,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react"
 import { LinkIcon } from "@chakra-ui/icons"
-import { FaCheckCircle, FaExternalLinkAlt } from "react-icons/fa/index"
+import { FaCheckCircle } from "react-icons/fa/index"
 
 export const TermsOfUse = () => {
   const [terms, setTerms] = useState()
@@ -75,12 +74,13 @@ export const TermsOfUse = () => {
           </ListItem>
         </List>
         <Text mt={8} mb={4}>
-          I have read and agree to MLSA’s{" "}
-          <Link isExternal color={"brand.400"} href={"/terms-of-use"}>
-            Terms of Use
-          </Link>{" "}
-          <Icon boxSize={"12px"} as={FaExternalLinkAlt} />. Click yes below to
+          I have read and agree to MLSA’s Terms of Use . Click yes below to
           continue:
+          {/*<Link isExternal color={"brand.400"} href={"/terms-of-use"}>*/}
+          {/*  Terms of Use*/}
+          {/*</Link>{" "}*/}
+          {/*<Icon boxSize={"12px"} as={FaExternalLinkAlt} />. Click yes below to*/}
+          {/*continue:*/}
         </Text>
         <Box>
           <FieldRadio

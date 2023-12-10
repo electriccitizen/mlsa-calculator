@@ -1,8 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
-import { Stack, Icon, Switch, Button, Box, Spacer } from "@chakra-ui/react"
-import { FaBug } from "react-icons/fa/index"
+import { Stack, Box, Spacer } from "@chakra-ui/react"
 import { Logos } from '../components/Logos/logos'
 
 const propTypes = {
@@ -15,7 +14,7 @@ const defaultProps = {
   onReset: () => {},
   githubPath: null,
 }
-const windowGlobal = typeof window !== "undefined" && window
+// const windowGlobal = typeof window !== "undefined" && window
 export const PageFooter = ({ handleDebug, debugMode }) => {
   return (
     <>

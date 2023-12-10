@@ -131,7 +131,7 @@ export default function Disclaimer() {
             We are continually seeking solutions that will bring all areas of
             the site up to the same level of overall web accessibility. In the
             meantime, should you experience difficulty in accessing this site,
-            please don’t hesitate to contact us at vlan@mtlsa.org.
+            please don’t hesitate to contact us at contactus@mtlsa.org.
           </Text>
         </Box>
       </PageLayout>

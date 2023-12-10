@@ -14,8 +14,7 @@ export const IntroCantDo = () => {
       <SectionHeader header={"What this tool can't do"} />
       <Text>
         This calculator cannot take the place of a lawyer’s legal advice or
-        information from the State of Montana Child Support Enforcement Division
-        (CSED).
+        information from the State of Montana Child Support Services Division (CSSD).
       </Text>
       <Text p={4} mt={2} color={colorMode === "dark" ? "gray.400" : "gray.500"}>
         <Icon color="red.700" as={FaStopCircle} /> There is no claim or
@@ -23,7 +22,7 @@ export const IntroCantDo = () => {
       </Text>
       <Text p={4} mb={2} color={colorMode === "dark" ? "gray.400" : "gray.500"}>
         <Icon color="red.700" as={FaStopCircle} /> Montana Legal Services
-        Association and/or CSED are not responsible for what happens if you use
+        Association and/or CSSD are not responsible for what happens if you use
         this calculator.
       </Text>
       <Text>

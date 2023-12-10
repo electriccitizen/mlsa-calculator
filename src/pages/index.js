@@ -1,7 +1,9 @@
 import React from "react"
 import { Link as GatsbyLink } from "gatsby"
 // import { FaRegFileAlt } from "react-icons/fa"
-import { FaRegFileAlt, FaCalculator } from "react-icons/fa"
+import { FaRegFileAlt } from "react-icons/fa"
+//, FaCalculator
+
 import {
   Heading,
   Divider,

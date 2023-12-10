@@ -81,7 +81,7 @@ export const InitiateInterview = () => {
             <>
               <FieldInput
                 name="CSED"
-                label="If available, enter the District Court Case number or CSED Case number for the case in which you are seeking child support:"
+                label="If available, enter the District Court Case number or CSSD Case number for the case in which you are seeking child support:"
                 size={"xl"}
                 fieldWidth={"10rem"}
               />
@@ -116,7 +116,7 @@ export const InitiateInterview = () => {
                 {(state.Location === "yes" || formLocation === "yes") && (
                   <FieldInput
                     name="CSED"
-                    label="Enter the District Court Case number or CSED Case number for the case in which you are seeking child support:"
+                    label="Enter the District Court Case number or CSSD Case number for the case in which you are seeking child support:"
                     fieldWidth={"250px"}
                   />
                 )}

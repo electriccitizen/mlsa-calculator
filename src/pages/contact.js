@@ -21,18 +21,18 @@ export default function Contact() {
         <Text mb={"4"}>
           Website: <a isExternal href={"https://www.mtlsa.org/"}>https://www.mtlsa.org</a>
           <br />
-          Email: <a href={"mailto:vlan@mtlsa.org"}>vlan@mtlsa.org</a>
+          Email: <a href={"mailto:contactus@mtlsa.org"}>contactus@mtlsa.org</a>
           <br />
-          Phone: 406-543-8343 x 22
+          Phone: 1 (800) 666-6899
           <br />
         </Text>
         <Text mb={"4"}>
           Mail:
           <br />
           Montana Legal Services Association<br />
-          616 Helena Avenue, Suite 10
+          616 Helena Avenue, Suite 100
           <br />
-          Helena, MT 5960
+          Helena, MT 59601
           <br />
         </Text>
       </Box>
