@@ -21,15 +21,13 @@ export const IntroAdditional = () => {
         <Icon color={"brand.400"} as={FaInfoCircle} /> Montana Legal Services
         Association (MLSA)
       </Heading>
-      <Text mb={4}>
-        MLSA provides free civil legal assistance to low-income Montanans. Call
-        the MLSA HelpLine toll free at 1-800-666-6899. We answer the phone
-        Monday through Friday between 9am and 1pm.
-        <Link href={"https://www.mtlsa.org/"} color={"brand.400"}>
-          Visit our website
-        </Link>
-        . <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
-      </Text>
+        <Text mb={4}>
+            MLSA provides free civil legal assistance to low-income Montanans. Call the MLSA HelpLine toll free at 1-800-666-6899. HelpLine hours vary, you can apply any time at {" "}
+            <Link href={" https://www.montanalawhelp.org/apply-legal-services"} color={"brand.400"}>
+                MontanaLawHelp.org
+            </Link>
+            . <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
+        </Text>
 
       <Heading
         as="h2"
