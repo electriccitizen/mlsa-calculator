@@ -4,6 +4,7 @@ import { Link as GatsbyLink } from "gatsby"
 import PropTypes from "prop-types"
 import { Stack, Heading, Box } from "@chakra-ui/react"
 import { Menu } from "./Menu"
+import Escape from '../components/Escape/escape';
 // import { FaSun, FaMoon } from "react-icons/fa"
 
 const propTypes = {
@@ -63,7 +64,7 @@ export default function SiteHeader() {
 
           >
 
-            <Box width="100%">
+            <Box width="90%">
               <Heading
                 fontFamily={
                   '-apple-system, BlinkMacSystemFont, "Segoe UI",\n' +
@@ -92,18 +93,12 @@ export default function SiteHeader() {
                 Provided by the Montana Legal Services Association
               </Box>
             </Box>
-            {/*<Box width="10%">*/}
-            {/*  <Stack isInline align="center" mb="1" ml="auto">*/}
-            {/*    <FaMoon />*/}
-            {/*    <Switch*/}
-            {/*      size={"md"}*/}
-            {/*      isChecked={true}*/}
-            {/*      onChange={toggleColorMode}*/}
-            {/*      colorScheme="brand"*/}
-            {/*    />*/}
-            {/*    <FaSun />*/}
-            {/*  </Stack>*/}
-            {/*</Box>*/}
+            <Box width="10%">
+                <Escape
+                    text={"Quick Exit"}
+                    linkurl={"http://google.com"}
+                />
+            </Box>
           </Stack>
         </>
       )}

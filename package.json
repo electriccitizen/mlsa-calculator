@@ -48,6 +48,7 @@
     "react-icons": "^3.10.0",
     "react-moment": "^1.1.1",
     "react-pdf": "^4.1.0",
+    "react-tippy": "^1.4.0",
     "sharp": "^0.29.1",
     "stream-to-blob": "^2.0.1",
     "string-pixel-width": "^1.10.0"
