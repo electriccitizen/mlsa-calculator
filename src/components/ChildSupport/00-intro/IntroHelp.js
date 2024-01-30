@@ -107,8 +107,7 @@ export const IntroHelp = () => {
             Administrative Rules of Montana
           </Link>{" "}
           <Icon boxSize={"12px"} as={FaExternalLinkAlt} /> for reference as you
-          progress through the interview. that apply to specific questions
-          throughout the interview.
+          progress through the interview.
         </Text>
       </FormizStep>
     </RulesProvider>

@@ -43,8 +43,7 @@ export const TermsOfUse = () => {
           <ListItem>
             <LinkIcon color="brand.400" boxSize="4" as={FaCheckCircle} />
             This tool is not a substitute for receiving child support assistance
-            from a lawyer or the State of Montana's Child Support Enforcement
-            Division.
+            from a lawyer or the State of Montana'sChild Support Services Division.
           </ListItem>
           <ListItem>
             <LinkIcon color="brand.400" boxSize="4" as={FaCheckCircle} /> This
