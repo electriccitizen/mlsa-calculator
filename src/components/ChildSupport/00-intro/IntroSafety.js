@@ -55,7 +55,7 @@ export const IntroSafety = () => {
         The Montana Child Support Services Division (CSSD), part of the MT
         Department of Health and Human Services (DPHHS). To open a case with
         CSSD,{" "}
-        <Link
+        <Link isExternal
           href={
             "https://webapp.hhs.mt.gov/SEARCHSIntakeApplicationApp/"
           }
@@ -65,7 +65,7 @@ export const IntroSafety = () => {
         </Link>.{" "}
         <Icon boxSize={"12px"} as={FaExternalLinkAlt} /> You may pick up an
         application at a{" "}
-        <Link
+        <Link isExternal
           href={
             "https://dphhs.mt.gov/cssd/Contacts"
           }

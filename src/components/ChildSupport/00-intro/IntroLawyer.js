@@ -25,7 +25,7 @@ export const IntroLawyer = () => {
         <Text mb={4}>
           Montana Legal Services Association (MLSA) gives free civil legal help
           to low-income people.
-          <Link href={"https://goo.gl/7xgkgj"} color={"brand.400"}>
+          <Link isExternal href={"https://goo.gl/7xgkgj"} color={"brand.400"}>
             {" "}
             Apply online
           </Link>{" "}
@@ -44,7 +44,7 @@ export const IntroLawyer = () => {
         <Text mb={2}>
           If you're eligible for MLSA, you may also get legal advice by email
           from AskKarla. Go to{" "}
-          <Link href={"https://askkarla.org/"} color={"brand.400"}>
+          <Link isExternal href={"https://askkarla.org/"} color={"brand.400"}>
             {" "}
             AskKarla
           </Link>{" "}
@@ -65,7 +65,7 @@ export const IntroLawyer = () => {
           You may be able to find an attorney to help you by calling the State
           of Montana Bar Lawyer Referral and Information Service (LRIS) at (406)
           449-6577. Or visit{" "}
-          <Link href={"http://www.montanabar.org"} color={"brand.400"}>
+          <Link isExternal href={"http://www.montanabar.org"} color={"brand.400"}>
             {" "}
             LRIS online
           </Link>{" "}

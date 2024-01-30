@@ -100,7 +100,7 @@ export const IntroHelp = () => {
         </Box>
         <Text mt={4} mb={4}>
           You may find it helpful to print the{" "}
-          <Link
+          <Link isExternal
             color={"brand.400"}
             href={"http://www.mtrules.org/gateway/ruleno.asp?RN=37%2E62%2E101"}
           >

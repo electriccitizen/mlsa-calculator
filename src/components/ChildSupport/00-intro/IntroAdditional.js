@@ -24,7 +24,7 @@ export const IntroAdditional = () => {
         </Heading>
         <Text mb={4}>
             MLSA provides free civil legal assistance to low-income Montanans. Call the MLSA HelpLine toll free at 1-800-666-6899. HelpLine hours vary, you can apply any time at {" "}
-          <Link href={" https://www.montanalawhelp.org/apply-legal-services"} color={"brand.400"}>
+          <Link isExternal href={" https://www.montanalawhelp.org/apply-legal-services"} color={"brand.400"}>
               MontanaLawHelp.org
           </Link>
           . <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
@@ -41,13 +41,13 @@ export const IntroAdditional = () => {
         </Heading>
         <Text mb={2}>
           MLSA operates{" "}
-          <Link href={"https://>www.MontanaLawHelp.org"} color={"brand.400"}>
+          <Link isExternal href={"https://www.MontanaLawHelp.org"} color={"brand.400"}>
             www.MontanaLawHelp.org
           </Link>{" "}
           <Icon boxSize={"12px"} as={FaExternalLinkAlt} />, a website with legal
           information on topics including child support and other family law
           issues. Find{" "}
-          <Link
+          <Link isExternal
             href={
               "https://www.montanalawhelp.org/issues/families-and-kids/child-support"
             }
@@ -72,7 +72,7 @@ export const IntroAdditional = () => {
           The Montana Child Support Services Division (CSSD), part of the MT
           Department of Health and Human Services (DPHHS). To open a case with
           CSDD,{" "}
-          <Link
+          <Link isExternal
             href={
               "https://webapp.hhs.mt.gov/SEARCHSIntakeApplicationApp/"
             }
@@ -82,7 +82,7 @@ export const IntroAdditional = () => {
           </Link>{" "}
           <Icon boxSize={"12px"} as={FaExternalLinkAlt} /> You may pick up an
           application at a{" "}
-          <Link
+          <Link isExternal
             href={
               "https://dphhs.mt.gov/cssd/Contacts"
             }

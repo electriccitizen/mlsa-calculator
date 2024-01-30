@@ -85,7 +85,7 @@ export const IntroWhat = () => {
       <Text mt={2}>
         Both forms and additional information about child support are available{" "}
         online on{" "}
-        <Link
+        <Link isExternal
           color="brand.400"
           href="https://dphhs.mt.gov/index"
           isExternal
