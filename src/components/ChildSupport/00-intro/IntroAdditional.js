@@ -69,16 +69,14 @@ export const IntroAdditional = () => {
           <Icon color={"brand.400"} as={FaInfoCircle}  mr={2}/> Montana Child Support Services Division (CSSD)
         </Heading>
         <Text mb={2}>
-          The Montana Child Support Services Division (CSSD), part of the MT
-          Department of Health and Human Services (DPHHS). To open a case with
-          CSDD,{" "}
+            If you are concerned about your safety or the safety of your family members, it would be a good idea to talk to a Crime Victim Advocate (CVA). CVAs can answer basic questions about the law and help you come up with ways to protect your safety. You can find the,{" "}
           <Link isExternal
             href={
-              "https://webapp.hhs.mt.gov/SEARCHSIntakeApplicationApp/"
+              "https://dojmt.gov/victims/crime-victim-advocates/"
             }
             color={"brand.400"}
           >
-            you may download an application.
+              CVA closest to you here.
           </Link>{" "}
           <Icon boxSize={"12px"} as={FaExternalLinkAlt} /> You may pick up an
           application at a{" "}
