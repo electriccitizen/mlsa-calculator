@@ -31,7 +31,7 @@ export const IntroLearnMore = () => {
       </Heading>
       <Text mb={4}>
         MLSA operates{" "}
-        <a isExternal href={"https:// MTCrimeVictimHelp.org"}>
+        <a isExternal href={"https://MTCrimeVictimHelp.org"}>
           MTCrimeVictimHelp.org
         </a>{" "}
         <Icon boxSize={"12px"} as={FaExternalLinkAlt} />, a website with legal
