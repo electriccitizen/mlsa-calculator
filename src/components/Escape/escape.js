@@ -130,7 +130,7 @@ class Escape extends React.Component {
             background='brand.500' color="white" size='sm'
             _hover={{ background: "brand.600", color: "gray.200" }}
           >
-            Quick Escape
+            Quick Exit
           </Button>
         </Tooltip>
     );
