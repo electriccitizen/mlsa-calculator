@@ -89,7 +89,7 @@ export const OtherIncomeSecondary = () => {
           </Stack>
           <Text fontSize={"sm"} mt={2} mb={4}>
             This amount may not be the same amount of income you claim on your
-            taxes. Certian deductions are allowable for tax purposes but not for
+            taxes. Certain deductions are allowable for tax purposes but not for
             child support purposes. The User Guide can help you calculate the
             appropriate self-employment income.
           </Text>

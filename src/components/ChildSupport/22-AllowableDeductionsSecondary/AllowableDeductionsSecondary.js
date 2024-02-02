@@ -34,7 +34,7 @@ export const AllowableDeductionsSecondary = () => {
           },
           {
             value: "healthself",
-            label: "Health insurance premium for yourself",
+            label: "Health insurance premium for your spouse",
           },
           {
             value: "healthchildren",
@@ -54,7 +54,7 @@ export const AllowableDeductionsSecondary = () => {
           {
             value: "extmed",
             label:
-              "Extraordinary medical expenses for yourself, not reimbursed",
+              "Extraordinary medical expenses for your spouse, not reimbursed",
           },
           { value: "inhome", label: "In-home nursing care" },
           { value: "other", label: "Other" },
@@ -101,11 +101,11 @@ export const AllowableDeductionsSecondary = () => {
         >
           <FieldMoneyInput
             name={`AllowableDeductionsSecondary.healthself.amount`}
-            label="Ordered health insurance premium for yourself"
+            label="Ordered health insurance premium for your spouse"
             required="Required"
             type="text"
             helper={
-              "This amount is only the cost of your portion the premium. If you need help calculating the this portion of your health insurance premium see the User Manual or ask your employer."
+              "This amount is only the cost of your spouse's portion the premium. If you need help calculating the this portion of your spouse's health insurance premium see the User Manual or ask your employer."
             }
           />
           <FieldSelect
@@ -135,7 +135,7 @@ export const AllowableDeductionsSecondary = () => {
             required="Required"
             type="text"
             helper={
-              "This amount is only the cost of the portion the premium for other children you support. If you need help calculating the this portion of your health insurance premium see the User Manual or ask your employer."
+              "This amount is only the cost of the portion the premium for other children your spouse supports. If you need help calculating the this portion of your health insurance premium see the User Manual or ask your employer."
             }
           />
           <FieldSelect
@@ -165,7 +165,7 @@ export const AllowableDeductionsSecondary = () => {
             required="Required"
             type="text"
             helper={
-              "You can use your last tax return to calculate this number."
+              "You can use your spouse's last tax return to calculate this number."
             }
           />
           <FieldSelect
@@ -195,7 +195,7 @@ export const AllowableDeductionsSecondary = () => {
             required="Required"
             type="text"
             helper={
-              "You can use your last tax return to calculate this number."
+              "You can use your spouse's last tax return to calculate this number."
             }
           />
 
@@ -226,7 +226,7 @@ export const AllowableDeductionsSecondary = () => {
             required="Required"
             type="text"
             helper={
-              "You can use your last tax return to calculate this number."
+              "You can use your spouse's last tax return to calculate this number."
             }
           />
           <FieldSelect
@@ -307,7 +307,7 @@ export const AllowableDeductionsSecondary = () => {
         >
           <FieldMoneyInput
             name={`AllowableDeductionsSecondary.extmed.amount`}
-            label="Extraordinary medical expense for yourself - per year"
+            label="Extraordinary medical expense for your spouse - per year"
             required="Required"
             type="text"
             mr={4}

@@ -69,7 +69,7 @@ export const OtherAllowableDeductionsSecondary = () => {
             <SectionHeader header={`Enter other allowable deductions`} />
             <AddAnotherHeader
               header={
-                'Enter the type and annual amount of "Other" deductions you have.\n' +
+                'Enter the type and annual amount of "Other" deductions your spouse have.\n' +
                 '              Continue to click "Add another entry" until finished.'
               }
             />

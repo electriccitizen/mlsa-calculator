@@ -66,7 +66,7 @@ export const EnterOtherJobsSecondary = () => {
           <>
             <FieldRadio
               name={`OtherJobSecondary.${index}.current`}
-              label=" Enter all current jobs you have before you enter any previous jobs."
+              label=" Enter all current jobs for your spouse before you enter any previous jobs."
               placeholder="None"
               required="Required"
               index={index}
@@ -102,7 +102,7 @@ export const EnterOtherJobsSecondary = () => {
             {state[`OtherJobSecondary.${index}.type`] && (
               <FieldDate
                 name={`OtherJobSecondary.${index}.start`}
-                label="When did you start this job? If you are not sure of the exact date, enter an approximate date. (MM/DD/YYYY)"
+                label="When did your spouse start this job? If you are not sure of the exact date, enter an approximate date. (MM/DD/YYYY)"
                 required="Required"
                 type="text"
               />
