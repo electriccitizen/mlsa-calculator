@@ -8,7 +8,12 @@ class Escape extends React.Component {
   constructor(props) {
     super(props);
     if (typeof document !== `undefined`) {
-      // check for session cookie
+        var storedValue = sessionStorage.getItem('quick_exit');
+        // if (cookie){
+        if (storedValue){
+            window.history.forward();
+        }
+        // check for session cookie
       if (document.cookie.split(';').filter((item) => item.trim().startsWith('new=')).length) {
         this.trigger = false
       } else {
@@ -35,14 +40,10 @@ class Escape extends React.Component {
   }
 
   handleClick = () => {
-    let stateObj = {
-      foo: "bar",
-    };
-
     if (typeof window !== `undefined`) {
-      // obfustacate the back button when a user hits escape
-      window.history.pushState(stateObj, "Google.com", "redirect")
-      window.location.href = `https://www.google.com/`
+        window.open('http://weather.com/','_newtab');
+        window.location.href = 'http://google.com';
+        sessionStorage.setItem('quick_exit', 'clicked');
     }
   }
 
