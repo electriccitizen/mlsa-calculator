@@ -8,7 +8,7 @@ import {
   ListIcon,
   Box,
 } from "@chakra-ui/react"
-import { FaCheckCircle } from "react-icons/fa/index"
+import { FaCheckCircle } from "react-icons/fa"
 export const IntroPrep = () => {
   return (
     <FormizStep label={"Preparation checklist"} name="introPrep" order={1000}>

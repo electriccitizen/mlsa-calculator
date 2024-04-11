@@ -1,49 +1,37 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
+import { GatsbyImage } from "gatsby-plugin-image";
 import { Stack, Box } from "@chakra-ui/react"
 export const Logos = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      mtcvImage: file(relativePath: { eq: "mtcv.png" }) {
-        childImageSharp {
-          fluid(maxWidth: 150) {
-            ...GatsbyImageSharpFluid
-            
-            ...GatsbyImageSharpFluidLimitPresentationSize
-          }
-        }
-      }
-      mlsaImage: file(relativePath: { eq: "mlsa.png" }) {
-        childImageSharp {
-          fluid(maxWidth: 100) {
-            ...GatsbyImageSharpFluid
-            ...GatsbyImageSharpFluidLimitPresentationSize
-          }
-        }
-      }
-      ncvliImage: file(relativePath: { eq: "ncvli.png" }) {
-        childImageSharp {
-          fluid(maxWidth: 200) {
-            ...GatsbyImageSharpFluid
-            ...GatsbyImageSharpFluidLimitPresentationSize
-          }
-        }
-      }
+  const data = useStaticQuery(graphql`{
+  mtcvImage: file(relativePath: {eq: "mtcv.png"}) {
+    childImageSharp {
+      gatsbyImageData(width: 150, layout: CONSTRAINED)
     }
-  `)
+  }
+  mlsaImage: file(relativePath: {eq: "mlsa.png"}) {
+    childImageSharp {
+      gatsbyImageData(width: 100, layout: CONSTRAINED)
+    }
+  }
+  ncvliImage: file(relativePath: {eq: "ncvli.png"}) {
+    childImageSharp {
+      gatsbyImageData(width: 200, layout: CONSTRAINED)
+    }
+  }
+}`)
 
   return (
     <Stack mt={8} flex="1" spacing="12" width={"100%"} justify="center" align="center" direction={["column", "column", "row"]}>
       <Box mr={4} width={"200px"}>
-        <Img fluid={data.ncvliImage.childImageSharp.fluid} />
+        <GatsbyImage image={data.ncvliImage.childImageSharp.gatsbyImageData} />
       </Box>
       <Box mr={6} width={"100px"}>
-        <Img fluid={data.mlsaImage.childImageSharp.fluid} />
+        <GatsbyImage image={data.mlsaImage.childImageSharp.gatsbyImageData} />
       </Box>
       <Box  width={"150px"}>
-        <Img fluid={data.mtcvImage.childImageSharp.fluid} />
+        <GatsbyImage image={data.mtcvImage.childImageSharp.gatsbyImageData} />
       </Box>
     </Stack>
-  )
+  );
 }

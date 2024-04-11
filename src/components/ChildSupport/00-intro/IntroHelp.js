@@ -2,7 +2,7 @@ import React from "react"
 import { FormizStep } from "@formiz/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { Text, Link, Icon, useColorMode, Tooltip, Box } from "@chakra-ui/react"
-import { FaExternalLinkAlt } from "react-icons/fa/index"
+import { FaExternalLinkAlt } from "react-icons/fa"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 import { RulesProvider } from "../../../hooks/useRulesContext"
 

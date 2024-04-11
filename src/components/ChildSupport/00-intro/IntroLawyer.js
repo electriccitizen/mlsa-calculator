@@ -1,7 +1,7 @@
 import React from "react"
 import { FormizStep } from "@formiz/core"
 import { Text, Link, Heading, Icon } from "@chakra-ui/react"
-import { FaInfoCircle, FaExternalLinkAlt } from "react-icons/fa/index"
+import { FaInfoCircle, FaExternalLinkAlt } from "react-icons/fa"
 import { SectionHeader } from "../../Utils/SectionHeader"
 export const IntroLawyer = () => {
   return (

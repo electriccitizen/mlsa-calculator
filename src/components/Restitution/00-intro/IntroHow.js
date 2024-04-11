@@ -2,7 +2,7 @@ import React from "react"
 import { FormizStep } from "@formiz/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { Text, Icon, useColorMode } from "@chakra-ui/react"
-import { FaClock } from "react-icons/fa/index"
+import { FaClock } from "react-icons/fa"
 export const IntroHow = () => {
   const { colorMode } = useColorMode()
   return (

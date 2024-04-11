@@ -13,7 +13,7 @@ import { IntroQuestions } from '../../components/Restitution/00-intro/IntroQuest
 import { MultiStepsLayout } from "../../components/MultiStepsLayout"
 // import { scrollToStepTop } from '../components/Utils/scroll'
 
-export default function (Restitution) {
+export default function Restitution (Restitution) {
   const handleSubmit = () => {
     navigate("/restitution/worksheet")
   }

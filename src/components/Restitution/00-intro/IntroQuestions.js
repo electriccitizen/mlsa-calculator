@@ -6,7 +6,7 @@ import {
   ListItem,
   ListIcon,
 } from "@chakra-ui/react"
-import { FaCheckCircle } from "react-icons/fa/index"
+import { FaCheckCircle } from "react-icons/fa"
 export const IntroQuestions = () => {
   return (
     <FormizStep

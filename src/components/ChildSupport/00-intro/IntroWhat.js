@@ -88,7 +88,6 @@ export const IntroWhat = () => {
         <Link isExternal
           color="brand.400"
           href="https://dphhs.mt.gov/index"
-          isExternal
         >
           Montana’s DPHHS Child Support Services Division website
         </Link>
