@@ -19,7 +19,7 @@ import {
   FaQuestionCircle,
   FaRegFileAlt,
   FaPhoneAlt,
-} from "react-icons/fa/index"
+} from "react-icons/fa"
 const propTypes = {
   direction: PropTypes.oneOf(["left", "right"]),
 }

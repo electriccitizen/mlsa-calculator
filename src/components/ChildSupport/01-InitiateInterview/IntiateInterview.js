@@ -51,9 +51,7 @@ export const InitiateInterview = () => {
           { value: "worksheets", label: "Child Support Worksheets" },
           { value: "affadavit", label: "Financial Affadavit" },
         ]}
-        helper={
-          "This amount is only the cost of your portion the premium. If you need help calculating the this portion of your health insurance premium see the User Manual or ask your employer."
-        }
+
       />
       {((state.Documents === "worksheets" ||  formDocuments === "worksheets") || (state.Documents === "both" || formDocuments === "both")) && (
         <>

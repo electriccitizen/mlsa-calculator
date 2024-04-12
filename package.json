@@ -14,47 +14,51 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
-    "@chakra-ui/gatsby-plugin": "^1.0.1",
-    "@chakra-ui/icon": "^1.0.3",
-    "@chakra-ui/icons": "^1.0.3",
-    "@chakra-ui/react": "^1.3.3",
-    "@chakra-ui/system": "^1.1.5",
-    "@chakra-ui/theme-tools": "^1.0.3",
-    "@emotion/react": "^11.1.5",
-    "@emotion/styled": "^11.1.5",
+    "@chakra-ui/gatsby-plugin": "^3.1.3",
+    "@chakra-ui/icon": "^3.2.0",
+    "@chakra-ui/icons": "^2.1.1",
+    "@chakra-ui/react": "^2.8.2",
+    "@chakra-ui/system": "^2.6.2",
+    "@chakra-ui/theme-tools": "^2.1.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@formiz/core": "^1.0.0",
     "@formiz/validations": "^1.0.0",
-    "@react-pdf/renderer": "^2.0.0-beta.18",
+    "@react-pdf/renderer": "^3.4.2",
     "base64-stream": "^1.0.0",
-    "dinero.js": "^1.8.1",
-    "dotenv": "^8.2.0",
-    "flat": "^5.0.2",
-    "framer-motion": "^3.10.0",
-    "gatsby": "^2.30.1",
+    "dinero.js": "^1.9.1",
+    "dotenv": "^16.4.5",
+    "flat": "^6.0.1",
+    "framer-motion": "^11.0.27",
+    "gatsby": "^5.13.4",
     "gatsby-image": "^2.9.0",
-    "gatsby-plugin-manifest": "^2.10.0",
-    "gatsby-plugin-sharp": "^2.12.0",
-    "gatsby-source-filesystem": "^2.9.0",
-    "gatsby-transformer-sharp": "^2.10.0",
+    "gatsby-plugin-image": "^3.13.1",
+    "gatsby-plugin-manifest": "^5.13.1",
+    "gatsby-plugin-sharp": "^5.13.1",
+    "gatsby-source-filesystem": "^5.13.1",
+    "gatsby-transformer-sharp": "^5.13.1",
+    "install": "^0.13.0",
     "json-buffer": "^3.0.1",
-    "moment": "^2.29.1",
+    "moment": "^2.30.1",
     "node-pdftk": "^2.1.3",
-    "print-js": "^1.5.0",
-    "react": "^16.14.0",
-    "react-beforeunload": "^2.4.0",
-    "react-burger-menu": "^2.9.2",
-    "react-datepicker": "^3.4.0",
-    "react-dom": "^16.14.0",
-    "react-icons": "^3.10.0",
-    "react-moment": "^1.1.1",
-    "react-pdf": "^4.1.0",
+    "npm": "^10.5.2",
+    "print-js": "^1.6.0",
+    "react": "^18.2.0",
+    "react-beforeunload": "^2.6.0",
+    "react-burger-menu": "^3.0.9",
+    "react-datepicker": "^6.6.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.0.1",
+    "react-moment": "^1.1.3",
+    "react-pdf": "^7.7.1",
     "react-tippy": "^1.4.0",
-    "sharp": "^0.29.1",
+    "sharp": "^0.33.3",
     "stream-to-blob": "^2.0.1",
-    "string-pixel-width": "^1.10.0"
+    "string-pixel-width": "^1.11.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "prettier": "2.0.5"
+    "prettier": "^3.2.5"
   },
   "repository": {
     "type": "git",
@@ -62,5 +66,10 @@
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
+  },
+  "overrides": {
+    "react-server-dom-webpack@0.0.0-experimental-c8b778b7f-20220825": {
+      "react": "^18.2.0"
+    }
   }
 }

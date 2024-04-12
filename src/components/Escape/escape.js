@@ -64,7 +64,7 @@ class Escape extends React.Component {
           open={this.state.open}
           html={(
             <div>
-              <Box pb={8}> Click the Escape button to quickly exit this site. For more Internet safety information, click the Learn more button to visit our Safety Tips Page.</Box>
+              <Box pb={8}> Click the Quick Exit button to quickly exit this site. For more Internet safety information, click the Learn more button to visit our Safety Tips Page.</Box>
 
               <ButtonGroup colorScheme='teal' spacing='6'>
               <Box

@@ -2,7 +2,7 @@ import React from "react"
 import { FormizStep } from "@formiz/core"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { Text, Heading, Icon } from "@chakra-ui/react"
-import { FaInfoCircle, FaExternalLinkAlt } from "react-icons/fa/index"
+import { FaInfoCircle, FaExternalLinkAlt } from "react-icons/fa"
 export const IntroLearnMore = () => {
   return (
     <FormizStep label={"Learn more"} name="introcode" order={1000}>

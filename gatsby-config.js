@@ -92,6 +92,7 @@ module.exports = {
         icon: "src/images/favicon.svg", // This path is relative to the root of the site.
       },
     },
+    `gatsby-plugin-image`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
   ],

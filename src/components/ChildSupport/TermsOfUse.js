@@ -12,7 +12,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react"
 import { LinkIcon } from "@chakra-ui/icons"
-import { FaCheckCircle } from "react-icons/fa/index"
+import { FaCheckCircle } from "react-icons/fa"
 
 export const TermsOfUse = () => {
   const [terms, setTerms] = useState()
@@ -35,15 +35,13 @@ export const TermsOfUse = () => {
           color={colorMode === "dark" ? "gray.600" : "gray.500"}
         >
           <ListItem>
-            <LinkIcon color="brand.400" boxSize="4" as={FaCheckCircle} />
-            This site does not give legal advice. If you have additional
+            <LinkIcon color="brand.400" boxSize="4" as={FaCheckCircle} /> This site does not give legal advice. If you have additional
             questions about child support, you should contact an experienced
             attorney.
           </ListItem>
           <ListItem>
-            <LinkIcon color="brand.400" boxSize="4" as={FaCheckCircle} />
-            This tool is not a substitute for receiving child support assistance
-            from a lawyer or the State of Montana'sChild Support Services Division.
+            <LinkIcon color="brand.400" boxSize="4" mr="2" as={FaCheckCircle} /> This tool is not a substitute for receiving child support assistance
+            from a lawyer or the State of Montana's Child Support Services Division.
           </ListItem>
           <ListItem>
             <LinkIcon color="brand.400" boxSize="4" as={FaCheckCircle} /> This

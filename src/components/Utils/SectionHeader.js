@@ -20,7 +20,7 @@ import {
   PopoverCloseButton,
 } from "@chakra-ui/react"
 import { FaQuestion } from "react-icons/fa"
-import { FaExternalLinkAlt } from "react-icons/fa/index"
+import { FaExternalLinkAlt } from "react-icons/fa"
 
 const propTypes = {
   children: PropTypes.node,

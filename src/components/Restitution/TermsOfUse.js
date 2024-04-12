@@ -12,7 +12,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react"
 import { LinkIcon } from "@chakra-ui/icons"
-import { FaCheckCircle } from "react-icons/fa/index"
+import { FaCheckCircle } from "react-icons/fa"
 
 export const TermsOfUse = () => {
   const [terms, setTerms] = useState()

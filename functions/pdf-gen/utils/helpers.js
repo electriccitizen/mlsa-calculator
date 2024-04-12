@@ -7,6 +7,12 @@ const getValue = (nestedObj, pathArr, defaultTo) => {
         (obj && obj[key] !== undefined && obj[key] !== null) ? obj[key] : defaultTo, nestedObj)
 }
 
+const cleanAndConvertNumber = (input, defaultTo = 0) => {
+    const cleanedInput = input.toString().replace(/,/g, '');
+    console.log('fook')
+    return Number(cleanedInput) || defaultTo;
+}
+
 const getValueAsNumber = (nestedObj, pathArr, defaultTo = 0) => {
     return Number(getValue(nestedObj, pathArr, defaultTo)) || defaultTo
 }
@@ -176,4 +182,4 @@ function flatten(data, prefix = "") {
   }, {})
 }
 
-module.exports = { getValue, getValueAsNumber, getValueAsArray, getValuesAsString, divideIntoLines, splitLines, flattenLines, setInvalidValuesAsNA, capitalize, camelize, flatten }
+module.exports = { getValue, getValueAsNumber, getValueAsArray, getValuesAsString, divideIntoLines, splitLines, flattenLines, setInvalidValuesAsNA, capitalize, camelize, flatten, cleanAndConvertNumber }
