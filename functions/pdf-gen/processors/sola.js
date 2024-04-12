@@ -59,10 +59,11 @@ const calcSola = (form, initiate, percentages) => {
       percentages["ppa.mother.income"],
       data["sola.mother.shareLower"]
     )
-    if (gt(data["sola.mother.income"]), 0) {
-      // 18A Long distance parenting adjustment (Worksheet D)
+
+    // 18A Long distance parenting adjustment (Worksheet D)
+    if (gt(data["sola.mother.income"], 0)) {
       data["sola.mother.distanceAdjustment"] =
-        calcLongDistanceParentingAdjustment(form, "StandardOfLiving")
+          calcLongDistanceParentingAdjustment(form, "StandardOfLiving")
 
       // 18B Other (specify)
       data["sola.mother.other"] =
@@ -127,7 +128,7 @@ const calcSola = (form, initiate, percentages) => {
     if (gt(data["sola.father.income"], 0)) {
       // 18A Long distance parenting adjustment (Worksheet D)
       data["sola.father.distanceAdjustment"] =
-        calcLongDistanceParentingAdjustment(form, "StandardOfLivingSecondary")
+         calcLongDistanceParentingAdjustment(form, "StandardOfLivingSecondary")
 
       // 18B Other (specify)
       data["sola.father.other"] =

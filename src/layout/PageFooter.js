@@ -1,9 +1,9 @@
 import React from "react"
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
-import { Stack, Box, Spacer } from "@chakra-ui/react"
+import { Stack, Box, Spacer, Icon, Switch, Button } from "@chakra-ui/react"
 import { Logos } from '../components/Logos/logos'
-
+import { FaBug } from "react-icons/fa"
 const propTypes = {
   children: PropTypes.node,
   onReset: PropTypes.func,
@@ -52,39 +52,42 @@ export const PageFooter = ({ handleDebug, debugMode }) => {
       </Box>
 
       {/*{Debugging}*/}
-      {/*<Box d="flex" alignItems="center" mt="8" pt="2">*/}
-      {/*  <Stack mr="4" mt="2" isInline align="center" mb="2">*/}
-      {/*    <Icon*/}
-      {/*      as={FaBug}*/}
-      {/*      name="view-off"*/}
-      {/*      boxSize={4}*/}
-      {/*      opacity={debugMode !== "off" ? "0.3" : null}*/}
-      {/*    />*/}
-      {/*    <Switch*/}
-      {/*      size="sm"*/}
-      {/*      onChange={e => {*/}
-      {/*        handleDebug(debugMode === "on" ? "off" : "on")*/}
-      {/*      }}*/}
-      {/*      color="none"*/}
-      {/*    />*/}
-      {/*    <Icon*/}
-      {/*      as={FaBug}*/}
-      {/*      name="view"*/}
-      {/*      boxSize={4}*/}
-      {/*      opacity={debugMode !== "on" ? "0.3" : null}*/}
-      {/*    />*/}
-      {/*  </Stack>*/}
-      {/*  <Button*/}
-      {/*    onClick={() => {*/}
-      {/*      sessionStorage.clear()*/}
-      {/*      windowGlobal.location.reload(sessionStorage.clear())*/}
-      {/*    }}*/}
-      {/*    size="sm"*/}
-      {/*    mr="auto"*/}
-      {/*  >*/}
-      {/*    Reset*/}
-      {/*  </Button>*/}
-      {/*</Box>*/}
+      <Box d="flex" alignItems="center" mt="8" pt="2">
+        <Stack mr="4" mt="2" isInline align="center" mb="2">
+          <Icon
+            as={FaBug}
+            name="view-off"
+            boxSize={4}
+            opacity={debugMode !== "off" ? "0.3" : null}
+          />
+          <Switch
+            size="sm"
+            onChange={e => {
+              handleDebug(debugMode === "on" ? "off" : "on")
+            }}
+            color="none"
+          />
+          <Icon
+            as={FaBug}
+            name="view"
+            boxSize={4}
+            opacity={debugMode !== "on" ? "0.3" : null}
+          />
+        </Stack>
+          <Button
+              onClick={() => {
+                  if (typeof window !== 'undefined') {
+                      sessionStorage.clear();
+                      window.location.reload();
+                  }
+              }}
+              size="sm"
+              mr="auto"
+          >
+              Reset
+          </Button>
+
+      </Box>
 
     </>
   )

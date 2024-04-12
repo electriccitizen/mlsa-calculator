@@ -46,21 +46,15 @@ const getAffidavitC = (form) => {
     })
 
     // Other employers
-    const otherJobs = form["OtherJob"]
-    // Extract employer details from the JSON array
-    const employers = Object.values(otherJobs).map((item) => item.employer);
+    const otherJobs = form["OtherJob"];
+    if (otherJobs) {
+        const employers = Object.values(otherJobs).map(item => item.employer || {});
+        const employerDetails = employers.map((employer) => {
+            const { name = '', address = '', address2 = '', city = '', state = '', zip = '' } = employer;
+            return `${name},${address},${address2 || ''},${city},${state},${zip}`;
+        });
+    }
 
-    // Combine employer details into a single line with comma separator
-    const employerDetails = employers.map((employer) => {
-        const { name, address, address2, city, state, zip } = employer;
-        return `${name},${address},${address2 || ''},${city},${state},${zip}`;
-    });
-
-    employerDetails.forEach((line, index) => {
-        const [name, address, address2, city, state, zip] = line.split(',');
-        data[`employment.employers-${index + 2}.name-1`] = `${name},${address},${address2 || ''}`;
-        data[`employment.employers-${index + 2}.name-2`] = `${city},${state},${zip}`;
-    });
 
     // Dates of Employment
     const employmentDateFrom = getValue(form, ["EmploymentPrimary", "start"])
@@ -69,32 +63,39 @@ const getAffidavitC = (form) => {
     data['employment.employers-1.dateTo'] = employmentDateTo && moment(employmentDateTo).format('LL')
 
     // Dates for other jobs
-    Object.values(otherJobs).forEach((item, index) => {
-        const { start, End } = item;
-        const employmentDateFrom = moment(start).format('LL');
-        const employmentDateTo = moment(End).format('LL');
-        data[`employment.employers-${index + 2}.dateFrom`] = employmentDateFrom && employmentDateFrom;
-        data[`employment.employers-${index + 2}.dateTo`] = employmentDateTo && employmentDateTo;
-    });
+    if (otherJobs) {
+        Object.values(otherJobs).forEach((item, index) => {
+            const {start, End} = item;
+            const employmentDateFrom = moment(start).format('LL');
+            const employmentDateTo = moment(End).format('LL');
+            data[`employment.employers-${index + 2}.dateFrom`] = employmentDateFrom && employmentDateFrom;
+            data[`employment.employers-${index + 2}.dateTo`] = employmentDateTo && employmentDateTo;
+        });
+    }
 
     // Average Hours Worked and Current or Ending Pay
     data['employment.employers-1.hours'] = getValue(form, ["EmploymentPrimary", "hoursPerWeek"])
     data['employment.employers-1.payhour'] = format(getValueAsNumber(form, ["EmploymentPrimary", "grossAmount"]))
 
     // Other jobs Average Hours Worked and Current or Ending Pay
-    Object.values(otherJobs).forEach((item, index) => {
-        const { hoursPerWeek, grossAmount } = item;
-        data[`employment.employers-${index + 2}.hours`] = hoursPerWeek && hoursPerWeek
-        data[`employment.employers-${index + 2}.payhour`] = grossAmount && grossAmount
-    });
+    if (otherJobs) {
+        Object.values(otherJobs).forEach((item, index) => {
+            const { hoursPerWeek, grossAmount } = item;
+            data[`employment.employers-${index + 2}.hours`] = hoursPerWeek && hoursPerWeek
+            data[`employment.employers-${index + 2}.payhour`] = grossAmount && grossAmount
+        });
+    }
+
     // Type of job
     data['employment.employers-1.type'] = (getValue(form, ["EmploymentPrimary", "type"], "")[0] || "").toUpperCase()
 
     // Other jobs type of job
-    Object.values(otherJobs).forEach((item, index) => {
-        const { type } = item;
-        data[`employment.employers-${index + 2}.type`] = type && type.charAt(0).toUpperCase()
-    });
+    if (otherJobs) {
+        Object.values(otherJobs).forEach((item, index) => {
+            const { type } = item;
+            data[`employment.employers-${index + 2}.type`] = type && type.charAt(0).toUpperCase()
+        });
+    }
 
     // 2. Kinds of work
     const [kindsOfWork, kindsOfWorkAddendum] = divideIntoLines(
