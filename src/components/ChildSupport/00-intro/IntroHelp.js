@@ -55,7 +55,6 @@ export const IntroHelp = () => {
             header={"Additional help example:"}
             helpLinks={[
               { value: "#", label: "Official guideline (PDF)" },
-              { value: "#", label: "Official guideline (PDF)" },
             ]}
             helpText={{
               text:

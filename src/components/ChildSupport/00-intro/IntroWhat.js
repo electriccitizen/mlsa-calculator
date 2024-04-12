@@ -15,7 +15,7 @@ export const IntroWhat = () => {
       <SectionHeader header={"What you will receive"} />
       <Text mb={4}>
         When you’re done, you will be able to download, print, or email complete
-        versions of a child support worksheet, financial affidavit, or both.
+        versions of a Child Support Worksheet, Financial Affidavit, or both.
       </Text>
       <Text mb={4}>
         If you have already completed a Financial Affidavit, the information
