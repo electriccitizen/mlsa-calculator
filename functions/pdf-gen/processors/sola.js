@@ -1,4 +1,4 @@
-const { getValue, getValueAsNumber, getValueAsArray } = require('../utils/helpers')
+const { getValue, getValueAsNumber, getValueAsArray, cleanAndConvertNumber } = require('../utils/helpers')
 const { calcChildExpenses } = require('./percentages')
 const { getIRSBusinessMileageRate, getStandardExpense } = require('../utils/support-tables')
 const { currency, format, add, subtract, multiply, percentage, lt, gt, isNegative, minimum, maximum } = require('../utils/currency')
@@ -214,25 +214,21 @@ const calcLongDistanceParentingAdjustment = (form, key) => {
   const standardOfLiving = getValue(form, key, {})
 
   // 1. Annual mileage actually driven by the parent to exercise long-distance parenting
-  const distance = getValueAsNumber(standardOfLiving, ["mileage", "distance"])
-
+  const distance =  cleanAndConvertNumber(standardOfLiving.mileage.distance)
+  // Log just the distance property
   // 2. Current IRS business mileage rate (from Table 3)
   const globalMileageRate = getIRSBusinessMileageRate()
-
   // 3. Parent’s mileage cost (line 1 times line 2
   const mileageCost = multiply(globalMileageRate, distance)
-
   // 4. Parent’s annual cost of transportation by means other than automobile
   const annualCost = getValueAsNumber(standardOfLiving, ["transportation", "othercost"])
-
   // 5. Parent’s total cost (line 3 plus line 4)
   const totalCost = add(mileageCost, annualCost)
-
   // 6. Standard expense (from Table 3)
   const globalStandardExpense = getStandardExpense()
-
   // 7. LONG DISTANCE PARENTING ADJUSTMENT (Line 5 minus line 6; if less than zero, enter zero. Enter this amount on line 18a, worksheet A)
   const longDistanceParentingAdjustment = subtract(totalCost, globalStandardExpense)
+
   return isNegative(longDistanceParentingAdjustment) ? currency(0) : longDistanceParentingAdjustment
 }
 
