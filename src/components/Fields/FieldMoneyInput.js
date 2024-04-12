@@ -71,34 +71,34 @@ export const FieldMoneyInput = props => {
 
   return (
     <FormGroup {...formGroupProps}>
-      <Box d="flex" alignContent="bottom">
-        <Box fontSize="lg" mt={2} mr={2}>
+      <Box display="flex" alignItems="center" w="100%">
+        <Box pr="1" fontSize="sm">
           $
         </Box>
-        <Box flex={1}>
+        <Box flex="1">
           <Input
-            key={resetKey}
-            type={type || "text"}
-            id={id}
-            value={displayValue !== "" ? displayValue : (value ?? "")}
-            // onChange={e => setValue(e.target.value)}
-            onChange={(e) => handleChange(e)}
-            onBlur={() => setIsTouched(true)}
-            aria-invalid={showError}
-            aria-describedby={!isValid ? `${id}-error` : null}
-            placeholder={placeholder}
-            width={fieldWidth ? fieldWidth : "40%"}
-            validations={[
-              {
-                rule: isPattern(/^[1-9]\d*(((,\d{3}){1})?(\.\d{0,2})?)$/),
-                message: 'Please enter a valid dollar amount',
-              },
-            ]}
+              key={resetKey}
+              type={type || "text"}
+              id={id}
+              value={displayValue !== "" ? displayValue : (value ?? "")}
+              // onChange={e => setValue(e.target.value)}
+              onChange={(e) => handleChange(e)}
+              onBlur={() => setIsTouched(true)}
+              aria-invalid={showError}
+              aria-describedby={!isValid ? `${id}-error` : null}
+              placeholder={placeholder}
+              width={fieldWidth ? fieldWidth : "40%"}
+              validations={[
+                {
+                  rule: isPattern(/^[1-9]\d*(((,\d{3}){1})?(\.\d{0,2})?)$/),
+                  message: 'Please enter a valid dollar amount',
+                },
+              ]}
           />
           {(isTouched || isSubmitted) && isValidating && (
-            <InputRightElement>
-              <Spinner size="sm" flex="none" />
-            </InputRightElement>
+              <InputRightElement>
+                <Spinner size="sm" flex="none" />
+              </InputRightElement>
           )}
         </Box>
       </Box>
