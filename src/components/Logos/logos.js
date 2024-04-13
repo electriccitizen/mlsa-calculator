@@ -24,13 +24,13 @@ export const Logos = () => {
   return (
     <Stack mt={8} flex="1" spacing="12" width={"100%"} justify="center" align="center" direction={["column", "column", "row"]}>
       <Box mr={4} width={"200px"}>
-        <GatsbyImage image={data.ncvliImage.childImageSharp.gatsbyImageData} />
+        <GatsbyImage alt="logo" image={data.ncvliImage.childImageSharp.gatsbyImageData} />
       </Box>
       <Box mr={6} width={"100px"}>
-        <GatsbyImage image={data.mlsaImage.childImageSharp.gatsbyImageData} />
+        <GatsbyImage  alt="logo" image={data.mlsaImage.childImageSharp.gatsbyImageData} />
       </Box>
       <Box  width={"150px"}>
-        <GatsbyImage image={data.mtcvImage.childImageSharp.gatsbyImageData} />
+        <GatsbyImage  alt="logo" image={data.mtcvImage.childImageSharp.gatsbyImageData} />
       </Box>
     </Stack>
   );

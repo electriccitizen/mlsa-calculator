@@ -98,13 +98,12 @@ export const MedicalExpenses = () => {
     <FormizStep label={`Medical expenses`} name="MedicalExpenses" order={3000}>
       <SectionHeader
         header={`Medical expenses`}
-        helpText={{
-          text:
-            "This section is focused on physical" +
-            " injuries and initial medical costs." +
-            " You will also be asked about future medical expenses," +
-            " and non-physical injuries (e.g. mental health costs).",
-        }}
+        helpText={`This section is focused on physical injuries and initial medical costs. 
+You will also be asked about future medical expenses, and non-physical injuries 
+(e.g., mental health costs).`}
+
+
+
       />
       <FieldRadio
         name="MedicalExpenses.injury"
