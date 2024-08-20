@@ -49,6 +49,9 @@ export const IntroHow = () => {
           You may print a copy of all the rules or just refer to the ones you
           need when you need them.
         </p>
+          <p>
+              This is an estimate. The Child Support Calculator was developed in compliance with state guidelines, however, due to programming limitations, this calculation may differ from CSSD’s final determination.  All users of this calculator are encouraged to apply through CSSD.
+          </p>
       </Box>
     </FormizStep>
   )

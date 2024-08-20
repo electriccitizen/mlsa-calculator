@@ -10,6 +10,7 @@ import { FieldDate } from "../../Fields/FieldDate"
 import { FieldMoneyInput } from "../../Fields/FieldMoneyInput"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 import {isMaxNumber} from "@formiz/validations";
+import { Text, Link } from "@chakra-ui/react"
 
 export const CurrentJob = d => {
   const form = useForm({ subscribe: { fields: ["Documents", "EmploymentPrimary.initiate"] } })
@@ -82,7 +83,8 @@ export const CurrentJob = d => {
           )}
 
           {state["EmploymentPrimary.type"] && (
-            <SectionHeader header={`Wage information`} />
+            <SectionHeader header={`Wage information`}
+            />
           )}
 
 
@@ -100,6 +102,21 @@ export const CurrentJob = d => {
               ]}
             />
           )}
+
+          {state["EmploymentPrimary.payment"] === 'hourly' && (
+              <Text mb={4} fontSize='sm'>
+                If the hours worked per week varies, the regulations say: "seasonal employment or fluctuating income may be averaged over a period sufficient to accurately reflect the parent's earning ability.
+
+                See: <Link isExternal
+                      color={"brand.400"}
+                      href={"https://rules.mt.gov/search?query=37%2E62%2E108&v="}
+                >
+                Income Verification/Determining Annual Income (ARM 37.62.108)
+                </Link>{" "}
+
+              </Text>
+          )}
+
           {state["EmploymentPrimary.payment"] && (
             <>
               <FieldMoneyInput
@@ -110,6 +127,7 @@ export const CurrentJob = d => {
                 updateState={updateState}
                 fieldWidth={"25%"}
               />
+              {state["EmploymentPrimary.payment"] === 'hourly' && (
               <FieldNumberInput
                 name={`EmploymentPrimary.hoursPerWeek`}
                 label="Hours worked per week"
@@ -124,8 +142,8 @@ export const CurrentJob = d => {
                     message: 'Should be 100 or less',
                   },
                 ]}
-
               />
+              )}
               {(state["EmploymentPrimary.status"] === "parttime" ||
                 state["EmploymentPrimary.payment"] === 'hourly') &&
                 state["EmploymentPrimary.type"] !== "temporary" && (

@@ -62,13 +62,13 @@ export const IntroLawyer = () => {
           Referral and Information Service
         </Heading>
         <Text mb={2}>
-          You may be able to find an attorney to help you by calling the State
-          of Montana Bar Lawyer Referral and Information Service (LRIS) at (406)
-          449-6577. Or visit{" "}
+          You may be able to find an attorney to help you, for a fee, through the State
+          of Montana Bar Lawyer Referral and Information Service
+        {" "}
           <Link isExternal href={"http://www.montanabar.org"} color={"brand.400"}>
             {" "}
-            LRIS online
-          </Link>{" "}
+            (LRIS) online
+          </Link>{". "}
           <Icon boxSize={"12px"} as={FaExternalLinkAlt} />
         </Text>
     </FormizStep>

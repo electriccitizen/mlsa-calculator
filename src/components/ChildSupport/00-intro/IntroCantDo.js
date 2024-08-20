@@ -26,11 +26,7 @@ export const IntroCantDo = () => {
         this calculator.
       </Text>
       <Text>
-        This calculator may not be right for you if you have a complicated case.
-        For example, you may need additional help if there is a dispute about
-        self-employment income, if you are ineligible to work due to illegality
-        or disability, if you work full time but not all months of the year
-        (teacher).
+        This calculator may not be right for you if you have a complicated case. For example, you may need additional help if there is a dispute about self-employment income, if you are ineligible to work due to illegality or disability, if you work full time but not all months of the year (teacher), or if you have more than 4 children.
       </Text>
     </FormizStep>
   )

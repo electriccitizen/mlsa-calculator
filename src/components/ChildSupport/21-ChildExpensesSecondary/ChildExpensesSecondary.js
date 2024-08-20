@@ -91,7 +91,7 @@ export const ChildExpensesSecondary = () => {
           />
           <FieldRadio
             name={`ChildExpensesSecondary.${index}.otherExpenses`}
-            label="Do your spouse have other expenses for this child?"
+            label="Does your spouse have other expenses for this child?"
             required="Required"
             index={index}
             updateState={updateState}

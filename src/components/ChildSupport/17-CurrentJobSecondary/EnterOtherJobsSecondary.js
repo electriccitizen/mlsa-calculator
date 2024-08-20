@@ -8,6 +8,7 @@ import { FieldSelect } from "../../Fields/FieldSelect"
 import { SectionHeader } from "../../Utils/SectionHeader"
 import { AdministrativeRules } from "../AdministrativeRules/AdministrativeRules"
 import {isMaxNumber} from "@formiz/validations";
+import {Link, Text} from "@chakra-ui/react";
 export const EnterOtherJobsSecondary = () => {
   const form = useForm({
     subscribe: { fields: ["OtherParent.fname", "NumOtherSecondaryJobs"] },
@@ -134,6 +135,21 @@ export const EnterOtherJobsSecondary = () => {
                 ]}
               />
             )}
+
+            {state["EmploymentPrimary.payment"] === 'hourly' && (
+                <Text mb={4} fontSize='sm'>
+                  If the hours worked per week varies, the regulations say: "seasonal employment or fluctuating income may be averaged over a period sufficient to accurately reflect the parent's earning ability.
+
+                  See: <Link isExternal
+                             color={"brand.400"}
+                             href={"https://rules.mt.gov/search?query=37%2E62%2E108&v="}
+                >
+                  Income Verification/Determining Annual Income (ARM 37.62.108)
+                </Link>{" "}
+
+                </Text>
+            )}
+
             {state[`OtherJobSecondary.${index}.payment`] && (
               <>
                 <FieldMoneyInput
@@ -152,8 +168,8 @@ export const EnterOtherJobsSecondary = () => {
                     fieldWidth={"25%"}
                     validations={[
                       {
-                        rule: isMaxNumber(81),
-                        message: 'Should be 80 or less',
+                        rule: isMaxNumber(101),
+                        message: 'Should be 100 or less',
                       },
                     ]}
                   />

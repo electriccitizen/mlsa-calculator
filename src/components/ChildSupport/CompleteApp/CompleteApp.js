@@ -182,6 +182,10 @@ export const CompleteApp = ({ state, pdf }) => {
         </a>{" "}
         to clear your data and return to the homepage.
       </Text>
+
+        <Text pl={16} pr={16} mt={4} fontSize="sm">
+            This is an estimate. The Child Support Calculator was developed in compliance with state guidelines, however, due to programming limitations, this calculation may differ from CSSD’s final determination.  All users of this calculator are encouraged to apply through CSSD.
+        </Text>
     </FormizStep>
   )
 }
