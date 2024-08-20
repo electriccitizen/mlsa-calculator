@@ -136,7 +136,7 @@ export const EnterOtherJobsSecondary = () => {
               />
             )}
 
-            {state["EmploymentPrimary.payment"] === 'hourly' && (
+            {state["EmploymentSecondary.payment"] === 'hourly' && (
                 <Text mb={4} fontSize='sm'>
                   If the hours worked per week varies, the regulations say: "seasonal employment or fluctuating income may be averaged over a period sufficient to accurately reflect the parent's earning ability.
 
