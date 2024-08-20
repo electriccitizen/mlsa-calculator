@@ -8,10 +8,12 @@ const getValue = (nestedObj, pathArr, defaultTo) => {
 }
 
 const cleanAndConvertNumber = (input, defaultTo = 0) => {
+    if (input == null) return defaultTo; // Handles both null and undefined
     const cleanedInput = input.toString().replace(/,/g, '');
-    console.log('fook')
     return Number(cleanedInput) || defaultTo;
 }
+
+
 
 const getValueAsNumber = (nestedObj, pathArr, defaultTo = 0) => {
     return Number(getValue(nestedObj, pathArr, defaultTo)) || defaultTo
