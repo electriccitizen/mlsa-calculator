@@ -136,7 +136,7 @@ export const EnterOtherJobsSecondary = () => {
               />
             )}
 
-            {state["EmploymentSecondary.payment"] === 'hourly' && (
+            {state[`OtherJobSecondary.${index}.payment`] === 'hourly' && (
                 <Text mb={4} fontSize='sm'>
                   If the hours worked per week varies, the regulations say: "seasonal employment or fluctuating income may be averaged over a period sufficient to accurately reflect the parent's earning ability.
 
@@ -147,6 +147,25 @@ export const EnterOtherJobsSecondary = () => {
                   Income Verification/Determining Annual Income (ARM 37.62.108)
                 </Link>{" "}
 
+                </Text>
+            )}
+
+
+            {state[`OtherJobSecondary.${index}.type`] && state[`OtherJobSecondary.${index}.type`] === 'temporary' && (state[`OtherJobSecondary.${index}.payment`] === 'salary' || state[`OtherJobSecondary.${index}.payment`] === 'commission') && (
+                <Text mb={4} fontSize='sm'>
+                  Note: If your temporary job is paid by salary or commission, enter values that will reflect the <strong>total sum paid</strong> over the course of your temporary job. For example, if your job pays $10,000 over the course of the year, you may enter that amount and select yearly payment.
+                </Text>
+            )}
+
+            {state[`OtherJobSecondary.${index}.type`] && state[`OtherJobSecondary.${index}.type`] === 'seasonal' && (state[`OtherJobSecondary.${index}.payment`] === 'salary' || state[`OtherJobSecondary.${index}.payment`] === 'commission') && (
+                <Text mb={4} fontSize='sm'>
+                  Note: If your seasonal job is paid by salary or commission, enter values that will reflect the <strong>total sum paid</strong> over the course of your seasonal job. For example, if your job pays $10,000 over the course of the year, you may enter that amount and select yearly payment.
+                </Text>
+            )}
+
+            {state[`OtherJobSecondary.${index}.type`] && state[`OtherJobSecondary.${index}.status`] === 'parttime' && (state[`OtherJobSecondary.${index}.payment`] === 'salary' || state[`OtherJobSecondary.${index}.payment`] === 'commission') && (
+                <Text mb={4} fontSize='sm'>
+                  Note: Be sure that the calculations for your part time job reflect the <strong>total salary or commission</strong> paid over the course of the year. For example, if your part time job pays $10,000 over the course of the year, you may enter that amount and select yearly payment.
                 </Text>
             )}
 
@@ -174,6 +193,8 @@ export const EnterOtherJobsSecondary = () => {
                     ]}
                   />
                 )}
+
+                {state[`OtherJobSecondary.${index}.payment`] === "hourly" && (
                 <FieldNumberInput
                   name={`OtherJobSecondary.${index}.weeksPerYear`}
                   label="Weeks worked per year"
@@ -186,6 +207,7 @@ export const EnterOtherJobsSecondary = () => {
                       message: 'Should be 52 or less',
                     },
                   ]}/>
+                    )}
               </>
             )}
             {(state[`OtherJobSecondary.${index}.payment`] === "salary" ||

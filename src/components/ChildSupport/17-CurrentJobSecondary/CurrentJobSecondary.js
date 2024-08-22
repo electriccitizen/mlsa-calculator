@@ -125,6 +125,27 @@ export const CurrentJobSecondary = d => {
           </Text>
       )}
 
+      {state["EmploymentSecondary.type"] && state["EmploymentSecondary.type"] === 'temporary' && (state["EmploymentSecondary.payment"] === 'salary' || state["EmploymentSecondary.payment"] === 'commission') && (
+          <Text mb={4} fontSize='sm'>
+            Note: If your temporary job is paid by salary or commission, enter values that will reflect the <strong>total sum paid</strong> over the course of your temporary job. For example, if your job pays $10,000 over the course of the year, you may enter that amount and select yearly payment.
+          </Text>
+      )}
+
+      {state["EmploymentSecondary.type"] && state["EmploymentSecondary.type"] === 'seasonal' && (state["EmploymentSecondary.payment"] === 'salary' || state["EmploymentSecondary.payment"] === 'commission') && (
+          <Text mb={4} fontSize='sm'>
+            Note: If your seasonal job is paid by salary or commission, enter values that will reflect the <strong>total sum paid</strong> over the course of your seasonal job. For example, if your job pays $10,000 over the course of the year, you may enter that amount and select yearly payment.
+          </Text>
+      )}
+
+      {state["EmploymentSecondary.type"] && state["EmploymentSecondary.status"] === 'parttime' && (state["EmploymentSecondary.payment"] === 'salary' || state["EmploymentSecondary.payment"] === 'commission') && (
+          <Text mb={4} fontSize='sm'>
+            Note: Be sure that the calculations for your part time job reflect the <strong>total salary or commission</strong> paid over the course of the year. For example, if your part time job pays $10,000 over the course of the year, you may enter that amount and select yearly payment.
+          </Text>
+      )}
+
+
+
+
       {state["EmploymentSecondary.type"] &&
         state["EmploymentSecondary.status"] === "yes" && (
           <>
@@ -207,8 +228,6 @@ export const CurrentJobSecondary = d => {
           options={[
             { value: "1", label: "One" },
             { value: "2", label: "Two" },
-            { value: "3", label: "Three" },
-            { value: "4", label: "Four" },
           ]}
         />
       )}

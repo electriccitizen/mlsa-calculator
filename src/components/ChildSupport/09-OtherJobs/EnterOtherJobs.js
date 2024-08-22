@@ -10,8 +10,11 @@ import {isMaxNumber, isNumber} from "@formiz/validations";
 import {Link, Text} from "@chakra-ui/react";
 
 export const EnterOtherJobs = () => {
+
   const form = useForm({ subscribe: { fields: ["OtherJobsNumber"] } })
+  const documents = form?.values?.Documents
   const numOtherJobs = form.values.OtherJobsNumber
+
   const [state, setState] = useState({})
   let updateState = (name, value) => {
     setState({
@@ -149,7 +152,7 @@ export const EnterOtherJobs = () => {
             />
           )}
 
-          {state["OtherJob.payment"] === 'hourly' && (
+          {state[`OtherJob.${index}.payment`] === 'hourly' && (
               <Text mb={4} fontSize='sm'>
                 If the hours worked per week varies, the regulations say: "seasonal employment or fluctuating income may be averaged over a period sufficient to accurately reflect the parent's earning ability.
 
@@ -160,6 +163,23 @@ export const EnterOtherJobs = () => {
                 Income Verification/Determining Annual Income (ARM 37.62.108)
               </Link>{" "}
 
+              </Text>
+          )}
+
+          {state[`OtherJob.${index}.type`] && state[`OtherJob.${index}.type`] === 'temporary' && (state[`OtherJob.${index}.payment`] === 'salary' || state[`OtherJob.${index}.payment`] === 'commission') && (
+              <Text mb={4} fontSize='sm'>
+                Note: If your temporary job is paid by salary or commission, enter values that will reflect the <strong>total sum paid</strong> over the course of your temporary job. For example, if your job pays $10,000 over the course of the year, you may enter that amount and select yearly payment.
+              </Text>
+          )}
+
+          {state[`OtherJob.${index}.type`] && state[`OtherJob.${index}.type`] === 'seasonal' && (state[`OtherJob.${index}.payment`] === 'salary' || state[`OtherJob.${index}.payment`] === 'commission') && (
+              <Text mb={4} fontSize='sm'>
+                Note: If your seasonal job is paid by salary or commission, enter values that will reflect the <strong>total sum paid</strong> over the course of your seasonal job. For example, if your job pays $10,000 over the course of the year, you may enter that amount and select yearly payment.
+              </Text>
+          )}
+          {state[`OtherJob.${index}.type`] && state[`OtherJob.${index}.status`] === 'parttime' && (state[`OtherJob.${index}.payment`] === 'salary' || state[`OtherJob.${index}.payment`] === 'commission') && (
+              <Text mb={4} fontSize='sm'>
+                Note: Be sure that the calculations for your part time job reflect the <strong>total salary or commission</strong> paid over the course of the year. For example, if your part time job pays $10,000 over the course of the year, you may enter that amount and select yearly payment.
               </Text>
           )}
 
@@ -180,9 +200,9 @@ export const EnterOtherJobs = () => {
                 ]}
               />
 
-              {state["EmploymentPrimary.payment"] === 'hourly' && (
+              {state[`OtherJob.${index}.payment`] === 'hourly' && (
               <FieldInput
-                name={`OtherJob.${index}.hoursPerWeek`}
+                  name={`OtherJob.${index}.hoursPerWeek`}
                 label="Hours worked per week"
                 required="Required"
                 type="text"
@@ -196,6 +216,8 @@ export const EnterOtherJobs = () => {
                 ]}
               />
                   )}
+              {state[`OtherJob.${index}.payment`] === 'hourly' &&
+                  (
               <FieldInput
                 name={`OtherJob.${index}.weeksPerYear`}
                 label="Weeks worked per year"
@@ -210,9 +232,11 @@ export const EnterOtherJobs = () => {
                   },
                 ]}
               />
+                  )}
+
               {
-                (state[`OtherJobSecondary.${index}.payment`] === "salary" ||
-                state[`OtherJobSecondary.${index}.payment`] === "commission") && (
+                (state[`OtherJob.${index}.payment`] === "salary" ||
+                state[`OtherJob.${index}.payment`] === "commission") && (
                 <FieldSelect
                   name={`OtherJob.${index}.schedule`}
                   label="Paid how often?"
@@ -225,11 +249,15 @@ export const EnterOtherJobs = () => {
                     { value: "12", label: "Once per month" },
                     { value: "1", label: "Yearly" },
                   ]}
+                  fieldWidth={"30%"}
                 />
                 )
               }
+              {
+                  (documents === "both" || documents === "affadavit") && (
+                      <>
               <SectionHeader header={`Employer Address`} />
-              <>
+
 
                 <FieldInput
                     name={`OtherJob.${index}.employer.name`}
@@ -245,8 +273,11 @@ export const EnterOtherJobs = () => {
                 />
 
               </>
+        )}
+
 
             </>
+
           )}
         </FormizStep>
       ))}

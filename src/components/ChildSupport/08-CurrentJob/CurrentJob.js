@@ -117,6 +117,26 @@ export const CurrentJob = d => {
               </Text>
           )}
 
+          {state["EmploymentPrimary.type"] && state["EmploymentPrimary.type"] === 'temporary' && (state["EmploymentPrimary.payment"] === 'salary' || state["EmploymentPrimary.payment"] === 'commission') && (
+              <Text mb={4} fontSize='sm'>
+              Note: If your temporary job is paid by salary or commission, enter values that will reflect the <strong>total sum paid</strong> over the course of your temporary job. For example, if your job pays $10,000 over the course of the year, you may enter that amount and select yearly payment.
+              </Text>
+          )}
+
+          {state["EmploymentPrimary.type"] && state["EmploymentPrimary.type"] === 'seasonal' && (state["EmploymentPrimary.payment"] === 'salary' || state["EmploymentPrimary.payment"] === 'commission') && (
+              <Text mb={4} fontSize='sm'>
+                Note: If your seasonal job is paid by salary or commission, enter values that will reflect the <strong>total sum paid</strong> over the course of your seasonal job. For example, if your job pays $10,000 over the course of the year, you may enter that amount and select yearly payment.
+              </Text>
+          )}
+
+          {state["EmploymentPrimary.type"] && state["EmploymentPrimary.status"] === 'parttime' && (state["EmploymentPrimary.payment"] === 'salary' || state["EmploymentPrimary.payment"] === 'commission') && (
+              <Text mb={4} fontSize='sm'>
+                Note: Be sure that the calculations for your part time job reflect the <strong>total salary or commission</strong> paid over the course of the year. For example, if your part time job pays $10,000 over the course of the year, you may enter that amount and select yearly payment.
+              </Text>
+          )}
+
+
+
           {state["EmploymentPrimary.payment"] && (
             <>
               <FieldMoneyInput
@@ -144,9 +164,9 @@ export const CurrentJob = d => {
                 ]}
               />
               )}
-              {(state["EmploymentPrimary.status"] === "parttime" ||
-                state["EmploymentPrimary.payment"] === 'hourly') &&
-                state["EmploymentPrimary.type"] !== "temporary" && (
+              {
+                state["EmploymentPrimary.payment"] === 'hourly' &&
+               (
                   <FieldNumberInput
                     name={`EmploymentPrimary.weeksPerYear`}
                     label="How many weeks per year do you work?"
@@ -158,7 +178,7 @@ export const CurrentJob = d => {
                     validations={[
                       {
                         rule: isMaxNumber(53),
-                        message: 'Should 52 or less',
+                        message: 'Should be 52 or less',
                       },
                     ]}
 
