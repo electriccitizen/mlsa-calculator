@@ -119,17 +119,17 @@ export default function Calculator() {
             {/*    <EnterMyOtherChildrenSecondary />*/}
             {/*  </>*/}
             {/*)}*/}
-            <Employment />
-            <CurrentJob />
-            <OtherJobs />
-            <EnterOtherJobs />
+            {/*<Employment />*/}
+            {/*<CurrentJob />*/}
+            {/*<OtherJobs />*/}
+            {/*<EnterOtherJobs />*/}
             {/*<OtherIncome />*/}
             {/*<TaxableIncome />*/}
             {/*<NonTaxableIncome />*/}
             {/*<ChildExpenses />*/}
             {/*<AllowableDeductions />*/}
             {/*<OtherAllowableDeductions />*/}
-            <StandardOfLiving />
+            {/*<StandardOfLiving />*/}
             {(documents === "both" || documents === "worksheets") && (
               <>
                 <CurrentJobSecondary />

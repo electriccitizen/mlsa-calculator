@@ -11,7 +11,7 @@ import {Link, Text} from "@chakra-ui/react";
 
 export const EnterOtherJobs = () => {
 
-  const form = useForm({ subscribe: { fields: ["OtherJobsNumber"] } })
+  const form = useForm({ subscribe: { fields: ["Documents", "OtherJobsNumber"] } })
   const documents = form?.values?.Documents
   const numOtherJobs = form.values.OtherJobsNumber
 
@@ -227,8 +227,8 @@ export const EnterOtherJobs = () => {
                 fieldWidth={"25%"}
                 validations={[
                   {
-                    rule: isNumber(),
-                    message: 'Please enter a valid number',
+                    rule: isMaxNumber(53),
+                    message: 'Should be 52 or less',
                   },
                 ]}
               />

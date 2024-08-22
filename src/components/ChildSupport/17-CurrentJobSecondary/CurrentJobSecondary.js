@@ -67,6 +67,19 @@ export const CurrentJobSecondary = d => {
           ]}
         />
       )}
+      {state["EmploymentSecondary.type"] === "permanent" && (
+          <FieldRadio
+              name="EmploymentSecondary.emptype"
+              placeholder="None"
+              required="Required"
+              label={"Is this job full time or part time?"}
+              updateState={updateState}
+              options={[
+                { value: "fulltime", label: "Full time" },
+                { value: "parttime", label: "Part time" },
+              ]}
+          />
+      )}
       {state["EmploymentSecondary.type"] === "temporary" && (
         <FieldDate
           name={`CurrentJobEnd`}
@@ -137,7 +150,7 @@ export const CurrentJobSecondary = d => {
           </Text>
       )}
 
-      {state["EmploymentSecondary.type"] && state["EmploymentSecondary.status"] === 'parttime' && (state["EmploymentSecondary.payment"] === 'salary' || state["EmploymentSecondary.payment"] === 'commission') && (
+      {state["EmploymentSecondary.type"] && state["EmploymentSecondary.emptype"] === 'parttime' && (state["EmploymentSecondary.payment"] === 'salary' || state["EmploymentSecondary.payment"] === 'commission') && (
           <Text mb={4} fontSize='sm'>
             Note: Be sure that the calculations for your part time job reflect the <strong>total salary or commission</strong> paid over the course of the year. For example, if your part time job pays $10,000 over the course of the year, you may enter that amount and select yearly payment.
           </Text>
@@ -171,6 +184,9 @@ export const CurrentJobSecondary = d => {
                 ]}
               />
             )}
+            {
+                state["EmploymentSecondary.payment"] === 'hourly' &&
+                (
             <FieldNumberInput
               name={`EmploymentSecondary.weeksPerYear`}
               label="Weeks worked per year"
@@ -184,6 +200,7 @@ export const CurrentJobSecondary = d => {
                 },
               ]}
             />
+                )}
           </>
         )}
       {(state["EmploymentSecondary.payment"] === "salary" ||
