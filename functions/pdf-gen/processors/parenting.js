@@ -85,13 +85,18 @@ const calcParentingDays = (form, sola) => {
       }
     )
 
-    // 27 FINAL MONTHLY TRANSFER PAYMENT
-    if (!isSpendTimeWithPrimary) {
-      data["parenting.monthlyTransferPayment.mother"] = data["parenting.table26b.mother.total"]
-    } else if (!isSpendTimeWithSecondary) {
-      data["parenting.monthlyTransferPayment.father"] = data["parenting.table26b.father.total"]
-    }
+      console.log(isSpendTimeWithPrimary)
+      console.log(isSpendTimeWithSecondary)
 
+    // 27 FINAL MONTHLY TRANSFER PAYMENT
+      var motherTotal = Number(data["parenting.table26b.mother.total"]);
+      var fatherTotal = Number(data["parenting.table26b.father.total"]);
+
+      if (motherTotal > fatherTotal) {
+          data["parenting.monthlyTransferPayment.mother"] = motherTotal - fatherTotal;
+      } else if (fatherTotal > motherTotal) {
+          data["parenting.monthlyTransferPayment.father"] = fatherTotal - motherTotal;
+      }
     data["initiate.documents.a"] = "true"
   } else {
     // IF THE ANSWER IS “NO”: Complete Worksheet B, Parts
