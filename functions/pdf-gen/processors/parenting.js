@@ -1,5 +1,5 @@
 const { getValueAsNumber, getValue, getValueAsArray } = require('../utils/helpers')
-const { convertPrecision, add, divide } = require('../utils/currency')
+const { convertPrecision, gt, add, subtract, divide } = require('../utils/currency')
 
 const calcParentingDays = (form, sola) => {
 
@@ -85,18 +85,21 @@ const calcParentingDays = (form, sola) => {
       }
     )
 
-      console.log(isSpendTimeWithPrimary)
-      console.log(isSpendTimeWithSecondary)
 
     // 27 FINAL MONTHLY TRANSFER PAYMENT
-      var motherTotal = Number(data["parenting.table26b.mother.total"]);
-      var fatherTotal = Number(data["parenting.table26b.father.total"]);
+// Step 1: Extract the motherTotal and fatherTotal as Currency objects
+      var motherTotal = data["parenting.table26b.mother.total"];
+      var fatherTotal = data["parenting.table26b.father.total"];
 
-      if (motherTotal > fatherTotal) {
-          data["parenting.monthlyTransferPayment.mother"] = motherTotal - fatherTotal;
-      } else if (fatherTotal > motherTotal) {
-          data["parenting.monthlyTransferPayment.father"] = fatherTotal - motherTotal;
+// Step 2: Perform the comparison using the 'gt' (greaterThan) method
+      if (gt(motherTotal, fatherTotal)) {
+          // Step 3: Use 'subtract' to get the difference and store it in 'mother'
+          data["parenting.monthlyTransferPayment.mother"] = subtract(motherTotal, fatherTotal);
+      } else if (gt(fatherTotal, motherTotal)) {
+          // Step 4: Use 'subtract' to get the difference and store it in 'father'
+          data["parenting.monthlyTransferPayment.father"] = subtract(fatherTotal, motherTotal);
       }
+
     data["initiate.documents.a"] = "true"
   } else {
     // IF THE ANSWER IS “NO”: Complete Worksheet B, Parts
