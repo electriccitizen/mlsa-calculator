@@ -74,7 +74,7 @@ export const IntroAdditional = () => {
             Human Services (DPHHS). To open a case with CSSD, you can {" "}
             <Link isExternal
                   href={
-                      "https://dojmt.gov/victims/crime-victim-advocates/"
+                      "https://dphhs.mt.gov/cssd//"
                   }
                   color={"brand.400"}
             >
@@ -84,7 +84,7 @@ export const IntroAdditional = () => {
             You may pick up an application at a
             <Link isExternal
                   href={
-                      "https://dphhs.mt.gov/cssd/Contacts/"
+                      "https://dphhs.mt.gov/cssd/Contacts"
                   }
                   color={"brand.400"}
             >{" "}
