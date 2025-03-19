@@ -11,7 +11,7 @@ export const CompleteApp = ({ state, pdf }) => {
 
   const handlePrint = (key) => () => {
     const base64 = pdf[key]
-      console.log(base64)
+      // console.log(base64)
     printJS({ printable: base64, type: "pdf", base64: true })
   }
 
